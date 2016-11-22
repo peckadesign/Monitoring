@@ -1,0 +1,21 @@
+github:
+    appId: ""
+    appSecret: ""
+
+
+dbal:
+	driver: mysqli
+	host: localhost
+	user: monitoring
+	password: monitoring
+	dbname: monitoring
+	connectionTz: '+02:00'
+
+
+rabbitmq:
+	connection:
+		host: localhost
+		port: 5672
+		user: 'monitoring'
+		password: 'monitoring'
+		vhost: 'monitoring'

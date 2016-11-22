@@ -1,0 +1,72 @@
+extensions:
+	pd.monitoring: Pd\Monitoring\DI\Extension
+	dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
+	orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
+	migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
+	console: Kdyby\Console\DI\ConsoleExtension
+	github: Kdyby\Github\DI\GithubExtension
+	monitoring.monolog: Pd\Monitoring\Monolog\DI\Extension
+	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
+
+
+orm:
+	model: Pd\Monitoring\Orm\Orm
+
+
+dbal:
+	driver: mysqli
+
+
+migrations:
+	dir: %appDir%/../migrations
+	driver: mysql
+	dbal: nextras
+
+
+github:
+	permissions:
+		- user:email
+
+
+monitoring.monolog:
+	allowedTypes:
+		 - Pd\Monitoring\DashBoard\Presenters\BasePresenter
+
+
+monolog:
+	name: "pecka-monitoring"
+	handlers:
+		- Pd\Monitoring\Monolog\Handlers\DayFileHandler("pecka-ci-server", %logDir%)
+
+
+parameters:
+	binDir: %appDir%/bin
+	logDir: %appDir%/../log
+
+
+application:
+	errorPresenter: Error
+	scanDirs: off
+	mapping:
+		*: Pd\Monitoring\*\Presenters\*Presenter
+
+
+rabbitmq:
+	connection:
+#		host: %rabbitmq.host%
+#		port: %rabbitmq.port%
+#		user: %rabbitmq.user%
+#		password: %rabbitmq.password%
+#		vhost: %rabbitmq.vhost%
+
+
+services:
+	routerFactory:
+		class: Pd\Monitoring\Router\RouterFactory
+		arguments:
+			- %wwwDir%
+
+	router: @routerFactory::createRouter
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\Logout\IFactory

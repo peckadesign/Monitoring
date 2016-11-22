@@ -1,0 +1,40 @@
+{
+	"name": "pd/monitoring",
+	"license": ["GPL-3.0"],
+	"description": "Monitoring webových aplikací",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Milan Pála",
+			"email": "milan.pala@peckadesign.cz"
+		}
+	],
+	"require": {
+		"php": "7.0.*",
+		"ext-mbstring": "*",
+		"ext-bcmath": "*",
+		"nette/application": "2.4.*",
+		"nette/bootstrap": "2.4.*",
+		"nette/security": "2.4.*",
+		"latte/latte": "2.4.*",
+		"tracy/tracy": "2.4.*",
+		"nextras/orm": "2.1.*",
+		"nextras/migrations": "3.0.*",
+		"symfony/process": "3.1.*",
+		"kdyby/console": "2.6.*",
+		"guzzlehttp/guzzle": "6.2.*",
+		"kdyby/github": "dev-master",
+		"kdyby/monolog": "^1.2",
+		"kdyby/clock": "^0.4.0",
+		"kdyby/rabbitmq": "dev-master"
+	},
+	"require-dev": {
+		"nette/tester": "1.7.*"
+	},
+	"minimum-stability": "stable",
+	"autoload": {
+		"psr-4": {
+			"Pd\\Monitoring\\": "app"
+		}
+	}
+}

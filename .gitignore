@@ -1,0 +1,7 @@
+/vendor
+/app/config/config.local.neon
+/.vagrant
+
+!.gitignore
+!.htaccess
+
