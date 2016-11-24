@@ -8,6 +8,7 @@ namespace Pd\Monitoring\Check;
  * @property int $type {enum ICheck::TYPE_*}
  * @property int $status {enum ICheck::STATUS_*}
  * @property \DateTime|NULL $lastCheck
+ * @property bool $paused {default TRUE}
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck

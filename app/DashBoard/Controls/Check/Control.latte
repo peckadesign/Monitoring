@@ -1,4 +1,4 @@
-<div n:class="panel, $check->status === Pd\Monitoring\Check\ICheck::STATUS_OK ? panel-success, $check->status === Pd\Monitoring\Check\ICheck::STATUS_ALERT ? panel-warning, $check->status === Pd\Monitoring\Check\ICheck::STATUS_ERROR ? panel-danger">
+<div n:class="panel, $check->paused ? panel-default, ! $check->paused && $check->status === Pd\Monitoring\Check\ICheck::STATUS_OK ? panel-success, ! $check->paused && $check->status === Pd\Monitoring\Check\ICheck::STATUS_ALERT ? panel-warning, ! $check->paused && $check->status === Pd\Monitoring\Check\ICheck::STATUS_ERROR ? panel-danger">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$check->getTitle()}</h3>
 	</div>
@@ -15,5 +15,7 @@
 	</div>
 	<div class="panel-footer">
 		<a n:href="delete!"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+		<a n:href="pause!" n:if=" ! $check->paused"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></a>
+		<a n:href="pause!" n:if="$check->paused"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a>
 	</div>
 </div>

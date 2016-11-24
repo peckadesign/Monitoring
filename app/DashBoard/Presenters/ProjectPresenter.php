@@ -84,9 +84,9 @@ class ProjectPresenter extends BasePresenter
 		$project->name = $data['name'];
 		$project->url = $data['url'];
 
-		$this->projectsRepository->persistAndFlush($project);
+		$project = $this->projectsRepository->persistAndFlush($project);
 
-		$this->redirect(':DashBoard:Project:');
+		$this->redirect(':DashBoard:Project:', $project->id);
 	}
 
 
@@ -131,6 +131,13 @@ class ProjectPresenter extends BasePresenter
 		$control = $this->addCheckControlFactory->create($this->project, $this->type);
 
 		return $control;
+	}
+
+
+	public function handleDelete()
+	{
+		$this->projectsRepository->removeAndFlush($this->project);
+		$this->redirect(':DashBoard:HomePage:');
 	}
 
 }

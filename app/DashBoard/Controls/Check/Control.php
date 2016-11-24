@@ -42,4 +42,13 @@ class Control extends \Nette\Application\UI\Control
 		$this->redirect('this');
 	}
 
+
+	public function handlePause()
+	{
+		$this->check->paused = ! $this->check->paused;
+		$this->checksRepository->persistAndFlush($this->check);
+
+		$this->redirect('this');
+	}
+
 }

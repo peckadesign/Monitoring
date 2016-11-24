@@ -50,6 +50,9 @@ class Control extends \Nette\Application\UI\Control
 			\Pd\Monitoring\Check\ICheck::STATUS_ERROR => [],
 		];
 		foreach ($this->project->checks as $check) {
+			if ($check->paused) {
+				continue;
+			}
 			if ( ! isset($checks[$check->status])) {
 				$checks[$check->status] = [];
 			}
