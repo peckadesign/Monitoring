@@ -1,0 +1,19 @@
+<div n:class="panel, $check->status === Pd\Monitoring\Check\ICheck::STATUS_OK ? panel-success, $check->status === Pd\Monitoring\Check\ICheck::STATUS_ALERT ? panel-warning, $check->status === Pd\Monitoring\Check\ICheck::STATUS_ERROR ? panel-danger">
+	<div class="panel-heading">
+		<h3 class="panel-title">{$check->getTitle()}</h3>
+	</div>
+	<div class="panel-body">
+		{if $check instanceof Pd\Monitoring\Check\AliveCheck}
+			<p>Testovaná URL: <a href="{$check->url}">{$check->url}</a></p>
+			<p>Očekávaná odezva: {$check->timeout}</p>
+			<p>Poslední naměřená odezva: {if $check->lastTimeout}{$check->lastTimeout}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|date}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+		{elseif $check instanceof Pd\Monitoring\Check\TermCheck}
+			<p>Upomínka: {$check->message}</p>
+			<p>Termín: {$check->term|date}</p>
+		{/if}
+	</div>
+	<div class="panel-footer">
+		<a n:href="delete!"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+	</div>
+</div>

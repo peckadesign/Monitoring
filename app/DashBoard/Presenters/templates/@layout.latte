@@ -16,6 +16,11 @@
 			}
 		</style>
 
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script>
+			google.charts.load('current', {'packages':['corechart']});
+		</script>
+
 	</head>
 	<body>
 
@@ -47,13 +52,13 @@
 					<div class="col-md-8">
 						<div class="page-header">
 							<h1 n:ifset="#title">{include #title}</h1>
-						</div
+						</div>
 						{include #content}
 					</div>
 				{else}
 					<div class="page-header">
 						<h1 n:ifset="#title">{include #title}</h1>
-					</div
+					</div>
 					{include #content}
 				{/ifset}
 			</div>

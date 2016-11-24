@@ -1,0 +1,28 @@
+{block content}
+
+	<div class="row">
+		{foreach $project->checks as $check}
+			<div class="col-md-4">
+				{control check-$check->id}
+			</div>
+		{/foreach}
+	</div>
+
+
+	<div class="dropdown">
+		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			Přidat novou kontrolu
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			{foreach $checks as $check}
+				<li><a n:href="Project:addCheck $project->id, $check->type">{$check->getTitle()}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+
+{/block}
+
+{block title}
+	{$project->name}
+{/block}

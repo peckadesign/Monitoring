@@ -7,6 +7,7 @@ extensions:
 	github: Kdyby\Github\DI\GithubExtension
 	monitoring.monolog: Pd\Monitoring\Monolog\DI\Extension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
+	nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
 
 
 orm:
@@ -70,3 +71,15 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Logout\IFactory
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\Project\IFactory
+
+	-
+		class: Pd\Monitoring\DashBoard\Forms\Factory
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\Check\IFactory
+
+	-
+		class: Pd\Monitoring\DashBoard\Controls\AddCheck\Factory

@@ -1,4 +1,17 @@
+{default $projects = []}
+
 {block content}
+
+	<div class="row">
+		{foreach $projects as $project}
+			<div class="col-md-4">
+				{control project-$project->id}
+			</div>
+		{/foreach}
+	</div>
+
+	<p><a n:href="Project:add" class="btn btn-success">Přidat nový projekt</a></p>
+
 {/block}
 
 {block title}

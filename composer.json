@@ -14,6 +14,7 @@
 		"ext-mbstring": "*",
 		"ext-bcmath": "*",
 		"nette/application": "2.4.*",
+		"nette/forms": "2.4.*",
 		"nette/bootstrap": "2.4.*",
 		"nette/security": "2.4.*",
 		"latte/latte": "2.4.*",
@@ -26,10 +27,8 @@
 		"kdyby/github": "dev-master",
 		"kdyby/monolog": "^1.2",
 		"kdyby/clock": "^0.4.0",
-		"kdyby/rabbitmq": "dev-master"
-	},
-	"require-dev": {
-		"nette/tester": "1.7.*"
+		"kdyby/rabbitmq": "dev-master",
+		"nextras/forms": "2.0.*"
 	},
 	"minimum-stability": "stable",
 	"autoload": {

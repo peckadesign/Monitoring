@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<h2><a href="{plink Project: $project->id}">{$project->name}</h2>
+
+		<script type="text/javascript">
+
+			google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() {
+
+				var data = google.visualization.arrayToDataTable([
+					['Alerty', 'Počet'],
+					{foreach $checks as $type => $checkTypes}
+					[{$type|check}, {count($checkTypes)}],
+					{/foreach}
+				]);
+
+				var options = {
+					pieHole: 0.4,
+					legend: 'none',
+					slices: {
+						0: { color: 'green' },
+						1: { color: 'orange' },
+						2: { color: 'red' }
+					}
+				};
+
+				var chart = new google.visualization.PieChart(document.getElementById('statuschart-' + {$project->id}));
+				chart.draw(data, options);
+			}
+		</script>
+
+		<div id="statuschart-{$project->id}" style="width: 200px; height: 200px;"></div>
+	</div>
+</div>
