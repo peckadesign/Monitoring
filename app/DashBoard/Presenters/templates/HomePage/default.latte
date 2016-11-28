@@ -10,7 +10,7 @@
 		{/foreach}
 	</div>
 
-	<p><a n:href="Project:add" class="btn btn-success">Přidat nový projekt</a></p>
+	<p><a n:href="Project:add" class="btn btn-success" n:if="$user->isAllowed('project', 'add')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat nový projekt</a></p>
 
 {/block}
 

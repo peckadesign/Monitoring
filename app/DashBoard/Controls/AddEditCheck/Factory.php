@@ -1,6 +1,6 @@
 <?php
 
-namespace Pd\Monitoring\DashBoard\Controls\AddCheck;
+namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 
 class Factory
 {
@@ -25,15 +25,15 @@ class Factory
 	}
 
 
-	public function create(\Pd\Monitoring\Project\Project $project, int $type) : CheckControl
+	public function create(\Pd\Monitoring\Project\Project $project, int $type, \Pd\Monitoring\Check\Check $check = NULL): Control
 	{
 		switch ($type) {
 			case \Pd\Monitoring\Check\ICheck::TYPE_ALIVE:
-				$control = new AliveCheckControl($project, $type, $this->formFactory, $this->checksRepository);
+				$control = new Control($project, $check, new AliveCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_TERM:
-				$control = new TermCheckControl($project, $type, $this->formFactory, $this->checksRepository);
+				$control = new Control($project, $check, new TermCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
 
 			default:

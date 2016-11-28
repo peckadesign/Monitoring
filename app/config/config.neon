@@ -27,6 +27,7 @@ migrations:
 github:
 	permissions:
 		- user:email
+		- read:org
 
 
 monitoring.monolog:
@@ -43,6 +44,7 @@ monolog:
 parameters:
 	binDir: %appDir%/bin
 	logDir: %appDir%/../log
+#	administratorTeamId: # local
 
 
 application:
@@ -59,6 +61,16 @@ rabbitmq:
 #		user: %rabbitmq.user%
 #		password: %rabbitmq.password%
 #		vhost: %rabbitmq.vhost%
+	producers:
+		aliveCheck:
+			exchange: {name: 'aliveCheck', type: direct}
+			contentType: text/plain
+
+	consumers:
+		aliveCheck:
+			exchange: {name: 'aliveCheck', type: direct}
+			queue: {name: 'aliveCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\AliveCheck, process]
 
 
 services:
@@ -82,4 +94,18 @@ services:
 		implement: Pd\Monitoring\DashBoard\Controls\Check\IFactory
 
 	-
-		class: Pd\Monitoring\DashBoard\Controls\AddCheck\Factory
+		class: Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory
+
+	-
+		class: Pd\Monitoring\Check\Consumers\AliveCheck
+
+	-
+		class: Pd\Monitoring\User\AclFactory
+
+	-
+		factory: @Pd\Monitoring\User\AclFactory::create
+
+	-
+		class: Pd\Monitoring\DashBoard\Presenters\LoginPresenter
+		arguments:
+			administratorTeamId: %administratorTeamId%

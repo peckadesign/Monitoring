@@ -31,14 +31,19 @@ class ProjectPresenter extends BasePresenter
 	private $checksRepository;
 
 	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\AddCheck\Factory
-	 */
-	private $addCheckControlFactory;
-
-	/**
 	 * @var int
 	 */
 	private $type;
+
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory
+	 */
+	private $addEditCheckControlFactory;
+
+	/**
+	 * @var \Pd\Monitoring\Check\Check
+	 */
+	private $check;
 
 
 	public function __construct(
@@ -46,22 +51,25 @@ class ProjectPresenter extends BasePresenter
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\DashBoard\Controls\AddCheck\Factory $addCheckControlFactory
+		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory
 	) {
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->checkControlFactory = $checkControlFactory;
 		$this->checksRepository = $checksRepository;
-		$this->addCheckControlFactory = $addCheckControlFactory;
+		$this->addEditCheckControlFactory = $addEditCheckControlFactory;
 	}
 
 
+	/**
+	 * @Acl(project, add)
+	 */
 	public function actionAdd()
 	{
 	}
 
 
-	protected function createComponentAddForm() : \Nette\Application\UI\Form
+	protected function createComponentAddForm(): \Nette\Application\UI\Form
 	{
 		$form = $this->formFactory->create();
 
@@ -119,6 +127,9 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
+	/**
+	 * @Acl(check, add)
+	 */
 	public function actionAddCheck(int $id, int $type)
 	{
 		$this->project = $this->projectsRepository->getById($id);
@@ -126,18 +137,44 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	public function createComponentAddCheck() : \Pd\Monitoring\DashBoard\Controls\AddCheck\CheckControl
+	public function createComponentAddCheck(): \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Control
 	{
-		$control = $this->addCheckControlFactory->create($this->project, $this->type);
+		$control = $this->addEditCheckControlFactory->create($this->project, $this->type);
 
 		return $control;
 	}
 
 
+	/**
+	 * @Acl(check, edit)
+	 */
+	public function actionEditCheck(int $id, int $checkId)
+	{
+		$this->project = $this->projectsRepository->getById($id);
+		$this->check = $this->checksRepository->getById($checkId);
+		$this->type = $this->check->type;
+	}
+
+
+	public function createComponentEditCheck(): \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Control
+	{
+		$control = $this->addEditCheckControlFactory->create($this->project, $this->type, $this->check);
+
+		return $control;
+	}
+
+
+	/**
+	 * @Acl(project, delete)
+	 */
 	public function handleDelete()
 	{
-		$this->projectsRepository->removeAndFlush($this->project);
-		$this->redirect(':DashBoard:HomePage:');
+		try {
+			$this->projectsRepository->removeAndFlush($this->project);
+			$this->redirect(':DashBoard:HomePage:');
+		} catch (\Nextras\Orm\InvalidStateException $e) {
+
+		}
 	}
 
 }

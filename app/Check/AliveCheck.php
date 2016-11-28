@@ -9,6 +9,7 @@ namespace Pd\Monitoring\Check;
  */
 class AliveCheck extends Check
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -16,7 +17,21 @@ class AliveCheck extends Check
 	}
 
 
-	public function getTitle() : string
+	public function getterStatus(): int
+	{
+		if ( ! $this->lastTimeout) {
+			return ICheck::STATUS_ERROR;
+		} else {
+			if ($this->lastTimeout <= $this->timeout) {
+				return ICheck::STATUS_OK;
+			} else {
+				return ICheck::STATUS_ALERT;
+			}
+		}
+	}
+
+
+	public function getTitle(): string
 	{
 		return 'Dostupnost URL';
 	}

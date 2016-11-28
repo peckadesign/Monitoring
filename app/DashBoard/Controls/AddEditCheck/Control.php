@@ -1,8 +1,8 @@
 <?php
 
-namespace Pd\Monitoring\DashBoard\Controls\AddCheck;
+namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 
-abstract class CheckControl extends \Nette\Application\UI\Control
+class Control extends \Nette\Application\UI\Control
 {
 
 	/**
@@ -13,27 +13,28 @@ abstract class CheckControl extends \Nette\Application\UI\Control
 	/**
 	 * @var \Pd\Monitoring\Check\ChecksRepository
 	 */
-	private $checksRepository;
+	protected $checksRepository;
 
 	/**
 	 * @var \Pd\Monitoring\Project\Project
 	 */
-	private $project;
-
-	/**
-	 * @var int
-	 */
-	private $type;
+	protected $project;
 
 	/**
 	 * @var \Pd\Monitoring\Check\Check
 	 */
 	protected $check;
 
+	/**
+	 * @var ICheckControlProcessor
+	 */
+	protected $checkControlProcessor;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
-		int $type,
+		\Pd\Monitoring\Check\Check $check = NULL,
+		ICheckControlProcessor $checkControlProcessor,
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository
 	) {
@@ -41,7 +42,8 @@ abstract class CheckControl extends \Nette\Application\UI\Control
 		$this->formFactory = $formFactory;
 		$this->checksRepository = $checksRepository;
 		$this->project = $project;
-		$this->type = $type;
+		$this->checkControlProcessor = $checkControlProcessor;
+		$this->check = $check;
 	}
 
 
@@ -49,7 +51,11 @@ abstract class CheckControl extends \Nette\Application\UI\Control
 	{
 		parent::attached($presenter);
 
-		$this->check = $this->getCheck();
+		if ( ! $this->check) {
+			$this->check = $this->checkControlProcessor->getCheck();
+		} else {
+			$this['form']->setDefaults($this->check->toArray());
+		}
 	}
 
 
@@ -60,39 +66,31 @@ abstract class CheckControl extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createComponentAddForm()
+	protected function createComponentForm(): \Nette\Forms\Form
 	{
 		$form = $this->formFactory->create();
 
-		$this->createAddForm($form);
+		$this->checkControlProcessor->createForm($this->check, $form);
 
 		$form->addSubmit('save', 'Uložit');
 
 		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data) {
-			$this->processAddForm($form, $data);
+			$this->processForm($form, $data);
 		};
 
 		return $form;
 	}
 
 
-	private function processAddForm(\Nette\Forms\Form $form, array $data)
+	private function processForm(\Nette\Forms\Form $form, array $data)
 	{
-		$this->check->status = \Pd\Monitoring\Check\ICheck::STATUS_ERROR;
 		$this->check->project = $this->project;
 
-		$this->processNewEntity($data);
+		$this->checkControlProcessor->processEntity($this->check, $data);
 
 		$this->checksRepository->persistAndFlush($this->check);
 
 		$this->getPresenter()->redirect(':DashBoard:Project:', $this->project->id);
 	}
-
-
-	abstract protected function processNewEntity(array $data);
-
-	abstract protected function getCheck() : \Pd\Monitoring\Check\Check;
-
-	abstract protected function createAddForm(\Nette\Application\UI\Form $form);
 
 }

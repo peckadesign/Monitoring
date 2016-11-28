@@ -6,8 +6,8 @@ use Nextras;
 
 
 /**
- * @method User getById(int $id)
- * @method User getBy(array $conds)
+ * @method Check getById(int $id)
+ * @method Check getBy(array $conds)
  */
 class ChecksRepository extends Nextras\Orm\Repository\Repository
 {

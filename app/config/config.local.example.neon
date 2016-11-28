@@ -19,3 +19,7 @@ rabbitmq:
 		user: 'monitoring'
 		password: 'monitoring'
 		vhost: 'monitoring'
+
+
+parameters:
+	administratorTeamId: 123456

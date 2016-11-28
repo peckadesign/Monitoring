@@ -27,12 +27,19 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 	 */
 	private $users;
 
+	/**
+	 * @var int
+	 */
+	private $administratorTeamId;
+
 
 	public function __construct(
+		int $administratorTeamId,
 		Kdyby\Github\Client $gitHub,
 		Pd\Monitoring\User\UsersRepository $users
 	) {
 		parent::__construct();
+		$this->administratorTeamId = $administratorTeamId;
 		$this->github = $gitHub;
 		$this->users = $users;
 	}
@@ -62,7 +69,15 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 					$user = new Pd\Monitoring\User\User();
 					$user->gitHubId = $me['id'];
 					$user->gitHubName = $me['name'];
+
+					$response = $gitHub->api('/teams/' . $this->administratorTeamId . '/memberships/' . $me['login']);
+					if($response->state === 'active') {
+						$user->administrator = TRUE;
+					} else {
+						$user->administrator = FALSE;
+					}
 				}
+
 				$user->gitHubToken = $gitHub->getAccessToken();
 				$this->users->persistAndFlush($user);
 
