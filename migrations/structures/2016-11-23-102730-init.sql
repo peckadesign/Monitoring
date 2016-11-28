@@ -4,7 +4,7 @@ CREATE TABLE `checks` (
   `project` int(11) NOT NULL,
   `url` varchar(255) NULL,
   `timeout` int(11) NULL,
-  `lastTimeout` int(11) NULL,
+  `last_timeout` int(11) NULL,
   `status` tinyint(3),
   `last_check` datetime NULL,
   `message` varchar(255) NULL,
