@@ -69,12 +69,14 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 					$user = new Pd\Monitoring\User\User();
 					$user->gitHubId = $me['id'];
 					$user->gitHubName = $me['name'];
+					$user->administrator = FALSE;
 
-					$response = $gitHub->api('/teams/' . $this->administratorTeamId . '/memberships/' . $me['login']);
-					if($response->state === 'active') {
-						$user->administrator = TRUE;
-					} else {
-						$user->administrator = FALSE;
+					try {
+						$response = $gitHub->api('/teams/' . $this->administratorTeamId . '/memberships/' . $me['login']);
+						if ($response->state === 'active') {
+							$user->administrator = TRUE;
+						}
+					} catch (Kdyby\Github\UnknownResourceException $e) {
 					}
 				}
 
