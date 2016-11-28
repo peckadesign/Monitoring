@@ -109,3 +109,10 @@ services:
 		class: Pd\Monitoring\DashBoard\Presenters\LoginPresenter
 		arguments:
 			administratorTeamId: %administratorTeamId%
+
+	-
+		class: Pd\Monitoring\Check\Commands\PublishAliveChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @Kdyby\RabbitMq\Connection::getProducer('aliveCheck')
