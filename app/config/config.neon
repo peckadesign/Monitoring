@@ -116,3 +116,6 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('aliveCheck')
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory

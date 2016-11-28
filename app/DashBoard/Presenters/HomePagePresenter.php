@@ -5,6 +5,8 @@ namespace Pd\Monitoring\DashBoard\Presenters;
 class HomePagePresenter extends BasePresenter
 {
 
+	use \Pd\Monitoring\DashBoard\Controls\Refresh\TFactory;
+
 	/**
 	 * @var \Pd\Monitoring\DashBoard\Controls\Project\IFactory
 	 */
