@@ -119,3 +119,6 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\LastRefresh\IFactory
