@@ -26,13 +26,13 @@ class Control extends \Nette\Application\UI\Control
 		$template->addFilter('check', function (int $value) {
 			switch ($value) {
 				case \Pd\Monitoring\Check\ICheck::STATUS_OK:
-					return 'OK';
+					return 'success';
 				case \Pd\Monitoring\Check\ICheck::STATUS_ALERT:
-					return 'ALERT';
+					return 'warning';
 				case \Pd\Monitoring\Check\ICheck::STATUS_ERROR:
-					return 'ERROR';
+					return 'danger';
 				default:
-					return 'ERROR';
+					return 'danger';
 			}
 		});
 
@@ -58,7 +58,13 @@ class Control extends \Nette\Application\UI\Control
 			}
 			$checks[$check->status][$check->id] = $check;
 		}
+		$total = count($this->project->checks);
+		$percents = [];
+		foreach($checks as $status => $checksForStatus) {
+			$percents[$status] = (count($checksForStatus) * 100) / $total;
+		}
 		$this->template->checks = $checks;
+		$this->template->percents = $percents;
 
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();
