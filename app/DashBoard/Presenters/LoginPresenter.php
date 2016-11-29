@@ -68,7 +68,7 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 				if ( ! $user = $this->users->getBy($conditions)) {
 					$user = new Pd\Monitoring\User\User();
 					$user->gitHubId = $me['id'];
-					$user->gitHubName = $me['name'];
+					$user->gitHubName = $me['name'] ?: $me['login'];
 					$user->administrator = FALSE;
 
 					try {
