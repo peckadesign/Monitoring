@@ -71,7 +71,18 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	protected function createComponentAddForm(): \Nette\Application\UI\Form
+	/**
+	 * @Acl(project, add)
+	 */
+	public function actionEdit($id)
+	{
+		$this->project = $this->projectsRepository->getById($id);
+
+		$this['addEditForm']->setDefaults($this->project->toArray());
+	}
+
+
+	protected function createComponentAddEditForm(): \Nette\Application\UI\Form
 	{
 		$form = $this->formFactory->create();
 
@@ -81,16 +92,20 @@ class ProjectPresenter extends BasePresenter
 		$form->addSubmit('save', 'Uložit');
 
 		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data) {
-			$this->processAddForm($form, $data);
+			$this->processAddEditForm($form, $data);
 		};
 
 		return $form;
 	}
 
 
-	private function processAddForm(\Nette\Forms\Form $form, array $data)
+	private function processAddEditForm(\Nette\Forms\Form $form, array $data)
 	{
-		$project = new \Pd\Monitoring\Project\Project();
+		if ($this->project) {
+			$project = $this->project;
+		} else {
+			$project = new \Pd\Monitoring\Project\Project();
+		}
 		$project->name = $data['name'];
 		$project->url = $data['url'];
 
@@ -175,7 +190,6 @@ class ProjectPresenter extends BasePresenter
 			$this->projectsRepository->removeAndFlush($this->project);
 			$this->redirect(':DashBoard:HomePage:');
 		} catch (\Nextras\Orm\InvalidStateException $e) {
-
 		}
 	}
 

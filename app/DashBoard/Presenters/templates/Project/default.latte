@@ -9,6 +9,10 @@
 	</div>
 
 	<div class="btn-group">
+		<a n:href="edit $project->id" class="btn btn-warning" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Upravit projekt</a>
+	</div>
+
+	<div class="btn-group">
 		<a n:href="delete!" class="btn btn-danger" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Smazat projekt</a>
 	</div>
 
