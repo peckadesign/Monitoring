@@ -60,8 +60,10 @@ class Control extends \Nette\Application\UI\Control
 		}
 		$total = count($this->project->checks);
 		$percents = [];
-		foreach($checks as $status => $checksForStatus) {
-			$percents[$status] = (count($checksForStatus) * 100) / $total;
+		if ($total) {
+			foreach ($checks as $status => $checksForStatus) {
+				$percents[$status] = (count($checksForStatus) * 100) / $total;
+			}
 		}
 		$this->template->checks = $checks;
 		$this->template->percents = $percents;
