@@ -4,7 +4,7 @@
 
 		<div class="progress">
 			{foreach $percents as $type => $percent}
-				<div class="progress-bar progress-bar-{$type|check}" style="width: {$percent}%">
+				<div class="progress-bar progress-bar-{$type|check}" style="width: {$percent|number:2|noescape}%">
 					<span class="sr-only">{count($checks[$type])}</span>
 				</div>
 			{/foreach}
