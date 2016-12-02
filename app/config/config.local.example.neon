@@ -23,3 +23,6 @@ rabbitmq:
 
 parameters:
 	administratorTeamId: 123456
+
+	slack:
+		hookUrl: ""
