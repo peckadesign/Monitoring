@@ -65,12 +65,19 @@ rabbitmq:
 		aliveCheck:
 			exchange: {name: 'aliveCheck', type: direct}
 			contentType: text/plain
+		hddSpaceCheck:
+			exchange: {name: 'hddSpaceCheck', type: direct}
+			contentType: text/plain
 
 	consumers:
 		aliveCheck:
 			exchange: {name: 'aliveCheck', type: direct}
 			queue: {name: 'aliveCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\AliveCheck, process]
+		hddSpaceCheck:
+			exchange: {name: 'hddSpaceCheck', type: direct}
+			queue: {name: 'hddSpaceCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\HddSpaceCheck, process]
 
 
 services:
@@ -100,6 +107,9 @@ services:
 		class: Pd\Monitoring\Check\Consumers\AliveCheck
 
 	-
+		class: Pd\Monitoring\Check\Consumers\HddSpaceCheck
+
+	-
 		class: Pd\Monitoring\User\AclFactory
 
 	-
@@ -116,6 +126,13 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('aliveCheck')
+
+	-
+		class: Pd\Monitoring\Check\Commands\PublishHddSpaceChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @Kdyby\RabbitMq\Connection::getProducer('hddSpaceCheck')
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory

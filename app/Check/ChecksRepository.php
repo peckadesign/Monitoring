@@ -19,6 +19,7 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 			Check::class,
 			AliveCheck::class,
 			TermCheck::class,
+			HddSpaceCheck::class,
 		];
 	}
 
@@ -32,6 +33,8 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 					return AliveCheck::class;
 				case ICheck::TYPE_TERM:
 					return TermCheck::class;
+				case ICheck::TYPE_HDD_SPACE:
+					return HddSpaceCheck::class;
 
 				default:
 					throw new \Nextras\Orm\InvalidStateException();
