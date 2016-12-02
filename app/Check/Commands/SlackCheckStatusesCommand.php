@@ -27,12 +27,18 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	 */
 	private $hookUrl;
 
+	/**
+	 * @var \Monolog\Logger
+	 */
+	private $logger;
+
 
 	public function __construct(
 		string $hookUrl,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Nette\Application\LinkGenerator $linkGenerator,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider
+		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Monolog\Logger $logger
 	) {
 		parent::__construct();
 
@@ -40,6 +46,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$this->linkGenerator = $linkGenerator;
 		$this->dateTimeProvider = $dateTimeProvider;
 		$this->hookUrl = $hookUrl;
+		$this->logger = $logger;
 	}
 
 
@@ -55,7 +62,10 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		\Symfony\Component\Console\Input\InputInterface $input,
 		\Symfony\Component\Console\Output\OutputInterface $output
 	) {
-		$checks = $this->checksRepository->findAll();
+		$options = [
+			'paused' => FALSE,
+		];
+		$checks = $this->checksRepository->findAll($options);
 
 		foreach ($checks as $check) {
 			$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project->id]);
@@ -68,7 +78,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 					$color = 'danger';
 					break;
 				default:
-					continue;
+					continue 2;
 			}
 
 			$message = sprintf(
@@ -81,7 +91,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			$payload = [
 				'channel' => '#monitoring',
 				'username' => 'Monitoring',
-				'icon_emoji' => ':ghost:',
+				'icon_emoji' => ':eye:',
 				'attachments' => [
 					[
 						'text' => $message,
@@ -95,8 +105,12 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				'json' => $payload,
 			];
 
-			$client = new \GuzzleHttp\Client();
-			$client->request('POST', $this->hookUrl, $options);
+			try {
+				$client = new \GuzzleHttp\Client();
+				$client->request('POST', $this->hookUrl, $options);
+			} catch (\Throwable $e) {
+				$this->logger->addError($e);
+			}
 		}
 
 		return 0;
