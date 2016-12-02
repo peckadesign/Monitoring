@@ -9,6 +9,8 @@ namespace Pd\Monitoring\Check;
  * @property int $status {virtual}
  * @property \DateTime|NULL $lastCheck
  * @property bool $paused {default TRUE}
+ * @property string|NULL $name
+ * @property string $fullName {virtual}
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck
@@ -25,6 +27,16 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	public function getType(): int
 	{
 		return $this->type;
+	}
+
+
+	public function getterFullName()
+	{
+		if ($this->name) {
+			return $this->getTitle() . ' (' . $this->name . ')';
+		} else {
+			return $this->getTitle();
+		}
 	}
 
 

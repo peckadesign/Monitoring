@@ -85,7 +85,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				'Pro <%s|projekt %s> je zaznamenán problém v kontrole %s',
 				$url,
 				$check->project->name,
-				$check->getTitle()
+				$check->fullName
 			);
 
 			$payload = [

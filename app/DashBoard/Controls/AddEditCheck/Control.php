@@ -70,6 +70,9 @@ class Control extends \Nette\Application\UI\Control
 	{
 		$form = $this->formFactory->create();
 
+		$form->addGroup('Obecné informace');
+		$form->addText('name', 'Vlastní název');
+
 		$this->checkControlProcessor->createForm($this->check, $form);
 
 		$form->addSubmit('save', 'Uložit');
@@ -85,6 +88,8 @@ class Control extends \Nette\Application\UI\Control
 	private function processForm(\Nette\Forms\Form $form, array $data)
 	{
 		$this->check->project = $this->project;
+
+		$this->check->name = $data['name'];
 
 		$this->checkControlProcessor->processEntity($this->check, $data);
 

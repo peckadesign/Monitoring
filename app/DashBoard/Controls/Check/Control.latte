@@ -1,6 +1,6 @@
 <div n:class="panel, $check->paused ? panel-default, ! $check->paused && $check->status === Pd\Monitoring\Check\ICheck::STATUS_OK ? panel-success, ! $check->paused && $check->status === Pd\Monitoring\Check\ICheck::STATUS_ALERT ? panel-warning, ! $check->paused && $check->status === Pd\Monitoring\Check\ICheck::STATUS_ERROR ? panel-danger">
 	<div class="panel-heading">
-		<h3 class="panel-title">{$check->getTitle()}</h3>
+		<h3 class="panel-title">{$check->fullName}</h3>
 	</div>
 	<div class="panel-body">
 		{if $check instanceof Pd\Monitoring\Check\AliveCheck}
