@@ -11,6 +11,12 @@
 		{elseif $check instanceof Pd\Monitoring\Check\TermCheck}
 			<p>Upomínka: {$check->message}</p>
 			<p>Termín: {$check->term|dateTime}</p>
+		{elseif $check instanceof Pd\Monitoring\Check\HddSpaceCheck}
+			<p>URL se skriptem: <a href="{$check->url}">{$check->url}</a></p>
+			<p>Minimální volné místo: {$check->percent}%</p>
+			<p>Posledně naměřené celkové místo: {if $check->totalSpace}{$check->totalSpace/1024/1024|number:2} GB{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Posledně naměřené volné místo: {if $check->freeSpace !== NULL}{$check->freeSpace/1024/1024|number:2} GB / <strong>{$check->getFreeSpacePercent()}%</strong>{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{/if}
 	</div>
 	<div class="panel-footer">

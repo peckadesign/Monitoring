@@ -36,6 +36,10 @@ class Factory
 				$control = new Control($project, $check, new TermCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_HDD_SPACE:
+				$control = new Control($project, $check, new HddSpaceCheckProcessor(), $this->formFactory, $this->checksRepository);
+				break;
+
 			default:
 				throw new \InvalidArgumentException();
 				break;

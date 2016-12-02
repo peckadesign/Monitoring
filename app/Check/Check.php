@@ -28,6 +28,12 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	}
 
 
+	public function getProducerName(): string
+	{
+		return lcfirst((new \ReflectionClass($this))->getShortName());
+	}
+
+
 	abstract function getterStatus(): int;
 
 }

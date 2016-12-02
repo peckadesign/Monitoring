@@ -128,6 +128,7 @@ class ProjectPresenter extends BasePresenter
 		$this->template->checks = [
 			new \Pd\Monitoring\Check\AliveCheck(),
 			new \Pd\Monitoring\Check\TermCheck(),
+			new \Pd\Monitoring\Check\HddSpaceCheck(),
 		];
 	}
 
