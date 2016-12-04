@@ -16,20 +16,20 @@ class Control extends \Nette\Application\UI\Control
 	private $checksRepository;
 
 	/**
-	 * @var \Kdyby\RabbitMq\IProducer
+	 * @var \Kdyby\RabbitMq\Connection
 	 */
-	private $producer;
+	private $rabbitConnection;
 
 
 	public function __construct(
 		\Pd\Monitoring\Check\Check $check,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Kdyby\RabbitMq\IProducer $producer
+		\Kdyby\RabbitMq\Connection $rabbitConnection
 	) {
 		parent::__construct();
 		$this->check = $check;
 		$this->checksRepository = $checksRepository;
-		$this->producer = $producer;
+		$this->rabbitConnection = $rabbitConnection;
 	}
 
 
@@ -74,7 +74,7 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleRefresh()
 	{
-		$this->producer->publish($this->check->id);
+		$this->rabbitConnection->getProducer($this->check->getProducerName())->publish($this->check->id);
 
 		$this->redirect('this');
 	}
