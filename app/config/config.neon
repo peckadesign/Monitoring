@@ -111,7 +111,7 @@ services:
 			administratorTeamId: %administratorTeamId%
 
 	-
-		class: Pd\Monitoring\Check\Commands\PublishAliveChecksCommand
+		class: Pd\Monitoring\Check\Commands\Publish\AliveChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
