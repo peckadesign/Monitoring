@@ -21,6 +21,13 @@
 			<p>Varování předem: {$check->daysBeforeWarning} dní</p>
 			<p>Platnost do: {if $check->lastValiddate}{$check->lastValiddate|datetime}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+		{elseif $check instanceof Pd\Monitoring\Check\FeedCheck}
+			<p>Adresa feedu: <a href="{$check->url}">{$check->url}</a></p>
+			<p>Minimální velikost: {$check->size} MB</p>
+			<p>Zjištěná velikost: {if $check->lastSize !== NULL}{$check->lastSize/1024/1024|number:2} MB{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Maximální stáří: {$check->maximumAge} h</p>
+			<p>Čas poslední změny: {if $check->lastModified}{$check->lastModified|dateTime}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{/if}
 	</div>
 	<div class="panel-footer">

@@ -21,6 +21,7 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 			TermCheck::class,
 			DnsCheck::class,
 			CertificateCheck::class,
+			FeedCheck::class,
 		];
 	}
 
@@ -38,6 +39,8 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 					return DnsCheck::class;
 				case ICheck::TYPE_CERTIFICATE:
 					return CertificateCheck::class;
+				case ICheck::TYPE_FEED:
+					return FeedCheck::class;
 
 				default:
 					throw new \Nextras\Orm\InvalidStateException();
