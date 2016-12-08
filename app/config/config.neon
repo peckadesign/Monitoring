@@ -68,6 +68,9 @@ rabbitmq:
 		dnsCheck:
 			exchange: {name: 'dnsCheck', type: direct}
 			contentType: text/plain
+		productsToSellCheck:
+			exchange: {name: 'productsToSellCheck', type: direct}
+			contentType: text/plain
 
 	consumers:
 		aliveCheck:
@@ -78,6 +81,10 @@ rabbitmq:
 			exchange: {name: 'dnsCheck', type: direct}
 			queue: {name: 'dnsCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\DnsCheck, process]
+		productsToSellCheck:
+			exchange: {name: 'productsToSellCheck', type: direct}
+			queue: {name: 'productsToSellCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\ProductsToSellCheck, process]
 
 
 services:
@@ -110,6 +117,9 @@ services:
 		class: Pd\Monitoring\Check\Consumers\DnsCheck
 
 	-
+		class: Pd\Monitoring\Check\Consumers\ProductsToSellCheck
+
+	-
 		class: Pd\Monitoring\User\AclFactory
 
 	-
@@ -133,6 +143,13 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('dnsCheck')
+
+	-
+		class: Pd\Monitoring\Check\Commands\PublishProductsToSellChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @Kdyby\RabbitMq\Connection::getProducer('productsToSellCheck')
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory

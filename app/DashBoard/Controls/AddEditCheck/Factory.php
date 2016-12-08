@@ -40,6 +40,10 @@ class Factory
 				$control = new Control($project, $check, new DnsCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_PRODUCTS_TO_SELL:
+				$control = new Control($project, $check, new ProductsToSellCheckProcessor(), $this->formFactory, $this->checksRepository);
+				break;
+
 			default:
 				throw new \InvalidArgumentException();
 				break;
