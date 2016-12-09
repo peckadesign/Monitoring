@@ -4,7 +4,9 @@ namespace Pd\Monitoring\Check;
 
 /**
  * @property string $url
- * @property int $count
+ * @property int|NULL $count
+ * @property int|NULL $countDifference
+ * @property int|NULL $previousCount
  * @property int|NULL $lastCount
  */
 class ProductsToSellCheck extends Check
@@ -22,11 +24,14 @@ class ProductsToSellCheck extends Check
 		if ( ! $this->lastCount) {
 			return ICheck::STATUS_ERROR;
 		} else {
-			if ($this->lastCount >= $this->count) {
-				return ICheck::STATUS_OK;
-			} else {
+			if ($this->count > 0 && $this->lastCount < $this->count) {
 				return ICheck::STATUS_ALERT;
 			}
+			if ($this->countDifference > 0 && ( ! $this->previousCount || ($this->previousCount - $this->countDifference) > $this->lastCount)) {
+				return ICheck::STATUS_ALERT;
+			}
+
+			return ICheck::STATUS_OK;
 		}
 	}
 

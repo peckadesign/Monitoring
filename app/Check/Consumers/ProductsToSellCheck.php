@@ -29,6 +29,10 @@ class ProductsToSellCheck implements \Kdyby\RabbitMq\IConsumer
 			return self::MSG_REJECT;
 		}
 
+		if ($check->lastCount !== NULL) {
+			$check->previousCount = $check->lastCount;
+		}
+
 		$check->lastCount = file_get_contents($check->url) * 1;
 		$check->lastCheck = new \DateTime();
 

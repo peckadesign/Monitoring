@@ -9,6 +9,7 @@ class ProductsToSellCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\
 	{
 		$check->url = $data['url'];
 		$check->count = $data['count'];
+		$check->countDifference = $data['countDifference'];
 	}
 
 
@@ -27,7 +28,9 @@ class ProductsToSellCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\
 		;
 		$form
 			->addText('count', 'Minimální počet produktů')
-			->setRequired(TRUE)
+		;
+		$form
+			->addText('countDifference', 'Maximální rozdíl oproti minulému stavu')
 		;
 	}
 }
