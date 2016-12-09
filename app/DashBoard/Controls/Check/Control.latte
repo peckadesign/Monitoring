@@ -16,6 +16,13 @@
 			<p>Očekávaná IP: {$check->ip}</p>
 			<p>Zjištěná IP: {if $check->lastIp}{$check->lastIp}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+		{elseif $check instanceof Pd\Monitoring\Check\ProductsToSellCheck}
+			<p>Adresa: <a href="{$check->url}">{$check->url}</a></p>
+			<p>Minimální počet produktů: {if $check->count}{$check->count}{else}není nastaven{/if}</p>
+			<p>Počet produktů v eshopu: {if $check->lastCount}{$check->lastCount}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Maximální rozdíl: {if $check->countDifference}{$check->countDifference}{else}není nastaven{/if}</p>
+			<p n:if="$check->countDifference">Předchozí počet produktů v eshopu: {if $check->previousCount}{$check->previousCount}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{/if}
 	</div>
 	<div class="panel-footer">

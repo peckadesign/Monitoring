@@ -129,6 +129,7 @@ class ProjectPresenter extends BasePresenter
 			new \Pd\Monitoring\Check\AliveCheck(),
 			new \Pd\Monitoring\Check\TermCheck(),
 			new \Pd\Monitoring\Check\DnsCheck(),
+			new \Pd\Monitoring\Check\ProductsToSellCheck(),
 		];
 	}
 
