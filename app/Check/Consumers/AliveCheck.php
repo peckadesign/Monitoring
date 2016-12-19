@@ -32,16 +32,19 @@ class AliveCheck implements \Kdyby\RabbitMq\IConsumer
 		$start = microtime(TRUE);
 
 		$client = new \GuzzleHttp\Client();
-		$response = $client->request('GET', $check->url);
 
-		$duration = (microtime(TRUE) - $start) * 1000;
+		$check->lastTimeout = NULL;
 
-		$check->lastCheck = new \DateTime();
+		try {
+			$response = $client->request('GET', $check->url);
+			$duration = (microtime(TRUE) - $start) * 1000;
 
-		if ($response->getStatusCode() !== 200) {
-			$check->lastTimeout = NULL;
-		} else {
-			$check->lastTimeout = $duration;
+			$check->lastCheck = new \DateTime();
+
+			if ($response->getStatusCode() === 200) {
+				$check->lastTimeout = $duration;
+			}
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
 		}
 
 		$this->checksRepository->persistAndFlush($check);
