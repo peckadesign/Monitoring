@@ -1,8 +1,8 @@
 <?php
 
-namespace Pd\Monitoring\Check\Commands;
+namespace Pd\Monitoring\Check\Commands\Publish;
 
-class PublishAliveChecksCommand extends \Symfony\Component\Console\Command\Command
+abstract class PublishChecksCommand extends \Symfony\Component\Console\Command\Command
 {
 
 	use \Pd\Monitoring\Commands\TNamedCommand;
@@ -41,9 +41,8 @@ class PublishAliveChecksCommand extends \Symfony\Component\Console\Command\Comma
 		\Symfony\Component\Console\Input\InputInterface $input,
 		\Symfony\Component\Console\Output\OutputInterface $output
 	) {
-		$conditions = [
-			'type' => \Pd\Monitoring\Check\ICheck::TYPE_ALIVE,
-		];
+		$conditions = $this->getConditions();
+
 		$checks = $this->checksRepository->findAll($conditions);
 
 		foreach ($checks as $check) {
@@ -52,5 +51,8 @@ class PublishAliveChecksCommand extends \Symfony\Component\Console\Command\Comma
 
 		return 0;
 	}
+
+
+	abstract protected function getConditions(): array;
 
 }
