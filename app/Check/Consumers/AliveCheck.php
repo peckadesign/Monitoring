@@ -33,10 +33,16 @@ class AliveCheck implements \Kdyby\RabbitMq\IConsumer
 
 		$client = new \GuzzleHttp\Client();
 
+		$check->beforeLastTimeout = $check->lastTimeout;
 		$check->lastTimeout = NULL;
 
+		$options = [
+			'connect_timeout' => $check::ALIVE_TIMEOUT / 1000,
+			'timeout' => 2 * $check::ALIVE_TIMEOUT / 1000,
+		];
+
 		try {
-			$response = $client->request('GET', $check->url);
+			$response = $client->request('GET', $check->url, $options);
 			$duration = (microtime(TRUE) - $start) * 1000;
 
 			$check->lastCheck = new \DateTime();

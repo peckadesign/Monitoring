@@ -8,7 +8,6 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data)
 	{
 		$check->url = $data['url'];
-		$check->timeout = $data['timeout'];
 	}
 
 
@@ -23,10 +22,6 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 		$form->addGroup($check->getTitle());
 		$form
 			->addText('url', 'URL')
-			->setRequired(TRUE)
-		;
-		$form
-			->addText('timeout', 'Timeout')
 			->setRequired(TRUE)
 		;
 	}
