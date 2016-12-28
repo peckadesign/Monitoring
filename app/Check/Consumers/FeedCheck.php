@@ -10,11 +10,18 @@ class FeedCheck implements \Kdyby\RabbitMq\IConsumer
 	 */
 	private $checksRepository;
 
+	/**
+	 * @var \Monolog\Logger
+	 */
+	private $logger;
+
 
 	public function __construct(
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
+		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
+		\Monolog\Logger $logger
 	) {
 		$this->checksRepository = $checksRepository;
+		$this->logger = $logger;
 	}
 
 
@@ -29,6 +36,15 @@ class FeedCheck implements \Kdyby\RabbitMq\IConsumer
 			return self::MSG_REJECT;
 		}
 
+		$this->logger->addInfo(
+			sprintf(
+				'Proběhne kontrola feedu %s (%s) pro projekt %s',
+				$check->url,
+				$check->fullName,
+				$check->project->name
+			)
+		);
+
 		$check->lastCheck = new \DateTime();
 
 		$ch = curl_init($check->url);
@@ -37,6 +53,8 @@ class FeedCheck implements \Kdyby\RabbitMq\IConsumer
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 		$output = curl_exec($ch);
+
+		$this->logger->addInfo('Stažené hlavičky pro stavový kód ' . curl_getinfo($ch, CURLINFO_HTTP_CODE), ['headers' => $output]);
 
 		$check->lastModified = NULL;
 		if (curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
