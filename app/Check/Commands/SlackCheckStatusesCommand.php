@@ -65,7 +65,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$options = [
 			'paused' => FALSE,
 		];
-		$checks = $this->checksRepository->findAll($options);
+		$checks = $this->checksRepository->findBy($options);
 
 		foreach ($checks as $check) {
 			$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project->id]);
