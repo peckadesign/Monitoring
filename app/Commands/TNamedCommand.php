@@ -8,7 +8,7 @@ use Nette;
 trait TNamedCommand
 {
 
-	protected function generateName()
+	protected function generateName(): string
 	{
 		$className = __CLASS__;
 		$name = substr($className, 0);

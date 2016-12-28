@@ -2,9 +2,11 @@
 
 namespace Pd\Monitoring\Check\Commands\Publish;
 
-
 class AliveChecksCommand extends PublishChecksCommand
 {
+
+	use \Pd\Monitoring\Commands\TNamedCommand;
+
 
 	protected function getConditions(): array
 	{

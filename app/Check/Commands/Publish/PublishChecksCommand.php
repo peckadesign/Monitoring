@@ -5,8 +5,6 @@ namespace Pd\Monitoring\Check\Commands\Publish;
 abstract class PublishChecksCommand extends \Symfony\Component\Console\Command\Command
 {
 
-	use \Pd\Monitoring\Commands\TNamedCommand;
-
 	/**
 	 * @var \Kdyby\RabbitMq\IProducer
 	 */
@@ -54,5 +52,8 @@ abstract class PublishChecksCommand extends \Symfony\Component\Console\Command\C
 
 
 	abstract protected function getConditions(): array;
+
+
+	abstract protected function generateName(): string;
 
 }
