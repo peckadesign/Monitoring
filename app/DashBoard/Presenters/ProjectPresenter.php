@@ -124,6 +124,10 @@ class ProjectPresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->project = $this->project;
+		$conditions = [
+			'project' => $this->project->id,
+		];
+		$this->template->projectChecks = $this->checksRepository->findBy($conditions)->orderBy('type');
 
 		$this->template->checks = [
 			new \Pd\Monitoring\Check\AliveCheck(),

@@ -1,6 +1,6 @@
 {block content}
 
-	{foreach $project->checks as $check}
+	{foreach $projectChecks as $check}
 		{first 3}<div class="row">{/first}
 			<div class="col-md-4">
 				{control check-$check->id}
