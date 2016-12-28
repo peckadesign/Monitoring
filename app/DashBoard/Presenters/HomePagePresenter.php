@@ -29,7 +29,7 @@ class HomePagePresenter extends BasePresenter
 
 	public function renderDefault()
 	{
-		$this->template->projects = $this->projectsRepository->findAll();
+		$this->template->projects = $this->projectsRepository->findAll()->orderBy('name');
 	}
 
 
