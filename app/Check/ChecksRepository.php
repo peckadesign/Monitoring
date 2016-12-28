@@ -22,6 +22,7 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 			DnsCheck::class,
 			CertificateCheck::class,
 			FeedCheck::class,
+			RabbitConsumerCheck::class,
 		];
 	}
 
@@ -41,6 +42,8 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 					return CertificateCheck::class;
 				case ICheck::TYPE_FEED:
 					return FeedCheck::class;
+				case ICheck::TYPE_RABBIT_CONSUMERS:
+					return RabbitConsumerCheck::class;
 
 				default:
 					throw new \Nextras\Orm\InvalidStateException();
