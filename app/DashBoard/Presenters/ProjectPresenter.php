@@ -135,6 +135,7 @@ class ProjectPresenter extends BasePresenter
 			new \Pd\Monitoring\Check\DnsCheck(),
 			new \Pd\Monitoring\Check\CertificateCheck(),
 			new \Pd\Monitoring\Check\FeedCheck(),
+			new \Pd\Monitoring\Check\RabbitConsumerCheck(),
 		];
 	}
 

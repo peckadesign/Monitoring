@@ -74,6 +74,9 @@ rabbitmq:
 		feedCheck:
 			exchange: {name: 'feedCheck', type: direct}
 			contentType: text/plain
+		rabbitConsumerCheck:
+			exchange: {name: 'rabbitConsumerCheck', type: direct}
+			contentType: text/plain
 
 	consumers:
 		aliveCheck:
@@ -92,6 +95,10 @@ rabbitmq:
 			exchange: {name: 'feedCheck', type: direct}
 			queue: {name: 'feedCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\FeedCheck, process]
+		rabbitConsumerCheck:
+			exchange: {name: 'rabbitConsumerCheck', type: direct}
+			queue: {name: 'rabbitConsumerCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\RabbitConsumerCheck, process]
 
 
 services:
@@ -128,6 +135,9 @@ services:
 
 	-
 		class: Pd\Monitoring\Check\Consumers\FeedCheck
+
+	-
+		class: Pd\Monitoring\Check\Consumers\RabbitConsumerCheck
 
 	-
 		class: Pd\Monitoring\User\AclFactory
@@ -167,6 +177,13 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('feedCheck')
+
+	-
+		class: Pd\Monitoring\Check\Commands\Publish\RabbitConsumerChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @Kdyby\RabbitMq\Connection::getProducer('rabbitConsumerCheck')
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory

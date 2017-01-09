@@ -48,6 +48,10 @@ class Factory
 				$control = new Control($project, $check, new FeedCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_RABBIT_CONSUMERS:
+				$control = new Control($project, $check, new RabbitConsumerCheckProcessor(), $this->formFactory, $this->checksRepository);
+				break;
+
 			default:
 				throw new \InvalidArgumentException();
 				break;
