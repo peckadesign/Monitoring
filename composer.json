@@ -24,10 +24,11 @@
 		"symfony/process": "3.1.*",
 		"kdyby/console": "2.6.*",
 		"guzzlehttp/guzzle": "6.2.*",
-		"kdyby/github": "dev-master",
+		"kdyby/github": "dev-master#bf9d070efdc0a4a1cb064d2a90597e9392c48b96",
 		"kdyby/monolog": "^1.2",
 		"kdyby/clock": "^0.4.0",
-		"kdyby/rabbitmq": "dev-master",
+		"kdyby/rabbitmq": "dev-master#76ed30a080803b2e0b350bc34207760d36fb2a0f",
+		"nette/mail": "2.4.*",
 		"nextras/forms": "2.0.*"
 	},
 	"minimum-stability": "stable",
