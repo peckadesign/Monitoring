@@ -35,4 +35,10 @@ class CertificateCheck extends Check
 	{
 		return 'Platnost HTTPS certifikátu';
 	}
+
+
+	public function getterStatusMessage(): string
+	{
+		return '';
+	}
 }

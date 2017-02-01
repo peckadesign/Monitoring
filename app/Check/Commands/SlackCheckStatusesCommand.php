@@ -81,11 +81,14 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 					continue 2;
 			}
 
+			$checkStatusMessage = $check->statusMessage;
+
 			$message = sprintf(
-				'Pro <%s|projekt %s> je zaznamenán problém v kontrole %s',
+				'Pro <%s|projekt %s> je zaznamenán problém v kontrole %s%s',
 				$url,
 				$check->project->name,
-				$check->fullName
+				$check->fullName,
+				$checkStatusMessage ? ': ' . $checkStatusMessage : ''
 			);
 
 			$payload = [

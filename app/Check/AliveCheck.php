@@ -40,4 +40,24 @@ class AliveCheck extends Check
 	{
 		return 'Dostupnost URL';
 	}
+
+
+	public function getterStatusMessage(): string
+	{
+		$message = '';
+		if ($this->lastTimeout) {
+			$message .= 'Aktuální odezva je ' . $this->lastTimeout . ' ms';
+		} else {
+			$message .= 'Aktuálně není žádná odezva';
+		}
+		$message .= '. ';
+		if ($this->beforeLastTimeout) {
+			$message .= 'Poslední odezva byla ' . $this->beforeLastTimeout . ' ms';
+		} else {
+			$message .= 'Předchozí odezvu se nepodařilo zjistit';
+		}
+		$message .= '.';
+
+		return $message;
+	}
 }

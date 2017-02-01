@@ -11,6 +11,7 @@ namespace Pd\Monitoring\Check;
  * @property bool $paused {default TRUE}
  * @property string|NULL $name
  * @property string $fullName {virtual}
+ * @property string $statusMessage {virtual}
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck
@@ -47,5 +48,7 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 
 
 	abstract function getterStatus(): int;
+
+	abstract public function getterStatusMessage(): string;
 
 }

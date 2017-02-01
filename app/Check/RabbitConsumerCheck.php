@@ -67,4 +67,10 @@ class RabbitConsumerCheck extends Check
 	{
 		return array_map('trim', explode(',', $string));
 	}
+
+
+	public function getterStatusMessage(): string
+	{
+		return '';
+	}
 }

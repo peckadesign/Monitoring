@@ -9,6 +9,7 @@ use Nextras;
  * @method Check getById(int $id)
  * @method Check getBy(array $conds)
  * @method Nextras\Orm\Collection\ICollection|Check[] findAll()
+ * @method Nextras\Orm\Collection\ICollection|Check[] findBy()
  */
 class ChecksRepository extends Nextras\Orm\Repository\Repository
 {

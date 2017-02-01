@@ -37,4 +37,10 @@ class FeedCheck extends Check
 	{
 		return 'Existence feedu';
 	}
+
+
+	public function getterStatusMessage(): string
+	{
+		return '';
+	}
 }

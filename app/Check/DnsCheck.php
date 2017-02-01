@@ -31,4 +31,10 @@ class DnsCheck extends Check
 	{
 		return 'Nastavení DNS';
 	}
+
+
+	public function getterStatusMessage(): string
+	{
+		return '';
+	}
 }

@@ -44,4 +44,10 @@ class TermCheck extends Check
 			return ICheck::STATUS_OK;
 		}
 	}
+
+
+	public function getterStatusMessage(): string
+	{
+		return '';
+	}
 }
