@@ -40,7 +40,7 @@ class RouterFactory
 			'action' => 'default',
 			NULL => [
 				Nette\Application\Routers\Route::FILTER_OUT => function (array $parameters) {
-					if ($parameters['presenter'] === 'DashBoard:Octocats' && $parameters['action'] === 'random') {
+					if ($parameters['presenter'] === 'Octocats' && $parameters['action'] === 'random') {
 
 						$cache = new Nette\Caching\Cache($this->storage);
 
