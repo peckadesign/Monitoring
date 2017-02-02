@@ -32,13 +32,19 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	 */
 	private $logger;
 
+	/**
+	 * @var \Pd\Monitoring\Check\SlackNotifyLocksRepository
+	 */
+	private $slackNotifyLocksRepository;
+
 
 	public function __construct(
 		string $hookUrl,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Nette\Application\LinkGenerator $linkGenerator,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
-		\Monolog\Logger $logger
+		\Monolog\Logger $logger,
+		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository
 	) {
 		parent::__construct();
 
@@ -47,6 +53,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$this->dateTimeProvider = $dateTimeProvider;
 		$this->hookUrl = $hookUrl;
 		$this->logger = $logger;
+		$this->slackNotifyLocksRepository = $slackNotifyLocksRepository;
 	}
 
 
@@ -68,6 +75,18 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$checks = $this->checksRepository->findBy($options);
 
 		foreach ($checks as $check) {
+
+			$conditions = [
+				'check' => $check,
+			];
+			$locks = $this->slackNotifyLocksRepository->findBy($conditions)->orderBy('locked', \Nextras\Orm\Collection\ICollection::DESC)->limitBy(1);
+			/** @var \Pd\Monitoring\Check\SlackNotifyLock $lastLock */
+			$lastLock = $locks->fetch();
+
+			if ($lastLock && $lastLock->status === $check->status && $lastLock->locked >= $this->dateTimeProvider->getDateTime()->sub(new \DateInterval('PT60M'))) {
+				continue;
+			}
+
 			$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project->id]);
 
 			switch ($check->status) {
@@ -80,6 +99,12 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				default:
 					continue 2;
 			}
+
+			$lock = new \Pd\Monitoring\Check\SlackNotifyLock();
+			$lock->locked = $this->dateTimeProvider->getDateTime();
+			$lock->status = $check->status;
+			$lock->check = $check;
+			$this->slackNotifyLocksRepository->persistAndFlush($lock);
 
 			$checkStatusMessage = $check->statusMessage;
 
