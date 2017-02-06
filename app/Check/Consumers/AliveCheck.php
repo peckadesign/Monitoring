@@ -41,17 +41,25 @@ class AliveCheck implements \Kdyby\RabbitMq\IConsumer
 			'timeout' => 2 * $check::ALIVE_TIMEOUT / 1000,
 		];
 
-		try {
-			$response = $client->request('GET', $check->url, $options);
-			$duration = (microtime(TRUE) - $start) * 1000;
+		$maxAttempts = 2;
+		$attempts = 0;
 
-			$check->lastCheck = new \DateTime();
+		do {
+			try {
+				$response = $client->request('GET', $check->url, $options);
+				$duration = (microtime(TRUE) - $start) * 1000;
 
-			if ($response->getStatusCode() === 200) {
-				$check->lastTimeout = $duration;
+				$check->lastCheck = new \DateTime();
+
+				if ($response->getStatusCode() === 200) {
+					$check->lastTimeout = $duration;
+				}
+			} catch (\GuzzleHttp\Exception\RequestException $e) {
+				sleep(1);
+				continue;
 			}
-		} catch (\GuzzleHttp\Exception\RequestException $e) {
-		}
+		} while ($check->lastTimeout === NULL && ++$attempts < $maxAttempts);
+
 
 		$this->checksRepository->persistAndFlush($check);
 
