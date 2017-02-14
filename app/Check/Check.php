@@ -18,6 +18,18 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck
 {
 
+	/**
+	 * @var \Kdyby\Clock\IDateTimeProvider
+	 */
+	private $dateTimeProvider;
+
+
+	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider)
+	{
+		$this->dateTimeProvider = $dateTimeProvider;
+	}
+
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -48,7 +60,27 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	}
 
 
-	abstract function getterStatus(): int;
+	public function getterStatus(): int
+	{
+		if ( ! $this->lastCheck) {
+			return ICheck::STATUS_ERROR;
+		}
+		if ($this->lastCheck < $this->dateTimeProvider->getDateTime()->sub(new \DateInterval($this->getDecayTimeout()))) {
+			return ICheck::STATUS_ALERT;
+		}
+
+		return $this->getStatus();
+	}
+
+
+	protected function getDecayTimeout(): string
+	{
+		return 'PT1H';
+	}
+
+
+	abstract protected function getStatus(): int;
+
 
 	abstract public function getterStatusMessage(): string;
 

@@ -17,7 +17,7 @@ class DnsCheck extends Check
 	}
 
 
-	public function getterStatus(): int
+	protected function getStatus(): int
 	{
 		if ($this->lastIp === $this->ip) {
 			return ICheck::STATUS_OK;

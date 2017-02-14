@@ -17,7 +17,7 @@ class CertificateCheck extends Check
 	}
 
 
-	public function getterStatus(): int
+	protected function getStatus(): int
 	{
 		if ( ! $this->lastValiddate) {
 			return ICheck::STATUS_ERROR;
@@ -41,4 +41,11 @@ class CertificateCheck extends Check
 	{
 		return '';
 	}
+
+
+	protected function getDecayTimeout(): string
+	{
+		return 'PT24H';
+	}
+
 }

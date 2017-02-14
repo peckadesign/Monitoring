@@ -34,7 +34,7 @@ class TermCheck extends Check
 	}
 
 
-	function getterStatus(): int
+	protected function getStatus(): int
 	{
 		if ($this->dateTimeProvider->getDateTime() > $this->term) {
 			return ICheck::STATUS_ERROR;
@@ -43,6 +43,12 @@ class TermCheck extends Check
 		} else {
 			return ICheck::STATUS_OK;
 		}
+	}
+
+
+	public function getterStatus(): int
+	{
+		return $this->getStatus();
 	}
 
 

@@ -20,7 +20,7 @@ class RabbitConsumerCheck extends Check
 	}
 
 
-	public function getterStatus(): int
+	protected function getStatus(): int
 	{
 		$last = $this->getLastConsumerCount();
 		if (empty($last)) {

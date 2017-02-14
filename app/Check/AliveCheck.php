@@ -20,7 +20,7 @@ class AliveCheck extends Check
 	}
 
 
-	public function getterStatus(): int
+	public function getStatus(): int
 	{
 		if ( ! $this->lastTimeout && ! $this->beforeLastTimeout) {
 			return ICheck::STATUS_ERROR;

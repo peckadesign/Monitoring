@@ -19,7 +19,7 @@ class FeedCheck extends Check
 	}
 
 
-	public function getterStatus(): int
+	protected function getStatus(): int
 	{
 		if ($this->lastModified === NULL || $this->lastSize === NULL) {
 			return ICheck::STATUS_ERROR;
