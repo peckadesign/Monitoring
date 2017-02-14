@@ -2,33 +2,15 @@
 
 namespace Pd\Monitoring\Check\Consumers;
 
-class AliveCheck implements \Kdyby\RabbitMq\IConsumer
+class AliveCheck extends Check
 {
 
 	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
+	 * @param \Pd\Monitoring\Check\AliveCheck $check
+	 * @return bool
 	 */
-	private $checksRepository;
-
-
-	public function __construct(
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
-	) {
-		$this->checksRepository = $checksRepository;
-	}
-
-
-	public function process(\PhpAmqpLib\Message\AMQPMessage $message): int
+	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		$checkId = $message->getBody();
-
-		/** @var \Pd\Monitoring\Check\AliveCheck $check */
-		$check = $this->checksRepository->getById($checkId);
-
-		if ( ! $check || ! $check instanceof \Pd\Monitoring\Check\AliveCheck) {
-			return self::MSG_REJECT;
-		}
-
 		$client = new \GuzzleHttp\Client();
 
 		$check->beforeLastTimeout = $check->lastTimeout;
@@ -39,30 +21,21 @@ class AliveCheck implements \Kdyby\RabbitMq\IConsumer
 			'timeout' => 2 * $check::ALIVE_TIMEOUT / 1000,
 		];
 
-		$maxAttempts = 2;
-		$attempts = 0;
-
-		do {
+		try {
 			$start = microtime(TRUE);
 
-			try {
-				$response = $client->request('GET', $check->url, $options);
-				$duration = (microtime(TRUE) - $start) * 1000;
+			$response = $client->request('GET', $check->url, $options);
+			$duration = (microtime(TRUE) - $start) * 1000;
 
-				$check->lastCheck = new \DateTime();
+			if ($response->getStatusCode() === 200) {
+				$check->lastTimeout = $duration;
 
-				if ($response->getStatusCode() === 200) {
-					$check->lastTimeout = $duration;
-				}
-			} catch (\GuzzleHttp\Exception\RequestException $e) {
-				sleep(1);
-				continue;
+				return TRUE;
 			}
-		} while ($check->lastTimeout === NULL && ++$attempts < $maxAttempts);
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			return FALSE;
+		}
 
-
-		$this->checksRepository->persistAndFlush($check);
-
-		return self::MSG_ACK;
+		return FALSE;
 	}
 }
