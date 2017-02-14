@@ -29,8 +29,6 @@ class AliveCheck implements \Kdyby\RabbitMq\IConsumer
 			return self::MSG_REJECT;
 		}
 
-		$start = microtime(TRUE);
-
 		$client = new \GuzzleHttp\Client();
 
 		$check->beforeLastTimeout = $check->lastTimeout;
@@ -45,6 +43,8 @@ class AliveCheck implements \Kdyby\RabbitMq\IConsumer
 		$attempts = 0;
 
 		do {
+			$start = microtime(TRUE);
+
 			try {
 				$response = $client->request('GET', $check->url, $options);
 				$duration = (microtime(TRUE) - $start) * 1000;
