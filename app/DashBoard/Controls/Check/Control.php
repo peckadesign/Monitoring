@@ -68,7 +68,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->check->paused = ! $this->check->paused;
 		$this->checksRepository->persistAndFlush($this->check);
 
-		$this->redirect('this');
+		$this->processRequest();
 	}
 
 
@@ -76,7 +76,18 @@ class Control extends \Nette\Application\UI\Control
 	{
 		$this->rabbitConnection->getProducer($this->check->getProducerName())->publish($this->check->id);
 
-		$this->redirect('this');
+		$this->processRequest();
 	}
+
+
+	private function processRequest()
+	{
+		if ($this->getPresenter()->isAjax()) {
+			$this->redrawControl();
+		} else {
+			$this->redirect('this');
+		}
+	}
+
 
 }
