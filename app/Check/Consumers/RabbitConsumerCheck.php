@@ -56,4 +56,10 @@ class RabbitConsumerCheck extends Check
 
 		return FALSE;
 	}
+
+
+	protected function getCheckType(): int
+	{
+		return \Pd\Monitoring\Check\ICheck::TYPE_RABBIT_CONSUMERS;
+	}
 }

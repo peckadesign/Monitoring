@@ -41,7 +41,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 		/** @var \Pd\Monitoring\Check\AliveCheck $check */
 		$check = $this->checksRepository->getById($checkId);
 
-		if ( ! $check) {
+		if ( ! $check || $check->type !== $this->getCheckType()) {
 			return self::MSG_REJECT;
 		}
 
@@ -65,6 +65,9 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	 * @return bool TRUE, pokud se podařilo úspěšně provést kontrolu, jinak FALSE. Po FALSE může následovat opětovné spuštění kontroly
 	 */
 	abstract protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool;
+
+
+	abstract protected function getCheckType(): int;
 
 
 	protected function getMaxAttempts(): int

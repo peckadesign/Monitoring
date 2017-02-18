@@ -38,4 +38,10 @@ class AliveCheck extends Check
 
 		return FALSE;
 	}
+
+
+	protected function getCheckType(): int
+	{
+		return \Pd\Monitoring\Check\ICheck::TYPE_ALIVE;
+	}
 }
