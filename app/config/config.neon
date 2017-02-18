@@ -41,6 +41,10 @@ monolog:
 		- Pd\Monitoring\Monolog\Handlers\DayFileHandler("pecka-ci-server", %logDir%)
 
 
+clock:
+	provider: current
+
+
 parameters:
 	binDir: %appDir%/bin
 	logDir: %appDir%/../log
