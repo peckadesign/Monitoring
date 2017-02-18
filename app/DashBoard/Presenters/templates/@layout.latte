@@ -45,22 +45,12 @@
 
 
 			<div class="row">
-				{ifset #menu}
-					<div class="col-md-4">
-						{include #menu}
-					</div>
-					<div class="col-md-8">
-						<div class="page-header">
-							<h1 n:ifset="#title">{include #title}</h1>
-						</div>
-						{include #content}
-					</div>
-				{else}
+				<div class="container">
 					<div class="page-header">
 						<h1 n:ifset="#title">{include #title}</h1>
 					</div>
 					{include #content}
-				{/ifset}
+				</div>
 			</div>
 		</div>
 
