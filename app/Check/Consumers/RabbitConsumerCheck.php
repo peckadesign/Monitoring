@@ -2,34 +2,14 @@
 
 namespace Pd\Monitoring\Check\Consumers;
 
-class RabbitConsumerCheck implements \Kdyby\RabbitMq\IConsumer
+class RabbitConsumerCheck extends Check
 {
 
 	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
+	 * @param \Pd\Monitoring\Check\RabbitConsumerCheck $check
 	 */
-	private $checksRepository;
-
-
-	public function __construct(
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
-	) {
-		$this->checksRepository = $checksRepository;
-	}
-
-
-	public function process(\PhpAmqpLib\Message\AMQPMessage $message): int
+	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		$checkId = $message->getBody();
-
-		/** @var \Pd\Monitoring\Check\DnsCheck $check */
-		$check = $this->checksRepository->getById($checkId);
-
-		if ( ! $check || ! $check instanceof \Pd\Monitoring\Check\RabbitConsumerCheck) {
-			return self::MSG_REJECT;
-		}
-
-		$check->lastCheck = new \DateTime();
 		$check->lastConsumerCount = NULL;
 
 		try {
@@ -69,11 +49,11 @@ class RabbitConsumerCheck implements \Kdyby\RabbitMq\IConsumer
 			}
 			ksort($consumers);
 			$check->lastConsumerCount = join(',', $consumers);
+
+			return $check->status === \Pd\Monitoring\Check\ICheck::STATUS_OK;
 		} catch (\Exception $e) {
 		}
 
-		$this->checksRepository->persistAndFlush($check);
-
-		return self::MSG_ACK;
+		return FALSE;
 	}
 }
