@@ -62,4 +62,11 @@ class RabbitConsumerCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_RABBIT_CONSUMERS;
 	}
+
+
+	protected function getMaxAttempts(): int
+	{
+		return 10;
+	}
+
 }
