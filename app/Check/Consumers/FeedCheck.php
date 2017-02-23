@@ -29,7 +29,7 @@ class FeedCheck implements \Kdyby\RabbitMq\IConsumer
 	{
 		$checkId = $message->getBody();
 
-		/** @var \Pd\Monitoring\Check\DnsCheck $check */
+		/** @var \Pd\Monitoring\Check\FeedCheck $check */
 		$check = $this->checksRepository->getById($checkId);
 
 		if ( ! $check || ! $check instanceof \Pd\Monitoring\Check\FeedCheck) {

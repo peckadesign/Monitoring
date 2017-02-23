@@ -24,7 +24,7 @@ class FeedCheck extends Check
 		if ($this->lastModified === NULL || $this->lastSize === NULL) {
 			return ICheck::STATUS_ERROR;
 		} else {
-			if ($this->lastSize/1024/1024 >= $this->size && $this->lastModified >= (new \DateTime())->modify('-' . $this->maximumAge . ' hours')) {
+			if ($this->lastSizeControl() && $this->lastModifiedControl()) {
 				return ICheck::STATUS_OK;
 			} else {
 				return ICheck::STATUS_ALERT;
@@ -41,6 +41,26 @@ class FeedCheck extends Check
 
 	public function getterStatusMessage(): string
 	{
-		return '';
+		$message = [];
+		if ( ! $this->lastModifiedControl()) {
+			$message[] = sprintf('Datum poslední změny %s.', ( ! $this->lastModified ? 'se nepodařilo zjistit' : 'je ' . $this->lastModified->format('Y-m-d H:i:s')));
+		}
+		if ( ! $this->lastSizeControl()) {
+			$message[] = sprintf('Velikost feedu %s.', ( ! $this->lastSize ? 'se nepodařilo zjistit' : 'je ' . \Latte\Runtime\Filters::bytes($this->lastSize)));
+		}
+
+		return explode(' ', $message);
+	}
+
+
+	private function lastSizeControl(): bool
+	{
+		return $this->lastSize / 1024 / 1024 >= $this->size;
+	}
+
+
+	private function lastModifiedControl(): bool
+	{
+		return $this->lastModified >= (new \DateTime())->modify('-' . $this->maximumAge . ' hours');
 	}
 }
