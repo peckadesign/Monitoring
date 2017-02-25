@@ -49,7 +49,7 @@ class FeedCheck extends Check
 			$message[] = sprintf('Velikost feedu %s.', ( ! $this->lastSize ? 'se nepodařilo zjistit' : 'je ' . \Latte\Runtime\Filters::bytes($this->lastSize)));
 		}
 
-		return explode(' ', $message);
+		return implode(' ', $message);
 	}
 
 
