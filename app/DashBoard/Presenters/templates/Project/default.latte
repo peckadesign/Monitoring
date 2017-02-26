@@ -30,10 +30,14 @@
 		</div>
 	</div>
 
+	<div class="btn-group">
+		{control maintenance}
+	</div>
+
 	{control refresh}
 
 {/block}
 
 {block title}
-	{$project->name}
+	{$project->name}{if $project->maintenance} <small>(údržba od {$project->maintenance|dateTime})</small>{/if}
 {/block}

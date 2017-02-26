@@ -199,5 +199,11 @@ services:
 		class: Pd\Monitoring\Check\Commands\SlackCheckStatusesCommand
 		tags:
 			- kdyby.console.command
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory
+
+	-
+		class: Pd\Monitoring\Slack\Notifier
 		arguments:
 			hookUrl: %slack.hookUrl%
