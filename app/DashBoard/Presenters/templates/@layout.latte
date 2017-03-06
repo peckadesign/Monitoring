@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>{ifset #title}{include #title} &ndash; {/ifset}Pecka Monitoring</title>
+		{snippet title}<title>{ifset #title}{include #title|striptags} &ndash; {/ifset}Pecka Monitoring</title>{/snippet}
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -47,7 +47,9 @@
 			<div class="row">
 				<div class="container">
 					<div class="page-header">
-						<h1 n:ifset="#title">{include #title}</h1>
+						{snippet heading}
+							<h1 n:ifset="#title">{include #title}{ifset #subTitle}{include #subTitle}{/ifset}</h1>
+						{/snippet}
 					</div>
 					{include #content}
 				</div>

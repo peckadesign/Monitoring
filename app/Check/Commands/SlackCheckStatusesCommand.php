@@ -23,11 +23,6 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	private $dateTimeProvider;
 
 	/**
-	 * @var string
-	 */
-	private $hookUrl;
-
-	/**
 	 * @var \Monolog\Logger
 	 */
 	private $logger;
@@ -37,9 +32,14 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	 */
 	private $slackNotifyLocksRepository;
 
+	/**
+	 * @var \Pd\Monitoring\Slack\Notifier
+	 */
+	private $slackNotifier;
+
 
 	public function __construct(
-		string $hookUrl,
+		\Pd\Monitoring\Slack\Notifier $slackNotifier,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Nette\Application\LinkGenerator $linkGenerator,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
@@ -51,9 +51,9 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$this->checksRepository = $checksRepository;
 		$this->linkGenerator = $linkGenerator;
 		$this->dateTimeProvider = $dateTimeProvider;
-		$this->hookUrl = $hookUrl;
 		$this->logger = $logger;
 		$this->slackNotifyLocksRepository = $slackNotifyLocksRepository;
+		$this->slackNotifier = $slackNotifier;
 	}
 
 
@@ -71,6 +71,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	) {
 		$options = [
 			'paused' => FALSE,
+			'this->project->maintenance' => NULL,
 		];
 		$checks = $this->checksRepository->findBy($options);
 
@@ -116,29 +117,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				$checkStatusMessage ? ': ' . $checkStatusMessage : ''
 			);
 
-			$payload = [
-				'channel' => '#monitoring',
-				'username' => 'Monitoring',
-				'icon_emoji' => ':eye:',
-				'attachments' => [
-					[
-						'text' => $message,
-						'color' => $color,
-						'ts' => $this->dateTimeProvider->getDateTime()->format('U'),
-					],
-				],
-			];
-
-			$options = [
-				'json' => $payload,
-			];
-
-			try {
-				$client = new \GuzzleHttp\Client();
-				$client->request('POST', $this->hookUrl, $options);
-			} catch (\Throwable $e) {
-				$this->logger->addError($e);
-			}
+			$this->slackNotifier->notify('#monitoring', $message, $color);
 		}
 
 		return 0;

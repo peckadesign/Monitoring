@@ -47,19 +47,26 @@ class ProjectPresenter extends BasePresenter
 	 */
 	private $check;
 
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory
+	 */
+	private $maintenanceControlFactory;
+
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory
+		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory,
+		\Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory $maintenanceControlFactory
 	) {
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->checkControlFactory = $checkControlFactory;
 		$this->checksRepository = $checksRepository;
 		$this->addEditCheckControlFactory = $addEditCheckControlFactory;
+		$this->maintenanceControlFactory = $maintenanceControlFactory;
 	}
 
 
@@ -199,6 +206,40 @@ class ProjectPresenter extends BasePresenter
 			$this->redirect(':DashBoard:HomePage:');
 		} catch (\Nextras\Orm\InvalidStateException $e) {
 		}
+	}
+
+
+	protected function createComponentMaintenance(): \Pd\Monitoring\DashBoard\Controls\Maintenance\Control
+	{
+		$control = $this->maintenanceControlFactory->create($this->project);
+		if ($this->isAjax()) {
+			$handler = new class($this) implements \Pd\Monitoring\DashBoard\Controls\Maintenance\IOnToggle
+			{
+
+				/**
+				 * @var ProjectPresenter
+				 */
+				private $presenter;
+
+
+				public function __construct(
+					ProjectPresenter $presenter
+				) {
+					$this->presenter = $presenter;
+				}
+
+
+				public function process(\Pd\Monitoring\DashBoard\Controls\Maintenance\Control $control)
+				{
+					$this->presenter->redrawControl('title');
+					$this->presenter->redrawControl('heading');
+				}
+
+			};
+			$control->addOnToggle($handler);
+		}
+
+		return $control;
 	}
 
 }

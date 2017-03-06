@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-body">
-		<h2><a href="{plink Project: $project->id}">{$project->name}</h2>
+		<h2>{if $project->maintenance}<small class="glyphicon glyphicon-fire" aria-hidden="true"></small> {/if}<a href="{plink Project: $project->id}">{$project->name}</h2>
 
 		<div class="progress">
 			{foreach $percents as $type => $percent}
