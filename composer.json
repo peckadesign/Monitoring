@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": "7.0.*",
+		"php": "^7.0.0",
 		"ext-mbstring": "*",
 		"ext-bcmath": "*",
 		"nette/application": "2.4.*",
