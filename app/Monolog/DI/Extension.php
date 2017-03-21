@@ -10,8 +10,7 @@ class Extension extends Nette\DI\CompilerExtension
 {
 
 	private $defaults = [
-		'allowedTypes' => [
-		],
+		'allowedTypes' => [],
 	];
 
 
