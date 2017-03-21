@@ -1,6 +1,17 @@
 {default $projects = []}
 
 {block content}
+	{if count($favoriteProjects)}
+		<div class="row">
+			{foreach $favoriteProjects as $item}
+				{var $project = $item->project}
+				<div class="col-md-4">
+					{control project-$project->id}
+				</div>
+			{/foreach}
+		</div>
+		<hr>
+	{/if}
 
 	<div class="row">
 		{foreach $projects as $project}
