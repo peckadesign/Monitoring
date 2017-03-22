@@ -1,0 +1,16 @@
+language: php
+php:
+    - 7.1
+
+script:
+    - vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandard/ruleset.xml
+    - vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandard/ruleset-strict.xml
+
+before_script:
+    - travis_retry composer install --no-interaction --prefer-dist
+
+sudo: false
+
+cache:
+    directories:
+        - $HOME/.composer/cache
