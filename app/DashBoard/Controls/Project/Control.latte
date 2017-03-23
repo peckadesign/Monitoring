@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-body">
-		<h2>{if $project->maintenance}<small class="glyphicon glyphicon-fire" aria-hidden="true"></small> {/if}<a href="{plink Project: $project->id}">{$project->name}</h2>
+		<h2>{if $project->maintenance}<small class="glyphicon glyphicon-fire" aria-hidden="true"></small> {/if}<a href="{plink Project: $project->id}">{$project->name}</a></h2>
 
 		<div class="progress">
 			{foreach $percents as $type => $percent}
@@ -9,5 +9,16 @@
 				</div>
 			{/foreach}
 		</div>
+	</div>
+	<div class="panel-footer">
+		{if $favoriteProject}
+			<a href="{link deleteFavoriteProject!}">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+			</a>
+		{else}
+			<a href="{link setFavoriteProject!}">
+				<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+			</a>
+		{/if}
 	</div>
 </div>

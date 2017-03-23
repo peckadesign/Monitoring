@@ -19,7 +19,7 @@
 		"nette/security": "2.4.*",
 		"latte/latte": "2.4.*",
 		"tracy/tracy": "2.4.*",
-		"nextras/orm": "2.1.*",
+		"nextras/orm": "2.2.*",
 		"nextras/migrations": "3.0.*",
 		"symfony/process": "3.1.*",
 		"kdyby/console": "2.6.*",

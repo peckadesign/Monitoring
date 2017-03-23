@@ -12,6 +12,7 @@ use Nextras;
  * @property string $gitHubName
  * @property string $gitHubToken
  * @property bool $administrator
+ * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$user}
  */
 class User extends Nextras\Orm\Entity\Entity implements Nette\Security\IIdentity
 {
