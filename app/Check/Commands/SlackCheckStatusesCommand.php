@@ -69,13 +69,20 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		\Symfony\Component\Console\Input\InputInterface $input,
 		\Symfony\Component\Console\Output\OutputInterface $output
 	) {
+		$now = $this->dateTimeProvider->getDateTime();
+		$nowTime = $now->format("H:i");
 		$options = [
 			'paused' => FALSE,
 			'this->project->maintenance' => NULL,
 		];
+
 		$checks = $this->checksRepository->findBy($options);
 
 		foreach ($checks as $check) {
+
+			if ($nowTime >= $check->project->pausedFrom && $nowTime <= $check->project->pausedTo) {
+				continue;
+			}
 
 			$conditions = [
 				'check' => $check,

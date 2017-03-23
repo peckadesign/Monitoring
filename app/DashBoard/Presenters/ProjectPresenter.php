@@ -83,6 +83,7 @@ class ProjectPresenter extends BasePresenter
 	 */
 	public function actionEdit($id)
 	{
+		/** @var \Pd\Monitoring\Project\Project project */
 		$this->project = $this->projectsRepository->getById($id);
 
 		$this['addEditForm']->setDefaults($this->project->toArray());
@@ -95,6 +96,8 @@ class ProjectPresenter extends BasePresenter
 
 		$form->addText('name', 'Název projektu');
 		$form->addText('url', 'URL projektu');
+		$form->addText('pausedFrom', 'Pozastavení notifikace od [hh:mm]');
+		$form->addText('pausedTo', 'Pozastavení notifikace do [hh:mm]');
 
 		$form->addSubmit('save', 'Uložit');
 
@@ -115,6 +118,8 @@ class ProjectPresenter extends BasePresenter
 		}
 		$project->name = $data['name'];
 		$project->url = $data['url'];
+		$project->pausedFrom = $data['pausedFrom'];
+		$project->pausedTo = $data['pausedTo'];
 
 		$project = $this->projectsRepository->persistAndFlush($project);
 
