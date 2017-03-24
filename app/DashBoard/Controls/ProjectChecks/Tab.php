@@ -1,4 +1,4 @@
-<?php declare(strict_type=1);
+<?php declare(strict_types=1);
 
 namespace Pd\Monitoring\DashBoard\Controls\ProjectChecks;
 
