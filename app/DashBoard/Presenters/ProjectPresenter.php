@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pd\Monitoring\DashBoard\Presenters;
 
@@ -21,11 +21,6 @@ class ProjectPresenter extends BasePresenter
 	 * @var \Pd\Monitoring\Project\Project
 	 */
 	private $project;
-
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\Check\IFactory
-	 */
-	private $checkControlFactory;
 
 	/**
 	 * @var \Pd\Monitoring\Check\ChecksRepository
@@ -52,21 +47,26 @@ class ProjectPresenter extends BasePresenter
 	 */
 	private $maintenanceControlFactory;
 
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory
+	 */
+	private $projectChecksControlFactory;
+
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
-		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory,
-		\Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory $maintenanceControlFactory
+		\Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory $maintenanceControlFactory,
+		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory
 	) {
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
-		$this->checkControlFactory = $checkControlFactory;
 		$this->checksRepository = $checksRepository;
 		$this->addEditCheckControlFactory = $addEditCheckControlFactory;
 		$this->maintenanceControlFactory = $maintenanceControlFactory;
+		$this->projectChecksControlFactory = $projectChecksControlFactory;
 	}
 
 
@@ -136,10 +136,6 @@ class ProjectPresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->project = $this->project;
-		$conditions = [
-			'project' => $this->project->id,
-		];
-		$this->template->projectChecks = $this->checksRepository->findBy($conditions)->orderBy('type');
 
 		$this->template->checks = [
 			new \Pd\Monitoring\Check\AliveCheck(),
@@ -152,15 +148,9 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	protected function createComponentCheck()
+	protected function createComponentProjectChecks(): \Pd\Monitoring\DashBoard\Controls\ProjectChecks\Control
 	{
-		$cb = function ($id) {
-			$check = $this->checksRepository->getById($id);
-
-			return $this->checkControlFactory->create($check);
-		};
-
-		return new \Nette\Application\UI\Multiplier($cb);
+		return $this->projectChecksControlFactory->create($this->project);
 	}
 
 

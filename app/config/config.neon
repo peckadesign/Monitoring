@@ -207,3 +207,6 @@ services:
 		class: Pd\Monitoring\Slack\Notifier
 		arguments:
 			hookUrl: %slack.hookUrl%
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory

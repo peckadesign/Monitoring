@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pd\Monitoring\Check;
 
@@ -65,11 +65,14 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 		if ( ! $this->lastCheck) {
 			return ICheck::STATUS_ERROR;
 		}
-		if ($this->lastCheck < $this->dateTimeProvider->getDateTime()->sub(new \DateInterval($this->getDecayTimeout()))) {
+
+		$status = $this->getStatus();
+
+		if ($status < ICheck::STATUS_ALERT && ICheck::STATUS_ALERT && $this->lastCheck < $this->dateTimeProvider->getDateTime()->sub(new \DateInterval($this->getDecayTimeout()))) {
 			return ICheck::STATUS_ALERT;
 		}
 
-		return $this->getStatus();
+		return $status;
 	}
 
 
