@@ -23,6 +23,13 @@
 			.tab-content {
 				padding-top: 20px;
 			}
+			.btn-group { margin-bottom:5px; }
+
+			@media only screen and (min-width: 960px){
+				.title { float:left; width:25%; }
+				.buttons { float:right; width:70%; text-align:right; margin:20px 0 10px; }
+				.break { height:0; font-size:0; line-height:0; clear:both; overflow:hidden; visibility:hidden; display:block; width:100%; }
+			}
 		</style>
 	</head>
 	<body>
@@ -52,7 +59,11 @@
 				<div class="container">
 					<div class="page-header">
 						{snippet heading}
-							<h1 n:ifset="#title">{include #title}{ifset #subTitle}{include #subTitle}{/ifset}</h1>
+							<div class="title" n:ifset="#title"><h1>{include #title}{ifset #subTitle}{include #subTitle}{/ifset}</h1></div>
+							{ifset #buttons}
+								{include #buttons}
+							{/ifset}
+							<div class="break"></div>
 						{/snippet}
 					</div>
 					{include #content}

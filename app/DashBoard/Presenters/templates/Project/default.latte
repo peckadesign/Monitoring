@@ -2,38 +2,42 @@
 
 	{control projectChecks}
 
-	<div class="btn-group">
-		<a n:href="edit $project->id" class="btn btn-warning" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Upravit projekt</a>
-	</div>
-
-	<div class="btn-group">
-		<a n:href="delete!" class="btn btn-danger" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Smazat projekt</a>
-	</div>
-
-	<div class="btn-group">
-		<div class="dropdown" n:if="$user->isAllowed('check', 'add')">
-			<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat novou kontrolu
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				{foreach $checks as $check}
-					<li><a n:href="Project:addCheck $project->id, $check->type">{$check->getTitle()}</a></li>
-				{/foreach}
-			</ul>
-		</div>
-	</div>
-
-	<div class="btn-group">
-		{control maintenance}
-	</div>
-
 	{control refresh}
 
 {/block}
 
 {block title}
 	{$project->name}{if $project->maintenance} <small>(údržba od {$project->maintenance|dateTime})</small>{/if}
+{/block}
+
+{block buttons}
+	<div class="buttons">
+		<div class="btn-group">
+			<a n:href="edit $project->id" class="btn btn-warning" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Upravit projekt</a>
+		</div>
+
+		<div class="btn-group">
+			<a n:href="delete!" class="btn btn-danger" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Smazat projekt</a>
+		</div>
+
+		<div class="btn-group">
+			<div class="dropdown" n:if="$user->isAllowed('check', 'add')">
+				<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat novou kontrolu
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					{foreach $checks as $check}
+						<li><a n:href="Project:addCheck $project->id, $check->type">{$check->getTitle()}</a></li>
+					{/foreach}
+				</ul>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			{control maintenance}
+		</div>
+	</div>
 {/block}
 
 
