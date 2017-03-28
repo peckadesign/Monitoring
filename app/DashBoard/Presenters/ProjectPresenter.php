@@ -200,6 +200,7 @@ class ProjectPresenter extends BasePresenter
 			$this->projectsRepository->removeAndFlush($this->project);
 			$this->redirect(':DashBoard:HomePage:');
 		} catch (\Nextras\Orm\InvalidStateException $e) {
+			$this->flashMessage('Nepodařilo se smazat projekt', self::FLASH_MESSAGE_ERROR);
 		}
 	}
 
