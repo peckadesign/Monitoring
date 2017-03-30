@@ -1,0 +1,32 @@
+github:
+	appId: "" # aplikace pro přihlášení uživatelů a práci s GitHubem
+	appSecret: ""
+
+
+dbal:
+	driver: mysqli
+	host: localhost
+	user: monitoring
+	password: monitoring
+	dbname: monitoring
+	connectionTz: '+02:00'
+
+
+rabbitmq:
+	connection:
+		host: localhost
+		port: 5672
+		user: 'monitoring'
+		password: 'monitoring'
+		vhost: 'monitoring'
+
+
+console:
+	url: http://monitoring.v.peckadesign.com
+
+
+parameters:
+	administratorTeamId: "" # id skupiny uživatelů na GitHubu, kteří budou mít admin přístup
+
+	slack:
+		hookUrl: "" # URL hooku pro notifikování do Slacku

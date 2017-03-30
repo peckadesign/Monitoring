@@ -1,6 +1,6 @@
 {
 	"name": "pd/monitoring",
-	"license": ["GPL-3.0"],
+	"license": "GPL-3.0",
 	"description": "Monitoring webových aplikací",
 	"type": "project",
 	"authors": [
@@ -10,9 +10,13 @@
 		}
 	],
 	"require": {
-		"php": "^7.0.0",
+		"php": "^7.1.0",
 		"ext-mbstring": "*",
 		"ext-bcmath": "*",
+		"ext-zip": "*",
+		"ext-curl": "*",
+		"ext-mysqli": "*",
+		"ext-xml": "*",
 		"nette/application": "2.4.*",
 		"nette/forms": "2.4.*",
 		"nette/bootstrap": "2.4.*",
