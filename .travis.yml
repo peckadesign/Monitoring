@@ -4,7 +4,7 @@ php:
 
 script:
     - vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandard/ruleset.xml
-    - vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandard/ruleset-strict.xml
+    - vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandardStrict/ruleset.xml
 
 before_script:
     - travis_retry composer install --no-interaction --prefer-dist
