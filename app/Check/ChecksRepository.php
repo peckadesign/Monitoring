@@ -8,8 +8,8 @@ use Nextras;
 /**
  * @method Check getById(int $id)
  * @method Check getBy(array $conds)
- * @method Nextras\Orm\Collection\ICollection|Check[] findAll()
- * @method Nextras\Orm\Collection\ICollection|Check[] findBy()
+ * @method Nextras\Orm\Collection\ICollection|Check[] findAll(array $conditions)
+ * @method Nextras\Orm\Collection\ICollection|Check[] findBy(array $conditions)
  */
 class ChecksRepository extends Nextras\Orm\Repository\Repository
 {
