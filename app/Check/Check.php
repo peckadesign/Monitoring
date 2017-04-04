@@ -24,7 +24,7 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	private $dateTimeProvider;
 
 
-	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider)
+	public function injectBaseDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider)
 	{
 		$this->dateTimeProvider = $dateTimeProvider;
 	}

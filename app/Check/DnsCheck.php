@@ -35,6 +35,6 @@ class DnsCheck extends Check
 
 	public function getterStatusMessage(): string
 	{
-		return '';
+		return $this->lastIp !== $this->ip ? sprintf('Očekávaná IP adresa "%s" neodpovídá zjištěné "%s"', $this->ip, $this->lastIp) : '';
 	}
 }

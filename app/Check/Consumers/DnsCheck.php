@@ -1,8 +1,8 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Pd\Monitoring\Check\Consumers;
 
-class DnsCheck implements \Kdyby\RabbitMq\IConsumer
+class DnsCheck extends Check
 {
 
 	/**
@@ -18,28 +18,27 @@ class DnsCheck implements \Kdyby\RabbitMq\IConsumer
 	}
 
 
-	public function process(\PhpAmqpLib\Message\AMQPMessage $message): int
+	/**
+	 * @param \Pd\Monitoring\Check\Check|\Pd\Monitoring\Check\DnsCheck $check
+	 * @return bool
+	 */
+	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		$checkId = $message->getBody();
-
-		/** @var \Pd\Monitoring\Check\DnsCheck $check */
-		$check = $this->checksRepository->getById($checkId);
-
-		if ( ! $check || ! $check instanceof \Pd\Monitoring\Check\DnsCheck) {
-			return self::MSG_REJECT;
-		}
-
-		$check->lastCheck = new \DateTime();
 		$check->lastIp = NULL;
 		$process = new \Symfony\Component\Process\Process(sprintf('/usr/bin/dig %s A +short', $check->url));
 		try {
 			$process->mustRun();
 			$check->lastIp = trim($process->getOutput());
 		} catch (\Symfony\Component\Process\Exception\ProcessFailedException $e) {
+			return FALSE;
 		}
 
-		$this->checksRepository->persistAndFlush($check);
+		return TRUE;
+	}
 
-		return self::MSG_ACK;
+
+	protected function getCheckType(): int
+	{
+		return \Pd\Monitoring\Check\ICheck::TYPE_DNS;
 	}
 }

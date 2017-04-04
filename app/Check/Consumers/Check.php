@@ -34,7 +34,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 
 	public function process(\PhpAmqpLib\Message\AMQPMessage $message): int
 	{
-		$checkId = $message->getBody();
+		$checkId = (int) $message->getBody();
 
 		$this->orm->clearIdentityMapAndCaches(\Nextras\Orm\Model\IModel::I_KNOW_WHAT_I_AM_DOING);
 

@@ -6,7 +6,8 @@ class RabbitConsumerCheck extends Check
 {
 
 	/**
-	 * @param \Pd\Monitoring\Check\RabbitConsumerCheck $check
+	 * @param \Pd\Monitoring\Check\Check|\Pd\Monitoring\Check\RabbitConsumerCheck $check
+	 * @return bool
 	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{

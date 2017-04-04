@@ -1,8 +1,8 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Pd\Monitoring\Check\Consumers;
 
-class CertificateCheck implements \Kdyby\RabbitMq\IConsumer
+class CertificateCheck extends Check
 {
 
 	/**
@@ -10,30 +10,26 @@ class CertificateCheck implements \Kdyby\RabbitMq\IConsumer
 	 */
 	private $checksRepository;
 
+	/**
+	 * @var \Kdyby\Clock\IDateTimeProvider
+	 */
+	private $dateTimeProvider;
+
 
 	public function __construct(
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
+		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
+		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider
 	) {
 		$this->checksRepository = $checksRepository;
+		$this->dateTimeProvider = $dateTimeProvider;
 	}
 
 
-	public function process(\PhpAmqpLib\Message\AMQPMessage $message): int
+	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		$checkId = $message->getBody();
-
-		/** @var \Pd\Monitoring\Check\DnsCheck $check */
-		$check = $this->checksRepository->getById($checkId);
-
-		if ( ! $check || ! $check instanceof \Pd\Monitoring\Check\CertificateCheck) {
-			return self::MSG_REJECT;
-		}
-
-		$check->lastCheck = new \DateTime();
-
 		try {
-			$get = stream_context_create(array("ssl" => array("capture_peer_cert" => TRUE)));
-			$read = stream_socket_client("ssl://". $check->url .":443", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $get);
+			$get = stream_context_create(["ssl" => ["capture_peer_cert" => TRUE]]);
+			$read = stream_socket_client("ssl://" . $check->url . ":443", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $get);
 			$cert = stream_context_get_params($read);
 			$certinfo = openssl_x509_parse($cert['options']['ssl']['peer_certificate']);
 
@@ -41,16 +37,22 @@ class CertificateCheck implements \Kdyby\RabbitMq\IConsumer
 				throw new \InvalidArgumentException('No certificate data');
 			}
 
-			$date = new \DateTime();
+			$date = $this->dateTimeProvider->getDateTime();
 			$date->setTimestamp($certinfo['validTo_time_t']);
 
 			$check->lastValiddate = $date;
 		} catch (\Exception $e) {
 			$check->lastValiddate = NULL;
+
+			return FALSE;
 		}
 
-		$this->checksRepository->persistAndFlush($check);
+		return TRUE;
+	}
 
-		return self::MSG_ACK;
+
+	protected function getCheckType(): int
+	{
+		return \Pd\Monitoring\Check\ICheck::TYPE_CERTIFICATE;
 	}
 }

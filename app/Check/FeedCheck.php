@@ -12,6 +12,17 @@ namespace Pd\Monitoring\Check;
 class FeedCheck extends Check
 {
 
+	/**
+	 * @var \Kdyby\Clock\IDateTimeProvider
+	 */
+	private $dateTimeProvider;
+
+
+	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider)
+	{
+		$this->dateTimeProvider = $dateTimeProvider;
+	}
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -61,6 +72,6 @@ class FeedCheck extends Check
 
 	private function lastModifiedControl(): bool
 	{
-		return $this->lastModified >= (new \DateTime())->modify('-' . $this->maximumAge . ' hours');
+		return $this->lastModified >= $this->dateTimeProvider->getDateTime()->sub(new \DateInterval('PT' . $this->maximumAge . 'H'));
 	}
 }
