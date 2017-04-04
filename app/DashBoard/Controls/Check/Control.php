@@ -20,6 +20,11 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $rabbitConnection;
 
+	/**
+	 * @var array|IOnRedraw
+	 */
+	private $onRedrawListeners = [];
+
 
 	public function __construct(
 		\Pd\Monitoring\Check\Check $check,
@@ -30,6 +35,12 @@ class Control extends \Nette\Application\UI\Control
 		$this->check = $check;
 		$this->checksRepository = $checksRepository;
 		$this->rabbitConnection = $rabbitConnection;
+	}
+
+
+	public function addOnRedraw(IOnRedraw $onRedraw)
+	{
+		$this->onRedrawListeners[] = $onRedraw;
 	}
 
 
@@ -79,11 +90,19 @@ class Control extends \Nette\Application\UI\Control
 		$this->processRequest();
 	}
 
+	public function handleRedraw()
+	{
+		$this->processRequest();
+	}
+
 
 	private function processRequest()
 	{
 		if ($this->getPresenter()->isAjax()) {
 			$this->redrawControl();
+			foreach($this->onRedrawListeners as $listener) {
+				$listener->onRedraw($this, $this->check);
+			}
 		} else {
 			$this->redirect('this');
 		}

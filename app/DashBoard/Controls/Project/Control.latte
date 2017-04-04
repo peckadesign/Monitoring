@@ -1,4 +1,10 @@
-<div class="panel panel-default">
+{snippet}
+<div
+	class="panel panel-default"
+	data-socket="projectChange"
+	data-socket-key="{$project->id}"
+	data-socket-link="{$control->link('redraw!')}"
+>
 	<div class="panel-body">
 		<h2>{if $project->maintenance}<small class="glyphicon glyphicon-fire" aria-hidden="true"></small> {/if}<a href="{plink Project: $project->id}">{$project->name}</a></h2>
 
@@ -22,3 +28,4 @@
 		{/if}
 	</div>
 </div>
+{/snippet}

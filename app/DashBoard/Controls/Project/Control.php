@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Pd\Monitoring\DashBoard\Controls\Project;
 
@@ -135,6 +135,16 @@ class Control extends \Nette\Application\UI\Control
 
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();
+	}
+
+
+	public function handleRedraw()
+	{
+		if ($this->getPresenter()->isAjax()) {
+			$this->redrawControl();
+		} else {
+			$this->redirect('this');
+		}
 	}
 
 }

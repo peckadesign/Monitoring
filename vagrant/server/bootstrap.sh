@@ -20,6 +20,8 @@ debconf-set-selections <<< 'mariadb-server-5.5 mysql-server/root_password_again 
 echo "deb http://www.rabbitmq.com/debian/ testing main" > /etc/apt/sources.list.d/rabbitmq.list
 wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc -q -O - | apt-key add -
 
+curl -sL https://deb.nodesource.com/setup_4.x | bash -
+
 apt-get update
 
 apt-get upgrade -y --force-yes
@@ -27,6 +29,7 @@ apt-get install -y --force-yes \
 	git \
 	htop \
 	vim \
+	nodejs \
 	mariadb-server \
 	rabbitmq-server \
 	apache2 \
@@ -45,6 +48,8 @@ a2enmod rewrite
 php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
+
+npm install -g gulp
 
 if ! [ -L "/var/www" ]; then
 	rm -rf "/var/www"
@@ -90,4 +95,5 @@ service mysql restart
 
 
 rabbitmq-plugins enable rabbitmq_management
+rabbitmq-plugins enable rabbitmq_web_stomp
 echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config
