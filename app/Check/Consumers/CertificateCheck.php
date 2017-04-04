@@ -6,11 +6,6 @@ class CertificateCheck extends Check
 {
 
 	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
-
-	/**
 	 * @var \Kdyby\Clock\IDateTimeProvider
 	 */
 	private $dateTimeProvider;
@@ -18,13 +13,19 @@ class CertificateCheck extends Check
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider
+		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Pd\Monitoring\Orm\Orm $orm
 	) {
-		$this->checksRepository = $checksRepository;
+		parent::__construct($checksRepository, $dateTimeProvider, $orm);
+
 		$this->dateTimeProvider = $dateTimeProvider;
 	}
 
 
+	/**
+	 * @param \Pd\Monitoring\Check\Check|\Pd\Monitoring\Check\CertificateCheck $check
+	 * @return bool
+	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
 		try {

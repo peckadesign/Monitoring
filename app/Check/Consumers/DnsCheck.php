@@ -6,19 +6,6 @@ class DnsCheck extends Check
 {
 
 	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
-
-
-	public function __construct(
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
-	) {
-		$this->checksRepository = $checksRepository;
-	}
-
-
-	/**
 	 * @param \Pd\Monitoring\Check\Check|\Pd\Monitoring\Check\DnsCheck $check
 	 * @return bool
 	 */
