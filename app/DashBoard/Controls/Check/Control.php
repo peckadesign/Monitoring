@@ -57,7 +57,7 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleDelete()
 	{
-		$this->checksRepository->removeAndFlush($this->check);
+		$this->checksRepository->removeAndFlush($this->check, TRUE);
 
 		$this->redirect('this');
 	}
@@ -88,6 +88,5 @@ class Control extends \Nette\Application\UI\Control
 			$this->redirect('this');
 		}
 	}
-
 
 }
