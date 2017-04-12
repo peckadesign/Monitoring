@@ -57,8 +57,8 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleDelete()
 	{
-		$this->checksRepository->removeAndFlush($this->check, TRUE);
-
+		$this->checksRepository->removeAndFlush($this->check);
+		$this->getPresenter()->flashMessage('Kontrola byla odebrána', \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		$this->redirect('this');
 	}
 

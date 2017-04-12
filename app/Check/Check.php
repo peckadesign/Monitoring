@@ -5,7 +5,7 @@ namespace Pd\Monitoring\Check;
 /**
  * @property int $id {primary}
  * @property \Pd\Monitoring\Project\Project $project {m:1 \Pd\Monitoring\Project\Project::$checks}
- * @property SlackNotifyLock $locks {1:m SlackNotifyLock::$check}
+ * @property SlackNotifyLock $locks {1:m SlackNotifyLock::$check, cascade=[persist, remove]}
  * @property int $type {enum ICheck::TYPE_*}
  * @property int $status {virtual}
  * @property \DateTime|NULL $lastCheck
