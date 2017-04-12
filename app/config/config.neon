@@ -81,6 +81,11 @@ rabbitmq:
 		rabbitConsumerCheck:
 			exchange: {name: 'rabbitConsumerCheck', type: direct}
 			contentType: text/plain
+		checkChange:
+			exchange: {name: 'checkChange', type: direct}
+		projectChange:
+			exchange: {name: 'projectChange', type: direct}
+
 
 	consumers:
 		aliveCheck:
@@ -190,12 +195,6 @@ services:
 			- @Kdyby\RabbitMq\Connection::getProducer('rabbitConsumerCheck')
 
 	-
-		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory
-
-	-
-		implement: Pd\Monitoring\DashBoard\Controls\LastRefresh\IFactory
-
-	-
 		class: Pd\Monitoring\Check\Commands\SlackCheckStatusesCommand
 		tags:
 			- kdyby.console.command
@@ -210,3 +209,19 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory
+
+	-
+		class: Pd\Monitoring\Check\Listeners\NotifyWebSocketListener
+		arguments:
+			producer: @Kdyby\RabbitMq\Connection::getProducer('checkChange')
+
+	-
+		class: Pd\Monitoring\Check\OnCheckChangeDispatcher
+		setup:
+			- addListener(@Pd\Monitoring\Check\Listeners\NotifyWebSocketListener)
+			- addListener(@Pd\Monitoring\Check\Listeners\DispatchProjectChangeListener)
+
+	-
+		class: Pd\Monitoring\Check\Listeners\DispatchProjectChangeListener
+		arguments:
+			producer: @Kdyby\RabbitMq\Connection::getProducer('projectChange')

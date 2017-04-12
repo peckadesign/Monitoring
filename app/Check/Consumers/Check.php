@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Pd\Monitoring\Check\Consumers;
 
@@ -20,15 +20,22 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	 */
 	private $orm;
 
+	/**
+	 * @var \Pd\Monitoring\Check\IOnCheckChangeDispatcher
+	 */
+	private $onCheckChangeDispatcher;
+
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
-		\Pd\Monitoring\Orm\Orm $orm
+		\Pd\Monitoring\Orm\Orm $orm,
+		\Pd\Monitoring\Check\IOnCheckChangeDispatcher $onCheckChangeDispatcher
 	) {
 		$this->checksRepository = $checksRepository;
 		$this->dateTimeProvider = $dateTimeProvider;
 		$this->orm = $orm;
+		$this->onCheckChangeDispatcher = $onCheckChangeDispatcher;
 	}
 
 
@@ -48,11 +55,17 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 		$maxAttempts = $this->getMaxAttempts();
 		$attempts = 0;
 
+		$oldStatus = $check->status;
+
 		do {
 			$check->lastCheck = $this->dateTimeProvider->getDateTime();
 
 			$result = $this->doHardJob($check);
 		} while ( ! $result && ++$attempts < $maxAttempts && sleep(3) === 0);
+
+		if ($oldStatus !== $check->status) {
+			$this->onCheckChangeDispatcher->change($check);
+		}
 
 		$this->checksRepository->persistAndFlush($check);
 

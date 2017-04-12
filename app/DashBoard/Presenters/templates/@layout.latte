@@ -40,7 +40,6 @@
 					<a class="navbar-brand" n:href=":DashBoard:HomePage:"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Pecka Monitoring<sup>beta</sup></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse navbar-right">
-					{control lastRefresh}
 					{control logout}
 				</div>
 			</div>
@@ -71,11 +70,19 @@
 			</div>
 		</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script>
+			var WebSocketConfig = {
+				'server': 'ws://monitoring.v.peckadesign.com:15674/ws',
+				'debug': false
+			};
+		</script>
+
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<script src="{$baseUri}/js/lastrefresh.js"></script>
-		<script src="{$baseUri}/js/nette.ajax.js"></script>
-		<script src="{$baseUri}/js/main.js"></script>
+		<script src="{$basePath}/js/nette.ajax.js"></script>
+		<script src="{$basePath}/js/stomp.js"></script>
+		<script src="{$basePath}/js/websocket.js"></script>
+		<script src="{$basePath}/js/main.js"></script>
 
 	</body>
 </html>

@@ -1,8 +1,10 @@
-<ul class="nav nav-tabs" role="tablist">
-	{foreach $tabs as $key => $tab}
-		<li role="presentation" n:class="$iterator->first ? active"><a href="#{$key}" aria-controls="{$key}" role="tab" data-toggle="tab" class="{$tab|tabColor}">{$tab->getTitle()}</a></li>
-	{/foreach}
-</ul>
+{snippet tabs}
+	<ul class="nav nav-tabs" role="tablist">
+		{foreach $tabs as $key => $tab}
+			<li role="presentation" n:class="$iterator->first ? active"><a href="#{$key}" aria-controls="{$key}" role="tab" data-toggle="tab" class="{$tab|tabColor}">{$tab->getTitle()}</a></li>
+		{/foreach}
+	</ul>
+{/snippet}
 
 <div class="tab-content">
 	{foreach $checks as $type => $checksForType}

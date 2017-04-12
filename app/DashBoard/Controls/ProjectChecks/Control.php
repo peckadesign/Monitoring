@@ -47,6 +47,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->checks = $this->checksRepository->findBy($conditions)->orderBy('type');
 	}
 
+
 	protected function createTemplate()
 	{
 		$template = parent::createTemplate();
@@ -93,7 +94,31 @@ class Control extends \Nette\Application\UI\Control
 		$cb = function ($id) {
 			$check = $this->checksRepository->getById($id);
 
-			return $this->checkControlFactory->create($check);
+			$control = $this->checkControlFactory->create($check);
+
+			$cb = new class($this) implements \Pd\Monitoring\DashBoard\Controls\Check\IOnRedraw
+			{
+
+				/**
+				 * @var Control
+				 */
+				private $self;
+
+
+				public function __construct(Control $self)
+				{
+					$this->self = $self;
+				}
+
+
+				public function onRedraw(\Pd\Monitoring\DashBoard\Controls\Check\Control $control, \Pd\Monitoring\Check\Check $check)
+				{
+					$this->self->redrawControl('tabs');
+				}
+			};
+			$control->addOnRedraw($cb);
+
+			return $control;
 		};
 
 		return new \Nette\Application\UI\Multiplier($cb);
