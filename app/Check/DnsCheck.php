@@ -27,6 +27,14 @@ class DnsCheck extends Check
 	}
 
 
+	public static function normalizeIpList(string $list): string
+	{
+		$ips = preg_split('~\s*[|;,]\s*~', $list, -1, PREG_SPLIT_NO_EMPTY);
+		sort($ips, SORT_NATURAL);
+		return implode(', ', $ips);
+	}
+
+
 	public function getTitle(): string
 	{
 		return 'Nastavení DNS';
