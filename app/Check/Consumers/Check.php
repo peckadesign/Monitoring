@@ -20,15 +20,22 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	 */
 	private $orm;
 
+	/**
+	 * @var \Monolog\Logger
+	 */
+	private $logger;
+
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
-		\Pd\Monitoring\Orm\Orm $orm
+		\Pd\Monitoring\Orm\Orm $orm,
+		\Monolog\Logger $logger
 	) {
 		$this->checksRepository = $checksRepository;
 		$this->dateTimeProvider = $dateTimeProvider;
 		$this->orm = $orm;
+		$this->logger = $logger;
 	}
 
 
@@ -49,6 +56,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 		$attempts = 0;
 
 		do {
+			$this->logInfo($check, sprintf('Pokus číslo %u', $attempts));
 			$check->lastCheck = $this->dateTimeProvider->getDateTime();
 
 			$result = $this->doHardJob($check);
@@ -73,6 +81,18 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	protected function getMaxAttempts(): int
 	{
 		return 2;
+	}
+
+
+	protected function logInfo(\Pd\Monitoring\Check\Check $check, string $message): void
+	{
+		$this->logger->addInfo($message, ['check' => $check->id, 'checkType' => $check->type]);
+	}
+
+
+	protected function logError(\Pd\Monitoring\Check\Check $check, string $message): void
+	{
+		$this->logger->addError($message, ['check' => $check->id, 'checkType' => $check->type]);
 	}
 
 }
