@@ -1,0 +1,2 @@
+ALTER TABLE `checks` ADD `target` VARCHAR(250)  NULL  DEFAULT NULL;
+ALTER TABLE `checks` ADD `last_target` VARCHAR(250)  NULL  DEFAULT NULL  AFTER `target`;

@@ -21,6 +21,7 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 			AliveCheck::class,
 			TermCheck::class,
 			DnsCheck::class,
+			DnsCnameCheck::class,
 			CertificateCheck::class,
 			FeedCheck::class,
 			RabbitConsumerCheck::class,
@@ -39,6 +40,8 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 					return TermCheck::class;
 				case ICheck::TYPE_DNS:
 					return DnsCheck::class;
+				case ICheck::TYPE_DNS_CNAME:
+					return DnsCnameCheck::class;
 				case ICheck::TYPE_CERTIFICATE:
 					return CertificateCheck::class;
 				case ICheck::TYPE_FEED:

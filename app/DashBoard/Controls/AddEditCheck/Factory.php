@@ -40,6 +40,10 @@ class Factory
 				$control = new Control($project, $check, new DnsCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_DNS_CNAME:
+				$control = new Control($project, $check, new DnsCnameCheckProcessor(), $this->formFactory, $this->checksRepository);
+				break;
+
 			case \Pd\Monitoring\Check\ICheck::TYPE_CERTIFICATE:
 				$control = new Control($project, $check, new CertificateCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
