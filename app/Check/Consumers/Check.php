@@ -56,6 +56,9 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 		$attempts = 0;
 
 		do {
+			$this->checksRepository->doClearIdentityMap(\Nextras\Orm\Model\IModel::I_KNOW_WHAT_I_AM_DOING);
+			$check = $this->checksRepository->getById($checkId);
+
 			$this->logInfo($check, sprintf('Pokus číslo %u', $attempts));
 			$check->lastCheck = $this->dateTimeProvider->getDateTime();
 
