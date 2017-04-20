@@ -12,14 +12,14 @@ class DnsCheck extends Check
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
 		$check->lastIp = NULL;
-		$process = new \Symfony\Component\Process\Process(sprintf('/usr/bin/dig %s A +short', $check->url));
-		try {
-			$process->mustRun();
-			$check->lastIp = trim($process->getOutput());
-		} catch (\Symfony\Component\Process\Exception\ProcessFailedException $e) {
+
+		$entries = dns_get_record($check->url, DNS_A);
+		if (!$entries) {
 			return FALSE;
 		}
 
+		$entry = array_shift($entries);
+		$check->lastIp = $entry['ip'];
 		return TRUE;
 	}
 
