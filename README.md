@@ -14,13 +14,20 @@ Hardwarové požadavky se odvíjí od počtu kontrol a přístupu uživatelů. P
 
 ## Spuštění aplikace
 
-Po naklonování repozitáře je potřeba zkopírovat lokální nastavení neonu a vyplnit údaje:
+1. Po naklonování repozitáře je potřeba zkopírovat lokální nastavení neonu a vyplnit údaje:
 
 ```
 cp config/config.local.example.neon app/config/config.local.neon 
 ```
+- Údaje pro `github appId, appSecret` můžete získat [zde](https://github.com/settings/applications/new),
+- do pole `Authorization callback URL` uveďte: `http(s)://vas-virtual.tld`. 
+- Pro získání `administratorTeamId` musíte disponovat [oAuth tokenem](https://github.com/settings/tokens) 
+- v terminálu proveďte: `curl -H "Authorization: token <very-long-access-token>" https://api.github.com/orgs/<org-name>/teams`
 
 Příklad konfigurace démona `supervisord` pro běh RabbitMQ consumerů je v `/config/supervisor.conf`.
+
+2. spusťte `composer install` (aplikace vyžaduje PHP 7.1, viz [composer.json](/composer.json#L12))
+3. spusťte databázové migrace cmd: `php www/index.php migrations:continue`
 
 ## Vývoj ve Vagrantu
 
