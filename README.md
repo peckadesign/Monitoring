@@ -81,7 +81,7 @@ Cmnd_Alias VAGRANT_HOSTMANAGER_UPDATE = /bin/cp /Users/jmenouzivatele/.vagrant.d
 Url je přímo adresa API rabbitu nebo skriptu (viz remote/rabbitConsumer.php), který přepošle informace z API, pokud není možný vzdálený přístup.
 
 V obou případech je očekáván stejný výstup a to json s informacemi o frontách - /api/queues[/vhost]
-Viz http://hg.rabbitmq.com/rabbitmq-management/raw-file/3646dee55e02/priv/www-api/help.html
+Viz https://rawcdn.githack.com/rabbitmq/rabbitmq-management/rabbitmq_v3_6_10/priv/www/api/index.html
 
 Pro volání API je možné doplnit heslo a login.
 
