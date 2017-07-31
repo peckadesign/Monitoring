@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6166401f71120c4d30dc111758767560",
+    "content-hash": "592ed7616e73018bf7adc7edff70a2af",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -2460,16 +2460,16 @@
     "packages-dev": [
         {
             "name": "pd/coding-standard",
-            "version": "v1.7.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/peckadesign/CodingStandard.git",
-                "reference": "a474474ace658800aea0719656c34372d9af7cdb"
+                "reference": "9b58d6a091ba38cf1c589ecd1f7c6968e3006512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/peckadesign/CodingStandard/zipball/a474474ace658800aea0719656c34372d9af7cdb",
-                "reference": "a474474ace658800aea0719656c34372d9af7cdb",
+                "url": "https://api.github.com/repos/peckadesign/CodingStandard/zipball/9b58d6a091ba38cf1c589ecd1f7c6968e3006512",
+                "reference": "9b58d6a091ba38cf1c589ecd1f7c6968e3006512",
                 "shasum": ""
             },
             "require": {
@@ -2489,7 +2489,7 @@
                 }
             ],
             "description": "Coding standard pro PeckaDesign",
-            "time": "2017-03-31T10:31:14+00:00"
+            "time": "2017-07-31T07:18:50+00:00"
         },
         {
             "name": "slevomat/coding-standard",

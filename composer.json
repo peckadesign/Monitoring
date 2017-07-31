@@ -36,7 +36,7 @@
 		"nextras/forms": "2.0.*"
 	},
 	"require-dev": {
-		"pd/coding-standard": "1.7.0"
+		"pd/coding-standard": "1.8.0"
 	},
 	"minimum-stability": "stable",
 	"autoload": {
