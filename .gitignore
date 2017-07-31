@@ -1,6 +1,7 @@
 /vendor
 /app/config/config.local.neon
 /.vagrant
+/node_modules
 
 !.gitignore
 !.htaccess

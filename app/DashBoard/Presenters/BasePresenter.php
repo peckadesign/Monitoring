@@ -11,6 +11,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 	use TSecuredPresenter;
 	use Pd\Monitoring\DashBoard\Controls\LastRefresh\TFactory;
+	use Pd\Monitoring\DashBoard\Controls\Settings\TFactory;
 
 	const FLASH_MESSAGE_SUCCESS = 'success';
 	const FLASH_MESSAGE_INFO = 'info';

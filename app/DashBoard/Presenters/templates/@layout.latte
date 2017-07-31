@@ -9,6 +9,9 @@
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+		<link rel="stylesheet" type="text/css" href="{$baseUri}/styles/datagrid.css">
+		<link rel="stylesheet" type="text/css" href="{$baseUri}/styles/datagrid-spinners.css">
+
 		<style>
 			body {
 				padding-top: 60px;
@@ -40,6 +43,7 @@
 					<a class="navbar-brand" n:href=":DashBoard:HomePage:"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Pecka Monitoring<sup>beta</sup></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse navbar-right">
+					{control settings}
 					{control lastRefresh}
 					{control logout}
 				</div>
@@ -75,7 +79,11 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="{$baseUri}/js/lastrefresh.js"></script>
 		<script src="{$baseUri}/js/nette.ajax.js"></script>
+		<script src="{$baseUri}/js/netteForms.min.js"></script>
 		<script src="{$baseUri}/js/main.js"></script>
+
+		<script src="{$baseUri}/js/datagrid.js"></script>
+		<script src="{$baseUri}/js/datagrid-spinners.js"></script>
 
 	</body>
 </html>

@@ -1,0 +1,5 @@
+{if $user->isAllowed('user', 'edit')}
+	<a href="{plink :DashBoard:User:default}" class="glyphicon glyphicon-cog btn btn-warning navbar-btn" aria-hidden="true"></a>
+{else}
+	<a href="{plink :DashBoard:User:edit, $user->id}" class="glyphicon glyphicon-cog btn btn-warning navbar-btn" aria-hidden="true"></a>
+{/if}
