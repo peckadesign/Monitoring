@@ -11,6 +11,8 @@ use Tracy;
 class LoginPresenter extends Nette\Application\UI\Presenter
 {
 
+	use Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
+
 	/**
 	 * @var Kdyby\Github\Client
 	 */
