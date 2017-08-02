@@ -225,3 +225,6 @@ services:
 
 	-
 		class: Pd\Monitoring\DashBoard\Controls\DataGridFactory
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\Favicons\IFactory
