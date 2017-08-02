@@ -11,24 +11,12 @@ class FeedCheck extends Check
 	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		$this->logInfo(
-			$check,
-			sprintf(
-				'Proběhne kontrola feedu %s (%s) pro projekt %s',
-				$check->url,
-				$check->fullName,
-				$check->project->name
-			)
-		);
-
 		$ch = curl_init($check->url);
 		curl_setopt($ch, CURLOPT_HEADER, TRUE);    // we want headers
 		curl_setopt($ch, CURLOPT_NOBODY, TRUE);    // we don't need body
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 		$output = curl_exec($ch);
-
-		$this->logInfo($check, 'Stažené hlavičky pro stavový kód ' . curl_getinfo($ch, CURLINFO_HTTP_CODE), ['headers' => $output]);
 
 		$check->lastModified = NULL;
 		if (curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
