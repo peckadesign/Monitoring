@@ -25,14 +25,20 @@ class FeedCheckProcessor implements ICheckControlProcessor
 		$form
 			->addText('url', 'Adresa')
 			->setRequired(TRUE)
+			->setAttribute('placeholder', 'https://www.example.com/feed.xml')
+			->addRule(\Nette\Forms\Form::URL)
 		;
 		$form
 			->addText('size', 'Minimální velikost v MB')
 			->setRequired(TRUE)
+			->addRule(\Nette\Forms\Form::FLOAT)
+			->setAttribute('placeholder', '12.5')
 		;
 		$form
 			->addText('maximumAge', 'Maximální stáří feedu v hodinách')
 			->setRequired(TRUE)
+			->addRule(\Nette\Forms\Form::INTEGER)
+			->setType('number')
 		;
 	}
 

@@ -23,6 +23,7 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 		$form
 			->addText('url', 'URL')
 			->setRequired(TRUE)
+			->setAttribute('placeholder', 'https://www.example.com')
 		;
 	}
 }
