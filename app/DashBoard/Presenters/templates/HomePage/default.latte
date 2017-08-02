@@ -21,12 +21,18 @@
 		{/foreach}
 	</div>
 
-	<p><a n:href="Project:add" class="btn btn-success" n:if="$user->isAllowed('project', 'add')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat nový projekt</a></p>
-
 	{control refresh}
 
 {/block}
 
 {block title}
 	Dashboard
+{/block}
+
+{block buttons}
+	<div class="buttons">
+		<div class="btn-group">
+			<a n:href="Project:add" class="btn btn-success" n:if="$user->isAllowed('project', 'add')"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Přidat nový projekt</a>
+		</div>
+	</div>
 {/block}
