@@ -1,4 +1,11 @@
+.PHONY: build
 .PHONY: cs
+
+
+build:
+	composer install --no-interaction
+	yarn
+	./node_modules/.bin/gulp
 
 cs:
 	git clean -xdf output.cs

@@ -20,6 +20,11 @@ debconf-set-selections <<< 'mariadb-server-5.5 mysql-server/root_password_again 
 echo "deb http://www.rabbitmq.com/debian/ testing main" > /etc/apt/sources.list.d/rabbitmq.list
 wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc -q -O - | apt-key add -
 
+curl -sL https://deb.nodesource.com/setup_4.x | bash -
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 apt-get update
 
 apt-get upgrade -y --force-yes
@@ -29,6 +34,8 @@ apt-get install -y --force-yes \
 	vim \
 	mariadb-server \
 	rabbitmq-server \
+	nodejs \
+	yarn \
 	apache2 \
 	php7.1 \
 	libapache2-mod-php7.1 \

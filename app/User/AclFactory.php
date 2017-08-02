@@ -11,6 +11,7 @@ class AclFactory
 
 		$authorizator->addResource('project');
 		$authorizator->addResource('check');
+		$authorizator->addResource('user');
 
 		$authorizator->addRole('user');
 		$authorizator->addRole('administrator', 'user');

@@ -210,3 +210,18 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\EditUser\IFactory
+
+	-
+		class: Pd\Monitoring\DashBoard\Forms\UserEditFormFactory
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\Settings\IFactory
+
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\UserList\IFactory
+
+	-
+		class: Pd\Monitoring\DashBoard\Controls\DataGridFactory
