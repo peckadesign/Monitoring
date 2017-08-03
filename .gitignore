@@ -3,5 +3,7 @@
 /.vagrant
 /node_modules
 
+/output.*
+
 !.gitignore
 !.htaccess
