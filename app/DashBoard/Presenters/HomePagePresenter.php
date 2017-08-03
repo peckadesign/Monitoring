@@ -43,6 +43,7 @@ class HomePagePresenter extends BasePresenter
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository
 	) {
+		parent::__construct();
 		$this->projectControlFactory = $projectControlFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;

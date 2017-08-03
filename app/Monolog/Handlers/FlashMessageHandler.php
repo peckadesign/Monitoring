@@ -29,10 +29,10 @@ class FlashMessageHandler extends Monolog\Handler\AbstractProcessingHandler
 
 	public function __construct(Nette\Application\UI\Control $control, Nette\Security\User $user)
 	{
+		parent::__construct();
 		$this->control = $control;
 		$this->formater = new Monolog\Formatter\LineFormatter('%datetime%: %message%');
 		$this->setFormatter($this->formater);
-		$this->level = Monolog\Logger::DEBUG;
 		$this->user = $user;
 	}
 

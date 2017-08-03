@@ -37,7 +37,8 @@
 		"ublaboo/datagrid": "^5.4"
 	},
 	"require-dev": {
-		"pd/coding-standard": "1.8.0"
+		"pd/coding-standard": "1.8.0",
+		"phpstan/phpstan": "^0.8.0"
 	},
 	"minimum-stability": "stable",
 	"autoload": {
