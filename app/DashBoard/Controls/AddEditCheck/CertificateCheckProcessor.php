@@ -21,13 +21,16 @@ class CertificateCheckProcessor implements ICheckControlProcessor
 	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form)
 	{
 		$form->addGroup($check->getTitle());
-		$form
-			->addText('url', 'Adresa')
+
+		$form['url'] = (new \Pd\Monitoring\DashBoard\Forms\Controls\DomainControl('Doména'))
 			->setRequired(TRUE)
 		;
+
 		$form
 			->addText('daysBeforeWarning', 'Počet dní předem')
 			->setRequired(TRUE)
+			->setType('number')
+			->addRule(\Nette\Forms\Form::INTEGER)
 		;
 	}
 
