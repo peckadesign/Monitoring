@@ -61,6 +61,7 @@ class ProjectPresenter extends BasePresenter
 		\Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory $maintenanceControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory
 	) {
+		parent::__construct();
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->checksRepository = $checksRepository;

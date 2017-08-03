@@ -28,7 +28,7 @@ class RabbitConsumerCheck extends Check
 			$response = $client->request('GET', $check->url, $options);
 
 			if ($response->getStatusCode() !== 200) {
-				throw new \CI\Exception();
+				throw new \Pd\Monitoring\Exception();
 			}
 
 			$queues = \Nette\Utils\Json::decode($response->getBody());

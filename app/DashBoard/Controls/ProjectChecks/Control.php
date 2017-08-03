@@ -31,6 +31,7 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory
 	) {
+		parent::__construct();
 		$this->project = $project;
 		$this->checksRepository = $checksRepository;
 		$this->checkControlFactory = $checkControlFactory;

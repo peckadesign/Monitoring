@@ -32,6 +32,7 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Nette\Security\User $user
 	) {
+		parent::__construct();
 		$this->identity = $identity;
 		$this->userEditFormFactory = $userEditFormFactory;
 		$this->usersRepository = $usersRepository;

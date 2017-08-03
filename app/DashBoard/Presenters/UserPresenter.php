@@ -31,6 +31,7 @@ class UserPresenter extends BasePresenter
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Pd\Monitoring\DashBoard\Controls\UserList\IFactory $userListControlFactory
 	) {
+		parent::__construct();
 		$this->editUserControlFactory = $editUserControlFactory;
 		$this->usersRepository = $usersRepository;
 		$this->userListControlFactory = $userListControlFactory;
