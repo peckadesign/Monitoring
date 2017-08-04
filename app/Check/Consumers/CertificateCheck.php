@@ -40,7 +40,7 @@ class CertificateCheck extends Check
 			}
 
 			$date = $this->dateTimeProvider->getDateTime();
-			$date->setTimestamp($certinfo['validTo_time_t']);
+			$date = $date->setTimestamp($certinfo['validTo_time_t']);
 
 			$check->lastValiddate = $date;
 		} catch (\Exception $e) {
