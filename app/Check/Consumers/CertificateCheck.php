@@ -29,9 +29,15 @@ class CertificateCheck extends Check
 	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
+		set_error_handler(function($code, $message) {
+			restore_error_handler();
+			throw new \Pd\Monitoring\Exception($message, $code);
+		}, E_ALL);
+
 		try {
 			$get = stream_context_create(["ssl" => ["capture_peer_cert" => TRUE]]);
 			$read = stream_socket_client("ssl://" . $check->url . ":443", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $get);
+			restore_error_handler();
 			$cert = stream_context_get_params($read);
 			$certinfo = openssl_x509_parse($cert['options']['ssl']['peer_certificate'], TRUE);
 
