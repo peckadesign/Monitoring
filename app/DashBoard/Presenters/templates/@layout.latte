@@ -53,11 +53,13 @@
 
 		<div class="container">
 
-			{foreach $flashes as $flashMessage}
-				<div class="alert alert-{$flashMessage->type}" role="alert">
-					<span class="alert-link">{$flashMessage->message}</span>
-				</div>
-			{/foreach}
+			{snippet flashMessages}
+				{foreach $flashes as $flashMessage}
+					<div class="alert alert-{$flashMessage->type}" role="alert">
+						<span class="alert-link">{$flashMessage->message}</span>
+					</div>
+				{/foreach}
+			{/snippet}
 
 
 			<div class="row">

@@ -73,6 +73,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$options = [
 			'paused' => FALSE,
 			'this->project->maintenance' => NULL,
+			'this->project->notifications' => TRUE,
 		];
 
 		$checks = $this->checksRepository->findBy($options);

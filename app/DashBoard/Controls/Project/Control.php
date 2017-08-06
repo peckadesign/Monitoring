@@ -103,6 +103,25 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
+	public function handleNotifications()
+	{
+		if ( ! $this->user->isAllowed('project', 'edit')) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
+		$this->project->notifications = ! $this->project->notifications;
+		$this->projectsRepository->persistAndFlush($this->project);
+
+		$this->getPresenter()->flashMessage('Nastavení notifikací bylo uloženo', \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+
+		if ($this->getPresenter()->isAjax()) {
+			$this->redrawControl();
+		} else {
+			$this->redirect('this');
+		}
+	}
+
+
 	public function render()
 	{
 		$this->template->project = $this->project;

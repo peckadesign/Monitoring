@@ -38,6 +38,14 @@ class UserPresenter extends BasePresenter
 	}
 
 
+	public function actionDefault()
+	{
+		if ( ! $this->user->isAllowed('user', 'edit')) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+	}
+
+
 	public function actionEdit(int $id)
 	{
 		if (

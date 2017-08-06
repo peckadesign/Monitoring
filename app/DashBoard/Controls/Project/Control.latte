@@ -1,3 +1,4 @@
+{snippet}
 <div class="panel panel-default">
 	<div class="panel-body">
 		<h2>{if $project->maintenance}<small class="glyphicon glyphicon-fire" aria-hidden="true"></small> {/if}<a href="{plink Project: $project->id}">{$project->name}</a></h2>
@@ -12,13 +13,11 @@
 	</div>
 	<div class="panel-footer">
 		{if $favoriteProject}
-			<a href="{link deleteFavoriteProject!}">
-				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-			</a>
+			<a href="{link deleteFavoriteProject!}"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 		{else}
-			<a href="{link setFavoriteProject!}">
-				<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-			</a>
+			<a href="{link setFavoriteProject!}"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
 		{/if}
+		<a href="{link notifications!}" class="ajax" n:if="$user->isAllowed('project', 'edit')"><span n:class="glyphicon, glyphicon-bell, $project->notifications ?: text-muted" aria-hidden="true"></span></a>
 	</div>
 </div>
+{/snippet}
