@@ -97,8 +97,14 @@ class ProjectPresenter extends BasePresenter
 
 		$form->addText('name', 'Název projektu');
 		$form->addText('url', 'URL projektu');
-		$form->addText('pausedFrom', 'Pozastavení notifikace od [hh:mm]');
-		$form->addText('pausedTo', 'Pozastavení notifikace do [hh:mm]');
+		$form
+			->addText('pausedFrom', 'Pozastavení notifikace od')
+			->setAttribute('placeholder', 'hh:mm')
+		;
+		$form
+			->addText('pausedTo', 'Pozastavení notifikace do')
+			->setAttribute('placeholder', 'hh:mm')
+		;
 
 		$form->addSubmit('save', 'Uložit');
 
