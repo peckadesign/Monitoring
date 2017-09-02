@@ -72,6 +72,7 @@ class Control extends \Nette\Application\UI\Control
 
 		$form->addGroup('Obecné informace');
 		$form->addText('name', 'Vlastní název');
+		$form->addCHeckbox('onlyErrors', 'Hlásit pouze chyby');
 
 		$this->checkControlProcessor->createForm($this->check, $form);
 
@@ -90,6 +91,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->check->project = $this->project;
 
 		$this->check->name = $data['name'];
+		$this->check->onlyErrors = $data['onlyErrors'];
 
 		$this->checkControlProcessor->processEntity($this->check, $data);
 

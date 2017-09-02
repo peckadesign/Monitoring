@@ -13,6 +13,7 @@ namespace Pd\Monitoring\Check;
  * @property string|NULL $name
  * @property string $fullName {virtual}
  * @property string $statusMessage {virtual}
+ * @property bool $onlyErrors {default FALSE}
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck
