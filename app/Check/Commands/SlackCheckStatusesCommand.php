@@ -105,6 +105,9 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 
 			switch ($check->status) {
 				case \Pd\Monitoring\Check\ICheck::STATUS_ALERT:
+					if ($check->onlyErrors) {
+						continue 2;
+					}
 					$color = 'warning';
 					break;
 				case \Pd\Monitoring\Check\ICheck::STATUS_ERROR:
