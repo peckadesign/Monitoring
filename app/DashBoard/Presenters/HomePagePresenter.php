@@ -28,6 +28,16 @@ class HomePagePresenter extends BasePresenter
 	private $usersFavoriteProjects = [];
 
 	/**
+	 * @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository
+	 */
+	private $userSlackNotificationsRepository;
+
+	/**
+	 * @var array|\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications[]
+	 */
+	private $userSlackNotifications = [];
+
+	/**
 	 * @var array|\Pd\Monitoring\Project\Project[]
 	 */
 	private $projects = [];
@@ -41,12 +51,14 @@ class HomePagePresenter extends BasePresenter
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\Project\IFactory $projectControlFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
-		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository
+		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
+		\Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository $userSlackNotificationsRepository
 	) {
 		parent::__construct();
 		$this->projectControlFactory = $projectControlFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;
+		$this->userSlackNotificationsRepository = $userSlackNotificationsRepository;
 	}
 
 
@@ -58,6 +70,13 @@ class HomePagePresenter extends BasePresenter
 		foreach ($favoriteProjects as $favoriteProject) {
 			$this->usersFavoriteProjects[$favoriteProject->project->id] = $favoriteProject;
 			$this->projects[$favoriteProject->project->id] = $favoriteProject->project;
+		}
+
+		$slackNotifications = $this->userSlackNotificationsRepository->findBy(["user" => $this->getUser()->id])->orderBy("this->project->name");
+
+		/** @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications $slackNotifications */
+		foreach ($slackNotifications as $slackNotification) {
+			$this->userSlackNotifications[$slackNotification->project->id] = $slackNotification;
 		}
 
 		$allProjects = $this->projectsRepository->findBy(["id!" => array_keys($this->usersFavoriteProjects)])->orderBy("name");
@@ -79,7 +98,7 @@ class HomePagePresenter extends BasePresenter
 	protected function createComponentProject(): \Nette\Application\UI\Multiplier
 	{
 		$cb = function ($id) {
-			$control = $this->projectControlFactory->create($this->projects[$id], $this->usersFavoriteProjects[$id]?? NULL);
+			$control = $this->projectControlFactory->create($this->projects[$id], $this->usersFavoriteProjects[$id]?? NULL, $this->userSlackNotifications[$id]?? NULL);
 
 			return $control;
 		};
