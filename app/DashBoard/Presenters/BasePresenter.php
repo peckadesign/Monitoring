@@ -56,4 +56,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		return $template;
 	}
 
+
+	public function flashMessage($message, $type = 'info')
+	{
+		if ($this->isAjax()) {
+			$this->redrawControl('flashMessages');
+		}
+
+		return parent::flashMessage($message, $type);
+	}
+
 }

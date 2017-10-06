@@ -105,6 +105,10 @@ class ProjectPresenter extends BasePresenter
 			->addText('pausedTo', 'Pozastavení notifikace do')
 			->setAttribute('placeholder', 'hh:mm')
 		;
+		$form
+			->addCheckbox('notifications', 'Povolené globální notifikace')
+			->setDefaultValue(TRUE)
+		;
 
 		$form->addSubmit('save', 'Uložit');
 
@@ -127,6 +131,7 @@ class ProjectPresenter extends BasePresenter
 		$project->url = $data['url'];
 		$project->pausedFrom = $data['pausedFrom'];
 		$project->pausedTo = $data['pausedTo'];
+		$project->notifications = $data['notifications'];
 
 		$project = $this->projectsRepository->persistAndFlush($project);
 

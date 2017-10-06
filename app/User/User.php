@@ -12,7 +12,9 @@ use Nextras;
  * @property string $gitHubName
  * @property string $gitHubToken
  * @property bool $administrator
+ * @property string $slackId
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$user}
+ * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications[] $userSlackNotifications {1:m \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications::$user}
  */
 class User extends Nextras\Orm\Entity\Entity implements Nette\Security\IIdentity
 {

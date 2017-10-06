@@ -70,6 +70,7 @@ class Control extends \Nette\Application\UI\Control
 	protected function processEditForm(\Nette\Forms\Form $form, array $values)
 	{
 		$this->identity->gitHubName = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_GIT_HUB_NAME];
+		$this->identity->slackId = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_SLACK_ID];
 
 		if (
 			$this->user->isAllowed('user', 'edit')

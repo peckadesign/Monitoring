@@ -2,6 +2,8 @@
 
 namespace Pd\Monitoring\DashBoard\Controls\Project;
 
+use Pd\Monitoring\UserSlackNotifications\UserSlackNotifications;
+
 class Control extends \Nette\Application\UI\Control
 {
 
@@ -14,6 +16,11 @@ class Control extends \Nette\Application\UI\Control
 	 * @var \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject
 	 */
 	private $favoriteProject;
+
+	/**
+	 * @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications
+	 */
+	private $slackNotifications;
 
 	/**
 	 * @var \Nette\Security\User
@@ -31,6 +38,11 @@ class Control extends \Nette\Application\UI\Control
 	private $usersFavoriteProjectsRepository;
 
 	/**
+	 * @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository
+	 */
+	private $userSlackNotificationsRepository;
+
+	/**
 	 * @var \Pd\Monitoring\User\User
 	 */
 	private $userRepository;
@@ -39,19 +51,23 @@ class Control extends \Nette\Application\UI\Control
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject = NULL,
+		\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications $slackNotifications = NULL,
 		\Nette\Security\User $user,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
-		\Pd\Monitoring\User\UsersRepository $userRepository
+		\Pd\Monitoring\User\UsersRepository $userRepository,
+		\Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository $userSlackNotificationsRepository
 
 	) {
 		parent::__construct();
 		$this->project = $project;
 		$this->favoriteProject = $favoriteProject;
+		$this->slackNotifications = $slackNotifications;
 		$this->user = $user;
 		$this->projectsRepository = $projectsRepository;
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;
 		$this->userRepository = $userRepository;
+		$this->userSlackNotificationsRepository = $userSlackNotificationsRepository;
 	}
 
 
@@ -103,6 +119,52 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
+	public function handleNotifications()
+	{
+		if ( ! $this->user->isAllowed('project', 'edit')) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
+		$this->project->notifications = ! $this->project->notifications;
+		$this->projectsRepository->persistAndFlush($this->project);
+
+		$this->getPresenter()->flashMessage('Nastavení notifikací bylo uloženo', \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+
+		if ($this->getPresenter()->isAjax()) {
+			$this->redrawControl();
+		} else {
+			$this->redirect('this');
+		}
+	}
+
+
+	public function handleSetUserSlackNotifications()
+	{
+		if ( ! $this->userSlackNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
+			$slackNotifications = new \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications();
+			$slackNotifications->user = $this->user->identity;
+			$slackNotifications->project = $this->project;
+			$this->userSlackNotificationsRepository->persistAndFlush($slackNotifications);
+			$this->presenter->flashMessage(sprintf('Notifikace k projektu "%s" budou odesílány do osobního kanálu', $slackNotifications->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+		} else {
+			$this->presenter->flashMessage("Tento odběr je již nastaven.", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);
+		}
+		$this->redirect("this");
+	}
+
+
+	public function handleDeleteUserSlackNotifications()
+	{
+		if ($this->userSlackNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
+			$this->userSlackNotificationsRepository->deleteUserSlackNotifications($this->user->identity, $this->project);
+			$this->presenter->flashMessage(sprintf('Notifikace k projektu "%s" byla odebrána', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+		} else {
+			$this->presenter->flashMessage("Tato notifikace už byla odebrána", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);
+		}
+		$this->redirect("this");
+	}
+
+
 	public function render()
 	{
 		$this->template->project = $this->project;
@@ -132,6 +194,8 @@ class Control extends \Nette\Application\UI\Control
 		$this->template->checks = $checks;
 		$this->template->percents = $percents;
 		$this->template->favoriteProject = $this->favoriteProject;
+
+		$this->template->slackNotifications = $this->slackNotifications;
 
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();

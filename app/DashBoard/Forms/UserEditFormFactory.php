@@ -7,6 +7,7 @@ class UserEditFormFactory
 
 	public const FIELD_GIT_HUB_NAME = 'gitHubName';
 	public const FIELD_ADMINISTRATOR = 'administrator';
+	public const FIELD_SLACK_ID = 'slackId';
 
 	/**
 	 * @var Factory
@@ -33,6 +34,7 @@ class UserEditFormFactory
 		$form = $this->factory->create();
 
 		$form->addText(self::FIELD_GIT_HUB_NAME, 'Jméno');
+		$form->addText(self::FIELD_SLACK_ID, 'Slack ID');
 
 		if ($this->user->isAllowed('user', 'edit')) {
 			$form->addCheckbox(self::FIELD_ADMINISTRATOR, 'Administrátor');

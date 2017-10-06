@@ -37,6 +37,11 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	 */
 	private $slackNotifier;
 
+	/**
+	 * @var \Pd\Monitoring\User\UsersRepository
+	 */
+	private $userRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\Slack\Notifier $slackNotifier,
@@ -44,7 +49,8 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		\Nette\Application\LinkGenerator $linkGenerator,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
 		\Monolog\Logger $logger,
-		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository
+		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository,
+		\Pd\Monitoring\User\UsersRepository $usersRepository
 	) {
 		parent::__construct();
 
@@ -54,6 +60,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$this->logger = $logger;
 		$this->slackNotifyLocksRepository = $slackNotifyLocksRepository;
 		$this->slackNotifier = $slackNotifier;
+		$this->userRepository = $usersRepository;
 	}
 
 
@@ -133,7 +140,15 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				$checkStatusMessage ? ': ' . $checkStatusMessage : ''
 			);
 
-			$this->slackNotifier->notify('#monitoring', $message, $color);
+			if ($check->project->notifications) {
+				$this->slackNotifier->notify('#monitoring', $message, $color);
+			}
+
+			foreach ($check->project->userSlackNotifications as $user) {
+				if (($slackId = $user->user->slackId)) {
+					$this->slackNotifier->notify($user->user->slackId, $message, $color);
+				}
+			}
 		}
 
 		return 0;

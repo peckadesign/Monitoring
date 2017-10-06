@@ -1,3 +1,4 @@
+{snippet}
 <div class="panel panel-default">
 	<div class="panel-body">
 		<h2>{if $project->maintenance}<small class="glyphicon glyphicon-fire" aria-hidden="true"></small> {/if}<a href="{plink Project: $project->id}">{$project->name}</a></h2>
@@ -12,13 +13,16 @@
 	</div>
 	<div class="panel-footer">
 		{if $favoriteProject}
-			<a href="{link deleteFavoriteProject!}">
-				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-			</a>
+			<a href="{link deleteFavoriteProject!}"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 		{else}
-			<a href="{link setFavoriteProject!}">
-				<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-			</a>
+			<a href="{link setFavoriteProject!}"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
+		{/if}
+		<a href="{link notifications!}" class="ajax" n:if="$user->isAllowed('project', 'edit')" title="Vypnout / zapnout globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
+		{if $slackNotifications}
+			<a href="{link deleteUserSlackNotifications!}" class="ajax" title="Přestat dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
+		{else}
+			<a href="{link setUserSlackNotifications!}" class="ajax text-muted" title="Dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
 		{/if}
 	</div>
 </div>
+{/snippet}
