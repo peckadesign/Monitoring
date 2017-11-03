@@ -8,7 +8,7 @@ use Nextras;
 /**
  * @method Check getById(int $id)
  * @method Check getBy(array $conds)
- * @method Nextras\Orm\Collection\ICollection|Check[] findAll(array $conditions)
+ * @method Nextras\Orm\Collection\ICollection|Check[] findAll()
  * @method Nextras\Orm\Collection\ICollection|Check[] findBy(array $conditions)
  */
 class ChecksRepository extends Nextras\Orm\Repository\Repository
@@ -24,6 +24,7 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 			CertificateCheck::class,
 			FeedCheck::class,
 			RabbitConsumerCheck::class,
+			RabbitQueueCheck::class,
 		];
 	}
 
@@ -43,6 +44,8 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 					return CertificateCheck::class;
 				case ICheck::TYPE_FEED:
 					return FeedCheck::class;
+				case ICheck::TYPE_RABBIT_QUEUES:
+					return RabbitQueueCheck::class;
 				case ICheck::TYPE_RABBIT_CONSUMERS:
 					return RabbitConsumerCheck::class;
 

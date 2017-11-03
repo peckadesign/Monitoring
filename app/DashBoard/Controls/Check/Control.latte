@@ -39,7 +39,18 @@
 					<li>{$v}: <span class="{if isset($last[$k]) && $last[$k]>=$minimum[$k]}text-success{else}text-danger{/if}"> {if isset($last[$k])}{$last[$k]}{else}-{/if} / {$minimum[$k]}</span></li>
 				{/foreach}
 			</ul>
-					<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+		{elseif $check instanceof Pd\Monitoring\Check\RabbitQueueCheck}
+			<p>API/skript url: <a href="{$check->url}">{$check->url}</a></p>
+			<p>Kontrolované fronty (aktuální/očekávaná):</p>
+			<ul>
+				{var $maximum = $check->getMaximumMessageCount()}
+				{var $last = $check->getLastMessageCount()}
+				{foreach $check->getQueues() as $k => $v}
+					<li>{$v}: <span class="{if isset($last[$k]) && $last[$k]<=$maximum[$k]}text-success{else}text-danger{/if}"> {if isset($last[$k])}{$last[$k]}{else}-{/if} / {$maximum[$k]}</span></li>
+				{/foreach}
+			</ul>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{/if}
 	</div>
 	<div class="panel-footer">
