@@ -34,7 +34,10 @@ class UserEditFormFactory
 		$form = $this->factory->create();
 
 		$form->addText(self::FIELD_GIT_HUB_NAME, 'Jméno');
-		$form->addText(self::FIELD_SLACK_ID, 'Slack ID');
+		$form
+			->addText(self::FIELD_SLACK_ID, 'Slack ID')
+			->setNullable(TRUE)
+		;
 
 		if ($this->user->isAllowed('user', 'edit')) {
 			$form->addCheckbox(self::FIELD_ADMINISTRATOR, 'Administrátor');
