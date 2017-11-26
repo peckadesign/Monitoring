@@ -72,6 +72,9 @@ rabbitmq:
 		dnsCheck:
 			exchange: {name: 'dnsCheck', type: direct}
 			contentType: text/plain
+		dnsCnameCheck:
+			exchange: {name: 'dnsCnameCheck', type: direct}
+			contentType: text/plain
 		certificateCheck:
 			exchange: {name: 'certificateCheck', type: direct}
 			contentType: text/plain
@@ -94,6 +97,10 @@ rabbitmq:
 			exchange: {name: 'dnsCheck', type: direct}
 			queue: {name: 'dnsCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\DnsCheck, process]
+		dnsCnameCheck:
+			exchange: {name: 'dnsCnameCheck', type: direct}
+			queue: {name: 'dnsCnameCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\DnsCnameCheck, process]
 		certificateCheck:
 			exchange: {name: 'certificateCheck', type: direct}
 			queue: {name: 'certificateCheck'}
@@ -142,6 +149,9 @@ services:
 		class: Pd\Monitoring\Check\Consumers\DnsCheck
 
 	-
+		class: Pd\Monitoring\Check\Consumers\DnsCnameCheck
+
+	-
 		class: Pd\Monitoring\Check\Consumers\CertificateCheck
 
 	-
@@ -177,6 +187,13 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('dnsCheck')
+
+	-
+		class: Pd\Monitoring\Check\Commands\Publish\DnsCnameChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @Kdyby\RabbitMq\Connection::getProducer('dnsCnameCheck')
 
 	-
 		class: Pd\Monitoring\Check\Commands\Publish\CertificateChecksCommand

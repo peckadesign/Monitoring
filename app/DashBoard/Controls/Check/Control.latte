@@ -17,6 +17,11 @@
 			<p>Očekávaná IP: {$check->ip}</p>
 			<p>Zjištěná IP: {if $check->lastIp}{$check->lastIp}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+		{elseif $check instanceof Pd\Monitoring\Check\DnsCnameCheck}
+			<p>Testovaná adresa: <a href="{$check->url}">{$check->url}</a></p>
+			<p>Očekávaný cíl: {$check->target}</p>
+			<p>Zjištěný cíl: {if $check->lastTarget}{$check->lastTarget}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\CertificateCheck}
 			<p>Testovaná adresa: <a href="{$check->url}">{$check->url}</a></p>
 			<p>Varování předem: {$check->daysBeforeWarning} dní</p>
