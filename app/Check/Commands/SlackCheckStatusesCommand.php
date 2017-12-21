@@ -140,13 +140,17 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				$checkStatusMessage ? ': ' . $checkStatusMessage : ''
 			);
 
+			$buttons = [
+				new \Pd\Monitoring\Slack\Button('pause', 'Pozastavit kontrolu', $this->linkGenerator->link('DashBoard:Slack:pause', [$check->id])),
+			];
+
 			if ($check->project->notifications) {
-				$this->slackNotifier->notify('#monitoring', $message, $color);
+				$this->slackNotifier->notify('#monitoring', $message, $color, $buttons);
 			}
 
 			foreach ($check->project->userSlackNotifications as $user) {
 				if (($slackId = $user->user->slackId)) {
-					$this->slackNotifier->notify($user->user->slackId, $message, $color);
+					$this->slackNotifier->notify($user->user->slackId, $message, $color, $buttons);
 				}
 			}
 		}
