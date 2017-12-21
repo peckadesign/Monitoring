@@ -32,7 +32,10 @@ class Notifier
 	}
 
 
-	public function notify(string $channel, string $message, string $color)
+	/**
+	 * @param array|Button[] $buttons
+	 */
+	public function notify(string $channel, string $message, string $color, array $buttons): void
 	{
 		$payload = [
 			'channel' => $channel,
@@ -46,6 +49,10 @@ class Notifier
 				],
 			],
 		];
+
+		foreach ($buttons as $button) {
+			$payload['attachments'][0]['actions'][] = ['type' => 'button', 'name' => $button->getName(), 'text' => $button->getText(), 'url' => $button->getUrl()];
+		}
 
 		$options = [
 			'json' => $payload,
