@@ -54,10 +54,26 @@ class FeedCheck extends Check
 	{
 		$message = [];
 		if ( ! $this->lastModifiedControl()) {
-			$message[] = sprintf('Datum poslední změny %s.', ( ! $this->lastModified ? 'se nepodařilo zjistit' : 'je ' . $this->lastModified->format('Y-m-d H:i:s')));
+			if ( ! $this->lastModified) {
+				$errorMessage = 'se nepodařilo zjistit';
+			} else {
+				$errorMessage = sprintf(
+					'je %s. Maximální povolené stáří %s %u %s',
+					\Pd\Monitoring\Utils\Helpers::dateTime($this->lastModified),
+					\Pd\Monitoring\Utils\Helpers::plural($this->maximumAge, 'je', 'je', 'jsou'),
+					$this->maximumAge,
+					\Pd\Monitoring\Utils\Helpers::plural($this->maximumAge, 'hodin', 'hodina', 'hodiny')
+				);
+			}
+			$message[] = sprintf('Datum poslední změny %s.', $errorMessage);
 		}
 		if ( ! $this->lastSizeControl()) {
-			$message[] = sprintf('Velikost feedu %s.', ( ! $this->lastSize ? 'se nepodařilo zjistit' : 'je ' . \Latte\Runtime\Filters::bytes($this->lastSize)));
+			if ( ! $this->lastSize) {
+				$errorMessage = 'se nepodařilo zjistit';
+			} else {
+				$errorMessage = sprintf('je %s. Minimální musí být %s', \Latte\Runtime\Filters::bytes($this->lastSize), \Latte\Runtime\Filters::bytes($this->size * 1024 * 1024));
+			}
+			$message[] = sprintf('Velikost feedu %s.', $errorMessage);
 		}
 
 		return implode(' ', $message);
@@ -74,4 +90,5 @@ class FeedCheck extends Check
 	{
 		return $this->lastModified >= $this->dateTimeProvider->getDateTime()->sub(new \DateInterval('PT' . $this->maximumAge . 'H'));
 	}
+
 }
