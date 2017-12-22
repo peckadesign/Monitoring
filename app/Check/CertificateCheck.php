@@ -39,7 +39,7 @@ class CertificateCheck extends Check
 
 	public function getterStatusMessage(): string
 	{
-		return '';
+		return $this->lastValiddate ? sprintf('Vyprší %s.', \Pd\Monitoring\Utils\Helpers::dateTime($this->lastValiddate)) : 'Nepodařilo se zjistit platnost certifikátu.';
 	}
 
 
