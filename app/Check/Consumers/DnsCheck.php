@@ -18,8 +18,11 @@ class DnsCheck extends Check
 			return FALSE;
 		}
 
-		$entry = array_shift($entries);
-		$check->lastIp = $entry['ip'];
+		$ips = [];
+		foreach ($entries as $entry) {
+			$ips[] = $entry['ip'];
+		}
+		$check->lastIp = \Pd\Monitoring\Check\DnsCheck::normalizeIpList(implode(',', $ips));
 		return TRUE;
 	}
 
