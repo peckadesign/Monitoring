@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "574d300aaf1e15c56db802aa7ef2f7a4",
+    "content-hash": "eac0b478fca7e904e1e7d2165edc5fb8",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -471,7 +471,7 @@
                 "nette",
                 "sdk"
             ],
-            "time": "2017-05-11 23:11:28"
+            "time": "2017-05-11T23:11:28+00:00"
         },
         {
             "name": "kdyby/monolog",
@@ -631,7 +631,7 @@
                 "rabbit",
                 "rabbitmq"
             ],
-            "time": "2017-05-20 15:08:57"
+            "time": "2017-05-20T15:08:57+00:00"
         },
         {
             "name": "kdyby/strict-objects",
@@ -2905,16 +2905,16 @@
         },
         {
             "name": "pd/coding-standard",
-            "version": "v1.8.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/peckadesign/CodingStandard.git",
-                "reference": "9b58d6a091ba38cf1c589ecd1f7c6968e3006512"
+                "reference": "c5ede47f1b6cd843644ed087bc9e88542dd4fc67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/peckadesign/CodingStandard/zipball/9b58d6a091ba38cf1c589ecd1f7c6968e3006512",
-                "reference": "9b58d6a091ba38cf1c589ecd1f7c6968e3006512",
+                "url": "https://api.github.com/repos/peckadesign/CodingStandard/zipball/c5ede47f1b6cd843644ed087bc9e88542dd4fc67",
+                "reference": "c5ede47f1b6cd843644ed087bc9e88542dd4fc67",
                 "shasum": ""
             },
             "require": {
@@ -2934,7 +2934,7 @@
                 }
             ],
             "description": "Coding standard pro PeckaDesign",
-            "time": "2017-07-31T07:18:50+00:00"
+            "time": "2017-10-08T12:52:11+00:00"
         },
         {
             "name": "phpstan/phpstan",

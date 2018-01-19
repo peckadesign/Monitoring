@@ -14,10 +14,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	use Pd\Monitoring\DashBoard\Controls\Settings\TFactory;
 	use Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
 
-	const FLASH_MESSAGE_SUCCESS = 'success';
-	const FLASH_MESSAGE_INFO = 'info';
-	const FLASH_MESSAGE_WARNING = 'warning';
-	const FLASH_MESSAGE_ERROR = 'danger';
+	public const FLASH_MESSAGE_SUCCESS = 'success';
+	public const FLASH_MESSAGE_INFO = 'info';
+	public const FLASH_MESSAGE_WARNING = 'warning';
+	public const FLASH_MESSAGE_ERROR = 'danger';
 
 	/**
 	 * @var Pd\Monitoring\DashBoard\Controls\Logout\IFactory

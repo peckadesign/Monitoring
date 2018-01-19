@@ -10,7 +10,7 @@ namespace Pd\Monitoring\Check;
 class AliveCheck extends Check
 {
 
-	const ALIVE_TIMEOUT = 5000;
+	public const ALIVE_TIMEOUT = 5000;
 
 
 	public function __construct()
