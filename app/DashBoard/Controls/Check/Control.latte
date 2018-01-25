@@ -21,6 +21,8 @@
 			<p>Testovaná adresa: <a href="{$check->url}">{$check->url}</a></p>
 			<p>Varování předem: {$check->daysBeforeWarning} dní</p>
 			<p>Platnost do: {if $check->lastValiddate}{$check->lastValiddate|datetime}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Očekávaná známka na SSL Labs: {if $check->grade}{$check->grade}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Aktuální známka na SSL Labs: {if $check->lastGrade}{$check->lastGrade}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\FeedCheck}
 			<p>Adresa feedu: <a href="{$check->url}">{$check->url}</a></p>

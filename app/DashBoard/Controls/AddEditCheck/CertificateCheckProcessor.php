@@ -9,6 +9,7 @@ class CertificateCheckProcessor implements ICheckControlProcessor
 	{
 		$check->url = $data['url'];
 		$check->daysBeforeWarning = $data['daysBeforeWarning'];
+		$check->grade = $data['grade'];
 	}
 
 
@@ -31,6 +32,11 @@ class CertificateCheckProcessor implements ICheckControlProcessor
 			->setRequired(TRUE)
 			->setType('number')
 			->addRule(\Nette\Forms\Form::INTEGER)
+		;
+
+		$form
+			->addSelect('grade', 'Očekávaná známka na SSL Labs', array_combine(\Pd\Monitoring\Check\CertificateCheck::GRADES, \Pd\Monitoring\Check\CertificateCheck::GRADES))
+			->setPrompt('Vyberte známku')
 		;
 	}
 
