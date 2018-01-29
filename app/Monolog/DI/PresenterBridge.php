@@ -2,22 +2,16 @@
 
 namespace Pd\Monitoring\Monolog\DI;
 
-use Pd;
-use Kdyby;
-use Monolog;
-use Nette;
-
-
 class PresenterBridge
 {
 
 	/**
-	 * @var Monolog\Logger
+	 * @var \Monolog\Logger
 	 */
 	private $logger;
 
 	/**
-	 * @var Nette\Security\User
+	 * @var \Nette\Security\User
 	 */
 	private $user;
 
@@ -29,8 +23,8 @@ class PresenterBridge
 
 	public function __construct(
 		array $allowedTypes,
-		Kdyby\Monolog\Logger $logger,
-		Nette\Security\User $user
+		\Kdyby\Monolog\Logger $logger,
+		\Nette\Security\User $user
 	) {
 		$this->allowedTypes = $allowedTypes;
 		$this->logger = $logger;
@@ -38,7 +32,7 @@ class PresenterBridge
 	}
 
 
-	public function onPresenter(Nette\Application\Application $application, Nette\Application\IPresenter $presenter): void
+	public function onPresenter(\Nette\Application\Application $application, \Nette\Application\IPresenter $presenter): void
 	{
 		$success = FALSE;
 		foreach ($this->allowedTypes as $allowedType) {
@@ -49,7 +43,7 @@ class PresenterBridge
 			return;
 		}
 
-		$handler = new Pd\Monitoring\Monolog\Handlers\FlashMessageHandler($presenter, $this->user);
+		$handler = new \Pd\Monitoring\Monolog\Handlers\FlashMessageHandler($presenter, $this->user);
 		$this->logger->pushHandler($handler);
 	}
 

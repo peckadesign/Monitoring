@@ -2,20 +2,17 @@
 
 namespace Pd\Monitoring\DashBoard\Controls\Logout;
 
-use Nette;
-
-
-class Control extends Nette\Application\UI\Control
+class Control extends \Nette\Application\UI\Control
 {
 
 	/**
-	 * @var Nette\Security\User
+	 * @var \Nette\Security\User
 	 */
 	private $user;
 
 
 	public function __construct(
-		Nette\Security\User $user
+		\Nette\Security\User $user
 	) {
 		parent::__construct();
 		$this->user = $user;

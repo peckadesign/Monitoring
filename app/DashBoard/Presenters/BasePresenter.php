@@ -2,17 +2,13 @@
 
 namespace Pd\Monitoring\DashBoard\Presenters;
 
-use Nette;
-use Pd;
-
-
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {
 
-	use Pd\Monitoring\DashBoard\TSecuredComponent;
-	use Pd\Monitoring\DashBoard\Controls\LastRefresh\TFactory;
-	use Pd\Monitoring\DashBoard\Controls\Settings\TFactory;
-	use Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
+	use \Pd\Monitoring\DashBoard\TSecuredComponent;
+	use \Pd\Monitoring\DashBoard\Controls\LastRefresh\TFactory;
+	use \Pd\Monitoring\DashBoard\Controls\Settings\TFactory;
+	use \Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
 
 	public const FLASH_MESSAGE_SUCCESS = 'success';
 	public const FLASH_MESSAGE_INFO = 'info';
@@ -20,26 +16,26 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public const FLASH_MESSAGE_ERROR = 'danger';
 
 	/**
-	 * @var Pd\Monitoring\DashBoard\Controls\Logout\IFactory
+	 * @var \Pd\Monitoring\DashBoard\Controls\Logout\IFactory
 	 */
 	private $logoutControlFactory;
 
 	/**
-	 * @var Pd\Monitoring\User\UsersRepository
+	 * @var \Pd\Monitoring\User\UsersRepository
 	 */
 	private $usersRepository;
 
 
 	public function injectServices(
-		Pd\Monitoring\DashBoard\Controls\Logout\IFactory $logoutControlFactory,
-		Pd\Monitoring\User\UsersRepository $usersRepository
+		\Pd\Monitoring\DashBoard\Controls\Logout\IFactory $logoutControlFactory,
+		\Pd\Monitoring\User\UsersRepository $usersRepository
 	) {
 		$this->logoutControlFactory = $logoutControlFactory;
 		$this->usersRepository = $usersRepository;
 	}
 
 
-	protected function createComponentLogout() : Pd\Monitoring\DashBoard\Controls\Logout\Control
+	protected function createComponentLogout(): \Pd\Monitoring\DashBoard\Controls\Logout\Control
 	{
 		return $this->logoutControlFactory->create();
 	}

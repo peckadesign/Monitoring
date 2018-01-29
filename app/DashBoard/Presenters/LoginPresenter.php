@@ -2,19 +2,13 @@
 
 namespace Pd\Monitoring\DashBoard\Presenters;
 
-use Pd;
-use Kdyby;
-use Nette;
-use Tracy;
-
-
-class LoginPresenter extends Nette\Application\UI\Presenter
+class LoginPresenter extends \Nette\Application\UI\Presenter
 {
 
-	use Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
+	use \Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
 
 	/**
-	 * @var Kdyby\Github\Client
+	 * @var \Kdyby\Github\Client
 	 */
 	private $github;
 
@@ -25,7 +19,7 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 	public $backLink;
 
 	/**
-	 * @var Pd\Monitoring\User\UsersRepository
+	 * @var \Pd\Monitoring\User\UsersRepository
 	 */
 	private $users;
 
@@ -37,8 +31,8 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 
 	public function __construct(
 		int $administratorTeamId,
-		Kdyby\Github\Client $gitHub,
-		Pd\Monitoring\User\UsersRepository $users
+		\Kdyby\Github\Client $gitHub,
+		\Pd\Monitoring\User\UsersRepository $users
 	) {
 		parent::__construct();
 		$this->administratorTeamId = $administratorTeamId;
@@ -47,12 +41,12 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 	}
 
 
-	protected function createComponentGitHubLogin() : Kdyby\Github\UI\LoginDialog
+	protected function createComponentGitHubLogin(): \Kdyby\Github\UI\LoginDialog
 	{
-		$dialog = new Kdyby\Github\UI\LoginDialog($this->github);
+		$dialog = new \Kdyby\Github\UI\LoginDialog($this->github);
 
-		$dialog->onResponse[] = function (Kdyby\Github\UI\LoginDialog $dialog) {
-			/** @var Kdyby\Github\Client $gitHub */
+		$dialog->onResponse[] = function (\Kdyby\Github\UI\LoginDialog $dialog) {
+			/** @var \Kdyby\Github\Client $gitHub */
 			$gitHub = $dialog->getClient();
 
 			if ( ! $gitHub->getUser()) {
@@ -68,7 +62,7 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 					'gitHubId' => $gitHub->getUser(),
 				];
 				if ( ! $user = $this->users->getBy($conditions)) {
-					$user = new Pd\Monitoring\User\User();
+					$user = new \Pd\Monitoring\User\User();
 					$user->gitHubId = $me['id'];
 					$user->gitHubName = $me['name'] ?: $me['login'];
 					$user->administrator = FALSE;
@@ -78,7 +72,7 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 						if ($response->state === 'active') {
 							$user->administrator = TRUE;
 						}
-					} catch (Kdyby\Github\UnknownResourceException $e) {
+					} catch (\Kdyby\Github\UnknownResourceException $e) {
 					}
 				}
 
@@ -86,9 +80,9 @@ class LoginPresenter extends Nette\Application\UI\Presenter
 				$this->users->persistAndFlush($user);
 
 				$this->getUser()->login($user);
-			} catch (Kdyby\Github\ApiException $e) {
+			} catch (\Kdyby\Github\ApiException $e) {
 
-				Tracy\Debugger::log($e, 'github');
+				\Tracy\Debugger::log($e, 'github');
 				$this->flashMessage("Sorry bro, github authentication failed hard.");
 			}
 

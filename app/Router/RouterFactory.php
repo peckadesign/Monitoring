@@ -2,13 +2,10 @@
 
 namespace Pd\Monitoring\Router;
 
-use Nette;
-
-
 class RouterFactory
 {
 
-	use Nette\SmartObject;
+	use \Nette\SmartObject;
 
 	/**
 	 * @var string
@@ -16,33 +13,33 @@ class RouterFactory
 	private $wwwDir;
 
 	/**
-	 * @var Nette\Caching\IStorage
+	 * @var \Nette\Caching\IStorage
 	 */
 	private $storage;
 
 
 	public function __construct(
 		$wwwDir,
-		Nette\Caching\IStorage $storage
+		\Nette\Caching\IStorage $storage
 	) {
 		$this->wwwDir = $wwwDir;
 		$this->storage = $storage;
 	}
 
 
-	public function createRouter() : Nette\Application\IRouter
+	public function createRouter(): \Nette\Application\IRouter
 	{
-		$router = new Nette\Application\Routers\RouteList();
+		$router = new \Nette\Application\Routers\RouteList();
 
 		$metadata = [
 			'module' => 'DashBoard',
 			'presenter' => 'Octocats',
 			'action' => 'default',
 			NULL => [
-				Nette\Application\Routers\Route::FILTER_OUT => function (array $parameters) {
+				\Nette\Application\Routers\Route::FILTER_OUT => function (array $parameters) {
 					if ($parameters['presenter'] === 'Octocats' && $parameters['action'] === 'random') {
 
-						$cache = new Nette\Caching\Cache($this->storage);
+						$cache = new \Nette\Caching\Cache($this->storage);
 
 						$fb = function (&$dp) {
 							$octodexFeedContent = file_get_contents('http://feeds.feedburner.com/Octocats');
@@ -50,7 +47,7 @@ class RouterFactory
 							$octocats = [];
 							foreach ($octodexFeed->entry as $entry) {
 								$imageUrl = (string) $entry->content->div->a->img['src'];
-								if (Nette\Utils\Validators::isUrl($imageUrl)) {
+								if (\Nette\Utils\Validators::isUrl($imageUrl)) {
 									$octocat = substr($imageUrl, strrpos($imageUrl, '/') + 1);
 									$octocats[] = $octocat;
 								}
@@ -72,14 +69,14 @@ class RouterFactory
 				},
 			],
 		];
-		$router[] = new Nette\Application\Routers\Route('https://octodex.github.com/images/<octocat [a-z0-9\.]+>', $metadata);
+		$router[] = new \Nette\Application\Routers\Route('https://octodex.github.com/images/<octocat [a-z0-9\.]+>', $metadata);
 
 		$metadata = [
 			'module' => 'DashBoard',
 			'presenter' => 'HomePage',
 			'action' => 'default',
 		];
-		$router[] = new Nette\Application\Routers\Route('<module>/<presenter>/<action>[/<id>]', $metadata);
+		$router[] = new \Nette\Application\Routers\Route('<module>/<presenter>/<action>[/<id>]', $metadata);
 
 		return $router;
 	}

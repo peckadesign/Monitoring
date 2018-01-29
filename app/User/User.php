@@ -2,10 +2,6 @@
 
 namespace Pd\Monitoring\User;
 
-use Nette;
-use Nextras;
-
-
 /**
  * @property int $id {primary}
  * @property int $gitHubId
@@ -16,7 +12,7 @@ use Nextras;
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$user}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications[] $userSlackNotifications {1:m \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications::$user}
  */
-class User extends Nextras\Orm\Entity\Entity implements Nette\Security\IIdentity
+class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdentity
 {
 
 	public function getId(): int

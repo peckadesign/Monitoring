@@ -2,11 +2,7 @@
 
 namespace Pd\Monitoring\User;
 
-use Nette;
-use Pd;
-
-
-class UserStorage extends Nette\Http\UserStorage
+class UserStorage extends \Nette\Http\UserStorage
 {
 
 	/**
@@ -15,14 +11,14 @@ class UserStorage extends Nette\Http\UserStorage
 	private $user;
 
 	/**
-	 * @var Pd\Monitoring\Orm\Orm
+	 * @var \Pd\Monitoring\Orm\Orm
 	 */
 	private $orm;
 
 
 	public function __construct(
-		Nette\Http\Session $sessionHandler,
-		Pd\Monitoring\Orm\Orm $orm
+		\Nette\Http\Session $sessionHandler,
+		\Pd\Monitoring\Orm\Orm $orm
 	) {
 		parent::__construct($sessionHandler);
 
@@ -30,7 +26,7 @@ class UserStorage extends Nette\Http\UserStorage
 	}
 
 
-	public function setIdentity(Nette\Security\IIdentity $user = NULL)
+	public function setIdentity(\Nette\Security\IIdentity $user = NULL)
 	{
 		if ($user && ! $user instanceof User) {
 			throw new \InvalidArgumentException('Expected instance of ' . User::class);
@@ -38,7 +34,7 @@ class UserStorage extends Nette\Http\UserStorage
 
 		$this->user = $user;
 
-		return parent::setIdentity($user ? new Nette\Security\Identity($user->getId()) : NULL);
+		return parent::setIdentity($user ? new \Nette\Security\Identity($user->getId()) : NULL);
 	}
 
 

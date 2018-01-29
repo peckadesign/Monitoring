@@ -2,11 +2,7 @@
 
 namespace Pd\Monitoring\Monolog\DI;
 
-use Kdyby;
-use Nette;
-
-
-class Extension extends Nette\DI\CompilerExtension
+class Extension extends \Nette\DI\CompilerExtension
 {
 
 	private $defaults = [
@@ -25,19 +21,19 @@ class Extension extends Nette\DI\CompilerExtension
 			->setClass(PresenterBridge::class, [$config['allowedTypes']])
 		;
 
-		$application = $containerBuilder->getDefinition($containerBuilder->getByType(Nette\Application\Application::class));
+		$application = $containerBuilder->getDefinition($containerBuilder->getByType(\Nette\Application\Application::class));
 		$application->addSetup('?->onPresenter[] = ?', ['@self', [$presenterBridge, 'onPresenter']]);
 	}
 
 
-	public function setCompiler(Nette\DI\Compiler $compiler, $name)
+	public function setCompiler(\Nette\DI\Compiler $compiler, $name)
 	{
 		$parent = parent::setCompiler($compiler, $name);
 
-		$monologExtension = new Kdyby\Monolog\DI\MonologExtension();
+		$monologExtension = new \Kdyby\Monolog\DI\MonologExtension();
 		$compiler->addExtension('monolog', $monologExtension);
 
-		$clockExtension = new Kdyby\Clock\DI\ClockExtension();
+		$clockExtension = new \Kdyby\Clock\DI\ClockExtension();
 		$compiler->addExtension('clock', $clockExtension);
 
 		return $parent;

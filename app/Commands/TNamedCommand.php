@@ -2,9 +2,6 @@
 
 namespace Pd\Monitoring\Commands;
 
-use Nette;
-
-
 trait TNamedCommand
 {
 
@@ -17,7 +14,7 @@ trait TNamedCommand
 		$name = str_replace('Command', '', $name);
 		$name = str_replace('\\', ':', $name);
 		$name = str_replace('::', ':', $name);
-		$name = Nette\Utils\Strings::replace($name, '~([^:])([A-Z])~', '$1-$2');
+		$name = \Nette\Utils\Strings::replace($name, '~([^:])([A-Z])~', '$1-$2');
 		$name = strtolower($name);
 		$name = ltrim($name, '-');
 
