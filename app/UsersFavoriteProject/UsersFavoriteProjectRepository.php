@@ -22,7 +22,7 @@ class UsersFavoriteProjectRepository extends \Nextras\Orm\Repository\Repository
 	}
 
 
-	public function deleteFavoriteProject(\Pd\Monitoring\User\User $user, \Pd\Monitoring\Project\Project $project)
+	public function deleteFavoriteProject(\Pd\Monitoring\User\User $user, \Pd\Monitoring\Project\Project $project): void
 	{
 		$entity = $this->getBy(["user" => $user, "project" => $project]);
 		$this->removeAndFlush($entity);

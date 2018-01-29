@@ -62,7 +62,7 @@ class HomePagePresenter extends BasePresenter
 	}
 
 
-	public function actionDefault()
+	public function actionDefault(): void
 	{
 		$favoriteProjects = $this->usersFavoriteProjectsRepository->findBy(["user" => $this->getUser()->id])->orderBy("this->project->name");
 
@@ -88,7 +88,7 @@ class HomePagePresenter extends BasePresenter
 	}
 
 
-	public function renderDefault()
+	public function renderDefault(): void
 	{
 		$this->template->projects = $this->nonFavoriteProjects;
 		$this->template->favoriteProjects = $this->usersFavoriteProjects;

@@ -11,7 +11,7 @@ trait TFactory
 	private $settingsControlFactory;
 
 
-	public function injectSettingsControlFactory(IFactory $factory)
+	public function injectSettingsControlFactory(IFactory $factory): void
 	{
 		$this->settingsControlFactory = $factory;
 	}

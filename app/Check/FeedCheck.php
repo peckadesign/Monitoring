@@ -18,7 +18,7 @@ class FeedCheck extends Check
 	private $dateTimeProvider;
 
 
-	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider)
+	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider): void
 	{
 		$this->dateTimeProvider = $dateTimeProvider;
 	}

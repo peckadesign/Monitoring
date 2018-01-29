@@ -69,7 +69,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
 		/** @var array|Tab[] $tabs */
 		$tabs = [];
@@ -89,7 +89,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createComponentCheck()
+	protected function createComponentCheck(): \Nette\Application\UI\Multiplier
 	{
 		$cb = function ($id) {
 			$check = $this->checksRepository->getById($id);

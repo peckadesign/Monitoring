@@ -10,7 +10,7 @@ use Nette;
 class OctocatsPresenter extends Nette\Application\UI\Presenter
 {
 
-	public function actionRandom()
+	public function actionRandom(): void
 	{
 
 	}

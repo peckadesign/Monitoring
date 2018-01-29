@@ -26,7 +26,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();
@@ -66,7 +66,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleEdit(int $id)
+	public function handleEdit(int $id): void
 	{
 		$this->getPresenter()->redirect(':DashBoard:User:edit', $id);
 	}

@@ -11,7 +11,7 @@ trait TFactory
 	private $refreshControlFactory;
 
 
-	public function injectRefreshControlFactory(IFactory $factory)
+	public function injectRefreshControlFactory(IFactory $factory): void
 	{
 		$this->refreshControlFactory = $factory;
 	}

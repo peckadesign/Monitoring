@@ -25,7 +25,7 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	private $dateTimeProvider;
 
 
-	public function injectBaseDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider)
+	public function injectBaseDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider): void
 	{
 		$this->dateTimeProvider = $dateTimeProvider;
 	}
@@ -45,7 +45,7 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	}
 
 
-	public function getterFullName()
+	public function getterFullName(): string
 	{
 		if ($this->name) {
 			return $this->getTitle() . ' (' . $this->name . ')';

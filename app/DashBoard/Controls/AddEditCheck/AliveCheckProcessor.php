@@ -5,7 +5,7 @@ namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCheck\ICheckControlProcessor
 {
 
-	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data)
+	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
 		$check->url = $data['url'];
 	}
@@ -17,7 +17,7 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 	}
 
 
-	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form)
+	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
 		$form->addGroup($check->getTitle());
 		$form

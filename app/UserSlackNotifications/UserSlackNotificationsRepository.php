@@ -21,7 +21,7 @@ class UserSlackNotificationsRepository extends \Nextras\Orm\Repository\Repositor
 		return (bool) $this->getBy(["user" => $user, "project" => $project]);
 	}
 
-	public function deleteUserSlackNotifications(\Pd\Monitoring\User\User $user,\Pd\Monitoring\Project\Project $project)
+	public function deleteUserSlackNotifications(\Pd\Monitoring\User\User $user,\Pd\Monitoring\Project\Project $project): void
 	{
 		$entity = $this->getBy(["user" => $user, "project" => $project]);
 		$this->removeAndFlush($entity);

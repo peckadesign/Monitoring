@@ -22,7 +22,7 @@ class TermCheck extends Check
 	}
 
 
-	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider)
+	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider): void
 	{
 		$this->dateTimeProvider = $dateTimeProvider;
 	}

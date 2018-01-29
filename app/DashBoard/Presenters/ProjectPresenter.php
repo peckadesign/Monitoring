@@ -74,7 +74,7 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(project, add)
 	 */
-	public function actionAdd()
+	public function actionAdd(): void
 	{
 	}
 
@@ -82,7 +82,7 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(project, add)
 	 */
-	public function actionEdit($id)
+	public function actionEdit(int $id): void
 	{
 		/** @var \Pd\Monitoring\Project\Project project */
 		$this->project = $this->projectsRepository->getById($id);
@@ -120,7 +120,7 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	private function processAddEditForm(\Nette\Forms\Form $form, array $data)
+	private function processAddEditForm(\Nette\Forms\Form $form, array $data): void
 	{
 		if ($this->project) {
 			$project = $this->project;
@@ -139,13 +139,13 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	public function actionDefault(int $id)
+	public function actionDefault(int $id): void
 	{
 		$this->project = $this->projectsRepository->getById($id);
 	}
 
 
-	public function renderDefault()
+	public function renderDefault(): void
 	{
 		$this->template->project = $this->project;
 
@@ -171,7 +171,7 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(check, add)
 	 */
-	public function actionAddCheck(int $id, int $type)
+	public function actionAddCheck(int $id, int $type): void
 	{
 		$this->project = $this->projectsRepository->getById($id);
 		$this->type = $type;
@@ -189,7 +189,7 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(check, edit)
 	 */
-	public function actionEditCheck(int $id, int $checkId)
+	public function actionEditCheck(int $id, int $checkId): void
 	{
 		$this->project = $this->projectsRepository->getById($id);
 		$this->check = $this->checksRepository->getById($checkId);
@@ -208,7 +208,7 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(project, delete)
 	 */
-	public function handleDelete()
+	public function handleDelete(): void
 	{
 		try {
 			$this->projectsRepository->removeAndFlush($this->project);

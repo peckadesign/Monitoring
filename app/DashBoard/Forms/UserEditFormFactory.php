@@ -29,7 +29,7 @@ class UserEditFormFactory
 	}
 
 
-	public function create()
+	public function create(): \Nette\Application\UI\Form
 	{
 		$form = $this->factory->create();
 

@@ -92,7 +92,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleDeleteFavoriteProject()
+	public function handleDeleteFavoriteProject(): void
 	{
 		if ($this->usersFavoriteProjectsRepository->checkIfUserHasFavoriteProject($this->user->identity, $this->project)) {
 			$this->usersFavoriteProjectsRepository->deleteFavoriteProject($this->user->identity, $this->project);
@@ -104,7 +104,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleSetFavoriteProject()
+	public function handleSetFavoriteProject(): void
 	{
 		if ( ! $this->usersFavoriteProjectsRepository->checkIfUserHasFavoriteProject($this->user->identity, $this->project)) {
 			$favoriteProject = new \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject();
@@ -119,7 +119,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleNotifications()
+	public function handleNotifications(): void
 	{
 		if ( ! $this->user->isAllowed('project', 'edit')) {
 			throw new \Nette\Application\ForbiddenRequestException();
@@ -138,7 +138,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleSetUserSlackNotifications()
+	public function handleSetUserSlackNotifications(): void
 	{
 		if ( ! $this->userSlackNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
 			$slackNotifications = new \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications();
@@ -153,7 +153,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleDeleteUserSlackNotifications()
+	public function handleDeleteUserSlackNotifications(): void
 	{
 		if ($this->userSlackNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
 			$this->userSlackNotificationsRepository->deleteUserSlackNotifications($this->user->identity, $this->project);
@@ -165,7 +165,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->project = $this->project;
 

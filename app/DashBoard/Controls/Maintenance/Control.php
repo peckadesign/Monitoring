@@ -65,7 +65,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->project = $this->project;
 
@@ -74,7 +74,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleToggle()
+	public function handleToggle(): void
 	{
 		if ($this->project->maintenance) {
 			$this->project->maintenance = NULL;
@@ -104,7 +104,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	private function processRequest()
+	private function processRequest(): void
 	{
 		if ($this->getPresenter()->isAjax()) {
 			$this->redrawControl();
@@ -114,7 +114,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function addOnToggle(IOnToggle $handler)
+	public function addOnToggle(IOnToggle $handler): void
 	{
 		$this->onToggleHandlers[] = $handler;
 	}

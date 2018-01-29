@@ -5,7 +5,7 @@ namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 class DnsCheckProcessor implements ICheckControlProcessor
 {
 
-	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data)
+	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
 		$check->url = $data['url'];
 		$check->ip = $data['ip'];
@@ -18,7 +18,7 @@ class DnsCheckProcessor implements ICheckControlProcessor
 	}
 
 
-	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form)
+	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
 		$form->addGroup($check->getTitle());
 

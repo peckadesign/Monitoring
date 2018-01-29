@@ -46,7 +46,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->check = $this->check;
 
@@ -55,7 +55,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleDelete()
+	public function handleDelete(): void
 	{
 		$this->checksRepository->removeAndFlush($this->check);
 		$this->getPresenter()->flashMessage('Kontrola byla odebrána', \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
@@ -63,7 +63,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handlePause()
+	public function handlePause(): void
 	{
 		$this->check->paused = ! $this->check->paused;
 		$this->checksRepository->persistAndFlush($this->check);
@@ -72,7 +72,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleRefresh()
+	public function handleRefresh(): void
 	{
 		$this->rabbitConnection->getProducer($this->check->getProducerName())->publish($this->check->id);
 
@@ -80,7 +80,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	private function processRequest()
+	private function processRequest(): void
 	{
 		if ($this->getPresenter()->isAjax()) {
 			$this->redrawControl();

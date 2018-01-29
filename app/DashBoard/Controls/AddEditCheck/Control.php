@@ -59,7 +59,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();
@@ -86,7 +86,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	private function processForm(\Nette\Forms\Form $form, array $data)
+	private function processForm(\Nette\Forms\Form $form, array $data): void
 	{
 		$this->check->project = $this->project;
 

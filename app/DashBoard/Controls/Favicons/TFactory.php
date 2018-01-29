@@ -11,7 +11,7 @@ trait TFactory
 	private $faviconsControlFactory;
 
 
-	public function injectFaviconsControlFactory(IFactory $factory)
+	public function injectFaviconsControlFactory(IFactory $factory): void
 	{
 		$this->faviconsControlFactory = $factory;
 	}

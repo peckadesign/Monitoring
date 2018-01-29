@@ -11,7 +11,7 @@ trait TSecuredPresenter
 	private $authorizator;
 
 
-	public function injectAuthorizator(\Nette\Security\IAuthorizator $authorizator)
+	public function injectAuthorizator(\Nette\Security\IAuthorizator $authorizator): void
 	{
 		$this->authorizator = $authorizator;
 	}

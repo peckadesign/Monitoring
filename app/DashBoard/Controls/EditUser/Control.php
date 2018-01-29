@@ -40,7 +40,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function render()
+	public function render(): void
 	{
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();
@@ -67,7 +67,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function processEditForm(\Nette\Forms\Form $form, array $values)
+	protected function processEditForm(\Nette\Forms\Form $form, array $values): void
 	{
 		$this->identity->gitHubName = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_GIT_HUB_NAME];
 		$this->identity->slackId = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_SLACK_ID];
