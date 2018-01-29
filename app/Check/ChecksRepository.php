@@ -22,6 +22,7 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 			TermCheck::class,
 			DnsCheck::class,
 			CertificateCheck::class,
+			HttpStatusCodeCheck::class,
 			FeedCheck::class,
 			RabbitConsumerCheck::class,
 			RabbitQueueCheck::class,
@@ -42,6 +43,8 @@ class ChecksRepository extends Nextras\Orm\Repository\Repository
 					return DnsCheck::class;
 				case ICheck::TYPE_CERTIFICATE:
 					return CertificateCheck::class;
+				case ICheck::TYPE_HTTP_STATUS_CODE:
+					return HttpStatusCodeCheck::class;
 				case ICheck::TYPE_FEED:
 					return FeedCheck::class;
 				case ICheck::TYPE_RABBIT_QUEUES:

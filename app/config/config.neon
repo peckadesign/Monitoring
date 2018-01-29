@@ -75,6 +75,9 @@ rabbitmq:
 		certificateCheck:
 			exchange: {name: 'certificateCheck', type: direct}
 			contentType: text/plain
+		httpStatusCodeCheck:
+			exchange: {name: 'httpStatusCodeCheck', type: direct}
+			contentType: text/plain
 		feedCheck:
 			exchange: {name: 'feedCheck', type: direct}
 			contentType: text/plain
@@ -98,6 +101,10 @@ rabbitmq:
 			exchange: {name: 'certificateCheck', type: direct}
 			queue: {name: 'certificateCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\CertificateCheck, process]
+		httpStatusCodeCheck:
+			exchange: {name: 'httpStatusCodeCheck', type: direct}
+			queue: {name: 'httpStatusCodeCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\HttpStatusCodeCheck, process]
 		feedCheck:
 			exchange: {name: 'feedCheck', type: direct}
 			queue: {name: 'feedCheck'}
@@ -154,6 +161,9 @@ services:
 		class: Pd\Monitoring\Check\Consumers\RabbitQueueCheck
 
 	-
+		class: Pd\Monitoring\Check\Consumers\HttpStatusCodeCheck
+
+	-
 		class: Pd\Monitoring\User\AclFactory
 
 	-
@@ -206,6 +216,12 @@ services:
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('rabbitQueueCheck')
 
+	-
+		class: Pd\Monitoring\Check\Commands\Publish\HttpStatusCodeChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @Kdyby\RabbitMq\Connection::getProducer('httpStatusCodeCheck')
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory

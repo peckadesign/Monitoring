@@ -9,6 +9,7 @@ interface ICheck
 	public const TYPE_TERM = 1;
 	public const TYPE_DNS = 3;
 	public const TYPE_CERTIFICATE = 4;
+	public const TYPE_HTTP_STATUS_CODE = 5;
 	public const TYPE_FEED = 6;
 	public const TYPE_RABBIT_QUEUES = 7;
 	public const TYPE_RABBIT_CONSUMERS = 8;

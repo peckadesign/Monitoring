@@ -44,6 +44,10 @@ class Factory
 				$control = new Control($project, $check, new CertificateCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_HTTP_STATUS_CODE:
+				$control = new Control($project, $check, new HttpStatusCodeCheckProcessor(), $this->formFactory, $this->checksRepository);
+				break;
+
 			case \Pd\Monitoring\Check\ICheck::TYPE_FEED:
 				$control = new Control($project, $check, new FeedCheckProcessor(), $this->formFactory, $this->checksRepository);
 				break;
