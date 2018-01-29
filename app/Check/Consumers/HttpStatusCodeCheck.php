@@ -16,9 +16,12 @@ class HttpStatusCodeCheck extends Check
 				'allow_redirects' => FALSE,
 			];
 			$client = new \GuzzleHttp\Client($config);
-			$response = $client->request('GET', $check->url);
-			$check->lastCheck = new \DateTime();
-			$check->lastCode = $response->getStatusCode();
+			try {
+				$response = $client->request('GET', $check->url);
+				$check->lastCode = $response->getStatusCode();
+			} catch (\GuzzleHttp\Exception\BadResponseException $e) {
+				$check->lastCode = (int) $e->getCode();
+			}
 
 			return TRUE;
 		} catch (\Throwable $e) {
