@@ -9,7 +9,7 @@ use Pd;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
-	use TSecuredPresenter;
+	use Pd\Monitoring\DashBoard\TSecuredComponent;
 	use Pd\Monitoring\DashBoard\Controls\LastRefresh\TFactory;
 	use Pd\Monitoring\DashBoard\Controls\Settings\TFactory;
 	use Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;

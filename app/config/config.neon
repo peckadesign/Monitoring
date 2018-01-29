@@ -262,3 +262,8 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Favicons\IFactory
+
+
+decorator:
+	Nette\Application\UI\Control:
+		inject: on

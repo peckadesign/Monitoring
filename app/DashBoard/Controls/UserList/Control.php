@@ -5,6 +5,8 @@ namespace Pd\Monitoring\DashBoard\Controls\UserList;
 class Control extends \Nette\Application\UI\Control
 {
 
+	use \Pd\Monitoring\DashBoard\TSecuredComponent;
+
 	/**
 	 * @var \Pd\Monitoring\User\UsersRepository
 	 */
@@ -60,6 +62,13 @@ class Control extends \Nette\Application\UI\Control
 			->setClass('btn btn-warning')
 		;
 
+		$grid
+			->addAction('delete', 'Smazat')
+			->setClass('btn btn-danger')
+			->setDataAttribute('confirm', '')
+		;
+
+
 		$grid->setDataSource($this->usersRepository->findAll());
 
 		return $grid;
@@ -69,6 +78,18 @@ class Control extends \Nette\Application\UI\Control
 	public function handleEdit(int $id): void
 	{
 		$this->getPresenter()->redirect(':DashBoard:User:edit', $id);
+	}
+
+
+	/**
+	 * @Acl(user, delete)
+	 * @throws \Nette\Application\AbortException
+	 */
+	public function handleDelete(int $id): void
+	{
+		$this->usersRepository->removeAndFlush($this->usersRepository->getById($id));
+		$this->getPresenter()->flashMessage('Uživatel byl smazán', \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+		$this->redirect('this');
 	}
 
 }
