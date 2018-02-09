@@ -94,7 +94,7 @@ class Control extends \Nette\Application\UI\Control
 			$action,
 			$this->project->name
 		);
-		$this->notifier->notify('#monitoring', $statusMessage, 'good');
+		$this->notifier->notify('#monitoring', $statusMessage, 'good', []);
 
 		foreach ($this->onToggleHandlers as $handler) {
 			$handler->process($this);
