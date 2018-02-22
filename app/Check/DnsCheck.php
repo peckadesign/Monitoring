@@ -45,12 +45,21 @@ class DnsCheck extends Check
 
 	public function getTitle(): string
 	{
-		return 'Nastavení DNS' . ($this->hasValue('dnsType') ? ' ' . $this->dnsType : '');
+		return 'Nastavení DNS';
 	}
 
 
 	public function getterStatusMessage(): string
 	{
-		return $this->getStatus() === ICheck::STATUS_ALERT ? sprintf('Očekávaná hodnota DNS zázanmu "%s" neodpovídá zjištěnému "%s"', $this->dnsValue, $this->lastDnsValue) : '';
+		return $this->getStatus() === ICheck::STATUS_ALERT ? sprintf('Očekávaná hodnota DNS %s zázanmu "%s" neodpovídá zjištěnému "%s"', $this->dnsType, $this->dnsValue, $this->lastDnsValue) : '';
 	}
+
+
+	public function getterFullName(): string
+	{
+		$name = parent::getterFullName();
+
+		return $name . ' ' . $this->dnsType;
+	}
+
 }
