@@ -4,11 +4,21 @@ namespace Pd\Monitoring\Check;
 
 /**
  * @property string $url
- * @property string $ip
- * @property string|NULL $lastIp
+ * @property string $dnsType {enum self::DNS_TYPE_*}
+ * @property string $dnsValue
+ * @property string|NULL $lastDnsValue
  */
 class DnsCheck extends Check
 {
+
+	public const DNS_TYPE_A = 'A';
+	public const DNS_TYPE_MX = 'MX';
+
+	public static $dnsTypes = [
+		self::DNS_TYPE_A,
+		self::DNS_TYPE_MX,
+	];
+
 
 	public function __construct()
 	{
@@ -19,22 +29,28 @@ class DnsCheck extends Check
 
 	protected function getStatus(): int
 	{
-		if ($this->lastIp === $this->ip) {
-			return ICheck::STATUS_OK;
-		} else {
-			return ICheck::STATUS_ERROR;
+		if (in_array($this->dnsType, [self::DNS_TYPE_A, self::DNS_TYPE_MX], TRUE)) {
+			$lastDnsValue = explode(';', $this->lastDnsValue);
+			sort($lastDnsValue);
+
+			$dnsValue = explode(';', $this->dnsValue);
+			sort($dnsValue);
+
+			return $lastDnsValue != $dnsValue ? ICheck::STATUS_ALERT : ICheck::STATUS_OK;
 		}
+
+		return ICheck::STATUS_ERROR;
 	}
 
 
 	public function getTitle(): string
 	{
-		return 'Nastavení DNS';
+		return 'Nastavení DNS' . ($this->hasValue('dnsType') ? ' ' . $this->dnsType : '');
 	}
 
 
 	public function getterStatusMessage(): string
 	{
-		return $this->lastIp !== $this->ip ? sprintf('Očekávaná IP adresa "%s" neodpovídá zjištěné "%s"', $this->ip, $this->lastIp) : '';
+		return $this->getStatus() === ICheck::STATUS_ALERT ? sprintf('Očekávaná hodnota DNS zázanmu "%s" neodpovídá zjištěnému "%s"', $this->dnsValue, $this->lastDnsValue) : '';
 	}
 }

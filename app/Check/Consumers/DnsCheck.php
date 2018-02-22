@@ -11,15 +11,32 @@ class DnsCheck extends Check
 	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		$check->lastIp = NULL;
+		$check->lastDnsValue = NULL;
 
-		$entries = dns_get_record($check->url, DNS_A);
-		if (!$entries) {
+		$mapping = [
+			\Pd\Monitoring\Check\DnsCheck::DNS_TYPE_A => DNS_A,
+			\Pd\Monitoring\Check\DnsCheck::DNS_TYPE_MX => DNS_MX,
+		];
+
+		$internalDnsType = $mapping[$check->dnsType];
+		$entries = dns_get_record($check->url, $internalDnsType);
+		if ( ! $entries) {
 			return FALSE;
 		}
 
-		$entry = array_shift($entries);
-		$check->lastIp = $entry['ip'];
+		switch ($internalDnsType) {
+			case DNS_A:
+			case DNS_MX:
+				$cb = function (array $parts) {
+					return array_pop($parts);
+				};
+				$entries = array_map($cb, $entries);
+				$check->lastDnsValue = implode(';', $entries);
+				break;
+			default:
+				return FALSE;
+		}
+
 		return TRUE;
 	}
 

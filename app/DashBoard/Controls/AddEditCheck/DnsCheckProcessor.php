@@ -5,10 +5,14 @@ namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 class DnsCheckProcessor implements ICheckControlProcessor
 {
 
+	/**
+	 * @param \Pd\Monitoring\Check\DnsCheck $check
+	 */
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
 		$check->url = $data['url'];
-		$check->ip = $data['ip'];
+		$check->dnsValue = $data['dnsValue'];
+		$check->dnsType = $data['dnsType'];
 	}
 
 
@@ -27,7 +31,12 @@ class DnsCheckProcessor implements ICheckControlProcessor
 		;
 
 		$form
-			->addText('ip', 'IP adresa')
+			->addSelect('dnsType', 'Typ DNS záznamu', array_combine(\Pd\Monitoring\Check\DnsCheck::$dnsTypes, \Pd\Monitoring\Check\DnsCheck::$dnsTypes))
+			->setRequired(TRUE)
+		;
+
+		$form
+			->addText('dnsValue', 'Hodnota DNS záznamu')
 			->setRequired(TRUE)
 		;
 	}
