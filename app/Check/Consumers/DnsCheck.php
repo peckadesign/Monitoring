@@ -16,6 +16,7 @@ class DnsCheck extends Check
 		$mapping = [
 			\Pd\Monitoring\Check\DnsCheck::DNS_TYPE_A => DNS_A,
 			\Pd\Monitoring\Check\DnsCheck::DNS_TYPE_MX => DNS_MX,
+			\Pd\Monitoring\Check\DnsCheck::DNS_TYPE_TXT => DNS_TXT,
 		];
 
 		$internalDnsType = $mapping[$check->dnsType];
@@ -27,6 +28,7 @@ class DnsCheck extends Check
 		switch ($internalDnsType) {
 			case DNS_A:
 			case DNS_MX:
+			case DNS_TXT:
 				$cb = function (array $parts) {
 					return array_pop($parts);
 				};
