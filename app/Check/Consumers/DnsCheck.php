@@ -27,17 +27,26 @@ class DnsCheck extends Check
 
 		switch ($internalDnsType) {
 			case DNS_A:
+				$cb = function (array $parts) {
+					return $parts['ip'];
+				};
+				break;
 			case DNS_MX:
+				$cb = function (array $parts) {
+					return $parts['target'];
+				};
+				break;
 			case DNS_TXT:
 				$cb = function (array $parts) {
-					return array_pop($parts);
+					return $parts['txt'];
 				};
-				$entries = array_map($cb, $entries);
-				$check->lastDnsValue = implode(';', $entries);
 				break;
 			default:
 				return FALSE;
 		}
+
+		$entries = array_map($cb, $entries);
+		$check->lastDnsValue = implode(';', $entries);
 
 		return TRUE;
 	}
