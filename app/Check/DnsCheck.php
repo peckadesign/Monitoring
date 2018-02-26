@@ -31,7 +31,7 @@ class DnsCheck extends Check
 
 	protected function getStatus(): int
 	{
-		if (in_array($this->dnsType, [self::DNS_TYPE_A, self::DNS_TYPE_MX, self::DNS_TYPE_TXT], TRUE)) {
+		if ($this->lastDnsValue && in_array($this->dnsType, [self::DNS_TYPE_A, self::DNS_TYPE_MX, self::DNS_TYPE_TXT], TRUE)) {
 			$lastDnsValue = explode(';', $this->lastDnsValue);
 			sort($lastDnsValue);
 
