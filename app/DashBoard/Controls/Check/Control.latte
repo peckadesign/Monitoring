@@ -14,8 +14,8 @@
 			<p>Termín: {$check->term|dateTime}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\DnsCheck}
 			<p>Testovaná adresa: <a href="{$check->url}">{$check->url}</a></p>
-			<p>Očekávaná hodnota: {$check->dnsValue}</p>
-			<p>Zjištěná hodnota: {if $check->lastDnsValue}{$check->lastDnsValue}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Očekávaná hodnota:<ul><li n:foreach="explode(';', $check->dnsValue) as $value">{$value}</li></ul></p>
+			<p>Zjištěná hodnota: {if $check->lastDnsValue}<ul><li n:foreach="explode(';', $check->lastDnsValue) as $value">{$value}</li></ul>{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\CertificateCheck}
 			<p>Testovaná adresa: <a href="{$check->url}">{$check->url}</a></p>
