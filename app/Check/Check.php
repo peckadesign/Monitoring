@@ -8,6 +8,7 @@ namespace Pd\Monitoring\Check;
  * @property SlackNotifyLock $locks {1:m SlackNotifyLock::$check, cascade=[persist, remove]}
  * @property int $type {enum ICheck::TYPE_*}
  * @property int $status {virtual}
+ * @property bool $awaitingRecovery
  * @property \DateTime|NULL $lastCheck
  * @property bool $paused {default TRUE}
  * @property string|NULL $name
@@ -36,6 +37,7 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 		parent::__construct();
 
 		$this->status = ICheck::STATUS_ERROR;
+		$this->awaitingRecovery = FALSE;
 	}
 
 

@@ -2,6 +2,8 @@
 
 namespace Pd\Monitoring\Check\Commands;
 
+use Pd\Monitoring\Check\ICheck;
+
 class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Command
 {
 
@@ -97,6 +99,24 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				}
 			}
 
+			$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project->id]);
+			$checkStatusMessage = $check->statusMessage;
+
+			if ($check->awaitingRecovery && $check->status === ICheck::STATUS_OK) {
+				$message = sprintf(
+					'Pro <%s|projekt %s> se kontrola vrátila do normálu: %s%s',
+					$url,
+					$check->project->name,
+					$check->fullName,
+					$checkStatusMessage ? ': ' . $checkStatusMessage : ''
+				);
+
+				$this->slackNotifier->notify($message, 'good');
+				$check->awaitingRecovery = FALSE;
+				$this->checksRepository->persistAndFlush($check);
+				continue;
+			}
+
 			$conditions = [
 				'check' => $check,
 			];
@@ -107,8 +127,6 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			if ($lastLock && $lastLock->status === $check->status && $lastLock->locked >= $this->dateTimeProvider->getDateTime()->sub(new \DateInterval('PT60M'))) {
 				continue;
 			}
-
-			$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project->id]);
 
 			switch ($check->status) {
 				case \Pd\Monitoring\Check\ICheck::STATUS_ALERT:
@@ -128,9 +146,10 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			$lock->locked = $this->dateTimeProvider->getDateTime();
 			$lock->status = $check->status;
 			$lock->check = $check;
-			$this->slackNotifyLocksRepository->persistAndFlush($lock);
+			$this->slackNotifyLocksRepository->persist($lock);
 
-			$checkStatusMessage = $check->statusMessage;
+			$check->awaitingRecovery = TRUE;
+			$this->checksRepository->persistAndFlush($check);
 
 			$message = sprintf(
 				'Pro <%s|projekt %s> je zaznamenán problém v kontrole %s%s',
