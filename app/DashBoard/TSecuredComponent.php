@@ -29,8 +29,8 @@ trait TSecuredComponent
 		}
 
 		$acl = (array) \Nette\Application\UI\ComponentReflection::parseAnnotation($element, 'Acl');
-		if (count($acl) && reset($acl) !== FALSE) {
-			if (count($acl) !== 2) {
+		if (\count($acl) && \reset($acl) !== FALSE) {
+			if (\count($acl) !== 2) {
 				throw new \InvalidArgumentException('Není uvedeno privilege');
 			}
 			$resource = $acl[0];
@@ -38,7 +38,7 @@ trait TSecuredComponent
 			$this->authorizator->hasResource($resource);
 
 			if ( ! $user->isAllowed($resource, $privilege)) {
-				$message = sprintf(
+				$message = \sprintf(
 					"Uživatel '%s' nemá oprávnění pro zdroj '%s'",
 					$user->gitHubName,
 					$resource

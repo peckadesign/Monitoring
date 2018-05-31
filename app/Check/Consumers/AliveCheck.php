@@ -25,14 +25,14 @@ class AliveCheck extends Check
 		];
 
 		try {
-			$start = (float) microtime(TRUE);
+			$start = (float) \microtime(TRUE);
 
-			$this->logInfo($check, sprintf('Začínám stahovat url "%s" v čase %f', $check->url, $start));
+			$this->logInfo($check, \sprintf('Začínám stahovat url "%s" v čase %f', $check->url, $start));
 
 			$response = $client->request('GET', $check->url, $options);
-			$duration = (microtime(TRUE) - $start) * 1000;
+			$duration = (\microtime(TRUE) - $start) * 1000;
 
-			$this->logInfo($check, sprintf('Staženo za %f ms, návratový kód %u', $duration, $response->getStatusCode()));
+			$this->logInfo($check, \sprintf('Staženo za %f ms, návratový kód %u', $duration, $response->getStatusCode()));
 
 			if ($response->getStatusCode() === 200) {
 				$check->lastTimeout = $duration;

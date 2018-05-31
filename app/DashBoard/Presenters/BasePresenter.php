@@ -20,18 +20,11 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	 */
 	private $logoutControlFactory;
 
-	/**
-	 * @var \Pd\Monitoring\User\UsersRepository
-	 */
-	private $usersRepository;
-
 
 	public function injectServices(
-		\Pd\Monitoring\DashBoard\Controls\Logout\IFactory $logoutControlFactory,
-		\Pd\Monitoring\User\UsersRepository $usersRepository
+		\Pd\Monitoring\DashBoard\Controls\Logout\IFactory $logoutControlFactory
 	) {
 		$this->logoutControlFactory = $logoutControlFactory;
-		$this->usersRepository = $usersRepository;
 	}
 
 
@@ -45,7 +38,7 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	{
 		$template = parent::createTemplate();
 
-		$template->addFilter('dateTime', function (\DateTime $s) {
+		$template->addFilter('dateTime', function (\DateTimeImmutable $s) {
 			return $s->format('j. n. Y H:i:s');
 		});
 

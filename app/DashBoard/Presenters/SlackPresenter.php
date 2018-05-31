@@ -10,19 +10,12 @@ final class SlackPresenter extends BasePresenter
 	 */
 	private $checksRepository;
 
-	/**
-	 * @var \Pd\Monitoring\Slack\Notifier
-	 */
-	private $notifier;
-
 
 	public function __construct(
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\Slack\Notifier $notifier
+		\Pd\Monitoring\Check\ChecksRepository $checksRepository
 	) {
 		parent::__construct();
 		$this->checksRepository = $checksRepository;
-		$this->notifier = $notifier;
 	}
 
 

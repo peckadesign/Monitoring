@@ -14,10 +14,9 @@ class CertificateCheck extends Check
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
-		\Pd\Monitoring\Orm\Orm $orm,
 		\Monolog\Logger $logger
 	) {
-		parent::__construct($checksRepository, $dateTimeProvider, $orm, $logger);
+		parent::__construct($checksRepository, $dateTimeProvider, $logger);
 
 		$this->dateTimeProvider = $dateTimeProvider;
 	}
@@ -29,18 +28,18 @@ class CertificateCheck extends Check
 	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		set_error_handler(function ($code, $message) {
-			restore_error_handler();
+		\set_error_handler(function ($code, $message) {
+			\restore_error_handler();
 			throw new \Pd\Monitoring\Exception($message, $code);
-		}, E_ALL);
+		}, \E_ALL);
 
 		try {
 			try {
-				$get = stream_context_create(["ssl" => ["capture_peer_cert" => TRUE]]);
-				$read = stream_socket_client("ssl://" . $check->url . ":443", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $get);
-				restore_error_handler();
-				$cert = stream_context_get_params($read);
-				$certinfo = openssl_x509_parse($cert['options']['ssl']['peer_certificate'], TRUE);
+				$get = \stream_context_create(["ssl" => ["capture_peer_cert" => TRUE]]);
+				$read = \stream_socket_client("ssl://" . $check->url . ":443", $errno, $errstr, 30, \STREAM_CLIENT_CONNECT, $get);
+				\restore_error_handler();
+				$cert = \stream_context_get_params($read);
+				$certinfo = \openssl_x509_parse($cert['options']['ssl']['peer_certificate'], TRUE);
 
 				if (empty($certinfo['validTo_time_t'])) {
 					throw new \InvalidArgumentException('No certificate data');
@@ -67,9 +66,9 @@ class CertificateCheck extends Check
 							$check->lastGrade
 							&&
 							(
-								! in_array($endpoint['grade'], \Pd\Monitoring\Check\CertificateCheck::GRADES)
+								! \in_array($endpoint['grade'], \Pd\Monitoring\Check\CertificateCheck::GRADES, TRUE)
 								||
-								array_search($endpoint['grade'], \Pd\Monitoring\Check\CertificateCheck::GRADES) < array_search($check->lastGrade, \Pd\Monitoring\Check\CertificateCheck::GRADES)
+								\array_search($endpoint['grade'], \Pd\Monitoring\Check\CertificateCheck::GRADES, TRUE) < \array_search($check->lastGrade, \Pd\Monitoring\Check\CertificateCheck::GRADES, TRUE)
 							)
 
 						) {

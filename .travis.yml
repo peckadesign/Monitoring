@@ -3,11 +3,13 @@ php:
     - 7.1
 
 script:
+    - composer validate
     - vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandard/ruleset.xml
     - vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandardStrict/ruleset.xml
+    - vendor/bin/phpstan analyse app/ --level 1 -c phpstan.neon --no-progress
 
 before_script:
-    - travis_retry composer install --no-interaction --prefer-dist
+    - composer install --no-interaction --prefer-dist
 
 sudo: false
 

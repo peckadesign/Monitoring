@@ -11,11 +11,6 @@ class PresenterBridge
 	private $logger;
 
 	/**
-	 * @var \Nette\Security\User
-	 */
-	private $user;
-
-	/**
 	 * @var array
 	 */
 	private $allowedTypes;
@@ -23,12 +18,10 @@ class PresenterBridge
 
 	public function __construct(
 		array $allowedTypes,
-		\Kdyby\Monolog\Logger $logger,
-		\Nette\Security\User $user
+		\Kdyby\Monolog\Logger $logger
 	) {
 		$this->allowedTypes = $allowedTypes;
 		$this->logger = $logger;
-		$this->user = $user;
 	}
 
 
@@ -43,7 +36,7 @@ class PresenterBridge
 			return;
 		}
 
-		$handler = new \Pd\Monitoring\Monolog\Handlers\FlashMessageHandler($presenter, $this->user);
+		$handler = new \Pd\Monitoring\Monolog\Handlers\FlashMessageHandler($presenter);
 		$this->logger->pushHandler($handler);
 	}
 

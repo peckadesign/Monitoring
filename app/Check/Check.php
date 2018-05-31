@@ -8,7 +8,7 @@ namespace Pd\Monitoring\Check;
  * @property SlackNotifyLock $locks {1:m SlackNotifyLock::$check, cascade=[persist, remove]}
  * @property int $type {enum ICheck::TYPE_*}
  * @property int $status {virtual}
- * @property \DateTime|NULL $lastCheck
+ * @property \DateTimeImmutable|NULL $lastCheck
  * @property bool $paused {default TRUE}
  * @property string|NULL $name
  * @property string $fullName {virtual}
@@ -57,7 +57,7 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 
 	public function getProducerName(): string
 	{
-		return lcfirst((new \ReflectionClass($this))->getShortName());
+		return \lcfirst((new \ReflectionClass($this))->getShortName());
 	}
 
 

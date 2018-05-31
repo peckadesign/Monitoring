@@ -122,8 +122,6 @@ rabbitmq:
 services:
 	routerFactory:
 		class: Pd\Monitoring\Router\RouterFactory
-		arguments:
-			- %wwwDir%
 
 	router: @routerFactory::createRouter
 

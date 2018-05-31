@@ -11,7 +11,7 @@ namespace Pd\Monitoring\Check;
 class ChecksRepository extends \Nextras\Orm\Repository\Repository
 {
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [
 			Check::class,
@@ -26,7 +26,7 @@ class ChecksRepository extends \Nextras\Orm\Repository\Repository
 		];
 	}
 
-	public function getEntityClassName(array $data)
+	public function getEntityClassName(array $data): string
 	{
 		if ( ! isset($data['type'])) {
 			return parent::getEntityClassName($data);

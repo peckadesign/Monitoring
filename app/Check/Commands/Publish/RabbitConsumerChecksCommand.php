@@ -2,11 +2,9 @@
 
 namespace Pd\Monitoring\Check\Commands\Publish;
 
-use Pd\Monitoring\Commands\TNamedCommand;
-
 class RabbitConsumerChecksCommand extends PublishChecksCommand
 {
-	use TNamedCommand;
+	use \Pd\Monitoring\Commands\TNamedCommand;
 
 	protected function getConditions(): array
 	{

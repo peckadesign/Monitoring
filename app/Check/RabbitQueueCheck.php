@@ -65,7 +65,7 @@ class RabbitQueueCheck extends Check
 
 	private function strToArray(string $string): array
 	{
-		return array_map('trim', explode(',', $string));
+		return \array_map('trim', \explode(',', $string));
 	}
 
 
@@ -102,11 +102,11 @@ class RabbitQueueCheck extends Check
 			if ( ! isset($last[$k])) {
 				$messages[] = 'Pro frontu "' . $v . '" není nastavený maximální počet zpráv.';
 			} elseif ($last[$k] > $maximum[$k]) {
-				$messages[] = sprintf('Fronta "%s" má %u %s, očekává se %u.', $v, $last[$k], $translator->translate('zpráv', $last[$k]), $maximum[$k]);
+				$messages[] = \sprintf('Fronta "%s" má %u %s, očekává se %u.', $v, $last[$k], $translator->translate('zpráv', $last[$k]), $maximum[$k]);
 			}
 		}
 
-		return implode(' ', $messages);
+		return \implode(' ', $messages);
 	}
 
 }

@@ -38,7 +38,7 @@ class Control extends \Nette\Application\UI\Control
 		/** @var \Latte\Runtime\Template $template */
 		$template = parent::createTemplate();
 
-		$template->addFilter('dateTime', function (\DateTime $value) {
+		$template->addFilter('dateTime', function (\DateTimeImmutable $value) {
 			return $value->format('j. n. Y H:i:s');
 		});
 

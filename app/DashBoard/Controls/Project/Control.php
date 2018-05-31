@@ -2,8 +2,6 @@
 
 namespace Pd\Monitoring\DashBoard\Controls\Project;
 
-use Pd\Monitoring\UserSlackNotifications\UserSlackNotifications;
-
 class Control extends \Nette\Application\UI\Control
 {
 
@@ -42,11 +40,6 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $userSlackNotificationsRepository;
 
-	/**
-	 * @var \Pd\Monitoring\User\User
-	 */
-	private $userRepository;
-
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
@@ -55,7 +48,6 @@ class Control extends \Nette\Application\UI\Control
 		\Nette\Security\User $user,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
-		\Pd\Monitoring\User\UsersRepository $userRepository,
 		\Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository $userSlackNotificationsRepository
 
 	) {
@@ -66,7 +58,6 @@ class Control extends \Nette\Application\UI\Control
 		$this->user = $user;
 		$this->projectsRepository = $projectsRepository;
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;
-		$this->userRepository = $userRepository;
 		$this->userSlackNotificationsRepository = $userSlackNotificationsRepository;
 	}
 
@@ -96,7 +87,7 @@ class Control extends \Nette\Application\UI\Control
 	{
 		if ($this->usersFavoriteProjectsRepository->checkIfUserHasFavoriteProject($this->user->identity, $this->project)) {
 			$this->usersFavoriteProjectsRepository->deleteFavoriteProject($this->user->identity, $this->project);
-			$this->presenter->flashMessage(sprintf('Projekt "%s" byl odebrán z oblíbených', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+			$this->presenter->flashMessage(\sprintf('Projekt "%s" byl odebrán z oblíbených', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		} else {
 			$this->presenter->flashMessage("Zadaná položka už byla smazána.", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);
 		}
@@ -111,7 +102,7 @@ class Control extends \Nette\Application\UI\Control
 			$favoriteProject->user = $this->user->identity;
 			$favoriteProject->project = $this->project;
 			$this->usersFavoriteProjectsRepository->persistAndFlush($favoriteProject);
-			$this->presenter->flashMessage(sprintf('Projekt "%s" byl přidán do oblíbených', $favoriteProject->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+			$this->presenter->flashMessage(\sprintf('Projekt "%s" byl přidán do oblíbených', $favoriteProject->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		} else {
 			$this->presenter->flashMessage("Zadaná položka se už v oblíbených nachází.", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);
 		}
@@ -145,7 +136,7 @@ class Control extends \Nette\Application\UI\Control
 			$slackNotifications->user = $this->user->identity;
 			$slackNotifications->project = $this->project;
 			$this->userSlackNotificationsRepository->persistAndFlush($slackNotifications);
-			$this->presenter->flashMessage(sprintf('Notifikace k projektu "%s" budou odesílány do osobního kanálu', $slackNotifications->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+			$this->presenter->flashMessage(\sprintf('Notifikace k projektu "%s" budou odesílány do osobního kanálu', $slackNotifications->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		} else {
 			$this->presenter->flashMessage("Tento odběr je již nastaven.", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);
 		}
@@ -157,7 +148,7 @@ class Control extends \Nette\Application\UI\Control
 	{
 		if ($this->userSlackNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
 			$this->userSlackNotificationsRepository->deleteUserSlackNotifications($this->user->identity, $this->project);
-			$this->presenter->flashMessage(sprintf('Notifikace k projektu "%s" byla odebrána', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
+			$this->presenter->flashMessage(\sprintf('Notifikace k projektu "%s" byla odebrána', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		} else {
 			$this->presenter->flashMessage("Tato notifikace už byla odebrána", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);
 		}
@@ -183,11 +174,11 @@ class Control extends \Nette\Application\UI\Control
 			}
 			$checks[$check->status][$check->id] = $check;
 		}
-		$total = count($this->project->checks);
+		$total = \count($this->project->checks);
 		$percents = [];
 		if ($total) {
 			foreach ($checks as $status => $checksForStatus) {
-				$percents[$status] = (count($checksForStatus) * 100) / $total;
+				$percents[$status] = (\count($checksForStatus) * 100) / $total;
 			}
 		}
 

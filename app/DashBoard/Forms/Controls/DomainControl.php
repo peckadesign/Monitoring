@@ -25,7 +25,7 @@ class DomainControl extends \Nette\Forms\Controls\TextInput
 	{
 		$alpha = "a-z\x80-\xFF";
 
-		return (bool) preg_match("(^
+		return (bool) \preg_match("(^
 				(([-_0-9$alpha]+\\.)* # subdomain
 				[0-9$alpha]([-0-9$alpha]{0,61}[0-9$alpha])?\\.)? # domain
 				[$alpha]([-0-9$alpha]{0,17}[$alpha])? # top domain

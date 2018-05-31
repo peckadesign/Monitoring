@@ -31,12 +31,12 @@ class DnsCheck extends Check
 
 	protected function getStatus(): int
 	{
-		if ($this->lastDnsValue && in_array($this->dnsType, [self::DNS_TYPE_A, self::DNS_TYPE_MX, self::DNS_TYPE_TXT], TRUE)) {
-			$lastDnsValue = explode(';', $this->lastDnsValue);
-			sort($lastDnsValue);
+		if ($this->lastDnsValue && \in_array($this->dnsType, [self::DNS_TYPE_A, self::DNS_TYPE_MX, self::DNS_TYPE_TXT], TRUE)) {
+			$lastDnsValue = \explode(';', $this->lastDnsValue);
+			\sort($lastDnsValue);
 
-			$dnsValue = explode(';', $this->dnsValue);
-			sort($dnsValue);
+			$dnsValue = \explode(';', $this->dnsValue);
+			\sort($dnsValue);
 
 			return $lastDnsValue != $dnsValue ? ICheck::STATUS_ALERT : ICheck::STATUS_OK;
 		}
@@ -53,7 +53,7 @@ class DnsCheck extends Check
 
 	public function getterStatusMessage(): string
 	{
-		return $this->getStatus() === ICheck::STATUS_ALERT ? sprintf('Očekávaná hodnota DNS %s záznamu "%s" neodpovídá zjištěnému "%s"', $this->dnsType, $this->dnsValue, $this->lastDnsValue) : '';
+		return $this->getStatus() === ICheck::STATUS_ALERT ? \sprintf('Očekávaná hodnota DNS %s záznamu "%s" neodpovídá zjištěnému "%s"', $this->dnsType, $this->dnsValue, $this->lastDnsValue) : '';
 	}
 
 
