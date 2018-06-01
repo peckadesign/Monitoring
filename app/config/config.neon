@@ -261,6 +261,9 @@ services:
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Favicons\IFactory
 
+	-
+		implement: Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory
+
 
 decorator:
 	Nette\Application\UI\Control:

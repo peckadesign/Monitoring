@@ -40,6 +40,11 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $userSlackNotificationsRepository;
 
+	/**
+	 * @var \Pd\Monitoring\Check\ChecksRepository
+	 */
+	private $checksRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
@@ -48,7 +53,8 @@ class Control extends \Nette\Application\UI\Control
 		\Nette\Security\User $user,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
-		\Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository $userSlackNotificationsRepository
+		\Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository $userSlackNotificationsRepository,
+		\Pd\Monitoring\Check\ChecksRepository $checksRepository
 
 	) {
 		parent::__construct();
@@ -59,6 +65,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->projectsRepository = $projectsRepository;
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;
 		$this->userSlackNotificationsRepository = $userSlackNotificationsRepository;
+		$this->checksRepository = $checksRepository;
 	}
 
 
@@ -160,29 +167,39 @@ class Control extends \Nette\Application\UI\Control
 	{
 		$this->template->project = $this->project;
 
-		$checks = [
+		$groupedChecks = [
 			\Pd\Monitoring\Check\ICheck::STATUS_OK => [],
 			\Pd\Monitoring\Check\ICheck::STATUS_ALERT => [],
 			\Pd\Monitoring\Check\ICheck::STATUS_ERROR => [],
 		];
-		foreach ($this->project->checks as $check) {
+
+		if (\count($this->project->subProjects)) {
+			$conditions = [
+				'project' => $this->project->subProjects->getIterator()->fetchPairs('id', 'id'),
+			];
+			$checks = $this->checksRepository->findBy($conditions);
+		} else {
+			$checks = $this->project->checks;
+		}
+
+		foreach ($checks as $check) {
 			if ($check->paused) {
 				continue;
 			}
-			if ( ! isset($checks[$check->status])) {
-				$checks[$check->status] = [];
+			if ( ! isset($groupedChecks[$check->status])) {
+				$groupedChecks[$check->status] = [];
 			}
-			$checks[$check->status][$check->id] = $check;
+			$groupedChecks[$check->status][$check->id] = $check;
 		}
-		$total = \count($this->project->checks);
+		$total = \count($checks);
 		$percents = [];
 		if ($total) {
-			foreach ($checks as $status => $checksForStatus) {
+			foreach ($groupedChecks as $status => $checksForStatus) {
 				$percents[$status] = (\count($checksForStatus) * 100) / $total;
 			}
 		}
 
-		$this->template->checks = $checks;
+		$this->template->checks = $groupedChecks;
 		$this->template->percents = $percents;
 		$this->template->favoriteProject = $this->favoriteProject;
 
