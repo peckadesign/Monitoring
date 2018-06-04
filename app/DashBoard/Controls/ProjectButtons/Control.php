@@ -28,11 +28,22 @@ final class Control extends \Nette\Application\UI\Control
 
 	public function render(): void
 	{
+		$checks = [
+			new \Pd\Monitoring\Check\AliveCheck(),
+			new \Pd\Monitoring\Check\TermCheck(),
+			new \Pd\Monitoring\Check\DnsCheck(),
+			new \Pd\Monitoring\Check\HttpStatusCodeCheck(),
+			new \Pd\Monitoring\Check\CertificateCheck(),
+			new \Pd\Monitoring\Check\FeedCheck(),
+			new \Pd\Monitoring\Check\RabbitQueueCheck(),
+			new \Pd\Monitoring\Check\RabbitConsumerCheck(),
+		];
+
 		$this
 			->getTemplate()
 			->setFile(__DIR__ . '/Control.latte')
 			->add('project', $this->project)
-			->add('checks', $this->project->checks)
+			->add('checks', $checks)
 			->render()
 		;
 	}
