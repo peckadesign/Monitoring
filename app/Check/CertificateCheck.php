@@ -5,7 +5,7 @@ namespace Pd\Monitoring\Check;
 /**
  * @property string $url
  * @property int $daysBeforeWarning
- * @property \DateTime|NULL $lastValiddate
+ * @property \DateTimeImmutable|NULL $lastValiddate
  * @property string|NULL $grade
  * @property string|NULL $lastGrade
  */
@@ -57,7 +57,7 @@ class CertificateCheck extends Check
 		if ( ! $this->lastGrade && $this->grade) {
 			return ICheck::STATUS_ERROR;
 		} elseif ($this->grade) {
-			if (array_search($this->lastGrade, \Pd\Monitoring\Check\CertificateCheck::GRADES) > array_search($this->grade, \Pd\Monitoring\Check\CertificateCheck::GRADES)) {
+			if (\array_search($this->lastGrade, \Pd\Monitoring\Check\CertificateCheck::GRADES, TRUE) > \array_search($this->grade, \Pd\Monitoring\Check\CertificateCheck::GRADES, TRUE)) {
 				return ICheck::STATUS_ALERT;
 			}
 		}
@@ -76,13 +76,13 @@ class CertificateCheck extends Check
 	{
 		$statusMessage = [];
 		if ($this->lastValiddate && $this->lastValiddate < (new \DateTime())->modify('+' . $this->daysBeforeWarning . ' days')) {
-			$statusMessage[] = $this->lastValiddate ? sprintf('Vyprší %s.', \Pd\Monitoring\Utils\Helpers::dateTime($this->lastValiddate)) : 'Nepodařilo se zjistit platnost certifikátu.';
+			$statusMessage[] = $this->lastValiddate ? \sprintf('Vyprší %s.', \Pd\Monitoring\Utils\Helpers::dateTime($this->lastValiddate)) : 'Nepodařilo se zjistit platnost certifikátu.';
 		}
 		if ($this->grade) {
-			$statusMessage[] = $this->lastGrade ? sprintf('Známka SSL Labs je %s, očekává se alespoň %s.', $this->lastGrade, $this->grade) : 'Nepodařilo se zjistit známku na SSL Labs';
+			$statusMessage[] = $this->lastGrade ? \sprintf('Známka SSL Labs je %s, očekává se alespoň %s.', $this->lastGrade, $this->grade) : 'Nepodařilo se zjistit známku na SSL Labs';
 		}
 
-		return implode(' ', $statusMessage);
+		return \implode(' ', $statusMessage);
 	}
 
 

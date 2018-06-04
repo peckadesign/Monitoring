@@ -16,11 +16,6 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	private $dateTimeProvider;
 
 	/**
-	 * @var \Pd\Monitoring\Orm\Orm
-	 */
-	private $orm;
-
-	/**
 	 * @var \Monolog\Logger
 	 */
 	private $logger;
@@ -29,12 +24,10 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
-		\Pd\Monitoring\Orm\Orm $orm,
 		\Monolog\Logger $logger
 	) {
 		$this->checksRepository = $checksRepository;
 		$this->dateTimeProvider = $dateTimeProvider;
-		$this->orm = $orm;
 		$this->logger = $logger;
 	}
 
@@ -43,7 +36,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	{
 		$checkId = (int) $message->getBody();
 
-		$this->orm->clearIdentityMapAndCaches(\Nextras\Orm\Model\IModel::I_KNOW_WHAT_I_AM_DOING);
+		$this->checksRepository->doClear();
 
 		/** @var \Pd\Monitoring\Check\AliveCheck $check */
 		$check = $this->checksRepository->getById($checkId);
@@ -56,14 +49,14 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 		$attempts = 0;
 
 		do {
-			$this->checksRepository->doClearIdentityMap(\Nextras\Orm\Model\IModel::I_KNOW_WHAT_I_AM_DOING);
+			$this->checksRepository->doClear();
 			$check = $this->checksRepository->getById($checkId);
 
-			$this->logInfo($check, sprintf('Pokus číslo %u', $attempts));
+			$this->logInfo($check, \sprintf('Pokus číslo %u', $attempts));
 			$check->lastCheck = $this->dateTimeProvider->getDateTime();
 
 			$result = $this->doHardJob($check);
-		} while ( ! $result && ++$attempts < $maxAttempts && sleep(3) === 0);
+		} while ( ! $result && ++$attempts < $maxAttempts && \sleep(3) === 0);
 
 		$this->checksRepository->persistAndFlush($check);
 

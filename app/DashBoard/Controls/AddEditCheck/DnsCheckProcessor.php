@@ -31,7 +31,7 @@ class DnsCheckProcessor implements ICheckControlProcessor
 		;
 
 		$form
-			->addSelect('dnsType', 'Typ DNS záznamu', array_combine(\Pd\Monitoring\Check\DnsCheck::$dnsTypes, \Pd\Monitoring\Check\DnsCheck::$dnsTypes))
+			->addSelect('dnsType', 'Typ DNS záznamu', \array_combine(\Pd\Monitoring\Check\DnsCheck::$dnsTypes, \Pd\Monitoring\Check\DnsCheck::$dnsTypes))
 			->setRequired(TRUE)
 		;
 

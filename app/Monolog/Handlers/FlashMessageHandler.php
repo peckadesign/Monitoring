@@ -15,19 +15,13 @@ class FlashMessageHandler extends \Monolog\Handler\AbstractProcessingHandler
 	 */
 	private $formater;
 
-	/**
-	 * @var \Nette\Security\User
-	 */
-	private $user;
 
-
-	public function __construct(\Nette\Application\UI\Control $control, \Nette\Security\User $user)
+	public function __construct(\Nette\Application\UI\Control $control)
 	{
 		parent::__construct();
 		$this->control = $control;
 		$this->formater = new \Monolog\Formatter\LineFormatter('%datetime%: %message%');
 		$this->setFormatter($this->formater);
-		$this->user = $user;
 	}
 
 

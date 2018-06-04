@@ -79,7 +79,7 @@ class HomePagePresenter extends BasePresenter
 			$this->userSlackNotifications[$slackNotification->project->id] = $slackNotification;
 		}
 
-		$allProjects = $this->projectsRepository->findBy(["id!" => array_keys($this->usersFavoriteProjects)])->orderBy("name");
+		$allProjects = $this->projectsRepository->findBy(["id!=" => \array_keys($this->usersFavoriteProjects)])->orderBy("name");
 		/** @var \Pd\Monitoring\Project\Project $project */
 		foreach ($allProjects as $project) {
 			$this->projects[$project->id] = $project;

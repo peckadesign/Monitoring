@@ -35,7 +35,7 @@ class CertificateCheckProcessor implements ICheckControlProcessor
 		;
 
 		$form
-			->addSelect('grade', 'Očekávaná známka na SSL Labs', array_combine(\Pd\Monitoring\Check\CertificateCheck::GRADES, \Pd\Monitoring\Check\CertificateCheck::GRADES))
+			->addSelect('grade', 'Očekávaná známka na SSL Labs', \array_combine(\Pd\Monitoring\Check\CertificateCheck::GRADES, \Pd\Monitoring\Check\CertificateCheck::GRADES))
 			->setPrompt('Vyberte známku')
 		;
 	}

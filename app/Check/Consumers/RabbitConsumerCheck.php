@@ -36,20 +36,20 @@ class RabbitConsumerCheck extends Check
 			$checkQueues = $check->getQueues();
 			$consumers = [];
 			foreach ($queues as $queue) {
-				if (($key = array_search($queue->name, $checkQueues)) !== FALSE) {
+				if (($key = \array_search($queue->name, $checkQueues, TRUE)) !== FALSE) {
 					$consumers[$key] = $queue->consumers;
 				}
 			}
 
-			if (count($checkQueues) > count($consumers)) {
+			if (\count($checkQueues) > \count($consumers)) {
 				foreach ($checkQueues as $k => $v) {
-					if ( ! array_key_exists($k, $consumers)) {
+					if ( ! \array_key_exists($k, $consumers)) {
 						$consumers[$k] = -1;
 					}
 				}
 			}
-			ksort($consumers);
-			$check->lastConsumerCount = join(',', $consumers);
+			\ksort($consumers);
+			$check->lastConsumerCount = \join(',', $consumers);
 
 			return $check->status === \Pd\Monitoring\Check\ICheck::STATUS_OK;
 		} catch (\Exception $e) {

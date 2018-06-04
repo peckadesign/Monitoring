@@ -4,7 +4,7 @@ namespace Pd\Monitoring\Check;
 
 /**
  * @property string $message
- * @property \DateTime $term
+ * @property \DateTimeImmutable $term
  */
 class TermCheck extends Check
 {

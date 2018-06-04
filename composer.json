@@ -21,24 +21,26 @@
 		"nette/forms": "2.4.*",
 		"nette/bootstrap": "2.4.*",
 		"nette/security": "2.4.*",
+		"nette/utils": "2.4.*",
 		"latte/latte": "2.4.*",
-		"tracy/tracy": "2.4.*",
-		"nextras/orm": "2.2.*",
+		"tracy/tracy": "2.5.*",
+		"nextras/orm": "3.0.*",
 		"nextras/migrations": "3.0.*",
-		"symfony/process": "3.3.*",
 		"kdyby/console": "2.7.*",
 		"guzzlehttp/guzzle": "6.3.*",
 		"kdyby/github": "dev-master#55978e274b338cf712661f2f429f1a487e869f52",
-		"kdyby/monolog": "^1.3",
-		"kdyby/clock": "^1.0.0",
-		"kdyby/rabbitmq": "dev-master#b95342baa3a75cea930fcd0efbf5b84479d02d34",
+		"kdyby/monolog": "1.3.*",
+		"kdyby/clock": "1.0.*",
+		"kdyby/rabbitmq": "1.2.*",
 		"nette/mail": "2.4.*",
 		"nextras/forms": "2.0.*",
-		"ublaboo/datagrid": "^5.5"
+		"ublaboo/datagrid": "5.6.*"
 	},
 	"require-dev": {
-		"pd/coding-standard": "1.10.*",
-		"phpstan/phpstan": "^0.8.0"
+		"pd/coding-standard": "1.13.*",
+		"phpstan/phpstan": "0.9.*",
+		"phpstan/phpstan-strict-rules": "0.9.*",
+		"phpstan/phpstan-nette": "0.9.*"
 	},
 	"minimum-stability": "stable",
 	"autoload": {

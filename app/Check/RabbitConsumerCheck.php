@@ -65,7 +65,7 @@ class RabbitConsumerCheck extends Check
 
 	private function strToArray(string $string): array
 	{
-		return array_map('trim', explode(',', $string));
+		return \array_map('trim', \explode(',', $string));
 	}
 
 

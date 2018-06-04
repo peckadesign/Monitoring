@@ -6,7 +6,7 @@ namespace Pd\Monitoring\Project;
  * @property int $id {primary}
  * @property string $name
  * @property string $url
- * @property \DateTime|NULL $maintenance
+ * @property \DateTimeImmutable|NULL $maintenance
  * @property string|NULL $pausedFrom
  * @property string|NULL $pausedTo
  * @property bool $notifications {default TRUE}

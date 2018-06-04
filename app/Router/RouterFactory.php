@@ -8,21 +8,14 @@ class RouterFactory
 	use \Nette\SmartObject;
 
 	/**
-	 * @var string
-	 */
-	private $wwwDir;
-
-	/**
 	 * @var \Nette\Caching\IStorage
 	 */
 	private $storage;
 
 
 	public function __construct(
-		$wwwDir,
 		\Nette\Caching\IStorage $storage
 	) {
-		$this->wwwDir = $wwwDir;
 		$this->storage = $storage;
 	}
 
@@ -42,13 +35,13 @@ class RouterFactory
 						$cache = new \Nette\Caching\Cache($this->storage);
 
 						$fb = function (&$dp) {
-							$octodexFeedContent = file_get_contents('http://feeds.feedburner.com/Octocats');
+							$octodexFeedContent = \file_get_contents('http://feeds.feedburner.com/Octocats');
 							$octodexFeed = new \SimpleXMLElement($octodexFeedContent);
 							$octocats = [];
 							foreach ($octodexFeed->entry as $entry) {
 								$imageUrl = (string) $entry->content->div->a->img['src'];
 								if (\Nette\Utils\Validators::isUrl($imageUrl)) {
-									$octocat = substr($imageUrl, strrpos($imageUrl, '/') + 1);
+									$octocat = \substr($imageUrl, \strrpos($imageUrl, '/') + 1);
 									$octocats[] = $octocat;
 								}
 							}
@@ -58,8 +51,8 @@ class RouterFactory
 
 						$octocats = $cache->load('octocats', $fb);
 
-						shuffle($octocats);
-						$octocat = reset($octocats);
+						\shuffle($octocats);
+						$octocat = \reset($octocats);
 
 						$parameters = [];
 						$parameters['octocat'] = $octocat;

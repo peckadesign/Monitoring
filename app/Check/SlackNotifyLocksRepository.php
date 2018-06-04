@@ -5,7 +5,7 @@ namespace Pd\Monitoring\Check;
 class SlackNotifyLocksRepository extends \Nextras\Orm\Repository\Repository
 {
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [
 			SlackNotifyLock::class,

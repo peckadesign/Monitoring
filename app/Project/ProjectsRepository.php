@@ -9,7 +9,7 @@ namespace Pd\Monitoring\Project;
 class ProjectsRepository extends \Nextras\Orm\Repository\Repository
 {
 
-	public static function getEntityClassNames()
+	public static function getEntityClassNames(): array
 	{
 		return [
 			Project::class,

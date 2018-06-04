@@ -27,7 +27,7 @@ class Bs3FormRenderer extends \Nextras\Forms\Rendering\Bs3FormRenderer
 			}
 
 			$controlHtml = $html->getChildren();
-			$controlHtml = reset($controlHtml);
+			$controlHtml = \reset($controlHtml);
 			$container->addHtml($controlHtml);
 
 			if ($control->getRightOption()) {

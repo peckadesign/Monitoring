@@ -23,11 +23,6 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	private $dateTimeProvider;
 
 	/**
-	 * @var \Monolog\Logger
-	 */
-	private $logger;
-
-	/**
 	 * @var \Pd\Monitoring\Check\SlackNotifyLocksRepository
 	 */
 	private $slackNotifyLocksRepository;
@@ -37,30 +32,21 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	 */
 	private $slackNotifier;
 
-	/**
-	 * @var \Pd\Monitoring\User\UsersRepository
-	 */
-	private $userRepository;
-
 
 	public function __construct(
 		\Pd\Monitoring\Slack\Notifier $slackNotifier,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Nette\Application\LinkGenerator $linkGenerator,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
-		\Monolog\Logger $logger,
-		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository,
-		\Pd\Monitoring\User\UsersRepository $usersRepository
+		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository
 	) {
 		parent::__construct();
 
 		$this->checksRepository = $checksRepository;
 		$this->linkGenerator = $linkGenerator;
 		$this->dateTimeProvider = $dateTimeProvider;
-		$this->logger = $logger;
 		$this->slackNotifyLocksRepository = $slackNotifyLocksRepository;
 		$this->slackNotifier = $slackNotifier;
-		$this->userRepository = $usersRepository;
 	}
 
 
@@ -86,10 +72,10 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 
 		foreach ($checks as $check) {
 			if ($check->project->pausedTo && $check->project->pausedFrom) {
-				$timeFrom = explode(':', $check->project->pausedFrom);
+				$timeFrom = \explode(':', $check->project->pausedFrom);
 				$pausedFrom = $this->dateTimeProvider->getDateTime()->setTime((int) $timeFrom[0], (int) $timeFrom[1]);
 
-				$timeTo = explode(':', $check->project->pausedTo);
+				$timeTo = \explode(':', $check->project->pausedTo);
 				$pausedTo = $this->dateTimeProvider->getDateTime()->setTime((int) $timeTo[0], (int) $timeTo[1]);
 
 				if ($now >= $pausedFrom && $now <= $pausedTo) {
@@ -110,6 +96,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 
 			$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project->id]);
 
+			$color = 'good';
 			switch ($check->status) {
 				case \Pd\Monitoring\Check\ICheck::STATUS_ALERT:
 					if ($check->onlyErrors) {
@@ -132,7 +119,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 
 			$checkStatusMessage = $check->statusMessage;
 
-			$message = sprintf(
+			$message = \sprintf(
 				'Pro <%s|projekt %s> je zaznamenán problém v kontrole %s%s',
 				$url,
 				$check->project->name,

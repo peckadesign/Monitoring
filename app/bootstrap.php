@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-umask(0);
+\umask(0);
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $configurator = new Nette\Configurator;
 
-if (PHP_SAPI === 'cli') {
+if (\PHP_SAPI === 'cli') {
 	Kdyby\Console\DI\BootstrapHelper::setupMode($configurator);
 } else {
 	$configurator->setDebugMode(TRUE);

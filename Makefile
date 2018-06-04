@@ -5,7 +5,14 @@
 
 build:
 	composer install --no-interaction
-	yarn
+	npm install
+	./node_modules/.bin/gulp
+
+
+build-staging:
+	composer validate
+	composer install --no-interaction
+	npm install
 	./node_modules/.bin/gulp
 
 
@@ -20,4 +27,4 @@ cs:
 phpstan:
 	git clean -xdf output.phpstan
 	composer install --no-interaction
-	- ./vendor/bin/phpstan analyse app/ --level 1 --no-progress &> output.phpstan
+	- ./vendor/bin/phpstan analyse app/ --level 1 -c phpstan.neon --no-progress &> output.phpstan

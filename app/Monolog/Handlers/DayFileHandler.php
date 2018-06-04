@@ -35,7 +35,7 @@ class DayFileHandler extends \Kdyby\Monolog\Handler\FallbackNetteHandler
 	{
 		$record['filename'] = $record['filename'] . '/' . $this->dateTime->format('Y-m') . '/' . $this->dateTime->format('Y-m-d') . '-' . $record['filename'];
 
-		$logDirectory = dirname($this->logDir . '/' . strtolower($record['filename']));
+		$logDirectory = \dirname($this->logDir . '/' . \strtolower($record['filename']));
 		\Nette\Utils\FileSystem::createDir($logDirectory);
 
 		parent::write($record);

@@ -39,20 +39,20 @@ class RabbitQueueCheck extends Check
 			$checkQueues = $check->getQueues();
 			$messages = [];
 			foreach ($queues as $queue) {
-				if (($key = array_search($queue->name, $checkQueues)) !== FALSE) {
+				if (($key = \array_search($queue->name, $checkQueues, TRUE)) !== FALSE) {
 					$messages[$key] = $queue->messages;
 				}
 			}
 
-			if (count($checkQueues) > count($messages)) {
+			if (\count($checkQueues) > \count($messages)) {
 				foreach ($checkQueues as $k => $v) {
-					if ( ! array_key_exists($k, $messages)) {
+					if ( ! \array_key_exists($k, $messages)) {
 						$messages[$k] = -1;
 					}
 				}
 			}
-			ksort($messages);
-			$check->lastMessageCount = join(',', $messages);
+			\ksort($messages);
+			$check->lastMessageCount = \join(',', $messages);
 
 			return $check->status === \Pd\Monitoring\Check\ICheck::STATUS_OK;
 		} catch (\Throwable $e) {
