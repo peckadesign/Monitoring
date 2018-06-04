@@ -43,14 +43,14 @@ class ProjectPresenter extends BasePresenter
 	private $check;
 
 	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory
-	 */
-	private $maintenanceControlFactory;
-
-	/**
 	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory
 	 */
 	private $projectChecksControlFactory;
+
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory
+	 */
+	private $projectButtonsFactory;
 
 
 	public function __construct(
@@ -58,16 +58,16 @@ class ProjectPresenter extends BasePresenter
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory,
-		\Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory $maintenanceControlFactory,
-		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory
+		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory,
+		\Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory
 	) {
 		parent::__construct();
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->checksRepository = $checksRepository;
 		$this->addEditCheckControlFactory = $addEditCheckControlFactory;
-		$this->maintenanceControlFactory = $maintenanceControlFactory;
 		$this->projectChecksControlFactory = $projectChecksControlFactory;
+		$this->projectButtonsFactory = $projectButtonsFactory;
 	}
 
 
@@ -87,7 +87,7 @@ class ProjectPresenter extends BasePresenter
 		/** @var \Pd\Monitoring\Project\Project project */
 		$this->project = $this->projectsRepository->getById($id);
 
-		$this['addEditForm']->setDefaults($this->project->toArray());
+		$this['addEditForm']->setDefaults($this->project->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
 	}
 
 
@@ -108,6 +108,14 @@ class ProjectPresenter extends BasePresenter
 		$form
 			->addCheckbox('notifications', 'Povolené globální notifikace')
 			->setDefaultValue(TRUE)
+		;
+
+		$projects = $this->projectsRepository->findParentAbleProjects()->fetchPairs('id', 'name');
+
+		$form
+			->addSelect('parent', 'Zastřešující projekt', $projects, 1)
+			->setPrompt('Vyberte')
+			->setDisabled($this->project && \count($this->project->subProjects))
 		;
 
 		$form->addSubmit('save', 'Uložit');
@@ -132,6 +140,7 @@ class ProjectPresenter extends BasePresenter
 		$project->pausedFrom = $data['pausedFrom'];
 		$project->pausedTo = $data['pausedTo'];
 		$project->notifications = $data['notifications'];
+		$project->parent = $this->projectsRepository->getById((int) $data['parent']);
 
 		$project = $this->projectsRepository->persistAndFlush($project);
 
@@ -142,14 +151,16 @@ class ProjectPresenter extends BasePresenter
 	public function actionDefault(int $id): void
 	{
 		$this->project = $this->projectsRepository->getById($id);
+
+		if ($this->project->parent) {
+			$this->redirect('default#project-' . $this->project->id, $this->project->parent->id);
+		}
 	}
 
 
 	public function renderDefault(): void
 	{
-		$this->template->project = $this->project;
-
-		$this->template->checks = [
+		$checks = [
 			new \Pd\Monitoring\Check\AliveCheck(),
 			new \Pd\Monitoring\Check\TermCheck(),
 			new \Pd\Monitoring\Check\DnsCheck(),
@@ -159,12 +170,23 @@ class ProjectPresenter extends BasePresenter
 			new \Pd\Monitoring\Check\RabbitQueueCheck(),
 			new \Pd\Monitoring\Check\RabbitConsumerCheck(),
 		];
+
+		$this
+			->getTemplate()
+			->add('project', $this->project)
+			->add('subProjects', $this->project->subProjects)
+			->add('checks', $checks)
+		;
 	}
 
 
-	protected function createComponentProjectChecks(): \Pd\Monitoring\DashBoard\Controls\ProjectChecks\Control
+	protected function createComponentProjectChecks(): \Nette\Application\UI\Multiplier
 	{
-		return $this->projectChecksControlFactory->create($this->project);
+		$cb = function (string $id) {
+			return $this->projectChecksControlFactory->create($this->projectsRepository->getById((int) $id));
+		};
+
+		return new \Nette\Application\UI\Multiplier($cb);
 	}
 
 
@@ -208,48 +230,33 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(project, delete)
 	 */
-	public function handleDelete(): void
+	public function actionDelete(int $id): void
 	{
+		$this->project = $this->projectsRepository->getById($id);
+		$parent = $this->project->parent;
+
 		try {
 			$this->projectsRepository->removeAndFlush($this->project);
-			$this->redirect(':DashBoard:HomePage:');
+			$this->flashMessage('Projekt byl smazán', self::FLASH_MESSAGE_SUCCESS);
 		} catch (\Nextras\Orm\InvalidStateException $e) {
 			$this->flashMessage('Nepodařilo se smazat projekt', self::FLASH_MESSAGE_ERROR);
+		}
+
+		if ($parent) {
+			$this->redirect(':DashBoard:Project:', $parent->id);
+		} else {
+			$this->redirect(':DashBoard:HomePage:');
 		}
 	}
 
 
-	protected function createComponentMaintenance(): \Pd\Monitoring\DashBoard\Controls\Maintenance\Control
+	protected function createComponentProjectButtons(): \Nette\Application\UI\Multiplier
 	{
-		$control = $this->maintenanceControlFactory->create($this->project);
-		if ($this->isAjax()) {
-			$handler = new class($this) implements \Pd\Monitoring\DashBoard\Controls\Maintenance\IOnToggle
-			{
+		$cb = function (string $id): \Pd\Monitoring\DashBoard\Controls\ProjectButtons\Control {
+			return $this->projectButtonsFactory->create($this->projectsRepository->getById((int) $id));
+		};
 
-				/**
-				 * @var ProjectPresenter
-				 */
-				private $presenter;
-
-
-				public function __construct(
-					ProjectPresenter $presenter
-				) {
-					$this->presenter = $presenter;
-				}
-
-
-				public function process(\Pd\Monitoring\DashBoard\Controls\Maintenance\Control $control)
-				{
-					$this->presenter->redrawControl('title');
-					$this->presenter->redrawControl('heading');
-				}
-
-			};
-			$control->addOnToggle($handler);
-		}
-
-		return $control;
+		return new \Nette\Application\UI\Multiplier($cb);
 	}
 
 }

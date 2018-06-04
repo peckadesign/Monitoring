@@ -71,6 +71,10 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$checks = $this->checksRepository->findBy($options);
 
 		foreach ($checks as $check) {
+			if ($check->project->parent && $check->project->parent->maintenance) {
+				continue;
+			}
+
 			if ($check->project->pausedTo && $check->project->pausedFrom) {
 				$timeFrom = \explode(':', $check->project->pausedFrom);
 				$pausedFrom = $this->dateTimeProvider->getDateTime()->setTime((int) $timeFrom[0], (int) $timeFrom[1]);
@@ -131,7 +135,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				new \Pd\Monitoring\Slack\Button('pause', 'Pozastavit kontrolu', $this->linkGenerator->link('DashBoard:Slack:pause', [$check->id])),
 			];
 
-			if ($check->project->notifications) {
+			if ($check->project->notifications && $check->project->notifications) {
 				$this->slackNotifier->notify('#monitoring', $message, $color, $buttons);
 			}
 
