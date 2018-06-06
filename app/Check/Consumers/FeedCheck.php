@@ -26,7 +26,7 @@ class FeedCheck extends Check
 
 			foreach (\explode("\n", $output) as $line) {
 				if (\stripos($line, 'last-modified:') !== FALSE) {
-					$check->lastModified = new \DateTimeImmutable(\trim(\str_ireplace('last-modified:', '', $line)));
+					$check->lastModified = (new \DateTimeImmutable(\trim(\str_ireplace('last-modified:', '', $line))))->setTimeZone(new \DateTimeZone('Europe/Prague'));
 					break;
 				}
 			}
