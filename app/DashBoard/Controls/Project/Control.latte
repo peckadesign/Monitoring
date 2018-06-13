@@ -13,15 +13,15 @@
 	</div>
 	<div class="panel-footer">
 		{if $favoriteProject}
-			<a href="{link deleteFavoriteProject!}"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+			<a href="{link deleteFavoriteProject!}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 		{else}
-			<a href="{link setFavoriteProject!}"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
+			<a href="{link setFavoriteProject!}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
 		{/if}
-		<a href="{link notifications!}" class="ajax" n:if="$user->isAllowed('project', 'edit')" title="Vypnout / zapnout globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
+		<a href="{link notifications!}" n:class="ajax, btn, btn-sm, $project->notifications ? btn-success : btn-default" n:if="$user->isAllowed('project', 'edit')" title="{$project->notifications ? 'Vypnout' : 'Zapnout'} globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
 		{if $slackNotifications}
-			<a href="{link deleteUserSlackNotifications!}" class="ajax" title="Přestat dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
+			<a href="{link deleteUserSlackNotifications!}" class="ajax btn btn-success btn-sm" title="Přestat dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
 		{else}
-			<a href="{link setUserSlackNotifications!}" class="ajax text-muted" title="Dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
+			<a href="{link setUserSlackNotifications!}" class="ajax text-muted btn btn-default btn-sm" title="Dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
 		{/if}
 	</div>
 </div>
