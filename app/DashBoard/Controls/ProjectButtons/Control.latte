@@ -11,6 +11,10 @@
 				{/foreach}
 			</ul>
 		</div>
+
+		<div class="dropdown" n:if="$user->isAllowed('project', 'add') && count($project->subProjects)">
+			<a href="{plink :DashBoard:Project:add $project->id}" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="hidden-xs"> Přidat podprojekt</span></a>
+		</div>
 	</div>
 
 	<div class="btn-group">

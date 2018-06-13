@@ -74,8 +74,9 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(project, add)
 	 */
-	public function actionAdd(): void
+	public function actionAdd(?int $parent = NULL): void
 	{
+		$this['addEditForm']->setDefaults(['parent' => $parent]);
 	}
 
 
