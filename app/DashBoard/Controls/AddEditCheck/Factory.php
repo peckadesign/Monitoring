@@ -15,13 +15,20 @@ class Factory
 	 */
 	private $formFactory;
 
+	/**
+	 * @var \Pd\Monitoring\Project\ProjectsRepository
+	 */
+	private $projectsRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory
+		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
+		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
 	) {
 		$this->checksRepository = $checksRepository;
 		$this->formFactory = $formFactory;
+		$this->projectsRepository = $projectsRepository;
 	}
 
 
@@ -29,35 +36,36 @@ class Factory
 	{
 		switch ($type) {
 			case \Pd\Monitoring\Check\ICheck::TYPE_ALIVE:
-				$control = new Control($project, $check, new AliveCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new AliveCheckProcessor();
+				
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_TERM:
-				$control = new Control($project, $check, new TermCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new TermCheckProcessor();
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_DNS:
-				$control = new Control($project, $check, new DnsCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new DnsCheckProcessor();
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_CERTIFICATE:
-				$control = new Control($project, $check, new CertificateCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new CertificateCheckProcessor();
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_HTTP_STATUS_CODE:
-				$control = new Control($project, $check, new HttpStatusCodeCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new HttpStatusCodeCheckProcessor();
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_FEED:
-				$control = new Control($project, $check, new FeedCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new FeedCheckProcessor();
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_RABBIT_QUEUES:
-				$control = new Control($project, $check, new RabbitQueueCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new RabbitQueueCheckProcessor();
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_RABBIT_CONSUMERS:
-				$control = new Control($project, $check, new RabbitConsumerCheckProcessor(), $this->formFactory, $this->checksRepository);
+				$processor = new RabbitConsumerCheckProcessor();
 				break;
 
 			default:
@@ -65,6 +73,8 @@ class Factory
 				break;
 		}
 
+		$control = new Control($project, $check, $processor, $this->formFactory, $this->checksRepository, $this->projectsRepository);
+		                                         
 		return $control;
 	}
 }

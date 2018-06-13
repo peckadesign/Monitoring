@@ -30,13 +30,19 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	protected $checkControlProcessor;
 
+	/**
+	 * @var \Pd\Monitoring\Project\ProjectsRepository
+	 */
+	private $projectsRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		\Pd\Monitoring\Check\Check $check = NULL,
 		ICheckControlProcessor $checkControlProcessor,
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
+		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
+		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
 	) {
 		parent::__construct();
 		$this->formFactory = $formFactory;
@@ -44,6 +50,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->project = $project;
 		$this->checkControlProcessor = $checkControlProcessor;
 		$this->check = $check;
+		$this->projectsRepository = $projectsRepository;
 	}
 
 
@@ -54,7 +61,7 @@ class Control extends \Nette\Application\UI\Control
 		if ( ! $this->check) {
 			$this->check = $this->checkControlProcessor->getCheck();
 		} else {
-			$this['form']->setDefaults($this->check->toArray());
+			$this['form']->setDefaults($this->check->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
 		}
 	}
 
@@ -72,7 +79,10 @@ class Control extends \Nette\Application\UI\Control
 
 		$form->addGroup('Obecné informace');
 		$form->addText('name', 'Vlastní název');
-		$form->addCHeckbox('onlyErrors', 'Hlásit pouze chyby');
+		$form->addCheckbox('onlyErrors', 'Hlásit pouze chyby');
+
+		$projects = $this->projectsRepository->findAll()->orderBy('name')->fetchPairs('id', 'name');
+		$form->addSelect('project', 'Projekt', $projects);
 
 		$this->checkControlProcessor->createForm($this->check, $form);
 

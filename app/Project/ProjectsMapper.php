@@ -18,7 +18,7 @@ class ProjectsMapper extends \Nextras\Orm\Mapper\Mapper
 	}
 
 
-	public function findParentAbleProjects(?Project $without)
+	public function findParentAbleProjects(?Project $without = NULL)
 	{
 		$data = $this
 			->builder()
