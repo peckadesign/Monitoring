@@ -25,7 +25,8 @@ class FeedCheckProcessor implements ICheckControlProcessor
 		$form
 			->addText('url', 'Adresa')
 			->setRequired(TRUE)
-			->setAttribute('placeholder', 'https://www.example.com/feed.xml')
+			->setAttribute('placeholder', 'https://www.example.com/sitemap.xml')
+			->setOption('description', 'Např. "https://www.example.com/sitemap.xml"')
 			->addRule(\Nette\Forms\Form::URL)
 		;
 
@@ -33,11 +34,13 @@ class FeedCheckProcessor implements ICheckControlProcessor
 		$form['size']->setRequired(TRUE);
 		$form['size']->addRule(\Nette\Forms\Form::FLOAT);
 		$form['size']->setAttribute('placeholder', '12.5');
+		$form['size']->setOption('description', 'Velikost je zjištěna z HTTP hlavičky "Content-length".');
 
 		$form['maximumAge'] = new \Pd\Monitoring\DashBoard\Forms\Controls\TextInput('Maximální stáří feedu', NULL, NULL, 'hodin');
 		$form['maximumAge']->setRequired(TRUE);
 		$form['maximumAge']->addRule(\Nette\Forms\Form::INTEGER);
 		$form['maximumAge']->setType('number');
+		$form['maximumAge']->setOption('description', 'Stáří je zjištěno z HTTP hlavičky "Last-modified".');
 	}
 
 }

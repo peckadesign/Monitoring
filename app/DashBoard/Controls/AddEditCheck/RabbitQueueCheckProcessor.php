@@ -30,22 +30,25 @@ class RabbitQueueCheckProcessor implements ICheckControlProcessor
 	{
 		$form->addGroup($check->getTitle());
 		$form
-			->addText('queues', 'Fronty, oddělené čárkou')
+			->addText('queues', 'Fronty')
 			->setRequired(TRUE)
+			->setOption('description', 'Více front oddělte čárkou.')
 		;
 		$form
-			->addText('maximumMessageCount', 'Maximální počty zpráv, oddělené čárkou')
+			->addText('maximumMessageCount', 'Maximální počty zpráv')
 			->setRequired(TRUE)
+			->setOption('description', 'Hodnoty oddělte čárkou, uvádějte ve stejném pořadí, jako fronty.')
 		;
 		$form
-			->addText('url', 'URL API nebo skriptu')
+			->addText('url', 'URL')
 			->setRequired(TRUE)
+			->setOption('description', 'URL musí vracet stejný výsledek jako volání "/api/queues" pluginu RabbitMQ Management HTTP API.')
 		;
 		$form
-			->addText('login', 'login k API')
+			->addText('login', 'HTTP login k URL')
 		;
 		$form
-			->addPassword('password', 'Heslo k API')
+			->addPassword('password', 'HTTP heslo k URL')
 		;
 
 	}

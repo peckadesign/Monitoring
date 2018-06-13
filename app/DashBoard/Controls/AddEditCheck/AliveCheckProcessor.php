@@ -24,6 +24,7 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 			->addText('url', 'URL')
 			->setRequired(TRUE)
 			->setAttribute('placeholder', 'https://www.example.com')
+			->setOption('description', 'URL musí vracet HTTP stavový kód 200.')
 		;
 	}
 }

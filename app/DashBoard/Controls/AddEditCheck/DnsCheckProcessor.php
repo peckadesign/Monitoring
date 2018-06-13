@@ -28,6 +28,7 @@ class DnsCheckProcessor implements ICheckControlProcessor
 
 		$form['url'] = (new \Pd\Monitoring\DashBoard\Forms\Controls\DomainControl('Doména'))
 			->setRequired(TRUE)
+			->setOption('description', 'Např. "example.com".')
 		;
 
 		$form
@@ -38,6 +39,7 @@ class DnsCheckProcessor implements ICheckControlProcessor
 		$form
 			->addText('dnsValue', 'Hodnota DNS záznamu')
 			->setRequired(TRUE)
+			->setOption('description', 'Více hodnot oddělte středníkem, na pořadí nezáleží.')
 		;
 	}
 

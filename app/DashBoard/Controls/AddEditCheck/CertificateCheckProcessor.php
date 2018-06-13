@@ -25,6 +25,7 @@ class CertificateCheckProcessor implements ICheckControlProcessor
 
 		$form['url'] = (new \Pd\Monitoring\DashBoard\Forms\Controls\DomainControl('Doména'))
 			->setRequired(TRUE)
+			->setOption('description', 'Např. "example.com".')
 		;
 
 		$form

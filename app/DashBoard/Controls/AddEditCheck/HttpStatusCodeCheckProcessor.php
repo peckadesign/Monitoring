@@ -24,10 +24,11 @@ class HttpStatusCodeCheckProcessor implements ICheckControlProcessor
 		$form
 			->addText('url', 'Adresa')
 			->setRequired(TRUE)
+			->setOption('description', 'Např. "https://example.com".')
 		;
 		$form
 			->addText('code', 'HTTP stavový kód')
-			->setType('integer')
+			->setType('number')
 			->setRequired(TRUE)
 		;
 	}
