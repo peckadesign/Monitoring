@@ -195,6 +195,9 @@ class Control extends \Nette\Application\UI\Control
 		$percents = [];
 		if ($total) {
 			foreach ($groupedChecks as $status => $checksForStatus) {
+				if ( ! count($checksForStatus)) {
+						continue;
+				}
 				$percents[$status] = (\count($checksForStatus) * 100) / $total;
 			}
 		}
