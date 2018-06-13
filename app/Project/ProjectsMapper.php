@@ -9,10 +9,13 @@ class ProjectsMapper extends \Nextras\Orm\Mapper\Mapper
 	{
 		$data = $this
 			->builder()
-			->where('%column NOT IN %i[]', 'id', $userFavoriteProjectsIds)
-			->andWhere('%column IS NULL', 'parent')
+			->where('%column IS NULL', 'parent')
 			->orderBy('name')
 		;
+
+		if ($userFavoriteProjectsIds) {
+			$data->andWhere('%column NOT IN %i[]', 'id', $userFavoriteProjectsIds);
+		}
 
 		return $this->toCollection($data);
 	}
