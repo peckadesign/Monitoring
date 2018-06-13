@@ -110,7 +110,7 @@ class ProjectPresenter extends BasePresenter
 			->setDefaultValue(TRUE)
 		;
 
-		$projects = $this->projectsRepository->findParentAbleProjects()->fetchPairs('id', 'name');
+		$projects = $this->projectsRepository->findParentAbleProjects($this->project)->fetchPairs('id', 'name');
 
 		$form
 			->addSelect('parent', 'Zastřešující projekt', $projects, 1)

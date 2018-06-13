@@ -18,13 +18,17 @@ class ProjectsMapper extends \Nextras\Orm\Mapper\Mapper
 	}
 
 
-	public function findParentAbleProjects()
+	public function findParentAbleProjects(?Project $without)
 	{
 		$data = $this
 			->builder()
 			->where('%column IS NULL', 'parent')
 			->orderBy('name')
 		;
+
+		if ($without) {
+			$data->andWhere('%column != %i', 'id', $without->id);
+		}
 
 		return $this->toCollection($data);
 	}
