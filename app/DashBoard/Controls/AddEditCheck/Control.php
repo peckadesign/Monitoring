@@ -60,6 +60,7 @@ class Control extends \Nette\Application\UI\Control
 
 		if ( ! $this->check) {
 			$this->check = $this->checkControlProcessor->getCheck();
+			$this['form']->setDefaults(['project' => $this->project->id]);
 		} else {
 			$this['form']->setDefaults($this->check->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
 		}
