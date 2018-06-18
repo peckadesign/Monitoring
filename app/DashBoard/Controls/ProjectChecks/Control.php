@@ -84,6 +84,7 @@ class Control extends \Nette\Application\UI\Control
 
 		$this->template->add('tabs', $tabs);
 		$this->template->add('checks', $checks);
+		$this->template->add('project', $this->project);
 
 		$this->template->setFile(__DIR__ . '/Control.latte')->render();
 	}

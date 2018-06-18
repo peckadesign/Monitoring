@@ -1,12 +1,12 @@
 <ul class="nav nav-tabs" role="tablist">
 	{foreach $tabs as $key => $tab}
-		<li role="presentation" n:class="$iterator->first ? active"><a href="#{$key}" aria-controls="{$key}" role="tab" data-toggle="tab" class="{$tab|tabColor}">{$tab->getTitle()}</a></li>
+		<li role="presentation" n:class="$iterator->first ? active"><a href="#{$project->id . '-' . $key}" aria-controls="{$project->id . ' ' . $key}" role="tab" data-toggle="tab" class="{$tab|tabColor}">{$tab->getTitle()}</a></li>
 	{/foreach}
 </ul>
 
 <div class="tab-content">
 	{foreach $checks as $type => $checksForType}
-		<div role="tabpanel" n:class="tab-pane, $iterator->first ? active" id="{$type}">
+		<div role="tabpanel" n:class="tab-pane, $iterator->first ? active" id="{$project->id . '-' . $type}">
 			{foreach $checksForType as $checkId => $check}
 				{first 3}<div class="row">{/first}
 				<div class="col-md-4">
