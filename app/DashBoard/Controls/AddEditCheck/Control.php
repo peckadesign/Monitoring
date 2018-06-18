@@ -99,7 +99,7 @@ class Control extends \Nette\Application\UI\Control
 
 	private function processForm(\Nette\Forms\Form $form, array $data): void
 	{
-		$this->check->project = $this->project;
+		$this->check->project = $this->projectsRepository->getById($data['project']);
 
 		$this->check->name = $data['name'];
 		$this->check->onlyErrors = $data['onlyErrors'];
