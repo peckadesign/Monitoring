@@ -13,9 +13,9 @@
 	</div>
 	<div class="panel-footer">
 		{if $favoriteProject}
-			<a href="{link deleteFavoriteProject!}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+			<a href="{link deleteFavoriteProject!}" class="btn btn-success btn-sm" title="Odebrat z oblíbených"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
 		{else}
-			<a href="{link setFavoriteProject!}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
+			<a href="{link setFavoriteProject!}" class="btn btn-default btn-sm" title="Přidat do oblíbených"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
 		{/if}
 		<a href="{link notifications!}" n:class="ajax, btn, btn-sm, $project->notifications ? btn-success : btn-default" n:if="$user->isAllowed('project', 'edit')" title="{$project->notifications ? 'Vypnout' : 'Zapnout'} globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
 		{if $slackNotifications}
