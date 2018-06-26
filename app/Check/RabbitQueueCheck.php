@@ -29,7 +29,9 @@ class RabbitQueueCheck extends Check
 			$maximum = $this->getMaximumMessageCount();
 
 			foreach ($this->getQueues() as $k => $v) {
-				if ( ! isset($last[$k]) || $last[$k] > $maximum[$k]) {
+				if ( ! isset($last[$k]) || $last[$k] > $maximum[$k] * 2) {
+					return ICheck::STATUS_ERROR;
+				} elseif ($last[$k] > $maximum[$k]) {
 					return ICheck::STATUS_ALERT;
 				}
 			}
@@ -99,7 +101,7 @@ class RabbitQueueCheck extends Check
 		};
 
 		foreach ($this->getQueues() as $k => $v) {
-			if ( ! isset($last[$k])) {
+			if ( ! isset($maximum[$k])) {
 				$messages[] = 'Pro frontu "' . $v . '" není nastavený maximální počet zpráv.';
 			} elseif ($last[$k] > $maximum[$k]) {
 				$messages[] = \sprintf('Fronta "%s" má %u %s, očekává se %u.', $v, $last[$k], $translator->translate('zpráv', $last[$k]), $maximum[$k]);
