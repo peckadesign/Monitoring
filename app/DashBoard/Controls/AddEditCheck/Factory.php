@@ -74,7 +74,7 @@ class Factory
 		}
 
 		$control = new Control($project, $check, $processor, $this->formFactory, $this->checksRepository, $this->projectsRepository);
-		                                         
+
 		return $control;
 	}
 }

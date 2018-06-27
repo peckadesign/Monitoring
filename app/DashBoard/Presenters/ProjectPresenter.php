@@ -119,6 +119,9 @@ class ProjectPresenter extends BasePresenter
 			->setDisabled($this->project && \count($this->project->subProjects))
 		;
 
+		$form->addCheckbox('reference', 'Referenční projekt');
+
+
 		$form->addSubmit('save', 'Uložit');
 
 		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data) {
@@ -142,6 +145,7 @@ class ProjectPresenter extends BasePresenter
 		$project->pausedTo = $data['pausedTo'];
 		$project->notifications = $data['notifications'];
 		$project->parent = $this->projectsRepository->getById((int) $data['parent']);
+		$project->reference = $data['reference'];
 
 		$project = $this->projectsRepository->persistAndFlush($project);
 
