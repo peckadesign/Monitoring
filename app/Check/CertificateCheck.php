@@ -91,4 +91,10 @@ class CertificateCheck extends Check
 		return 'PT24H';
 	}
 
+
+	public function getSslLabsApiLink(): string
+	{
+		return 'https://api.ssllabs.com/api/v3/analyze?fromCache=1&maxAge=26&host=' . $this->url;
+	}
+
 }

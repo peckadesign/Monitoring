@@ -22,7 +22,7 @@
 			<p>Varování předem: {$check->daysBeforeWarning} dní</p>
 			<p>Platnost do: {if $check->lastValiddate}{$check->lastValiddate|datetime}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Očekávaná známka na SSL Labs: {if $check->grade}{$check->grade}{else}<span class="text-muted">není</span>{/if}</p>
-			<p>Aktuální známka na SSL Labs: {if $check->lastGrade}{$check->lastGrade}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Aktuální známka na SSL Labs: {if $check->lastGrade}{$check->lastGrade}{else}<span class="text-muted">není</span>{/if} <a href="{$check->getSslLabsApiLink()}" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\FeedCheck}
 			<p>Adresa feedu: <a href="{$check->url}" target="_blank">{$check->url}</a></p>

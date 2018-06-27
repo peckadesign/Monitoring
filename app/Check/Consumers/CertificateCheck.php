@@ -57,7 +57,7 @@ class CertificateCheck extends Check
 
 			try {
 				$curl = new \GuzzleHttp\Client();
-				$gradeResponse = \Nette\Utils\Json::decode($curl->get('https://api.ssllabs.com/api/v3/analyze?fromCache=1&maxAge=26&host=' . $check->url)->getBody(), \Nette\Utils\Json::FORCE_ARRAY);
+				$gradeResponse = \Nette\Utils\Json::decode($curl->get($check->getSslLabsApiLink())->getBody(), \Nette\Utils\Json::FORCE_ARRAY);
 
 				if ($gradeResponse['status'] === 'READY') {
 					$check->lastGrade = NULL;
