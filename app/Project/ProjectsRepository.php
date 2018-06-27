@@ -5,6 +5,7 @@ namespace Pd\Monitoring\Project;
 /**
  * @method Project getById(int $id)
  * @method Project getBy(array $conds)
+ * @method \Nextras\Orm\Collection\ICollection|Project[] findBy(array $conds)
  * @method \Nextras\Orm\Collection\ICollection|Project[] findDashBoardProjects(array $userFavoriteProjectsIds)
  * @method \Nextras\Orm\Collection\ICollection|Project[] findParentAbleProjects(?Project $project = NULL)
  */

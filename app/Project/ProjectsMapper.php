@@ -10,6 +10,7 @@ class ProjectsMapper extends \Nextras\Orm\Mapper\Mapper
 		$data = $this
 			->builder()
 			->where('%column IS NULL', 'parent')
+			->andWhere('%column = 0', 'reference')
 			->orderBy('name')
 		;
 

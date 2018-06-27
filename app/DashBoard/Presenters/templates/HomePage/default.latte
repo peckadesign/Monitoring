@@ -21,6 +21,17 @@
 		{/foreach}
 	</div>
 
+	{if count($referenceProjects)}
+		<hr>
+		<div class="row">
+			{foreach $referenceProjects as $project}
+				<div class="col-md-4">
+					{control project-$project->id}
+				</div>
+			{/foreach}
+		</div>
+	{/if}
+
 	{control refresh}
 
 {/block}

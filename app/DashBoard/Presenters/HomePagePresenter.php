@@ -47,6 +47,11 @@ class HomePagePresenter extends BasePresenter
 	 */
 	private $nonFavoriteProjects = [];
 
+	/**
+	 * @var array|\Pd\Monitoring\Project\Project[]
+	 */
+	private $referenceProjects = [];
+
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\Project\IFactory $projectControlFactory,
@@ -80,10 +85,15 @@ class HomePagePresenter extends BasePresenter
 		}
 
 		$allProjects = $this->projectsRepository->findDashBoardProjects(\array_keys($this->usersFavoriteProjects));
-		/** @var \Pd\Monitoring\Project\Project $project */
 		foreach ($allProjects as $project) {
 			$this->projects[$project->id] = $project;
 			$this->nonFavoriteProjects[$project->id] = $project;
+		}
+
+		$referenceProjects = $this->projectsRepository->findBy(['reference' => TRUE]);
+		foreach ($referenceProjects as $project) {
+			$this->projects[$project->id] = $project;
+			$this->referenceProjects[$project->id] = $project;
 		}
 	}
 
@@ -92,6 +102,7 @@ class HomePagePresenter extends BasePresenter
 	{
 		$this->template->projects = $this->nonFavoriteProjects;
 		$this->template->favoriteProjects = $this->usersFavoriteProjects;
+		$this->template->referenceProjects = $this->referenceProjects;
 	}
 
 
