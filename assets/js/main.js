@@ -16,6 +16,14 @@ $(function () {
 		} else {
 			document.location.hash = e.target.href.substring(e.target.href.indexOf("#") + 1);
 		}
-	})
+	});
 
+	$('input[data-maintenance]').bootstrapToggle();
+
+	$('body').on('change', 'input[data-maintenance]', function() {
+		var $input = $(this);
+		$.nette.ajax($input.data('link')).always(function(){
+			$('input[data-maintenance]').bootstrapToggle();
+		});
+	});
 });

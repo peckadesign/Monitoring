@@ -119,4 +119,14 @@ class Control extends \Nette\Application\UI\Control
 		$this->onToggleHandlers[] = $handler;
 	}
 
+
+	protected function createComponentMaintenanceForm(): \Nette\Application\UI\Form
+	{
+		$form = new \Nette\Application\UI\Form();
+
+		$form->addCheckbox('maintenance', 'Údržba')->setDefaultValue($this->project->maintenance !== NULL);
+
+		return $form;
+	}
+
 }
