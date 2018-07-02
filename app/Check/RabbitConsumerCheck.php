@@ -4,6 +4,7 @@ namespace Pd\Monitoring\Check;
 
 /**
  * @property string $url
+ * @property string|NULL $adminUrl
  * @property string $queues
  * @property string $minimumConsumerCount
  * @property string|NULL $lastConsumerCount
