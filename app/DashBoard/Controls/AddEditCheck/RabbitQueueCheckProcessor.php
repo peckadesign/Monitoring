@@ -5,9 +5,13 @@ namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 class RabbitQueueCheckProcessor implements ICheckControlProcessor
 {
 
+	/**
+	 * @param \Pd\Monitoring\Check\RabbitQueueCheck $check
+	 */
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
 		$check->url = $data['url'];
+		$check->adminUrl = $data['adminUrl'];
 		if ($check->getPersistedId() && $check->queues !== $data['queues']) {
 			$check->lastMessageCount = NULL;
 		}
@@ -43,6 +47,11 @@ class RabbitQueueCheckProcessor implements ICheckControlProcessor
 			->addText('url', 'URL')
 			->setRequired(TRUE)
 			->setOption('description', 'URL musí vracet stejný výsledek jako volání "/api/queues" pluginu RabbitMQ Management HTTP API.')
+		;
+		$form
+			->addText('adminUrl', 'Administrační URL')
+			->setRequired(FALSE)
+			->setOption('description', 'Odkaz na webovou administraci RabbitMQ')
 		;
 		$form
 			->addText('login', 'HTTP login k URL')

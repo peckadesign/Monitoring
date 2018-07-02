@@ -170,6 +170,10 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			new \Pd\Monitoring\Slack\Button('pause', 'Pozastavit kontrolu', $this->linkGenerator->link('DashBoard:Slack:pause', [$check->id])),
 		];
 
+		if ($check instanceof \Pd\Monitoring\Check\RabbitConsumerCheck || $check instanceof \Pd\Monitoring\Check\RabbitQueueCheck) {
+			$buttons[] = new \Pd\Monitoring\Slack\Button('rabbitMqAdmin', 'Administrace RabbitMQ', $check->adminUrl);
+		}
+
 		if ($check->project->notifications && $check->project->notifications) {
 			$this->slackNotifier->notify('#monitoring', $message, $color, $buttons);
 		}

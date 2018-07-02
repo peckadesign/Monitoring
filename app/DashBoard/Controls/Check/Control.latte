@@ -32,7 +32,7 @@
 			<p>Čas poslední změny: {if $check->lastModified}{$check->lastModified|dateTime}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\RabbitConsumerCheck}
-			<p>API/skript url: <a href="{$check->url}" target="_blank">{$check->url}</a></p>
+			<p>API URL: <a href="{$check->url}" target="_blank">{$check->url}</a> <a href="{$check->adminUrl}" target="_blank" n:if="$check->adminUrl"><span class="glyphicon glyphicon-dashboard" aria-hidden="true" title="Administrace RabbitMQ"></span></a></p>
 			<p>Kontrolované fronty (aktuální/očekávaná):</p>
 			<ul>
 				{var $minimum = $check->getMinimumConsumerCount()}
@@ -43,7 +43,7 @@
 			</ul>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\RabbitQueueCheck}
-			<p>API/skript url: <a href="{$check->url}" target="_blank">{$check->url}</a></p>
+			<p>API URL: <a href="{$check->url}" target="_blank">{$check->url}</a> <a href="{$check->adminUrl}" target="_blank" n:if="$check->adminUrl"><span class="glyphicon glyphicon-dashboard" aria-hidden="true" title="Administrace RabbitMQ"></span></a></p>
 			<p>Kontrolované fronty (aktuální/očekávaná):</p>
 			<ul>
 				{var $maximum = $check->getMaximumMessageCount()}
