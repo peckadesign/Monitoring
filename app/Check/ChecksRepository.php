@@ -23,6 +23,7 @@ class ChecksRepository extends \Nextras\Orm\Repository\Repository
 			FeedCheck::class,
 			RabbitConsumerCheck::class,
 			RabbitQueueCheck::class,
+			NumberValueCheck::class,
 		];
 	}
 
@@ -48,6 +49,8 @@ class ChecksRepository extends \Nextras\Orm\Repository\Repository
 					return RabbitQueueCheck::class;
 				case ICheck::TYPE_RABBIT_CONSUMERS:
 					return RabbitConsumerCheck::class;
+				case ICheck::TYPE_NUMBER_VALUE:
+					return NumberValueCheck::class;
 
 				default:
 					throw new \Nextras\Orm\InvalidStateException();

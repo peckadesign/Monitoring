@@ -68,6 +68,10 @@ class Factory
 				$processor = new RabbitConsumerCheckProcessor();
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_NUMBER_VALUE:
+				$processor = new NumberValueCheckProcessor();
+				break;
+
 			default:
 				throw new \InvalidArgumentException();
 				break;
