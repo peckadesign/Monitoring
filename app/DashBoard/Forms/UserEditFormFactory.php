@@ -39,7 +39,7 @@ class UserEditFormFactory
 			->addText(self::FIELD_SLACK_ID, 'Slack ID')
 			->setRequired(FALSE)
 			->addRule(\Nette\Forms\Form::PATTERN, $userNameDescription, '@U.+')
-			->setOption('description', $userNameDescription)
+			->setOption('description', $userNameDescription . '. Získáte jej v aplikaci v "Profile & account" > "More actions" > "Copy member ID"')
 		;
 
 		if ($this->user->isAllowed('user', 'edit')) {
