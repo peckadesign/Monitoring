@@ -87,6 +87,9 @@ rabbitmq:
 		rabbitQueueCheck:
 			exchange: {name: 'rabbitQueueCheck', type: direct}
 			contentType: text/plain
+		numberValueCheck:
+			exchange: {name: 'numberValueCheck', type: direct}
+			contentType: text/plain
 
 	consumers:
 		aliveCheck:
@@ -117,6 +120,10 @@ rabbitmq:
 			exchange: {name: 'rabbitQueueCheck', type: direct}
 			queue: {name: 'rabbitQueueCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\RabbitQueueCheck, process]
+		numberValueCheck:
+			exchange: {name: 'numberValueCheck', type: direct}
+			queue: {name: 'numberValueCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\NumberValueCheck, process]
 
 
 services:
@@ -160,6 +167,9 @@ services:
 
 	-
 		class: Pd\Monitoring\Check\Consumers\HttpStatusCodeCheck
+
+	-
+		class: Pd\Monitoring\Check\Consumers\NumberValueCheck
 
 	-
 		class: Pd\Monitoring\User\AclFactory
@@ -220,6 +230,13 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('httpStatusCodeCheck')
+
+	-
+		class: Pd\Monitoring\Check\Commands\Publish\NumberValueChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @Kdyby\RabbitMq\Connection::getProducer('numberValueCheck')
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory
