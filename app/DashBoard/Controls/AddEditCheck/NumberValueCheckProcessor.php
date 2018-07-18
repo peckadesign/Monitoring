@@ -32,15 +32,18 @@ class NumberValueCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\Add
 			->addText('url', 'URL')
 			->setRequired(TRUE)
 			->setAttribute('placeholder', 'https://www.example.com/api/value')
-			->setOption('description', 'URL musí vracet HTTP stavový kód 200 a obsahovat pouze jedno číslo')
+			->setOption('description', 'URL musí vracet HTTP stavový kód 200 a obsahovat pouze jedno číslo, např. 10 nebo 17.51')
 		;
 		$form
 			->addSelect('operator', 'Očekávaná hodnota', \Pd\Monitoring\Check\NumberValueCheck::OPERATORS)
 			->setRequired(TRUE)
 		;
+		$thresholdHelp = 'Celé nebo desetinné číslo, např. 10 nebo 17.51';
 		$form
 			->addText('threshold', 'Mezní hodnota')
+			->addRule(\Nette\Forms\Form::FLOAT, $thresholdHelp)
 			->setRequired(TRUE)
+			->setOption('description', $thresholdHelp)
 		;
 	}
 }
