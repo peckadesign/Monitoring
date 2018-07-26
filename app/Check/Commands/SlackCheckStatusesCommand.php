@@ -174,11 +174,13 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			$buttons[] = new \Pd\Monitoring\Slack\Button('rabbitMqAdmin', 'Administrace RabbitMQ', $check->adminUrl);
 		}
 
-		if ($check->project->notifications && $check->project->notifications) {
+		if ($check->project->notifications && ( ! $check->project->parent || $check->project->parent->notifications)) {
 			$this->slackNotifier->notify('#monitoring', $message, $color, $buttons);
 		}
 
-		foreach ($check->project->userSlackNotifications as $user) {
+		$projectForUserSlackNotifications = $check->project->parent ?: $check->project;
+
+		foreach ($projectForUserSlackNotifications->userSlackNotifications as $user) {
 			if (($slackId = $user->user->slackId)) {
 				$this->slackNotifier->notify($user->user->slackId, $message, $color, $buttons);
 			}
