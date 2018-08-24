@@ -14,6 +14,8 @@ namespace Pd\Monitoring\Check;
  * @property string $fullName {virtual}
  * @property string $statusMessage {virtual}
  * @property bool $onlyErrors {default FALSE}
+ * @property string|NULL $pausedFrom
+ * @property string|NULL $pausedTo
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck
@@ -87,5 +89,15 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 
 
 	abstract public function getterStatusMessage(): string;
+
+
+	public function isPaused(): bool
+	{
+		if ($this->paused) {
+			return TRUE;
+		}
+
+		return \Pd\Monitoring\Utils\Helpers::isInTimeInterval($this->dateTimeProvider->getDateTime(), $this->pausedFrom, $this->pausedTo);
+	}
 
 }

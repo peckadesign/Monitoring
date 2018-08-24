@@ -20,4 +20,21 @@ namespace Pd\Monitoring\Project;
 class Project extends \Nextras\Orm\Entity\Entity
 {
 
+	/**
+	 * @var \Kdyby\Clock\IDateTimeProvider
+	 */
+	private $dateTimeProvider;
+
+
+	public function injectBaseDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider): void
+	{
+		$this->dateTimeProvider = $dateTimeProvider;
+	}
+
+
+	public function isPaused(): bool
+	{
+		return \Pd\Monitoring\Utils\Helpers::isInTimeInterval($this->dateTimeProvider->getDateTime(), $this->pausedFrom, $this->pausedTo);
+	}
+
 }

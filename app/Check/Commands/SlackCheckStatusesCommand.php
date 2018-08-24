@@ -108,18 +108,8 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			return;
 		}
 
-		$now = $this->dateTimeProvider->getDateTime();
-
-		if ($check->project->pausedTo && $check->project->pausedFrom) {
-			$timeFrom = \explode(':', $check->project->pausedFrom);
-			$pausedFrom = $this->dateTimeProvider->getDateTime()->setTime((int) $timeFrom[0], (int) $timeFrom[1]);
-
-			$timeTo = \explode(':', $check->project->pausedTo);
-			$pausedTo = $this->dateTimeProvider->getDateTime()->setTime((int) $timeTo[0], (int) $timeTo[1]);
-
-			if ($now >= $pausedFrom && $now <= $pausedTo) {
-				return;
-			}
+		if ($check->isPaused() || $check->project->isPaused()) {
+			return;
 		}
 
 		$conditions = [

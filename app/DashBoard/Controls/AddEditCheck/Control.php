@@ -82,6 +82,15 @@ class Control extends \Nette\Application\UI\Control
 		$form->addText('name', 'Vlastní název');
 		$form->addCheckbox('onlyErrors', 'Hlásit pouze chyby');
 
+		$form
+			->addText('pausedFrom', 'Pozastavení notifikace od')
+			->setAttribute('placeholder', 'hh:mm')
+		;
+		$form
+			->addText('pausedTo', 'Pozastavení notifikace do')
+			->setAttribute('placeholder', 'hh:mm')
+		;
+
 		$projects = $this->projectsRepository->findAll()->orderBy('name')->fetchPairs('id', 'name');
 		$form->addSelect('project', 'Projekt', $projects);
 
@@ -103,6 +112,8 @@ class Control extends \Nette\Application\UI\Control
 
 		$this->check->name = $data['name'];
 		$this->check->onlyErrors = $data['onlyErrors'];
+		$this->check->pausedFrom = $data['pausedFrom'];
+		$this->check->pausedTo = $data['pausedTo'];
 
 		$this->checkControlProcessor->processEntity($this->check, $data);
 
