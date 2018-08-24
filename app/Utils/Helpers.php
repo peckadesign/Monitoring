@@ -28,4 +28,22 @@ final class Helpers
 		}
 	}
 
+
+	public static function isInTimeInterval(\DateTimeImmutable $now, ?string $from, ?string $to): bool
+	{
+		if ($from && $to) {
+			$timeFrom = \explode(':', $from);
+			$pausedFrom = $now->setTime((int) $timeFrom[0], (int) $timeFrom[1]);
+
+			$timeTo = \explode(':', $to);
+			$pausedTo = $now->setTime((int) $timeTo[0], (int) $timeTo[1]);
+
+			if ($now >= $pausedFrom && $now <= $pausedTo) {
+				return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+
 }
