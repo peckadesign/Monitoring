@@ -33,9 +33,18 @@ final class Helpers
 	{
 		if ($from && $to) {
 			$timeFrom = \explode(':', $from);
-			$pausedFrom = $now->setTime((int) $timeFrom[0], (int) $timeFrom[1]);
+			$timeFrom = \array_map('intval', $timeFrom);
 
 			$timeTo = \explode(':', $to);
+			$timeTo = \array_map('intval', $timeTo);
+
+			if ($timeFrom[0] > $timeTo[0]) {
+				$nowFrom = $now->sub(new \DateInterval('P1D'));
+			} else {
+				$nowFrom = $now;
+			}
+			$pausedFrom = $nowFrom->setTime((int) $timeFrom[0], (int) $timeFrom[1]);
+
 			$pausedTo = $now->setTime((int) $timeTo[0], (int) $timeTo[1]);
 
 			if ($now >= $pausedFrom && $now <= $pausedTo) {
