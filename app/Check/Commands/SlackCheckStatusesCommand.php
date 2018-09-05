@@ -32,10 +32,16 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	 */
 	private $slackNotifier;
 
+	/**
+	 * @var \Pd\Monitoring\Project\ProjectsRepository
+	 */
+	private $projectsRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\Slack\Notifier $slackNotifier,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
+		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Nette\Application\LinkGenerator $linkGenerator,
 		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
 		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository
@@ -47,6 +53,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		$this->dateTimeProvider = $dateTimeProvider;
 		$this->slackNotifyLocksRepository = $slackNotifyLocksRepository;
 		$this->slackNotifier = $slackNotifier;
+		$this->projectsRepository = $projectsRepository;
 	}
 
 
@@ -87,14 +94,35 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			}
 		} else {
 			$options = [
-				'paused' => FALSE,
-				'this->project->maintenance' => NULL,
+				'maintenance' => NULL,
 			];
+			$projects = $this->projectsRepository->findBy($options);
 
-			$checks = $this->checksRepository->findBy($options);
-
-			foreach ($checks as $check) {
-				$this->processCheck($check);
+			foreach ($projects as $project) {
+				$options = [
+					'paused' => FALSE,
+					'reference' => TRUE,
+					'project' => $project,
+				];
+				$referenceChecksForProject = $this->checksRepository->findBy($options);
+				foreach ($referenceChecksForProject as $referenceCheckForProject) {
+					if ($referenceCheckForProject->status !== \Pd\Monitoring\Check\ICheck::STATUS_OK) {
+						$this->slackNotifier->notify(
+							'#monitoring',
+							\sprintf(
+								'Některé referenční kontroly pro projekt %s selhaly, neproběhne notifikace ostatních kontrol',
+								$referenceCheckForProject->project->name
+							),
+							'warning',
+							[]
+						);
+						$this->processCheck($referenceCheckForProject);
+						continue 2;
+					}
+				}
+				foreach ($project->checks as $check) {
+					$this->processCheck($check);
+				}
 			}
 		}
 

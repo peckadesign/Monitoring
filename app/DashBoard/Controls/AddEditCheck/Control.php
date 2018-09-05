@@ -81,6 +81,7 @@ class Control extends \Nette\Application\UI\Control
 		$form->addGroup('Obecné informace');
 		$form->addText('name', 'Vlastní název');
 		$form->addCheckbox('onlyErrors', 'Hlásit pouze chyby');
+		$form->addCheckbox('reference', 'Referenční kontrola pro projekt');
 
 		$form
 			->addText('pausedFrom', 'Pozastavení notifikace od')
@@ -112,6 +113,7 @@ class Control extends \Nette\Application\UI\Control
 
 		$this->check->name = $data['name'];
 		$this->check->onlyErrors = $data['onlyErrors'];
+		$this->check->reference = $data['reference'];
 		$this->check->pausedFrom = $data['pausedFrom'];
 		$this->check->pausedTo = $data['pausedTo'];
 
