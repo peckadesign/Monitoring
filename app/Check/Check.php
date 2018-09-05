@@ -16,6 +16,7 @@ namespace Pd\Monitoring\Check;
  * @property bool $onlyErrors {default FALSE}
  * @property string|NULL $pausedFrom
  * @property string|NULL $pausedTo
+ * @property bool $reference {default FALSE}
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck
