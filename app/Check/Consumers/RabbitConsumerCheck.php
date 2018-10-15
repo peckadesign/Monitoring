@@ -14,7 +14,10 @@ class RabbitConsumerCheck extends Check
 		$check->lastConsumerCount = NULL;
 
 		try {
-			$client = new \GuzzleHttp\Client();
+			$config = [
+				'verify' => $check->validateHttps,
+			];
+			$client = new \GuzzleHttp\Client($config);
 
 			$options = [
 				'connect_timeout' => 5,

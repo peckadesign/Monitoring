@@ -10,6 +10,7 @@ namespace Pd\Monitoring\Check;
  * @property string|NULL $lastConsumerCount
  * @property string|NULL $login
  * @property string|NULL $password
+ * @property bool $validateHttps
  */
 class RabbitConsumerCheck extends Check
 {

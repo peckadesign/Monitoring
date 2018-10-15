@@ -15,7 +15,7 @@ class RabbitQueueCheck extends Check
 
 		try {
 			$config = [
-				'verify' => FALSE,
+				'verify' => $check->validateHttps,
 			];
 			$client = new \GuzzleHttp\Client($config);
 
