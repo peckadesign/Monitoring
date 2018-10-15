@@ -21,6 +21,7 @@ class RabbitQueueCheckProcessor implements ICheckControlProcessor
 		if ( ! empty($data['password'])) {
 			$check->password = $data['password'];
 		}
+		$check->validateHttps = $data['validateHttps'];
 	}
 
 
@@ -59,7 +60,10 @@ class RabbitQueueCheckProcessor implements ICheckControlProcessor
 		$form
 			->addPassword('password', 'HTTP heslo k URL')
 		;
-
+		$form
+			->addCheckbox('validateHttps', 'Validovat HTTPS certifikát')
+			->setDefaultValue(TRUE)
+		;
 	}
 
 }
