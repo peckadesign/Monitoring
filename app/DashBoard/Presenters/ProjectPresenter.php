@@ -144,7 +144,9 @@ class ProjectPresenter extends BasePresenter
 		$project->pausedFrom = $data['pausedFrom'];
 		$project->pausedTo = $data['pausedTo'];
 		$project->notifications = $data['notifications'];
-		$project->parent = $this->projectsRepository->getById((int) $data['parent']);
+		if (isset($data['parent'])) {
+			$project->parent = $this->projectsRepository->getById((int) $data['parent']);
+		}
 		$project->reference = $data['reference'];
 
 		$project = $this->projectsRepository->persistAndFlush($project);
