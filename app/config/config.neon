@@ -96,34 +96,50 @@ rabbitmq:
 			exchange: {name: 'aliveCheck', type: direct}
 			queue: {name: 'aliveCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\AliveCheck, process]
+			qos:
+				prefetchCount: 10
 		dnsCheck:
 			exchange: {name: 'dnsCheck', type: direct}
 			queue: {name: 'dnsCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\DnsCheck, process]
+			qos:
+				prefetchCount: 10
 		certificateCheck:
 			exchange: {name: 'certificateCheck', type: direct}
 			queue: {name: 'certificateCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\CertificateCheck, process]
+			qos:
+				prefetchCount: 10
 		httpStatusCodeCheck:
 			exchange: {name: 'httpStatusCodeCheck', type: direct}
 			queue: {name: 'httpStatusCodeCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\HttpStatusCodeCheck, process]
+			qos:
+				prefetchCount: 10
 		feedCheck:
 			exchange: {name: 'feedCheck', type: direct}
 			queue: {name: 'feedCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\FeedCheck, process]
+			qos:
+				prefetchCount: 10
 		rabbitConsumerCheck:
 			exchange: {name: 'rabbitConsumerCheck', type: direct}
 			queue: {name: 'rabbitConsumerCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\RabbitConsumerCheck, process]
+			qos:
+				prefetchCount: 10
 		rabbitQueueCheck:
 			exchange: {name: 'rabbitQueueCheck', type: direct}
 			queue: {name: 'rabbitQueueCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\RabbitQueueCheck, process]
+			qos:
+				prefetchCount: 10
 		numberValueCheck:
 			exchange: {name: 'numberValueCheck', type: direct}
 			queue: {name: 'numberValueCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\NumberValueCheck, process]
+			qos:
+				prefetchCount: 10
 
 
 services:
