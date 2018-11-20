@@ -84,13 +84,14 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			}
 		}
 
+		$firstReferenceCheck = TRUE;
 		if ( ! $allPassed) {
-			$this->slackNotifier->notify('#monitoring', 'Některé referenční kontroly selhaly, neproběhne notifikace ostatních kontrol', 'warning', []);
 			foreach ($referenceChecks as $referenceCheck) {
 				if ($referenceCheck->status === \Pd\Monitoring\Check\ICheck::STATUS_OK) {
 					continue;
 				}
-				$this->processCheck($referenceCheck);
+				$this->processCheck($referenceCheck, $firstReferenceCheck);
+				$firstReferenceCheck = FALSE;
 			}
 		} else {
 			$options = [
@@ -107,21 +108,12 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				$referenceChecksForProject = $this->checksRepository->findBy($options);
 				foreach ($referenceChecksForProject as $referenceCheckForProject) {
 					if ($referenceCheckForProject->status !== \Pd\Monitoring\Check\ICheck::STATUS_OK) {
-						$this->slackNotifier->notify(
-							'#monitoring',
-							\sprintf(
-								'Některé referenční kontroly pro projekt %s selhaly, neproběhne notifikace ostatních kontrol',
-								$referenceCheckForProject->project->name
-							),
-							'warning',
-							[]
-						);
-						$this->processCheck($referenceCheckForProject);
+						$this->processCheck($referenceCheckForProject, TRUE);
 						continue 2;
 					}
 				}
 				foreach ($project->checks as $check) {
-					$this->processCheck($check);
+					$this->processCheck($check, FALSE);
 				}
 			}
 		}
@@ -130,7 +122,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	}
 
 
-	private function processCheck(\Pd\Monitoring\Check\Check $check)
+	private function processCheck(\Pd\Monitoring\Check\Check $check, bool $referenceWarning): void
 	{
 		if ($check->project->parent && $check->project->parent->maintenance) {
 			return;
@@ -192,7 +184,24 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			$buttons[] = new \Pd\Monitoring\Slack\Button('rabbitMqAdmin', 'Administrace RabbitMQ', $check->adminUrl);
 		}
 
+		$referenceCheckWarning = 'Některé referenční kontroly selhaly, neproběhne notifikace ostatních kontrol';
+		$projectReferenceCheckWarning = \sprintf(
+			'Některé referenční kontroly pro projekt %s selhaly, neproběhne notifikace ostatních kontrol',
+			$check->project->name
+		);
+
 		if ($check->project->notifications && ( ! $check->project->parent || $check->project->parent->notifications)) {
+			if ($referenceWarning && $check->project->reference) {
+				$this->slackNotifier->notify('#monitoring', $referenceCheckWarning, 'warning', []);
+			}
+			if ($referenceWarning && $check->reference) {
+				$this->slackNotifier->notify(
+					'#monitoring',
+					$projectReferenceCheckWarning,
+					'warning',
+					[]
+				);
+			}
 			$this->slackNotifier->notify('#monitoring', $message, $color, $buttons);
 		}
 
@@ -200,6 +209,17 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 
 		foreach ($projectForUserSlackNotifications->userSlackNotifications as $user) {
 			if (($slackId = $user->user->slackId)) {
+				if ($referenceWarning && $check->project->reference) {
+					$this->slackNotifier->notify($user->user->slackId, $referenceCheckWarning, 'warning', []);
+				}
+				if ($referenceWarning && $check->reference) {
+					$this->slackNotifier->notify(
+						$user->user->slackId,
+						$projectReferenceCheckWarning,
+						'warning',
+						[]
+					);
+				}
 				$this->slackNotifier->notify($user->user->slackId, $message, $color, $buttons);
 			}
 		}
