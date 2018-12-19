@@ -24,6 +24,10 @@ class AliveCheck extends Check
 			],
 		];
 
+		if ( ! $check->followRedirect) {
+			$options['allow_redirects'] = FALSE;
+		}
+
 		try {
 			$start = (float) \microtime(TRUE);
 

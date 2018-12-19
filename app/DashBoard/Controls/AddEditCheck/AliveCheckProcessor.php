@@ -8,6 +8,7 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
 		$check->url = $data['url'];
+		$check->followRedirect = $data['followRedirect'];
 	}
 
 
@@ -26,5 +27,11 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 			->setAttribute('placeholder', 'https://www.example.com')
 			->setOption('description', 'URL musí vracet HTTP stavový kód 200.')
 		;
+
+		$form
+			->addCheckbox('followRedirect', 'Následovat přesměrování')
+			->setOption('description', 'Poslední URL musí vracet HTTP stavový kód 200.')
+		;
 	}
+
 }
