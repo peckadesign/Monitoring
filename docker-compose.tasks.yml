@@ -1,0 +1,119 @@
+version: '3'
+
+services:
+  cronTasks:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    env_file:
+      - .env
+    command: bash .docker/cron-task.sh
+    restart: always
+
+  consumer-aliveCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer aliveCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-certificateCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer certificateCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-httpStatusCodeCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer httpStatusCodeCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-elasticsearchExport:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer elasticsearchExport -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-aliveCheckSiteMap:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer aliveCheckSiteMap -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-dnsCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer dnsCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-feedCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer feedCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-rabbitConsumerCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer rabbitConsumerCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-rabbitQueueCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer rabbitQueueCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-numberValueCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer numberValueCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-xpathCheck:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer xpathCheck -m 10
+    restart: always
+    env_file:
+      - .env
+
+  consumer-xpathCheckSiteMap:
+    image: monitoring_web
+    volumes:
+      - ./:/var/www/html
+    command: php www/index.php rabbitmq:consumer xpathCheck -m 10
+    restart: always
+    env_file:
+      - .env
