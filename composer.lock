@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "afa19a24a9ad4a9e7a4c2632c83d4125",
+    "content-hash": "d6364bc0e56d3112a9076a70f9829054",
     "packages": [
+        {
+            "name": "atrox/matcher",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kaja47/Matcher.git",
+                "reference": "28e542cafef29298ed85ea6c37049010464259e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kaja47/Matcher/zipball/28e542cafef29298ed85ea6c37049010464259e0",
+                "reference": "28e542cafef29298ed85ea6c37049010464259e0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "masterminds/html5": "2.*",
+                "nette/tester": "~1.1"
+            },
+            "suggest": {
+                "symfony/css-selector": "Allows CSS selectors."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Atrox\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Karel Čížek",
+                    "email": "kaja47@k47.cz",
+                    "homepage": "http://funkcionalne.cz"
+                }
+            ],
+            "description": "Powerful XML and HTML matching and data extraction library",
+            "keywords": [
+                "Xpath",
+                "html",
+                "xml"
+            ],
+            "time": "2018-02-10T20:51:11+00:00"
+        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "6.3.3",
@@ -2599,12 +2648,12 @@
             "version": "v5.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ublaboo/datagrid.git",
+                "url": "https://github.com/contributte/datagrid.git",
                 "reference": "9cab60969ecd979f6ce722c1a460d415f48a8474"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ublaboo/datagrid/zipball/9cab60969ecd979f6ce722c1a460d415f48a8474",
+                "url": "https://api.github.com/repos/contributte/datagrid/zipball/9cab60969ecd979f6ce722c1a460d415f48a8474",
                 "reference": "9cab60969ecd979f6ce722c1a460d415f48a8474",
                 "shasum": ""
             },

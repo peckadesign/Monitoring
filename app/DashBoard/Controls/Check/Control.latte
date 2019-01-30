@@ -63,6 +63,15 @@
 			<p>Očekávaná hodnota: {=\Pd\Monitoring\Check\NumberValueCheck::OPERATORS[$check->operator]} {$check->threshold}</p>
 			<p>Zjištěná hodnota: {if $check->value !== NULL}{$check->value}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+		{elseif $check instanceof \Pd\Monitoring\Check\XpathCheck}
+			<p>{$check->statusMessage}</p>
+			<p>URL: <a href="{$check->url}" target="_blank">{$check->url}</a></p>
+			<p>XPath selektor: <pre>{$check->xpath}</pre></p>
+			<p>Očekávaná hodnota: {=\Pd\Monitoring\Check\XpathCheck::OPERATORS[$check->operator]} {$check->xpathResult}</p>
+			<p>Zjištěná hodnota: {if $check->xpathLastResult !== NULL}{$check->xpathLastResult}{else}<span class="text-muted">není</span>{/if}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+		{elseif $check instanceof Pd\Monitoring\Check\AliveCheck}
+			<p>Testovaná URL: <a href="{$check->url}" target="_blank">{$check->url}</a></p>
 		{/if}
 	</div>
 	<div class="panel-footer">
