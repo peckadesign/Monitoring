@@ -72,6 +72,10 @@ class Factory
 				$processor = new NumberValueCheckProcessor();
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_XPATH:
+				$processor = new XpathCheckProcessor();
+				break;
+
 			default:
 				throw new \InvalidArgumentException();
 				break;

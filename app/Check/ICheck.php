@@ -14,6 +14,7 @@ interface ICheck
 	public const TYPE_FEED = 6;
 	public const TYPE_RABBIT_QUEUES = 7;
 	public const TYPE_RABBIT_CONSUMERS = 8;
+	public const TYPE_XPATH = 9;
 
 	public const STATUS_OK = 0;
 	public const STATUS_ALERT = 1;

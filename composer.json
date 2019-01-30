@@ -34,7 +34,8 @@
 		"kdyby/rabbitmq": "1.2.*",
 		"nette/mail": "2.4.*",
 		"nextras/forms": "2.0.*",
-		"ublaboo/datagrid": "5.6.*"
+		"ublaboo/datagrid": "5.6.*",
+		"atrox/matcher": "^1.1"
 	},
 	"require-dev": {
 		"pd/coding-standard": "1.13.*",

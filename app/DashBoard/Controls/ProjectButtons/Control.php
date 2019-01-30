@@ -38,6 +38,7 @@ final class Control extends \Nette\Application\UI\Control
 			new \Pd\Monitoring\Check\RabbitQueueCheck(),
 			new \Pd\Monitoring\Check\RabbitConsumerCheck(),
 			new \Pd\Monitoring\Check\NumberValueCheck(),
+			new \Pd\Monitoring\Check\XpathCheck(),
 		];
 
 		$this
