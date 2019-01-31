@@ -93,6 +93,9 @@ rabbitmq:
 		xpathCheck:
 			exchange: {name: 'xpathCheck', type: direct}
 			contentType: text/plain
+		elasticsearchExport:
+			exchange: {name: 'elasticsearchExport', type: direct}
+			contentType: text/plain
 
 	consumers:
 		aliveCheck:
@@ -147,6 +150,12 @@ rabbitmq:
 			exchange: {name: 'xpathCheck', type: direct}
 			queue: {name: 'xpathCheck'}
 			callback: [@\Pd\Monitoring\Check\Consumers\XpathCheck, process]
+			qos:
+				prefetchCount: 10
+		elasticsearchExport:
+			exchange: {name: 'elasticsearchExport', type: direct}
+			queue: {name: 'elasticsearchExport'}
+			callback: [@\Pd\Monitoring\Elasticsearch\Consumers\ChecksExporter, process]
 			qos:
 				prefetchCount: 10
 
@@ -315,6 +324,20 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory
+
+	-
+		factory: \Pd\Monitoring\Elasticsearch\ChecksExporter
+		arguments:
+			producer: @Kdyby\RabbitMq\Connection::getProducer('elasticsearchExport')
+
+	orm.repositories.checks:
+		setup:
+			- "$service->onFlush[] = ?" ([@\Pd\Monitoring\Elasticsearch\ChecksExporter, export])
+
+	-
+		factory: \Pd\Monitoring\Elasticsearch\Consumers\ChecksExporter
+		arguments:
+			elasticsearchClient: \Elasticsearch\ClientBuilder::create()::build()
 
 
 decorator:
