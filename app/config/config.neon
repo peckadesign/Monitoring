@@ -49,6 +49,9 @@ parameters:
 	binDir: %appDir%/bin
 	logDir: %appDir%/../log
 #	administratorTeamId: # local
+	elasticsearch:
+		hosts:
+			- 'localhost'
 
 
 application:
@@ -337,8 +340,23 @@ services:
 	-
 		factory: \Pd\Monitoring\Elasticsearch\Consumers\ChecksExporter
 		arguments:
-			elasticsearchClient: \Elasticsearch\ClientBuilder::create()::build()
+			elasticsearchClient: @elasticsearchClient
 
+	-
+		factory: \Pd\Monitoring\Elasticsearch\Queries\AverageTimeoutQuery
+		arguments:
+			elasticsearchClient: @elasticsearchClient
+
+	elasticsearchClient:
+		class: \Elasticsearch\Client
+		factory: \Pd\Monitoring\Elasticsearch\ClientFactory::create()
+		arguments:
+			hosts: %elasticsearch.hosts%
+
+	-
+		implement: \Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory
+		arguments:
+			cache: \Nette\Caching\Cache()
 
 decorator:
 	Nette\Application\UI\Control:

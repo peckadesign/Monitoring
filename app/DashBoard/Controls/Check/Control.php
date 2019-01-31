@@ -20,16 +20,23 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $rabbitConnection;
 
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory
+	 */
+	private $aliveChartControlFactory;
+
 
 	public function __construct(
 		\Pd\Monitoring\Check\Check $check,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Kdyby\RabbitMq\Connection $rabbitConnection
+		\Kdyby\RabbitMq\Connection $rabbitConnection,
+		\Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory $aliveChartControlFactory
 	) {
 		parent::__construct();
 		$this->check = $check;
 		$this->checksRepository = $checksRepository;
 		$this->rabbitConnection = $rabbitConnection;
+		$this->aliveChartControlFactory = $aliveChartControlFactory;
 	}
 
 
@@ -48,10 +55,12 @@ class Control extends \Nette\Application\UI\Control
 
 	public function render(): void
 	{
-		$this->template->check = $this->check;
-
-		$this->template->setFile(__DIR__ . '/Control.latte');
-		$this->template->render();
+		$this
+			->template
+			->setFile(__DIR__ . '/Control.latte')
+			->add('check', $this->check)
+			->render()
+		;
 	}
 
 
@@ -87,6 +96,12 @@ class Control extends \Nette\Application\UI\Control
 		} else {
 			$this->redirect('this');
 		}
+	}
+
+
+	protected function createComponentAliveChart(): \Pd\Monitoring\DashBoard\Controls\AliveChart\Control
+	{
+		return $this->aliveChartControlFactory->create($this->check);
 	}
 
 }
