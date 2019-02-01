@@ -33,7 +33,10 @@ final class XpathCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\Add
 			->setOption('description', 'URL musí vracet HTTP stavový kód 200.')
 		;
 
-		$form->addText('xpath', 'XPath selektor');
+		$form
+			->addText('xpath', 'XPath selektor')
+			->setOption('description', 'Např. "//*[@id="main"]/ul/li"')
+		;
 		$form->addSelect('operator', 'Výsledek nálezu', \Pd\Monitoring\Check\XpathCheck::OPERATORS);
 		$form->addText('xpathResult', 'Očekávaný výsledek');
 	}
