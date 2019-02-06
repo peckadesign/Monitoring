@@ -44,7 +44,7 @@ final class XpathCheck extends Check
 			$return = $this->xpathLastResult < $this->xpathResult;
 		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_EQ) {
 			$return = $this->xpathLastResult == $this->xpathResult;
-		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_LT) {
+		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_GT) {
 			$return = $this->xpathLastResult > $this->xpathResult;
 		}
 
@@ -66,7 +66,7 @@ final class XpathCheck extends Check
 			$return = 'má být menší než';
 		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_EQ) {
 			$return = 'má být roven';
-		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_LT) {
+		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_GT) {
 			$return = 'mát být větší než';
 		}
 
