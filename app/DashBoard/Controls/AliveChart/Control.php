@@ -36,13 +36,13 @@ final class Control extends \Nette\Application\UI\Control
 	{
 		$cb = function (&$dp): array {
 			$data = [['Den', 'Dnes', 'Včera', 'Týden']];
-			foreach ($this->averageTimeoutQuery->query($this->check->id, 1) as $date => $timeout) {
+			foreach ($this->averageTimeoutQuery->query($this->check->id, 0) as $date => $timeout) {
 				$month = new \DateTime($date);
 				$hour = $month->format('H:00');
 				$data[$hour] = [$hour, (int) $timeout];
 			}
 
-			foreach ($this->averageTimeoutQuery->query($this->check->id, 2) as $date => $timeout) {
+			foreach ($this->averageTimeoutQuery->query($this->check->id, 1) as $date => $timeout) {
 				$month = new \DateTime($date);
 				$hour = $month->format('H:00');
 				$data[$hour][] = (int) $timeout;

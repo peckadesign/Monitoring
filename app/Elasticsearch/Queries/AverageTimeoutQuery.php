@@ -19,6 +19,8 @@ final class AverageTimeoutQuery
 
 	public function query(int $checkId, int $howManyDaysBack): array
 	{
+		$from = new \DateTime('-' . ($howManyDaysBack + 1) . ' days');
+		$to = new \DateTime('-' . $howManyDaysBack . ' days');
 		$params = [
 			'index' => 'checks_*',
 			'type' => 'checks',
@@ -34,9 +36,9 @@ final class AverageTimeoutQuery
 							[
 								'range' => [
 									'datetime' => [
-										'gte' => (new \DateTime('-' . $howManyDaysBack - 1 . ' days'))->format('Y-m-d H'),
-										'lt' => (new \DateTime('-' . $howManyDaysBack . ' days'))->format('Y-m-d H'),
-										'format' => 'YYYY-MM-DD HH',
+										'gte' => $from->format('Y-m-d H:00:00'),
+										'lt' => $to->format('Y-m-d H:00:00'),
+										'format' => 'yyyy-MM-dd HH:mm:ss',
 									],
 								],
 							],
@@ -65,6 +67,12 @@ final class AverageTimeoutQuery
 		$results = $this->elasticsearchClient->search($params);
 
 		$return = [];
+
+		do {
+			$return[$from->format('Y-m-d\TH:00:00.000\Z')] = 0;
+			$from->add(new \DateInterval('PT1H'));
+		} while($from->format('Y-m-d H') < $to->format('Y-m-d H'));
+
 		foreach ($results['aggregations']['average_timeout']['buckets'] as $bucket) {
 			$return[$bucket['key_as_string']] = $bucket['average_timeout']['value'];
 		}
