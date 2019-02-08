@@ -1,7 +1,10 @@
 Vagrant.configure(2) do |config|
-	config.vm.box = "debian/contrib-jessie64"
+	config.vm.box = "debian/contrib-stretch64"
 	config.vbguest.auto_update = true
 	config.vm.provision :shell, path: "vagrant/server/bootstrap.sh"
+	config.vm.provision :shell, path: "vagrant/server/mysql.sh"
+	config.vm.provision :shell, path: "vagrant/server/elastic.sh"
+	config.vm.provision :shell, path: "vagrant/server/rabbitmq.sh"
 	config.vm.provision :shell, path: "vagrant/server/install.sh", privileged: false
 	config.vm.provision :shell, path: "vagrant/server/load.sh", run: "always"
 	config.vm.network "private_network", type: "dhcp"
