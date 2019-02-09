@@ -353,7 +353,7 @@ services:
 
 	-
 		class: \League\OAuth2\Client\Provider\Github
-		factory: \Pd\Monitoring\GitHub\ProviderFactory(%github.clientId%, %github.clientSecret%, %github.scope%)::create()
+		factory: \Pd\Monitoring\Github\ProviderFactory(%github.clientId%, %github.clientSecret%, %github.scope%)::create()
 		
 
 decorator:
