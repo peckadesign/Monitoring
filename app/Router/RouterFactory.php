@@ -34,8 +34,8 @@ class RouterFactory
 
 						$cache = new \Nette\Caching\Cache($this->storage);
 
-						$fb = function (&$dp) {
-							$octodexFeedContent = \file_get_contents('http://feeds.feedburner.com/Octocats');
+						$fb = static function (&$dp): array {
+							$octodexFeedContent = \file_get_contents('https://feeds.feedburner.com/Octocats');
 							$octodexFeed = new \SimpleXMLElement($octodexFeedContent);
 							$octocats = [];
 							foreach ($octodexFeed->entry as $entry) {
@@ -45,6 +45,8 @@ class RouterFactory
 									$octocats[] = $octocat;
 								}
 							}
+
+							$dp[\Nette\Caching\Cache::EXPIRE] = '+24 hours';
 
 							return $octocats;
 						};
@@ -62,7 +64,7 @@ class RouterFactory
 				},
 			],
 		];
-		$router[] = new \Nette\Application\Routers\Route('https://octodex.github.com/images/<octocat [a-z0-9\.]+>', $metadata);
+		$router[] = new \Nette\Application\Routers\Route('https://octodex.github.com/images/<octocat [a-z0-9\.\-]+>', $metadata);
 
 		$metadata = [
 			'module' => 'DashBoard',
