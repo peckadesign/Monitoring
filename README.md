@@ -14,13 +14,20 @@ Hardwarové požadavky se odvíjí od počtu kontrol a přístupu uživatelů. P
 
 ## Spuštění aplikace
 
-Po naklonování repozitáře je potřeba zkopírovat lokální nastavení neonu a vyplnit údaje:
+1. Po naklonování repozitáře je potřeba zkopírovat lokální nastavení neonu a vyplnit údaje:
 
 ```
 cp config/config.local.example.neon app/config/config.local.neon 
 ```
 
+- Pro údaje github.AppId a github. appSecret si vytvořte aplikaci na GitHubu jako uživatel nebo jako organizace. Do pole Authorization callback URL uveďte adresu své instalace Monitoringu (http(s)://vas-virtual.tld).
+- Vyplněním administratorTeamId se budou uživatelé zařazení v danné skupině na GitHubu automaticky nastavovat jako administrátoři. Pro získání `administratorTeamId` musíte disponovat [oAuth tokenem](https://github.com/settings/tokens) 
+- v terminálu proveďte: `curl -H "Authorization: token <very-long-access-token>" https://api.github.com/orgs/<org-name>/teams`
+
 Příklad konfigurace démona `supervisord` pro běh RabbitMQ consumerů je v `/config/supervisor.conf`.
+
+2. spusťte `composer install` (požadavky na verzi PHP a další moduly jsou v [composer.json](/composer.json#L12))
+3. spusťte databázové migrace cmd: `php www/index.php migrations:continue`
 
 ## Vývoj ve Vagrantu
 
@@ -74,7 +81,7 @@ Cmnd_Alias VAGRANT_HOSTMANAGER_UPDATE = /bin/cp /Users/jmenouzivatele/.vagrant.d
 Url je přímo adresa API rabbitu nebo skriptu (viz remote/rabbitConsumer.php), který přepošle informace z API, pokud není možný vzdálený přístup.
 
 V obou případech je očekáván stejný výstup a to json s informacemi o frontách - /api/queues[/vhost]
-Viz http://hg.rabbitmq.com/rabbitmq-management/raw-file/3646dee55e02/priv/www-api/help.html
+Viz https://rawcdn.githack.com/rabbitmq/rabbitmq-management/rabbitmq_v3_6_10/priv/www/api/index.html
 
 Pro volání API je možné doplnit heslo a login.
 
