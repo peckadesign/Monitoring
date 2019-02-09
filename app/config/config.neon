@@ -4,7 +4,6 @@ extensions:
 	orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
 	migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
 	console: Kdyby\Console\DI\ConsoleExtension
-	github: Kdyby\Github\DI\GithubExtension
 	monitoring.monolog: Pd\Monitoring\Monolog\DI\Extension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
 	nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
@@ -24,12 +23,6 @@ migrations:
 	dbal: nextras
 
 
-github:
-	permissions:
-		- user:email
-		- read:org
-
-
 monitoring.monolog:
 	allowedTypes:
 		 - Pd\Monitoring\DashBoard\Presenters\BasePresenter
@@ -46,9 +39,11 @@ clock:
 
 
 parameters:
-	binDir: %appDir%/bin
 	logDir: %appDir%/../log
-#	administratorTeamId: # local
+	github:
+		scope:
+			- user:email
+			- read:org
 	elasticsearch:
 		hosts:
 			- 'localhost'
@@ -219,8 +214,6 @@ services:
 
 	-
 		class: Pd\Monitoring\DashBoard\Presenters\LoginPresenter
-		arguments:
-			administratorTeamId: %administratorTeamId%
 
 	-
 		class: Pd\Monitoring\Check\Commands\Publish\AliveChecksCommand
@@ -357,6 +350,11 @@ services:
 		implement: \Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory
 		arguments:
 			cache: \Nette\Caching\Cache()
+
+	-
+		class: \League\OAuth2\Client\Provider\Github
+		factory: \Pd\Monitoring\GitHub\ProviderFactory(%github.clientId%, %github.clientSecret%, %github.scope%)::create()
+		
 
 decorator:
 	Nette\Application\UI\Control:
