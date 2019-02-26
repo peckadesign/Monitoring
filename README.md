@@ -22,6 +22,9 @@ cp config/config.local.example.neon app/config/config.local.neon
 
 Příklad konfigurace démona `supervisord` pro běh RabbitMQ consumerů je v `/config/supervisor.conf`.
 
+Vzorový `crontab` pro plnění front RabbitMQ je v `/config/crontab`.
+
+
 ## Vývoj ve Vagrantu
 
 Po stažení aplikace je k dispozici Vagrant, jako vývojové prostředí. Před použitím je třeba nainstalovat:

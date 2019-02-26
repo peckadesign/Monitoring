@@ -1,0 +1,14 @@
+SHELL=/bin/bash
+
+# m h  dom mon dow   command
+
+*/1 * * * *        php www/index.php pd:monitoring:check:publish:alive-checks
+0,15,30,45 * * * * php www/index.php pd:monitoring:check:publish:dns-checks
+0 */6 * * *        php www/index.php pd:monitoring:check:publish:certificate-checks
+*/5 * * * *        php www/index.php pd:monitoring:check:publish:http-status-code-checks
+*/5 * * * *        php www/index.php pd:monitoring:check:publish:number-value-checks
+*/5 * * * *        php www/index.php pd:monitoring:check:publish:xpath-checks
+0,30 * * * *       php www/index.php pd:monitoring:check:publish:feed-checks
+0,15,30,45 * * * * php www/index.php pd:monitoring:check:publish:rabbit-consumer-checks
+0,15,30,45 * * * * php www/index.php pd:monitoring:check:publish:rabbit-queue-checks
+*/1 * * * *        php www/index.php pd:monitoring:check:slack-check-statuses
