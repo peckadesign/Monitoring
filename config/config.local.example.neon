@@ -1,6 +1,6 @@
 github:
-	appId: "" # aplikace pro přihlášení uživatelů a práci s GitHubem
-	appSecret: ""
+	clientId: "" # aplikace pro přihlášení uživatelů a práci s GitHubem
+	clientSecret: ""
 
 
 dbal:
@@ -26,7 +26,5 @@ console:
 
 
 parameters:
-	administratorTeamId: "" # id skupiny uživatelů na GitHubu, kteří budou mít admin přístup
-
 	slack:
 		hookUrl: "" # URL hooku pro notifikování do Slacku
