@@ -6,9 +6,9 @@ github:
 dbal:
 	driver: mysqli
 	host: localhost
-	user: monitoring
+	username: monitoring
 	password: monitoring
-	dbname: monitoring
+	database: monitoring
 	connectionTz: '+02:00'
 
 
