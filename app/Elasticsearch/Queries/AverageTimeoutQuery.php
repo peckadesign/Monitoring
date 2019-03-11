@@ -73,8 +73,10 @@ final class AverageTimeoutQuery
 			$from->add(new \DateInterval('PT1H'));
 		} while ($from->format('Y-m-d H') < $to->format('Y-m-d H'));
 
-		foreach ($results['aggregations']['average_timeout']['buckets'] as $bucket) {
-			$return[$bucket['key_as_string']] = $bucket['average_timeout']['value'];
+		if (isset($results['aggregations'])) {
+			foreach ($results['aggregations']['average_timeout']['buckets'] as $bucket) {
+				$return[$bucket['key_as_string']] = $bucket['average_timeout']['value'];
+			}
 		}
 
 		return $return;
