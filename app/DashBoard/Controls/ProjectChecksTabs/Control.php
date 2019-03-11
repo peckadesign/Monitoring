@@ -33,13 +33,13 @@ final class Control extends \Nette\Application\UI\Control
 		$template->addFilter('tabColor', function (Tab $tab) {
 			switch ($tab->getStatus()) {
 				case \Pd\Monitoring\Check\ICheck::STATUS_OK:
-					return 'bg-success';
+					return 'badge-success';
 				case \Pd\Monitoring\Check\ICheck::STATUS_ALERT:
-					return 'bg-warning';
+					return 'badge-warning';
 				case \Pd\Monitoring\Check\ICheck::STATUS_ERROR:
-					return 'bg-danger';
+					return 'badge-danger';
 				default:
-					return 'bg-danger';
+					return 'badge-danger';
 			}
 		});
 
@@ -56,6 +56,7 @@ final class Control extends \Nette\Application\UI\Control
 			if ( ! isset($tabs[$check->getType()]) || $check->status > $tabs[$check->getType()]->getStatus()) {
 				$tabs[$check->getType()] = new Tab($check->getTitle(), $check->status);
 			}
+			$tabs[$check->getType()]->incrementCount();
 		}
 
 		$this

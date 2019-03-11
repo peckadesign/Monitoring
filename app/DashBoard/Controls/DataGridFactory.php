@@ -35,6 +35,10 @@ class DataGridFactory
 
 		$grid->setRememberState(FALSE);
 
+		$grid->setTemplateFile(__DIR__ . '/custom_datagrid_template.latte');
+
+		$grid->setCustomPaginatortemplate(__DIR__ . '/data_grid_paginator.latte');
+
 		return $grid;
 	}
 }

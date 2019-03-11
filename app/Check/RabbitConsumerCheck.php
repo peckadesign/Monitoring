@@ -60,7 +60,7 @@ class RabbitConsumerCheck extends Check
 
 	public function getTitle(): string
 	{
-		return 'Počet consumerů fronty';
+		return 'Consumeři fronty';
 	}
 
 

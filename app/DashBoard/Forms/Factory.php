@@ -9,7 +9,7 @@ class Factory
 	{
 		$form = new \Nette\Application\UI\Form();
 
-		$form->setRenderer(new Bs3FormRenderer());
+		$form->setRenderer(new \Nextras\Forms\Rendering\Bs4FormRenderer());
 
 		return $form;
 	}

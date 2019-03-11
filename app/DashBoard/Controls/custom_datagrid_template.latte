@@ -1,0 +1,38 @@
+{extends $original_template}
+
+{block table-class}table table-responsive-sm table-bordered{/block}
+
+<tr n:block="pagination">
+	<td colspan="{$control->getColumnsCount()}" n:if="!$control->isTreeView()">
+		<div class="row">
+			<div class="col-2">
+				<small class="text-muted" n:if="$control->isPaginated()">
+					({var $paginator = $control['paginator']->getPaginator()}
+
+					{if $control->getPerPage() === 'all'}
+					{='ublaboo_datagrid.items'|translate}: {='ublaboo_datagrid.all'|translate}
+					{else}
+					{='ublaboo_datagrid.items'|translate}: {$paginator->getOffset() > 0 ? $paginator->getOffset() + 1 : ($paginator->getItemCount() > 0 ? 1 : 0)} - {sizeof($rows) + $paginator->getOffset()}
+					{='ublaboo_datagrid.from'|translate} {$paginator->getItemCount()}
+					{/if})
+				</small>
+			</div>
+			<div class="col align-content-center">
+				{**
+				* Pagination
+				*}
+				{control paginator}
+			</div>
+			<div class="col-2">
+				{**
+				* Items per page form (display only beside paginated grido)
+				*}
+				<a n:if="$filter_active" n:href="resetFilter!" class="ajax btn btn-danger btn-sm reset-filter">{='ublaboo_datagrid.reset_filter'|translate}</a>
+				{if $control->isPaginated()}
+					{input $filter['per_page'], data-autosubmit-per-page => TRUE, class => 'form-control input-sm form-control-sm'}
+					{input $filter['per_page_submit'], class => 'datagrid-per-page-submit'}
+				{/if}
+			</div>
+		</div>
+	</td>
+</tr>

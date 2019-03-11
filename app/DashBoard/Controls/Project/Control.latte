@@ -1,27 +1,28 @@
 {snippet}
-<div class="panel panel-default">
-	<div class="panel-body">
+<div class="card">
+	<div class="card-body">
 		<h2>{if $project->maintenance}<small class="glyphicon glyphicon-fire" aria-hidden="true"></small> {/if}<a href="{plink Project: $project}">{$project->name}</a></h2>
 
-		<div class="progress">
+		<div class="progress" style="height: 2em;">
 			{foreach $percents as $type => $percent}
-				<div class="progress-bar progress-bar-{$type|check}" style="width: {$percent|number:2|noescape}%; min-width: 1em;">
+				<div class="progress-bar bg-{$type|check}" role="progressbar" style="width: {$percent|number:2|noescape}%; min-width: 1em;">
 					<span>{count($checks[$type])}</span>
 				</div>
 			{/foreach}
 		</div>
 	</div>
-	<div class="panel-footer">
+	<div class="card-footer">
+
 		{if $favoriteProject}
-			<a href="{link deleteFavoriteProject!}" class="btn btn-success btn-sm" title="Odebrat z oblíbených"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+			<a href="{link deleteFavoriteProject!}" class="btn btn-success btn-sm" title="Odebrat z oblíbených"><i class="fa fa-star fa-lg"></i></a>
 		{else}
-			<a href="{link setFavoriteProject!}" class="btn btn-default btn-sm" title="Přidat do oblíbených"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
+			<a href="{link setFavoriteProject!}" class="btn btn-secondary btn-sm" title="Přidat do oblíbených"><i class="fa fa-star-o fa-lg"></i></a>
 		{/if}
-		<a href="{link notifications!}" n:class="ajax, btn, btn-sm, $project->notifications ? btn-success : btn-default" n:if="$user->isAllowed('project', 'edit')" title="{$project->notifications ? 'Vypnout' : 'Zapnout'} globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
+		<a href="{link notifications!}" n:class="ajax, btn, btn-sm, $project->notifications ? btn-success : btn-primary" n:if="$user->isAllowed('project', 'edit')" title="{$project->notifications ? 'Vypnout' : 'Zapnout'} globální notifikace"><i n:class="fa, fa-lg, $project->notifications ? fa-volume-up : fa-volume-off"></i></a>
 		{if $slackNotifications}
-			<a href="{link deleteUserProjectNotifications!}" class="ajax btn btn-success btn-sm" title="Přestat dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
+			<a href="{link deleteUserProjectNotifications!}" class="ajax btn btn-success btn-sm" title="Přestat dostávat soukromé notifikace"><i n:class="fa, fa-lg, fa-headphones"></i></a>
 		{else}
-			<a href="{link setUserProjectNotifications!}" class="ajax text-muted btn btn-default btn-sm" title="Dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
+			<a href="{link setUserProjectNotifications!}" class="ajax btn btn-secondary btn-sm" title="Dostávat soukromé notifikace"><i n:class="fa, fa-lg, fa-headphones"></i></a>
 		{/if}
 	</div>
 </div>

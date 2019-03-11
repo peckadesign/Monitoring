@@ -1,19 +1,5 @@
 {block content}
-	{control subProjects}
-
-	{if $project->parent}
-		<div class="tab-content">
-			<div role="tabpanel" n:class="tab-pane, TRUE ? active" id="project-{$project->id}">
-				<div class="clearfix">
-					{var $id = $project->id}
-					{control projectButtons-$id}
-				</div>
-				{control projectChecks}
-			</div>
-		</div>
-	{else}
-		{control projectChecks}
-	{/if}
+	{control projectChecks}
 {/block}
 
 {block title}
@@ -23,4 +9,9 @@
 {block buttons}
 	{var $id = $project->parent ? $project->parent->id : $project->id}
 	{control projectButtons-$id}
+{/block}
+
+
+{block sideMenu}
+	{control subProjects}
 {/block}

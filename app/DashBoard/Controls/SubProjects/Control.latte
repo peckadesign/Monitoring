@@ -1,5 +1,9 @@
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav" role="tablist">
 	{foreach $tabs as $tab}
-		<li role="presentation" n:class="$tab->isSelected() ? active"><a href="{plink :DashBoard:Project: $tab->getProject()}" role="tab">{$tab->getProject()->name}</a></li>
+		<li class="nav-title">
+			{$tab->getProject()->name}
+		</li>
+		{var $id = $tab->getProject()->id}
+		{control tabs-$id}
 	{/foreach}
 </ul>

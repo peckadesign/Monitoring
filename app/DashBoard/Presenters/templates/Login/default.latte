@@ -1,49 +1,59 @@
 <!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.1.12
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
 <html lang="en">
 <head>
+	<base href="./">
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	{control favicons}
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+	<meta name="author" content="Łukasz Holeczek">
+	<meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
 	<title>{ifset #title}{include #title} &ndash; {/ifset}Pecka Monitoring</title>
-
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<style>
-		body {
-			padding-top: 60px;
-			padding-bottom: 20px;
-		}
-
-		.sign-in {
-			margin: 0 auto;
-			width: 500px;
-		}
-	</style>
-
+	<!-- Icons-->
+	<link href="{$basePath}/vendors/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+	<link href="{$basePath}/vendors/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+	<link href="{$basePath}/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="{$basePath}/vendors/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+	<!-- Main styles for this application-->
+	<link href="{$basePath}/css/style.css" rel="stylesheet">
+	<link href="{$basePath}/vendors/pace-progress/css/pace.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="app flex-row align-items-center">
+<div class="container">
 
-	<div class="container">
-
-		{foreach $flashes as $flashMessage}
-			<div class="alert alert-{$flashMessage->type}" role="alert">
-				<span class="alert-link">{$flashMessage->message}</span>
-			</div>
-		{/foreach}
-
-		<div class="sign-in">
-			<div class="page-header">
-				<h1><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Pecka Monitoring<sup>beta</sup></h1>
-			</div>
-			<p class="text-center"><a n:href="login!" title="Přihlaš se"><img src="{plink :DashBoard:Octocats:random}" width="448" height="448"></a></p>
+	{foreach $flashes as $flashMessage}
+		<div class="alert alert-{$flashMessage->type}" role="alert">
+			<span class="alert-link">{$flashMessage->message}</span>
 		</div>
+	{/foreach}
 
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<div class="card-group">
+				<div class="card p-4">
+					<div class="card-body">
+						<h1>Pecka Monitoring: Přihlaš se</h1>
+						<p class="text-center"><a n:href="login!" title="Přihlaš se"><img src="{plink :DashBoard:Octocats:random}" width="448" height="448"></a></p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-	</body>
+</div>
+<!-- CoreUI and necessary plugins-->
+<script src="{$basePath}/vendors/jquery/js/jquery.min.js"></script>
+<script src="{$basePath}/vendors/popper.js/js/popper.min.js"></script>
+<script src="{$basePath}/vendors/bootstrap/js/bootstrap.min.js"></script>
+<script src="{$basePath}/vendors/pace-progress/js/pace.min.js"></script>
+<script src="{$basePath}/vendors/perfect-scrollbar/js/perfect-scrollbar.min.js"></script>
+<script src="{$basePath}/vendors/@coreui/coreui/js/coreui.min.js"></script>
+</body>
 </html>

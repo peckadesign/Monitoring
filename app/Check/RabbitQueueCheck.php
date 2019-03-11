@@ -62,7 +62,7 @@ class RabbitQueueCheck extends Check
 
 	public function getTitle(): string
 	{
-		return 'Počet zpráv ve frontě';
+		return 'Zprávy ve frontě';
 	}
 
 

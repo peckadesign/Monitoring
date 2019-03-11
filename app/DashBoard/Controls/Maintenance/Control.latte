@@ -1,5 +1,8 @@
 {snippet}
 	<form n:name="maintenanceForm">
-		<input type="checkbox" n:name="maintenance" data-maintenance data-on="Údržba" data-off="Údržba" data-onstyle="warning" data-link="{link toggle!}">
+		<label class="switch switch-label switch-warning switch-lg">
+			<input class="switch-input" n:name="maintenance" data-link="{link toggle!}">
+			<span class="switch-slider" data-checked="Ano" data-unchecked="Ne">Údržba</span>
+		</label>
 	</form>
 {/snippet}

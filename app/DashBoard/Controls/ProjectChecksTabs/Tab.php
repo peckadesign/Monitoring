@@ -15,13 +15,20 @@ class Tab
 	 */
 	private $status;
 
+	/**
+	 * @var int
+	 */
+	private $count = 0;
+
 
 	public function __construct(
 		string $title,
-		int $status
+		int $status,
+		int $count = 0
 	) {
 		$this->title = $title;
 		$this->status = $status;
+		$this->count = $count;
 	}
 
 
@@ -34,6 +41,18 @@ class Tab
 	public function getStatus(): int
 	{
 		return $this->status;
+	}
+
+
+	public function incrementCount(): void
+	{
+		$this->count++;
+	}
+
+
+	public function getCount(): int
+	{
+		return $this->count;
 	}
 
 }

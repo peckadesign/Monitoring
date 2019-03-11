@@ -1,5 +1,8 @@
-<ul class="nav nav-tabs" role="tablist">
-	{foreach $tabs as $key => $tab}
-		<li role="presentation" n:class="$key === $type ? active"><a href="{plink :DashBoard:Project: $project, type => $key}" aria-controls="{$project->id . ' ' . $key}" role="tab" class="{$tab|tabColor}">{$tab->getTitle()}</a></li>
-	{/foreach}
-</ul>
+{foreach $tabs as $key => $tab}
+	<li n:class="nav-item, $key === $type ? active">
+		<a href="{plink :DashBoard:Project: $project, type => $key}" aria-controls="{$project->id . ' ' . $key}" role="tab" class="nav-link">
+			{$tab->getTitle()}
+			{if $tab->getStatus() !==  \Pd\Monitoring\Check\ICheck::STATUS_OK} <span class="badge {$tab|tabColor}">{$tab->getCount()}</span>{/if}
+		</a>
+	</li>
+{/foreach}

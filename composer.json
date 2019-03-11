@@ -33,7 +33,7 @@
 		"kdyby/clock": "1.0.*",
 		"kdyby/rabbitmq": "1.2.*",
 		"nette/mail": "2.4.*",
-		"nextras/forms": "2.0.*",
+		"nextras/forms": "@dev",
 		"ublaboo/datagrid": "5.7.*",
 		"atrox/matcher": "^1.1",
 		"elasticsearch/elasticsearch": "6.1.*",

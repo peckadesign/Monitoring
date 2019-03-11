@@ -40,19 +40,13 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $type;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory
-	 */
-	private $projectChecksTabsControlFactory;
-
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		int $type,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
-		\Pd\Monitoring\User\User $user,
-		\Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory
+		\Pd\Monitoring\User\User $user
 	) {
 		parent::__construct();
 		$this->project = $project;
@@ -60,7 +54,6 @@ class Control extends \Nette\Application\UI\Control
 		$this->checkControlFactory = $checkControlFactory;
 		$this->user = $user;
 		$this->type = $type;
-		$this->projectChecksTabsControlFactory = $projectChecksTabsControlFactory;
 	}
 
 
@@ -107,12 +100,6 @@ class Control extends \Nette\Application\UI\Control
 		};
 
 		return new \Nette\Application\UI\Multiplier($cb);
-	}
-
-
-	protected function createComponentTabs(): \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\Control
-	{
-		return $this->projectChecksTabsControlFactory->create($this->project, $this->type);
 	}
 
 }

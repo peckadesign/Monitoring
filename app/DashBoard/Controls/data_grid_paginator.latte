@@ -1,0 +1,33 @@
+{*
+ * @param Paginator $paginator
+ * @param array     $steps
+ * @param string    $icon_prefix
+ *}
+
+{var $link = [$control->getParent(), link]}
+
+<ul n:if="$paginator->pageCount > 1" class="pagination">
+	{if $paginator->isFirst()}
+		<li class="page-item"><a class="disabled page-link">
+	{else}
+		<li class="page-item"><a class="ajax page-link" href="{$link('page!', ['page' => $paginator->page - 1])}" rel="prev">
+	{/if}
+	{='ublaboo_datagrid.previous'|translate}</a></li>
+
+	{foreach $steps as $step}
+		{if $step == $paginator->page}
+			<li class="page-item active"><a class="page-link">{$step}</a>
+		{else}
+			<li class="page-item"><a class="ajax page-link" href="{$link('page!', ['page' => $step])}">{$step}</a>
+		{/if}
+		
+		{if $iterator->nextValue > $step + 1}<span>…</span>{/if}
+	{/foreach}
+
+	{if $paginator->isLast()}
+		<li class="page-item"><a class="disabled page-link">{='ublaboo_datagrid.next'|translate}
+	{else}
+		<li class="page-item"><a class="ajax page-link" href="{$link('page!', ['page' => $paginator->page + 1])}" rel="next">{='ublaboo_datagrid.next'|translate}
+	{/if}
+	</a></li>
+</ul>

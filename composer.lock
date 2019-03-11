@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "220ad6785c9a589bce08e5c778b580a3",
+    "content-hash": "5c632e49c954a8803cc9a6f27fb97196",
     "packages": [
         {
             "name": "atrox/matcher",
@@ -2032,16 +2032,16 @@
         },
         {
             "name": "nextras/forms",
-            "version": "v2.0.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nextras/forms.git",
-                "reference": "895eee801b060af80bdea68b30bcc9fce391701b"
+                "reference": "548f93a0be0f5424b1a418bad3932de125ad31c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nextras/forms/zipball/895eee801b060af80bdea68b30bcc9fce391701b",
-                "reference": "895eee801b060af80bdea68b30bcc9fce391701b",
+                "url": "https://api.github.com/repos/nextras/forms/zipball/548f93a0be0f5424b1a418bad3932de125ad31c8",
+                "reference": "548f93a0be0f5424b1a418bad3932de125ad31c8",
                 "shasum": ""
             },
             "require": {
@@ -2081,7 +2081,7 @@
                 "form",
                 "nette"
             ],
-            "time": "2017-10-31T10:00:30+00:00"
+            "time": "2019-03-05T07:55:41+00:00"
         },
         {
             "name": "nextras/migrations",
@@ -3756,6 +3756,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "nextras/forms": 20,
         "monolog/monolog": 10,
         "ublaboo/datagrid-elasticsearch-data-source": 20
     },
