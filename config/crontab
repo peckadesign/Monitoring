@@ -11,4 +11,4 @@ SHELL=/bin/bash
 0,30 * * * *       php www/index.php pd:monitoring:check:publish:feed-checks
 0,15,30,45 * * * * php www/index.php pd:monitoring:check:publish:rabbit-consumer-checks
 0,15,30,45 * * * * php www/index.php pd:monitoring:check:publish:rabbit-queue-checks
-*/1 * * * *        php www/index.php pd:monitoring:check:slack-check-statuses
+*/1 * * * *        sleep 40 && php www/index.php pd:monitoring:check:slack-check-statuses
