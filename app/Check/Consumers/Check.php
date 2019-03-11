@@ -57,7 +57,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 
 			$result = $this->doHardJob($check);
 
-			if ($result && $check->getStatus() !== \Pd\Monitoring\Check\ICheck::STATUS_OK && ($attempts+1) < $maxAttempts) {
+			if ($result && $check->status !== \Pd\Monitoring\Check\ICheck::STATUS_OK && ($attempts+1) < $maxAttempts) {
 				$result = FALSE;
 			}
 
