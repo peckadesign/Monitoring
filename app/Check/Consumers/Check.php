@@ -56,6 +56,11 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 			$check->lastCheck = $this->dateTimeProvider->getDateTime();
 
 			$result = $this->doHardJob($check);
+
+			if ($result && $check->getStatus() !== \Pd\Monitoring\Check\ICheck::STATUS_OK && ($attempts+1) < $maxAttempts) {
+				$result = FALSE;
+			}
+
 		} while ( ! $result && ++$attempts < $maxAttempts && \sleep(3) === 0);
 
 		$this->checksRepository->persistAndFlush($check);
