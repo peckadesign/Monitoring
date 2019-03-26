@@ -106,7 +106,7 @@ class RabbitQueueCheck extends Check
 			if ( ! isset($maximum[$k])) {
 				$messages[] = 'Pro frontu "' . $v . '" není nastavený maximální počet zpráv.';
 			} elseif ($last[$k] > $maximum[$k]) {
-				$messages[] = \sprintf('Fronta "%s" má %u %s, očekává se %u.', $v, $last[$k], $translator->translate('zpráv', $last[$k]), $maximum[$k]);
+				$messages[] = \sprintf('Fronta "%s" má %u %s, očekává se nanejvýš %u.', $v, $last[$k], $translator->translate('zpráv', $last[$k]), $maximum[$k]);
 			}
 		}
 
