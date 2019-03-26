@@ -9,6 +9,7 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 	{
 		$check->url = $data['url'];
 		$check->followRedirect = $data['followRedirect'];
+		$check->siteMap = $data['siteMap'];
 	}
 
 
@@ -26,6 +27,11 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 			->setRequired(TRUE)
 			->setAttribute('placeholder', 'https://www.example.com')
 			->setOption('description', 'URL musí vracet HTTP stavový kód 200.')
+		;
+
+		$form
+			->addCheckbox('siteMap', 'URL obsahuje sitemapu')
+			->setOption('description', 'Kontrola se provede na všechny URL v sitemapě')
 		;
 
 		$form

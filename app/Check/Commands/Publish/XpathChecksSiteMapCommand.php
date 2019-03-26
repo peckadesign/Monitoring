@@ -2,7 +2,7 @@
 
 namespace Pd\Monitoring\Check\Commands\Publish;
 
-class AliveChecksCommand extends PublishChecksCommand
+final class XpathChecksSiteMapCommand extends PublishChecksCommand
 {
 
 	use \Pd\Monitoring\Commands\TNamedCommand;
@@ -11,8 +11,8 @@ class AliveChecksCommand extends PublishChecksCommand
 	protected function getConditions(): array
 	{
 		return [
-			'type' => \Pd\Monitoring\Check\ICheck::TYPE_ALIVE,
-			'siteMap' => FALSE,
+			'type' => \Pd\Monitoring\Check\ICheck::TYPE_XPATH,
+			'siteMap' => TRUE,
 		];
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace Pd\Monitoring\Check\Commands\Publish;
 
-class AliveChecksCommand extends PublishChecksCommand
+class AliveChecksSiteMapCommand extends PublishChecksCommand
 {
 
 	use \Pd\Monitoring\Commands\TNamedCommand;
@@ -12,7 +12,7 @@ class AliveChecksCommand extends PublishChecksCommand
 	{
 		return [
 			'type' => \Pd\Monitoring\Check\ICheck::TYPE_ALIVE,
-			'siteMap' => FALSE,
+			'siteMap' => TRUE,
 		];
 	}
 }

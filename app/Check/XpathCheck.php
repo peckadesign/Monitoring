@@ -73,4 +73,16 @@ final class XpathCheck extends Check
 		return \sprintf("Očekávaný výsledek '%s %s' a je '%s'", $return, $this->xpathResult, $this->xpathLastResult);
 	}
 
+
+	public function getProducerName(): string
+	{
+		$producerName = parent::getProducerName();
+
+		if ($this->siteMap) {
+			$producerName .= 'SiteMap';
+		}
+
+		return $producerName;
+	}
+
 }

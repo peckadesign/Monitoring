@@ -14,6 +14,7 @@ final class XpathCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\Add
 		$check->xpath = $data['xpath'];
 		$check->operator = $data['operator'];
 		$check->xpathResult = $data['xpathResult'];
+		$check->siteMap = $data['siteMap'];
 	}
 
 
@@ -32,6 +33,12 @@ final class XpathCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\Add
 			->setAttribute('placeholder', 'https://www.example.com')
 			->setOption('description', 'URL musí vracet HTTP stavový kód 200.')
 		;
+
+		$form
+			->addCheckbox('siteMap', 'URL obsahuje sitemapu')
+			->setOption('description', 'Kontrola se provede na všechny URL v sitemapě')
+		;
+
 
 		$form
 			->addText('xpath', 'XPath selektor')
