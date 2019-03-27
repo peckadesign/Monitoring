@@ -1,5 +1,3 @@
-'use strict';
-
 var gulp = require('gulp');
 
 var config = {
@@ -9,14 +7,14 @@ var config = {
 
 var stylesFiles = [
 	'vendor/ublaboo/datagrid/assets/dist/datagrid.css',
-	'vendor/ublaboo/datagrid/assets/dist/datagrid-spinners.css',
+	'vendor/ublaboo/datagrid/assets/dist/datagrid-spinners.css'
 ];
 
-gulp.task('styles', function () {
-	gulp
+function styles() {
+	return gulp
 		.src(stylesFiles)
 		.pipe(gulp.dest(config.stylesPath));
-});
+}
 
 var jsFiles = [
 	'assets/js/lastrefresh.js',
@@ -25,14 +23,15 @@ var jsFiles = [
 	'vendor/nette/forms/src/assets/netteForms.min.js',
 	'vendor/ublaboo/datagrid/assets/dist/datagrid.js',
 	'vendor/ublaboo/datagrid/assets/dist/datagrid-instant-url-refresh.js',
-	'vendor/ublaboo/datagrid/assets/dist/datagrid-spinners.js',
+	'vendor/ublaboo/datagrid/assets/dist/datagrid-spinners.js'
 ];
 
-gulp.task('js', function () {
-	gulp
+function js() {
+	return gulp
 		.src(jsFiles)
 		.pipe(gulp.dest(config.jsPath));
-});
+}
 
-gulp.task('build', ['styles', 'js']);
-gulp.task('default', ['build']);
+var build = gulp.series(gulp.parallel(js, styles));
+
+gulp.task('default', build);
