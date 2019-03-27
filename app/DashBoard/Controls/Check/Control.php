@@ -25,18 +25,39 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $aliveChartControlFactory;
 
+	/**
+	 * @var \Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository
+	 */
+	private $userCheckNotificationsRepository;
+
+	/**
+	 * @var bool
+	 */
+	private $hasUserNotification;
+
+	/**
+	 * @var \Pd\Monitoring\User\User
+	 */
+	private $user;
+
 
 	public function __construct(
 		\Pd\Monitoring\Check\Check $check,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Kdyby\RabbitMq\Connection $rabbitConnection,
-		\Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory $aliveChartControlFactory
+		\Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory $aliveChartControlFactory,
+		\Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository $userCheckNotificationsRepository,
+		bool $hasUserNotification,
+		\Pd\Monitoring\User\User $user
 	) {
 		parent::__construct();
 		$this->check = $check;
 		$this->checksRepository = $checksRepository;
 		$this->rabbitConnection = $rabbitConnection;
 		$this->aliveChartControlFactory = $aliveChartControlFactory;
+		$this->userCheckNotificationsRepository = $userCheckNotificationsRepository;
+		$this->hasUserNotification = $hasUserNotification;
+		$this->user = $user;
 	}
 
 
@@ -59,6 +80,7 @@ class Control extends \Nette\Application\UI\Control
 			->template
 			->setFile(__DIR__ . '/Control.latte')
 			->add('check', $this->check)
+			->add('hasUserNotification', $this->hasUserNotification)
 			->render()
 		;
 	}
@@ -102,6 +124,27 @@ class Control extends \Nette\Application\UI\Control
 	protected function createComponentAliveChart(): \Pd\Monitoring\DashBoard\Controls\AliveChart\Control
 	{
 		return $this->aliveChartControlFactory->create($this->check);
+	}
+
+
+	public function handleUserNotificationOn(): void
+	{
+		$notification = new \Pd\Monitoring\UserCheckNotifications\UserCheckNotifications();
+		$notification->user = $this->user;
+		$notification->check = $this->check;
+		$this->userCheckNotificationsRepository->persistAndFlush($notification);
+		$this->hasUserNotification = TRUE;
+
+		$this->processRequest();
+	}
+
+
+	public function handleUserNotificationOff(): void
+	{
+		$this->userCheckNotificationsRepository->deleteUserCheckNotifications($this->user, $this->check);
+		$this->hasUserNotification = FALSE;
+
+		$this->processRequest();
 	}
 
 }

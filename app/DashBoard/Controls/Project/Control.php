@@ -16,7 +16,7 @@ class Control extends \Nette\Application\UI\Control
 	private $favoriteProject;
 
 	/**
-	 * @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications
+	 * @var \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications
 	 */
 	private $slackNotifications;
 
@@ -36,9 +36,9 @@ class Control extends \Nette\Application\UI\Control
 	private $usersFavoriteProjectsRepository;
 
 	/**
-	 * @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository
+	 * @var \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository
 	 */
-	private $userSlackNotificationsRepository;
+	private $userProjectNotificationsRepository;
 
 	/**
 	 * @var \Pd\Monitoring\Check\ChecksRepository
@@ -49,11 +49,11 @@ class Control extends \Nette\Application\UI\Control
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject = NULL,
-		\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications $slackNotifications = NULL,
+		\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications = NULL,
 		\Nette\Security\User $user,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
-		\Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository $userSlackNotificationsRepository,
+		\Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository
 
 	) {
@@ -64,7 +64,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->user = $user;
 		$this->projectsRepository = $projectsRepository;
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;
-		$this->userSlackNotificationsRepository = $userSlackNotificationsRepository;
+		$this->userProjectNotificationsRepository = $userProjectNotificationsRepository;
 		$this->checksRepository = $checksRepository;
 	}
 
@@ -136,13 +136,13 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleSetUserSlackNotifications(): void
+	public function handleSetUserProjectNotifications(): void
 	{
-		if ( ! $this->userSlackNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
-			$slackNotifications = new \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications();
+		if ( ! $this->userProjectNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
+			$slackNotifications = new \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications();
 			$slackNotifications->user = $this->user->identity;
 			$slackNotifications->project = $this->project;
-			$this->userSlackNotificationsRepository->persistAndFlush($slackNotifications);
+			$this->userProjectNotificationsRepository->persistAndFlush($slackNotifications);
 			$this->presenter->flashMessage(\sprintf('Notifikace k projektu "%s" budou odesílány do osobního kanálu', $slackNotifications->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		} else {
 			$this->presenter->flashMessage("Tento odběr je již nastaven.", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);
@@ -151,10 +151,10 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	public function handleDeleteUserSlackNotifications(): void
+	public function handleDeleteUserProjectNotifications(): void
 	{
-		if ($this->userSlackNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
-			$this->userSlackNotificationsRepository->deleteUserSlackNotifications($this->user->identity, $this->project);
+		if ($this->userProjectNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
+			$this->userProjectNotificationsRepository->deleteUserProjectNotifications($this->user->identity, $this->project);
 			$this->presenter->flashMessage(\sprintf('Notifikace k projektu "%s" byla odebrána', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		} else {
 			$this->presenter->flashMessage("Tato notifikace už byla odebrána", \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR);

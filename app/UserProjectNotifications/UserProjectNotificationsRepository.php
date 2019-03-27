@@ -1,17 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace Pd\Monitoring\UserSlackNotifications;
+namespace Pd\Monitoring\UserProjectNotifications;
 
 /**
- * @method UserSlackNotifications getBy(array $conds)
+ * @method UserProjectNotifications getBy(array $conds)
  */
-class UserSlackNotificationsRepository extends \Nextras\Orm\Repository\Repository
+class UserProjectNotificationsRepository extends \Nextras\Orm\Repository\Repository
 {
 
 	public static function getEntityClassNames(): array
 	{
 		return [
-			UserSlackNotifications::class,
+			UserProjectNotifications::class,
 		];
 	}
 
@@ -21,7 +21,7 @@ class UserSlackNotificationsRepository extends \Nextras\Orm\Repository\Repositor
 		return (bool) $this->getBy(["user" => $user, "project" => $project]);
 	}
 
-	public function deleteUserSlackNotifications(\Pd\Monitoring\User\User $user,\Pd\Monitoring\Project\Project $project): void
+	public function deleteUserProjectNotifications(\Pd\Monitoring\User\User $user,\Pd\Monitoring\Project\Project $project): void
 	{
 		$entity = $this->getBy(["user" => $user, "project" => $project]);
 		$this->removeAndFlush($entity);

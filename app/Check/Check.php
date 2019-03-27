@@ -18,6 +18,7 @@ namespace Pd\Monitoring\Check;
  * @property string|NULL $pausedTo
  * @property bool $reference {default FALSE}
  * @property bool $siteMap {default FALSE}
+ * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserCheckNotifications\UserCheckNotifications[] $userCheckNotifications {1:m \Pd\Monitoring\UserCheckNotifications\UserCheckNotifications::$check}
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck

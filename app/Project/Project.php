@@ -15,7 +15,7 @@ namespace Pd\Monitoring\Project;
  * @property \Nextras\Orm\Relationships\OneHasMany|Project[] $subProjects {1:m Project::$parent}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\Check\Check[] $checks {1:m \Pd\Monitoring\Check\Check::$project}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$project}
- * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications[] $userSlackNotifications {1:m \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications::$project}
+ * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[] $userProjectNotifications {1:m \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications::$project}
  */
 class Project extends \Nextras\Orm\Entity\Entity
 {

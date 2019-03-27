@@ -28,14 +28,14 @@ class HomePagePresenter extends BasePresenter
 	private $usersFavoriteProjects = [];
 
 	/**
-	 * @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository
+	 * @var \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository
 	 */
-	private $userSlackNotificationsRepository;
+	private $userProjectNotificationsRepository;
 
 	/**
-	 * @var array|\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications[]
+	 * @var array|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[]
 	 */
-	private $userSlackNotifications = [];
+	private $userProjectNotifications = [];
 
 	/**
 	 * @var array|\Pd\Monitoring\Project\Project[]
@@ -57,13 +57,13 @@ class HomePagePresenter extends BasePresenter
 		\Pd\Monitoring\DashBoard\Controls\Project\IFactory $projectControlFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
-		\Pd\Monitoring\UserSlackNotifications\UserSlackNotificationsRepository $userSlackNotificationsRepository
+		\Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository
 	) {
 		parent::__construct();
 		$this->projectControlFactory = $projectControlFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;
-		$this->userSlackNotificationsRepository = $userSlackNotificationsRepository;
+		$this->userProjectNotificationsRepository = $userProjectNotificationsRepository;
 	}
 
 
@@ -77,11 +77,11 @@ class HomePagePresenter extends BasePresenter
 			$this->projects[$favoriteProject->project->id] = $favoriteProject->project;
 		}
 
-		$slackNotifications = $this->userSlackNotificationsRepository->findBy(["user" => $this->getUser()->id])->orderBy("this->project->name");
+		$slackNotifications = $this->userProjectNotificationsRepository->findBy(["user" => $this->getUser()->id])->orderBy("this->project->name");
 
-		/** @var \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications $slackNotifications */
+		/** @var \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications */
 		foreach ($slackNotifications as $slackNotification) {
-			$this->userSlackNotifications[$slackNotification->project->id] = $slackNotification;
+			$this->userProjectNotifications[$slackNotification->project->id] = $slackNotification;
 		}
 
 		$allProjects = $this->projectsRepository->findDashBoardProjects(\array_keys($this->usersFavoriteProjects));
@@ -109,7 +109,7 @@ class HomePagePresenter extends BasePresenter
 	protected function createComponentProject(): \Nette\Application\UI\Multiplier
 	{
 		$cb = function ($id) {
-			$control = $this->projectControlFactory->create($this->projects[$id], $this->usersFavoriteProjects[$id]?? NULL, $this->userSlackNotifications[$id]?? NULL);
+			$control = $this->projectControlFactory->create($this->projects[$id], $this->usersFavoriteProjects[$id]?? NULL, $this->userProjectNotifications[$id]?? NULL);
 
 			return $control;
 		};

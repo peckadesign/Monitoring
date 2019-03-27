@@ -19,9 +19,9 @@
 		{/if}
 		<a href="{link notifications!}" n:class="ajax, btn, btn-sm, $project->notifications ? btn-success : btn-default" n:if="$user->isAllowed('project', 'edit')" title="{$project->notifications ? 'Vypnout' : 'Zapnout'} globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
 		{if $slackNotifications}
-			<a href="{link deleteUserSlackNotifications!}" class="ajax btn btn-success btn-sm" title="Přestat dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
+			<a href="{link deleteUserProjectNotifications!}" class="ajax btn btn-success btn-sm" title="Přestat dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
 		{else}
-			<a href="{link setUserSlackNotifications!}" class="ajax text-muted btn btn-default btn-sm" title="Dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
+			<a href="{link setUserProjectNotifications!}" class="ajax text-muted btn btn-default btn-sm" title="Dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
 		{/if}
 	</div>
 </div>

@@ -10,7 +10,8 @@ namespace Pd\Monitoring\User;
  * @property bool $administrator
  * @property string|null $slackId
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$user}
- * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserSlackNotifications\UserSlackNotifications[] $userSlackNotifications {1:m \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications::$user}
+ * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[] $userProjectNotifications {1:m \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications::$user}
+ * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserCheckNotifications\UserCheckNotifications[] $userCheckNotifications {1:m \Pd\Monitoring\UserCheckNotifications\UserCheckNotifications::$user}
  */
 class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdentity
 {
