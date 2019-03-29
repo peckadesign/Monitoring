@@ -209,23 +209,33 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			$this->slackNotifier->notify('#monitoring', $message, $color, $buttons);
 		}
 
-		$projectForUserSlackNotifications = $check->project->parent ?: $check->project;
+		$projectForUserProjectNotifications = $check->project->parent ?: $check->project;
 
-		foreach ($projectForUserSlackNotifications->userSlackNotifications as $user) {
-			if (($slackId = $user->user->slackId)) {
-				if ($referenceWarning && $check->project->reference) {
-					$this->slackNotifier->notify($user->user->slackId, $referenceCheckWarning, 'warning', []);
-				}
-				if ($referenceWarning && $check->reference) {
-					$this->slackNotifier->notify(
-						$user->user->slackId,
-						$projectReferenceCheckWarning,
-						'warning',
-						[]
-					);
-				}
-				$this->slackNotifier->notify($user->user->slackId, $message, $color, $buttons);
+		foreach ($projectForUserProjectNotifications->userProjectNotifications as $user) {
+			$this->notifiyCheck($check, $referenceWarning, $user->user, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
+		}
+
+		foreach ($check->userCheckNotifications as $user) {
+			$this->notifiyCheck($check, $referenceWarning, $user->user, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
+		}
+	}
+
+
+	private function notifiyCheck(\Pd\Monitoring\Check\Check $check, bool $referenceWarning, \Pd\Monitoring\User\User $user, string $referenceCheckWarning, string $projectReferenceCheckWarning, string $message, string $color, array $buttons)
+	{
+		if (($slackId = $user->slackId)) {
+			if ($referenceWarning && $check->project->reference) {
+				$this->slackNotifier->notify($user->slackId, $referenceCheckWarning, 'warning', []);
 			}
+			if ($referenceWarning && $check->reference) {
+				$this->slackNotifier->notify(
+					$user->slackId,
+					$projectReferenceCheckWarning,
+					'warning',
+					[]
+				);
+			}
+			$this->slackNotifier->notify($user->slackId, $message, $color, $buttons);
 		}
 	}
 

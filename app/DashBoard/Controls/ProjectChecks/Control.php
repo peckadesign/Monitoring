@@ -25,16 +25,28 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $checks;
 
+	/**
+	 * @var \Pd\Monitoring\User\User
+	 */
+	private $user;
+
+	/**
+	 * @var \Nextras\Orm\Relationships\OneHasMany
+	 */
+	private $userCheckNotifications;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory
+		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
+		\Pd\Monitoring\User\User $user
 	) {
 		parent::__construct();
 		$this->project = $project;
 		$this->checksRepository = $checksRepository;
 		$this->checkControlFactory = $checkControlFactory;
+		$this->user = $user;
 	}
 
 
@@ -46,6 +58,8 @@ class Control extends \Nette\Application\UI\Control
 			'project' => $this->project->id,
 		];
 		$this->checks = $this->checksRepository->findBy($conditions)->orderBy('type');
+
+		$this->userCheckNotifications = $this->user->userCheckNotifications;
 	}
 
 	protected function createTemplate()
@@ -95,7 +109,7 @@ class Control extends \Nette\Application\UI\Control
 		$cb = function ($id) {
 			$check = $this->checksRepository->getById($id);
 
-			return $this->checkControlFactory->create($check);
+			return $this->checkControlFactory->create($check, $this->userCheckNotifications->has([$this->user->id, $check->id]));
 		};
 
 		return new \Nette\Application\UI\Multiplier($cb);

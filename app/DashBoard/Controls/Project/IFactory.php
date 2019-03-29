@@ -6,5 +6,5 @@ interface IFactory
 {
 	public function create(\Pd\Monitoring\Project\Project $project,
 						   \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject = NULL,
-						   \Pd\Monitoring\UserSlackNotifications\UserSlackNotifications $slackNotifications = NULL) : Control;
+						   \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications = NULL) : Control;
 }

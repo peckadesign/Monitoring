@@ -193,6 +193,8 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Check\IFactory
+		arguments:
+			user: @\Nette\Security\User::getIdentity()
 
 	-
 		class: Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory
@@ -331,6 +333,8 @@ services:
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory
+		arguments:
+			user: @\Nette\Security\User::getIdentity()
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\EditUser\IFactory
