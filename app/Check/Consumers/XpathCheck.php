@@ -6,6 +6,17 @@ final class XpathCheck extends Check
 {
 
 	/**
+	 * @var \Pd\Monitoring\Check\SiteMapLoader|null
+	 */
+	private $siteMapLoader;
+
+	/**
+	 * @var string|null
+	 */
+	private $lastUrl;
+
+
+	/**
 	 * @param \Pd\Monitoring\Check\Check|\Pd\Monitoring\Check\XpathCheck $check
 	 * @return bool
 	 */
@@ -24,33 +35,27 @@ final class XpathCheck extends Check
 			'allow_redirects' => TRUE,
 		];
 
+		if ($check->siteMap && ! $this->siteMapLoader) {
+			$this->siteMapLoader = new \Pd\Monitoring\Check\SiteMapLoader($check->url);
+		}
+
 		try {
-			$response = $client->request('GET', $check->url, $options);
+			if ($this->siteMapLoader) {
+				while ($url = $this->siteMapLoader->getNextUrl($this->lastUrl)) {
+					$loaded = $this->loadUrl($client, $options, $check, $url);
+					if ( ! $loaded) {
+						return FALSE;
+					} else {
+						$this->lastUrl = $url;
+					}
+				}
 
-			if ($response->getStatusCode() !== 200) {
-				return FALSE;
-			}
-
-			$body = (string) $response->getBody();
-
-			if ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_MATCH) {
-				$m = \Atrox\Matcher::single($check->xpath)->fromHtml();
+				return TRUE;
 			} else {
-				$m = \Atrox\Matcher::count($check->xpath)->fromHtml();
-			}
-
-			$extractedData = $m($body);
-
-			$check->xpathLastResult = $extractedData;
-
-			if ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_MATCH) {
-				return $extractedData == $check->xpathResult;
-			} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_LT) {
-				return $extractedData < $check->xpathResult;
-			} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_EQ) {
-				return $extractedData == $check->xpathResult;
-			} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_LT) {
-				return $extractedData > $check->xpathResult;
+				$loaded = $this->loadUrl($client, $options, $check, $check->url);
+				if ($loaded) {
+					return TRUE;
+				}
 			}
 		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$this->logError($check, $e->getMessage());
@@ -64,4 +69,41 @@ final class XpathCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_XPATH;
 	}
+
+
+	private function loadUrl(\GuzzleHttp\Client $client, array $options, \Pd\Monitoring\Check\XpathCheck $check, string $url): bool
+	{
+		$this->logInfo($check, \sprintf('Začínám stahovat url "%s"', $url));
+
+		$response = $client->request('GET', $url, $options);
+
+		if ($response->getStatusCode() !== 200) {
+			return FALSE;
+		}
+
+		$body = (string) $response->getBody();
+
+		if ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_MATCH) {
+			$m = \Atrox\Matcher::single($check->xpath)->fromHtml();
+		} else {
+			$m = \Atrox\Matcher::count($check->xpath)->fromHtml();
+		}
+
+		$extractedData = $m($body);
+
+		$check->xpathLastResult = $extractedData;
+
+		if ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_MATCH) {
+			return $extractedData == $check->xpathResult;
+		} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_LT) {
+			return $extractedData < $check->xpathResult;
+		} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_EQ) {
+			return $extractedData == $check->xpathResult;
+		} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_GT) {
+			return $extractedData > $check->xpathResult;
+		}
+
+		return FALSE;
+	}
+
 }

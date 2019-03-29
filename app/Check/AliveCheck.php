@@ -61,4 +61,17 @@ class AliveCheck extends Check
 
 		return $message;
 	}
+
+
+	public function getProducerName(): string
+	{
+		$producerName = parent::getProducerName();
+
+		if ($this->siteMap) {
+			$producerName .= 'SiteMap';
+		}
+
+		return $producerName;
+	}
+
 }

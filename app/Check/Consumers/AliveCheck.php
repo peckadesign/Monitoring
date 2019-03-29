@@ -6,6 +6,17 @@ class AliveCheck extends Check
 {
 
 	/**
+	 * @var \Pd\Monitoring\Check\SiteMapLoader|null
+	 */
+	private $siteMapLoader;
+
+	/**
+	 * @var string|null
+	 */
+	private $lastUrl;
+
+
+	/**
 	 * @param \Pd\Monitoring\Check\AliveCheck $check
 	 * @return bool
 	 */
@@ -24,24 +35,31 @@ class AliveCheck extends Check
 			],
 		];
 
+		if ($check->siteMap && ! $this->siteMapLoader) {
+			$this->siteMapLoader = new \Pd\Monitoring\Check\SiteMapLoader($check->url);
+		}
+
 		if ( ! $check->followRedirect) {
 			$options['allow_redirects'] = FALSE;
 		}
 
 		try {
-			$start = (float) \microtime(TRUE);
-
-			$this->logInfo($check, \sprintf('Začínám stahovat url "%s" v čase %f', $check->url, $start));
-
-			$response = $client->request('GET', $check->url, $options);
-			$duration = (\microtime(TRUE) - $start) * 1000;
-
-			$this->logInfo($check, \sprintf('Staženo za %f ms, návratový kód %u', $duration, $response->getStatusCode()));
-
-			if ($response->getStatusCode() === 200) {
-				$check->lastTimeout = $duration;
+			if ($this->siteMapLoader) {
+				while ($url = $this->siteMapLoader->getNextUrl($this->lastUrl)) {
+					$loaded = $this->loadUrl($client, $options, $check, $url);
+					if ( ! $loaded) {
+						return FALSE;
+					} else {
+						$this->lastUrl = $url;
+					}
+				}
 
 				return TRUE;
+			} else {
+				$loaded = $this->loadUrl($client, $options, $check, $check->url);
+				if ($loaded) {
+					return TRUE;
+				}
 			}
 		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$this->logError($check, $e->getMessage());
@@ -57,4 +75,25 @@ class AliveCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_ALIVE;
 	}
+
+
+	private function loadUrl(\GuzzleHttp\Client $client, array $options, \Pd\Monitoring\Check\AliveCheck $check, string $url): bool
+	{
+		$start = (float) \microtime(TRUE);
+		$this->logInfo($check, \sprintf('Začínám stahovat url "%s"', $url));
+
+		$response = $client->request('GET', $url, $options);
+		$duration = (\microtime(TRUE) - $start) * 1000;
+
+		$this->logInfo($check, \sprintf('Staženo za %f ms, návratový kód %u', $duration, $response->getStatusCode()));
+
+		if ($response->getStatusCode() === 200) {
+			$check->lastTimeout = $duration;
+
+			return TRUE;
+		}
+
+		return FALSE;
+	}
+
 }

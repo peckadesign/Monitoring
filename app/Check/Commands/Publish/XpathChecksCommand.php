@@ -12,6 +12,7 @@ final class XpathChecksCommand extends PublishChecksCommand
 	{
 		return [
 			'type' => \Pd\Monitoring\Check\ICheck::TYPE_XPATH,
+			'siteMap' => FALSE,
 		];
 	}
 }

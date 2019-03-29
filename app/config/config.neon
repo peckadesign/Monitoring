@@ -67,6 +67,9 @@ rabbitmq:
 		aliveCheck:
 			exchange: {name: 'aliveCheck', type: direct}
 			contentType: text/plain
+		aliveCheckSiteMap:
+			exchange: {name: 'aliveCheckSiteMap', type: direct}
+			contentType: text/plain
 		dnsCheck:
 			exchange: {name: 'dnsCheck', type: direct}
 			contentType: text/plain
@@ -91,6 +94,9 @@ rabbitmq:
 		xpathCheck:
 			exchange: {name: 'xpathCheck', type: direct}
 			contentType: text/plain
+		xpathCheckSiteMap:
+			exchange: {name: 'xpathCheckSiteMap', type: direct}
+			contentType: text/plain
 		elasticsearchExport:
 			exchange: {name: 'elasticsearchExport', type: direct}
 			contentType: text/plain
@@ -102,6 +108,12 @@ rabbitmq:
 			callback: [@Pd\Monitoring\Check\Consumers\AliveCheck, process]
 			qos:
 				prefetchCount: 10
+		aliveCheckSiteMap:
+			exchange: {name: 'aliveCheckSiteMap', type: direct}
+			queue: {name: 'aliveCheckSiteMap'}
+			callback: [@\Pd\Monitoring\Check\Consumers\AliveCheck, process]
+			qos:
+				prefetchCount: 1
 		dnsCheck:
 			exchange: {name: 'dnsCheck', type: direct}
 			queue: {name: 'dnsCheck'}
@@ -150,6 +162,12 @@ rabbitmq:
 			callback: [@\Pd\Monitoring\Check\Consumers\XpathCheck, process]
 			qos:
 				prefetchCount: 10
+		xpathCheckSiteMap:
+			exchange: {name: 'xpathCheckSiteMap', type: direct}
+			queue: {name: 'xpathCheckSiteMap'}
+			callback: [@\Pd\Monitoring\Check\Consumers\XpathCheck, process]
+			qos:
+				prefetchCount: 1
 		elasticsearchExport:
 			exchange: {name: 'elasticsearchExport', type: direct}
 			queue: {name: 'elasticsearchExport'}
@@ -223,6 +241,13 @@ services:
 			- @Kdyby\RabbitMq\Connection::getProducer('aliveCheck')
 
 	-
+		class: Pd\Monitoring\Check\Commands\Publish\AliveChecksSiteMapCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @\Kdyby\RabbitMq\Connection::getProducer('aliveCheckSiteMap')
+
+	-
 		class: Pd\Monitoring\Check\Commands\Publish\DnsChecksCommand
 		tags:
 			- kdyby.console.command
@@ -277,6 +302,13 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @\Kdyby\RabbitMq\Connection::getProducer('xpathCheck')
+
+	-
+		factory: \Pd\Monitoring\Check\Commands\Publish\XpathChecksSiteMapCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @\Kdyby\RabbitMq\Connection::getProducer('xpathCheckSiteMap')
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Refresh\IFactory
