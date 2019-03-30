@@ -40,6 +40,11 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $user;
 
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\LogView\Factory
+	 */
+	private $logViewFactory;
+
 
 	public function __construct(
 		\Pd\Monitoring\Check\Check $check,
@@ -48,7 +53,8 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory $aliveChartControlFactory,
 		\Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository $userCheckNotificationsRepository,
 		bool $hasUserNotification,
-		\Pd\Monitoring\User\User $user
+		\Pd\Monitoring\User\User $user,
+		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory
 	) {
 		parent::__construct();
 		$this->check = $check;
@@ -58,6 +64,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->userCheckNotificationsRepository = $userCheckNotificationsRepository;
 		$this->hasUserNotification = $hasUserNotification;
 		$this->user = $user;
+		$this->logViewFactory = $logViewFactory;
 	}
 
 
@@ -145,6 +152,12 @@ class Control extends \Nette\Application\UI\Control
 		$this->hasUserNotification = FALSE;
 
 		$this->processRequest();
+	}
+
+
+	protected function createComponentLogView(): \Ublaboo\DataGrid\DataGrid
+	{
+		return $this->logViewFactory->create($this->check);
 	}
 
 }

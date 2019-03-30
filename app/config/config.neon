@@ -4,9 +4,10 @@ extensions:
 	orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
 	migrations: Nextras\Migrations\Bridges\NetteDI\MigrationsExtension
 	console: Kdyby\Console\DI\ConsoleExtension
-	monitoring.monolog: Pd\Monitoring\Monolog\DI\Extension
+	pd.monolog: \Pd\MonologModule\DI\Extension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
 	nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
+	clock: \Kdyby\Clock\DI\ClockExtension
 
 
 orm:
@@ -23,15 +24,8 @@ migrations:
 	dbal: nextras
 
 
-monitoring.monolog:
-	allowedTypes:
-		 - Pd\Monitoring\DashBoard\Presenters\BasePresenter
-
-
-monolog:
+pd.monolog:
 	name: "pecka-monitoring"
-	handlers:
-		- Pd\Monitoring\Monolog\Handlers\DayFileHandler("pecka-ci-server", %logDir%)
 
 
 clock:
@@ -390,7 +384,38 @@ services:
 	-
 		class: \League\OAuth2\Client\Provider\Github
 		factory: \Pd\Monitoring\Github\ProviderFactory(%github.clientId%, %github.clientSecret%, %github.scope%)::create()
-		
+
+	-
+		factory: \Pd\MonologModule\Handlers\DayFileHandler
+		arguments:
+			appName: monitoring
+			logDir: %logDir%
+
+	-
+		factory: \Pd\MonologModule\Handlers\BlueScreenHandler
+		arguments:
+			logDir: %logDir%
+
+	-
+		factory: \Monolog\Processor\WebProcessor
+
+	-
+		factory: \Monolog\Handler\ElasticsearchHandler
+		arguments:
+			client: @\Elasticsearch\Client
+			options:
+				index: %monologIndex%
+
+
+	pd.monolog.logger:
+		setup:
+			- pushProcessor(@\Monolog\Processor\WebProcessor)
+			- pushHandler(@\Pd\MonologModule\Handlers\DayFileHandler)
+			- pushHandler(@\Pd\MonologModule\Handlers\BlueScreenHandler)
+			- pushHandler(@\Monolog\Handler\ElasticsearchHandler)
+
+	-
+		factory: \Pd\Monitoring\DashBoard\Controls\LogView\Factory
 
 decorator:
 	Nette\Application\UI\Control:

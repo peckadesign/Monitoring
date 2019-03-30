@@ -2,7 +2,7 @@
 
 namespace Pd\Monitoring\Monolog\Handlers;
 
-class FlashMessageHandler extends \Monolog\Handler\AbstractProcessingHandler
+final class FlashMessageHandler extends \Monolog\Handler\AbstractProcessingHandler
 {
 
 	/**
@@ -19,20 +19,23 @@ class FlashMessageHandler extends \Monolog\Handler\AbstractProcessingHandler
 	public function __construct(\Nette\Application\UI\Control $control)
 	{
 		parent::__construct();
+
 		$this->control = $control;
-		$this->formater = new \Monolog\Formatter\LineFormatter('%datetime%: %message%');
+		$this->formater = new \Monolog\Formatter\LineFormatter('%datetime%: %message%', 'j. n. Y H:i:s');
 		$this->setFormatter($this->formater);
+		$this->level = \Monolog\Logger::DEBUG;
 	}
 
 
-	protected function write(array $record)
+	protected function write(array $record): void
 	{
-		if ($record['level'] > \Monolog\Logger::WARNING) {
-			$level = \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_WARNING;
+		if ($record['level'] > \Monolog\Logger::NOTICE) {
+			$level = \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_ERROR;
 		} else {
 			$level = \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_INFO;
 		}
 
 		$this->control->flashMessage($record['formatted'], $level);
 	}
+
 }
