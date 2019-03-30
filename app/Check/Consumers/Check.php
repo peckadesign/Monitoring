@@ -87,13 +87,13 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 
 	protected function logInfo(\Pd\Monitoring\Check\Check $check, string $message): void
 	{
-		$this->logger->addInfo($message, ['check' => $check->id, 'checkType' => $check->type]);
+		$this->logger->info($message, ['check' => $check->id, 'checkType' => $check->type]);
 	}
 
 
 	protected function logError(\Pd\Monitoring\Check\Check $check, string $message): void
 	{
-		$this->logger->addError($message, ['check' => $check->id, 'checkType' => $check->type]);
+		$this->logger->error($message, ['check' => $check->id, 'checkType' => $check->type]);
 	}
 
 }

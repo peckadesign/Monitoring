@@ -20,6 +20,10 @@ $configurator->setTempDirectory(__DIR__ . '/../temp');
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
+$configurator->addDynamicParameters([
+	'monologIndex' => 'monolog_' . \date('Y_m'),
+]);
+
 $container = $configurator->createContainer();
 
 return $container;

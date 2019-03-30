@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09fb952466d1676b2e1dd7a542a8abf5",
+    "content-hash": "220ad6785c9a589bce08e5c778b580a3",
     "packages": [
         {
             "name": "atrox/matcher",
@@ -459,6 +459,7 @@
                 "nette",
                 "time"
             ],
+            "abandoned": "kdyby/datetime-provider",
             "time": "2017-05-19T15:44:09+00:00"
         },
         {
@@ -530,78 +531,6 @@
                 "nette"
             ],
             "time": "2017-12-03T18:35:49+00:00"
-        },
-        {
-            "name": "kdyby/monolog",
-            "version": "v1.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Kdyby/Monolog.git",
-                "reference": "9919e4be9eec16c9c2de74c85d6d926d06e621a7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Monolog/zipball/9919e4be9eec16c9c2de74c85d6d926d06e621a7",
-                "reference": "9919e4be9eec16c9c2de74c85d6d926d06e621a7",
-                "shasum": ""
-            },
-            "require": {
-                "kdyby/strict-objects": "^1.0",
-                "monolog/monolog": "^1.10",
-                "nette/di": "^2.4@dev",
-                "php": "^5.6 || ^7.0",
-                "tracy/tracy": "^2.4@dev"
-            },
-            "provide": {
-                "psr/log-implementation": "1.0.0"
-            },
-            "require-dev": {
-                "nette/application": "^2.4@dev",
-                "nette/bootstrap": "^2.4@dev",
-                "nette/http": "^2.4@dev",
-                "nette/tester": "~1.7"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Kdyby\\Monolog\\": "src/"
-                },
-                "classmap": [
-                    "src/exceptions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause",
-                "GPL-2.0",
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Filip Procházka",
-                    "email": "filip@prochazka.su",
-                    "homepage": "http://filip-prochazka.com"
-                },
-                {
-                    "name": "Martin Bažík",
-                    "email": "martin@bazo.sk",
-                    "homepage": "http://bazo.sk"
-                }
-            ],
-            "description": "Integration of Monolog into Nette Framework",
-            "homepage": "http://kdyby.org",
-            "keywords": [
-                "diagnostics",
-                "logging",
-                "monolog",
-                "nette"
-            ],
-            "time": "2017-05-22T18:16:52+00:00"
         },
         {
             "name": "kdyby/rabbitmq",
@@ -946,21 +875,21 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.24.0",
+            "version": "2.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
+                "reference": "0ad73a526f4b5e67312e94fb7f60c1bdefc284b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/0ad73a526f4b5e67312e94fb7f60c1bdefc284b9",
+                "reference": "0ad73a526f4b5e67312e94fb7f60c1bdefc284b9",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0",
-                "psr/log": "~1.0"
+                "php": "^7.1",
+                "psr/log": "^1.0.1"
             },
             "provide": {
                 "psr/log-implementation": "1.0.0"
@@ -968,23 +897,27 @@
             "require-dev": {
                 "aws/aws-sdk-php": "^2.4.9 || ^3.0",
                 "doctrine/couchdb": "~1.0@dev",
-                "graylog2/gelf-php": "~1.0",
-                "jakub-onderka/php-parallel-lint": "0.9",
+                "elasticsearch/elasticsearch": "^6.0",
+                "graylog2/gelf-php": "^1.4.2",
+                "jakub-onderka/php-parallel-lint": "^0.9",
                 "php-amqplib/php-amqplib": "~2.4",
                 "php-console/php-console": "^3.1.3",
-                "phpunit/phpunit": "~4.5",
-                "phpunit/phpunit-mock-objects": "2.3.0",
+                "phpspec/prophecy": "^1.6.1",
+                "phpunit/phpunit": "^7.3",
+                "predis/predis": "^1.1",
+                "rollbar/rollbar": "^1.3",
                 "ruflin/elastica": ">=0.90 <3.0",
-                "sentry/sentry": "^0.13",
+                "sentry/sentry": "^1.9",
                 "swiftmailer/swiftmailer": "^5.3|^6.0"
             },
             "suggest": {
                 "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
                 "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-                "ext-mongo": "Allow sending log messages to a MongoDB server",
+                "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-                "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
                 "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
                 "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
@@ -994,7 +927,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -1020,7 +953,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05T09:00:11+00:00"
+            "time": "2018-12-08T17:16:32+00:00"
         },
         {
             "name": "nette/application",
@@ -1656,31 +1589,31 @@
         },
         {
             "name": "nette/neon",
-            "version": "v2.4.3",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/neon.git",
-                "reference": "5e72b1dd3e2d34f0863c5561139a19df6a1ef398"
+                "reference": "cbff32059cbdd8720deccf9e9eace6ee516f02eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/neon/zipball/5e72b1dd3e2d34f0863c5561139a19df6a1ef398",
-                "reference": "5e72b1dd3e2d34f0863c5561139a19df6a1ef398",
+                "url": "https://api.github.com/repos/nette/neon/zipball/cbff32059cbdd8720deccf9e9eace6ee516f02eb",
+                "reference": "cbff32059cbdd8720deccf9e9eace6ee516f02eb",
                 "shasum": ""
             },
             "require": {
                 "ext-iconv": "*",
                 "ext-json": "*",
-                "php": ">=5.6.0"
+                "php": ">=7.0"
             },
             "require-dev": {
-                "nette/tester": "~2.0",
+                "nette/tester": "^2.0",
                 "tracy/tracy": "^2.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1704,7 +1637,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🍸 Nette NEON: encodes and decodes NEON file format.",
+            "description": "? Nette NEON: encodes and decodes NEON file format.",
             "homepage": "http://ne-on.org",
             "keywords": [
                 "export",
@@ -1713,28 +1646,25 @@
                 "nette",
                 "yaml"
             ],
-            "time": "2018-03-21T12:12:21+00:00"
+            "time": "2019-02-05T21:30:40+00:00"
         },
         {
             "name": "nette/php-generator",
-            "version": "v3.2.1",
+            "version": "v3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "9de4e093a130f7a1bd175198799ebc0efbac6924"
+                "reference": "acff8b136fad84b860a626d133e791f95781f9f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/9de4e093a130f7a1bd175198799ebc0efbac6924",
-                "reference": "9de4e093a130f7a1bd175198799ebc0efbac6924",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/acff8b136fad84b860a626d133e791f95781f9f5",
+                "reference": "acff8b136fad84b860a626d133e791f95781f9f5",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "^2.4.2 || ~3.0.0",
                 "php": ">=7.1"
-            },
-            "conflict": {
-                "nette/nette": "<2.2"
             },
             "require-dev": {
                 "nette/tester": "^2.0",
@@ -1775,7 +1705,7 @@
                 "php",
                 "scaffolding"
             ],
-            "time": "2018-11-27T19:00:14+00:00"
+            "time": "2019-03-15T03:41:13+00:00"
         },
         {
             "name": "nette/reflection",
@@ -2315,6 +2245,45 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "pd/monolog-module",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/peckadesign/MonologModule.git",
+                "reference": "5a2d12c9048b71b806771b97cdbcae763b59bd96"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/peckadesign/MonologModule/zipball/5a2d12c9048b71b806771b97cdbcae763b59bd96",
+                "reference": "5a2d12c9048b71b806771b97cdbcae763b59bd96",
+                "shasum": ""
+            },
+            "require": {
+                "kdyby/clock": "1.0.*",
+                "monolog/monolog": "2.0.*@beta",
+                "nette/application": "2.4.*",
+                "nette/di": "2.4.*",
+                "nette/security": "2.4.*",
+                "tracy/tracy": "^2.6.0"
+            },
+            "require-dev": {
+                "pd/coding-standard": "1.17.*",
+                "phpstan/phpstan-strict-rules": "0.11.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pd\\MonologModule\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Integrace Monologu do projektů PeckaDesign",
+            "time": "2019-02-26T11:57:40+00:00"
         },
         {
             "name": "php-amqplib/php-amqplib",
@@ -2953,27 +2922,28 @@
         },
         {
             "name": "tracy/tracy",
-            "version": "v2.5.5",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tracy.git",
-                "reference": "35fa649b483b28e16f61de07110ea0585fc8d6ea"
+                "reference": "e179856e5dcc3ced99df1596cd299246fb1c3ac2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/35fa649b483b28e16f61de07110ea0585fc8d6ea",
-                "reference": "35fa649b483b28e16f61de07110ea0585fc8d6ea",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/e179856e5dcc3ced99df1596cd299246fb1c3ac2",
+                "reference": "e179856e5dcc3ced99df1596cd299246fb1c3ac2",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-session": "*",
-                "php": ">=5.4.4"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "nette/di": "~2.3",
-                "nette/tester": "~1.7",
-                "nette/utils": "~2.3"
+                "nette/di": "^2.4 || ~3.0.0",
+                "nette/tester": "^2.1",
+                "nette/utils": "^2.4 || ^3.0",
+                "psr/log": "^1.0"
             },
             "suggest": {
                 "https://nette.org/donate": "Please support Tracy via a donation"
@@ -2981,7 +2951,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -2989,7 +2959,7 @@
                     "src"
                 ],
                 "files": [
-                    "src/shortcuts.php"
+                    "src/Tracy/shortcuts.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3006,7 +2976,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "😎 Tracy: the addictive tool to ease debugging PHP code for cool developers. Friendly design, logging, profiler, advanced features like debugging AJAX calls or CLI support. You will love it.",
+            "description": "? Tracy: the addictive tool to ease debugging PHP code for cool developers. Friendly design, logging, profiler, advanced features like debugging AJAX calls or CLI support. You will love it.",
             "homepage": "https://tracy.nette.org",
             "keywords": [
                 "Xdebug",
@@ -3015,7 +2985,7 @@
                 "nette",
                 "profiler"
             ],
-            "time": "2018-11-05T15:10:59+00:00"
+            "time": "2019-03-01T02:12:13+00:00"
         },
         {
             "name": "ublaboo/datagrid",
@@ -3077,6 +3047,67 @@
                 "nette"
             ],
             "time": "2018-10-08T10:51:45+00:00"
+        },
+        {
+            "name": "ublaboo/datagrid-elasticsearch-data-source",
+            "version": "dev-row-factory",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/peckadesign/datagrid-elasticsearch-data-source.git",
+                "reference": "b2817cacb95357980d2c0857cba4c6ec3766dca7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/peckadesign/datagrid-elasticsearch-data-source/zipball/b2817cacb95357980d2c0857cba4c6ec3766dca7",
+                "reference": "b2817cacb95357980d2c0857cba4c6ec3766dca7",
+                "shasum": ""
+            },
+            "require": {
+                "nette/application": "^2.3|^2.4",
+                "php": ">= 7.1",
+                "ublaboo/datagrid": "~2.3|~3.0|~4.0|~5.0"
+            },
+            "require-dev": {
+                "nette/tester": "~1.6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ublaboo\\DatagridElasticsearchDataSource\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Ublaboo\\DatagridElasticsearchDataSource\\Tests\\": "tests"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pavel Janda",
+                    "homepage": "http://paveljanda.com"
+                }
+            ],
+            "description": "Elasticsearch DataSource for Ublaboo\\DataGrid",
+            "homepage": "http://ublaboo.paveljanda.com/datagrid-elasticsearch-data-source",
+            "keywords": [
+                "data",
+                "database",
+                "datagrid",
+                "elastic",
+                "elasticsearch",
+                "grid",
+                "nette",
+                "source",
+                "ublaboo"
+            ],
+            "support": {
+                "issues": "https://github.com/ublaboo/datagrid-elasticsearch-data-source/issues",
+                "source": "https://github.com/peckadesign/datagrid-elasticsearch-data-source/tree/row-factory"
+            },
+            "time": "2019-03-30T20:14:23+00:00"
         },
         {
             "name": "ublaboo/responses",
@@ -3724,7 +3755,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "monolog/monolog": 10,
+        "ublaboo/datagrid-elasticsearch-data-source": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

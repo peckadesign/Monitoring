@@ -24,20 +24,22 @@
 		"nette/security": "2.4.*",
 		"nette/utils": "2.5.*",
 		"latte/latte": "2.4.*",
-		"tracy/tracy": "2.5.*",
+		"tracy/tracy": "2.6.*",
 		"nextras/orm": "3.0.*",
 		"nextras/migrations": "3.0.*",
 		"kdyby/console": "2.7.*",
 		"guzzlehttp/guzzle": "6.3.*",
 		"league/oauth2-github": "2.0.*",
-		"kdyby/monolog": "1.3.*",
 		"kdyby/clock": "1.0.*",
 		"kdyby/rabbitmq": "1.2.*",
 		"nette/mail": "2.4.*",
 		"nextras/forms": "2.0.*",
 		"ublaboo/datagrid": "5.7.*",
 		"atrox/matcher": "^1.1",
-		"elasticsearch/elasticsearch": "6.1.*"
+		"elasticsearch/elasticsearch": "6.1.*",
+		"pd/monolog-module": "2.0.*",
+		"monolog/monolog": "@beta",
+		"ublaboo/datagrid-elasticsearch-data-source": "dev-row-factory"
 	},
 	"require-dev": {
 		"pd/coding-standard": "1.13.*",
@@ -50,5 +52,11 @@
 		"psr-4": {
 			"Pd\\Monitoring\\": "app"
 		}
-	}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/peckadesign/datagrid-elasticsearch-data-source.git"
+		}
+	]
 }

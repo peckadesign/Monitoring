@@ -62,7 +62,7 @@ class Notifier
 			$client = new \GuzzleHttp\Client();
 			$client->request('POST', $this->hookUrl, $options);
 		} catch (\Throwable $e) {
-			$this->logger->addError($e);
+			$this->logger->error($e);
 		}
 	}
 }
