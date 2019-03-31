@@ -30,6 +30,8 @@ class RabbitConsumerCheck extends Check
 
 			$response = $client->request('GET', $check->url, $options);
 
+			$this->logHeaders($check, $response);
+
 			if ($response->getStatusCode() !== 200) {
 				throw new \Pd\Monitoring\Exception();
 			}

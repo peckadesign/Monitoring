@@ -30,6 +30,9 @@ class NumberValueCheck extends Check
 			$this->logInfo($check, \sprintf('Začínám stahovat url "%s" v čase %f', $check->url, $start));
 
 			$response = $client->request('GET', $check->url, $options);
+
+			$this->logHeaders($check, $response);
+
 			$duration = (\microtime(TRUE) - $start) * 1000;
 
 			$this->logInfo($check, \sprintf('Staženo za %f ms, návratový kód %u', $duration, $response->getStatusCode()));

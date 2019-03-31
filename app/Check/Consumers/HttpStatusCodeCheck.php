@@ -18,6 +18,9 @@ class HttpStatusCodeCheck extends Check
 			$client = new \GuzzleHttp\Client($config);
 			try {
 				$response = $client->request('GET', $check->url);
+
+				$this->logHeaders($check, $response);
+
 				$check->lastCode = $response->getStatusCode();
 			} catch (\GuzzleHttp\Exception\BadResponseException $e) {
 				$check->lastCode = (int) $e->getCode();
