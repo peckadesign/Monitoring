@@ -31,6 +31,10 @@ class DataGridFactory
 		]);
 		$grid->setTranslator($translator);
 
+		$grid->setColumnReset(FALSE);
+
+		$grid->setRememberState(FALSE);
+
 		return $grid;
 	}
 }
