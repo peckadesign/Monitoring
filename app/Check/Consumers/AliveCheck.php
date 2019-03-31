@@ -85,7 +85,9 @@ class AliveCheck extends Check
 		$response = $client->request('GET', $url, $options);
 		$duration = (\microtime(TRUE) - $start) * 1000;
 
-		$this->logInfo($check, \sprintf('Staženo za %f ms, návratový kód %u', $duration, $response->getStatusCode()));
+		$this->logHeaders($check, $response);
+
+		$this->logInfo($check, \sprintf('Staženo za %.2f ms, návratový kód %u', $duration, $response->getStatusCode()));
 
 		if ($response->getStatusCode() === 200) {
 			$check->lastTimeout = $duration;

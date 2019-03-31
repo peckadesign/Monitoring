@@ -77,6 +77,8 @@ final class XpathCheck extends Check
 
 		$response = $client->request('GET', $url, $options);
 
+		$this->logHeaders($check, $response);
+
 		if ($response->getStatusCode() !== 200) {
 			return FALSE;
 		}

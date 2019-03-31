@@ -96,4 +96,14 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 		$this->logger->error($message, ['check' => $check->id, 'checkType' => $check->type]);
 	}
 
+
+	protected function logHeaders(\Pd\Monitoring\Check\Check $check, \Psr\Http\Message\ResponseInterface $response): void
+	{
+		$headers = [];
+		foreach ($response->getHeaders() as $headerName => $headerValues) {
+			$headers[] = $headerName . ': ' . \implode(', ', $headerValues);
+		}
+		$this->logInfo($check, 'Hlavičky odpovědi: ' . \implode(";\n", $headers));
+	}
+
 }
