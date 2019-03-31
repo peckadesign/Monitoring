@@ -34,7 +34,7 @@ final class Factory
 		$grid
 			->addColumnText('message', 'Záznam')
 			->setRenderer(static function (array $row): \Nette\Utils\Html {
-				return \Nette\Utils\Html::el('code', $row['message']);
+				return \Nette\Utils\Html::el('pre', $row['message']);
 			})
 		;
 
