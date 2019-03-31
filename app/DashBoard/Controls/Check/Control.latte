@@ -11,10 +11,6 @@
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 
 			{control aliveChart}
-
-		{elseif $check instanceof Pd\Monitoring\Check\TermCheck}
-			<p>Upomínka: {$check->message}</p>
-			<p>Termín: {$check->term|dateTime}</p>
 		{elseif $check instanceof Pd\Monitoring\Check\DnsCheck}
 			<p>Testovaná adresa: <a href="{$check->url}" target="_blank">{$check->url}</a></p>
 			<p>Očekávaná hodnota:<ul><li n:foreach="explode(';', $check->dnsValue) as $value">{$value}</li></ul></p>
