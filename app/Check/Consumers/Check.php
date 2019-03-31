@@ -103,7 +103,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 		foreach ($response->getHeaders() as $headerName => $headerValues) {
 			$headers[] = $headerName . ': ' . \implode(', ', $headerValues);
 		}
-		$this->logInfo($check, 'Hlavičky odpovědi: ' . \implode(";\n", $headers));
+		$this->logInfo($check, 'Hlavičky odpovědi: ' . "\n" . \implode(";\n", $headers));
 	}
 
 }
