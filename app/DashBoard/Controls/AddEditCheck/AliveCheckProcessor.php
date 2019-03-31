@@ -7,7 +7,6 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
-		$check->url = $data['url'];
 		$check->followRedirect = $data['followRedirect'];
 		$check->siteMap = $data['siteMap'];
 	}
@@ -21,13 +20,8 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 
 	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
-		$form->addGroup($check->getTitle());
-		$form
-			->addText('url', 'URL')
-			->setRequired(TRUE)
-			->setAttribute('placeholder', 'https://www.example.com')
-			->setOption('description', 'URL musí vracet HTTP stavový kód 200.')
-		;
+		$url = \Pd\Monitoring\DashBoard\Forms\Controls\UrlControlFactory::create();
+		$form->addComponent($url, 'url');
 
 		$form
 			->addCheckbox('siteMap', 'URL obsahuje sitemapu')

@@ -10,7 +10,6 @@ class DnsCheckProcessor implements ICheckControlProcessor
 	 */
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
-		$check->url = $data['url'];
 		$check->dnsValue = $data['dnsValue'];
 		$check->dnsType = $data['dnsType'];
 	}
@@ -24,12 +23,8 @@ class DnsCheckProcessor implements ICheckControlProcessor
 
 	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
-		$form->addGroup($check->getTitle());
-
-		$form['url'] = (new \Pd\Monitoring\DashBoard\Forms\Controls\DomainControl('Doména'))
-			->setRequired(TRUE)
-			->setOption('description', 'Např. "example.com".')
-		;
+		$url = \Pd\Monitoring\DashBoard\Forms\Controls\DomainControlFactory::create();
+		$form->addComponent($url, 'url');
 
 		$form
 			->addSelect('dnsType', 'Typ DNS záznamu', \array_combine(\Pd\Monitoring\Check\DnsCheck::$dnsTypes, \Pd\Monitoring\Check\DnsCheck::$dnsTypes))

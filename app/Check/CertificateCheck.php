@@ -3,7 +3,6 @@
 namespace Pd\Monitoring\Check;
 
 /**
- * @property string $url
  * @property int $daysBeforeWarning
  * @property \DateTimeImmutable|NULL $lastValiddate
  * @property string|NULL $grade

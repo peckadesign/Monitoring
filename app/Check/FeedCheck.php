@@ -3,7 +3,6 @@
 namespace Pd\Monitoring\Check;
 
 /**
- * @property string $url
  * @property float $size
  * @property int|NULL $lastSize
  * @property int $maximumAge

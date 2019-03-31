@@ -9,7 +9,6 @@ class FeedCheckProcessor implements ICheckControlProcessor
 	{
 		$check->maximumAge = $data['maximumAge'];
 		$check->size = $data['size'];
-		$check->url = $data['url'];
 	}
 
 
@@ -21,14 +20,10 @@ class FeedCheckProcessor implements ICheckControlProcessor
 
 	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
-		$form->addGroup($check->getTitle());
-		$form
-			->addText('url', 'Adresa')
-			->setRequired(TRUE)
-			->setAttribute('placeholder', 'https://www.example.com/sitemap.xml')
-			->setOption('description', 'Např. "https://www.example.com/sitemap.xml"')
-			->addRule(\Nette\Forms\Form::URL)
-		;
+		$url = \Pd\Monitoring\DashBoard\Forms\Controls\UrlControlFactory::create();
+		$url->setAttribute('placeholder', 'https://www.example.com/sitemap.xml');
+		$url->setOption('description', 'Např. "https://www.example.com/sitemap.xml"');
+		$form->addComponent($url, 'url');
 
 		$form['size'] = new \Pd\Monitoring\DashBoard\Forms\Controls\TextInput('Minimální velikost', NULL, NULL, 'MB');
 		$form['size']->setRequired(TRUE);

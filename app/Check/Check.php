@@ -4,6 +4,7 @@ namespace Pd\Monitoring\Check;
 
 /**
  * @property int $id {primary}
+ * @property string $url
  * @property \Pd\Monitoring\Project\Project $project {m:1 \Pd\Monitoring\Project\Project::$checks}
  * @property SlackNotifyLock $locks {1:m SlackNotifyLock::$check, cascade=[persist, remove]}
  * @property int $type {enum ICheck::TYPE_*}

@@ -10,7 +10,6 @@ class RabbitConsumerCheckProcessor implements ICheckControlProcessor
 	 */
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
-		$check->url = $data['url'];
 		$check->adminUrl = $data['adminUrl'];
 		if ($check->getPersistedId() && $check->queues !== $data['queues']) {
 			$check->lastConsumerCount = NULL;
@@ -33,7 +32,10 @@ class RabbitConsumerCheckProcessor implements ICheckControlProcessor
 
 	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
-		$form->addGroup($check->getTitle());
+		$url = \Pd\Monitoring\DashBoard\Forms\Controls\UrlControlFactory::create();
+		$url->setOption('description', 'URL musí vracet stejný výsledek jako volání "/api/queues" pluginu RabbitMQ Management HTTP API.');
+		$form->addComponent($url, 'url');
+
 		$form
 			->addText('queues', 'Fronty')
 			->setRequired(TRUE)
@@ -43,11 +45,6 @@ class RabbitConsumerCheckProcessor implements ICheckControlProcessor
 			->addText('minimumConsumerCount', 'Minimální počty')
 			->setRequired(TRUE)
 			->setOption('description', 'Hodnoty oddělte čárkou, uvádějte ve stejném pořadí, jako fronty.')
-		;
-		$form
-			->addText('url', 'URL')
-			->setRequired(TRUE)
-			->setOption('description', 'URL musí vracet stejný výsledek jako volání "/api/queues" pluginu RabbitMQ Management HTTP API.')
 		;
 		$form
 			->addText('adminUrl', 'Administrační URL')
