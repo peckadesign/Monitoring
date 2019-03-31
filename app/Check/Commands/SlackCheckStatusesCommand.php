@@ -184,9 +184,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			$buttons[] = new \Pd\Monitoring\Slack\Button('rabbitMqAdmin', 'Administrace RabbitMQ', $check->adminUrl);
 		}
 
-		if ( ! $check instanceof \Pd\Monitoring\Check\TermCheck) {
-			$buttons[] = new \Pd\Monitoring\Slack\Button('url', 'Kontrolovaná URL', $check->url);
-		}
+		$buttons[] = new \Pd\Monitoring\Slack\Button('url', 'Kontrolovaná URL', $check->url);
 
 		$referenceCheckWarning = 'Některé referenční kontroly selhaly, neproběhne notifikace ostatních kontrol';
 		$projectReferenceCheckWarning = \sprintf(

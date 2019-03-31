@@ -37,11 +37,6 @@ class Factory
 		switch ($type) {
 			case \Pd\Monitoring\Check\ICheck::TYPE_ALIVE:
 				$processor = new AliveCheckProcessor();
-				
-				break;
-
-			case \Pd\Monitoring\Check\ICheck::TYPE_TERM:
-				$processor = new TermCheckProcessor();
 				break;
 
 			case \Pd\Monitoring\Check\ICheck::TYPE_DNS:

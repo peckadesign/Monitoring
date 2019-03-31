@@ -30,7 +30,6 @@ final class Control extends \Nette\Application\UI\Control
 	{
 		$checks = [
 			new \Pd\Monitoring\Check\AliveCheck(),
-			new \Pd\Monitoring\Check\TermCheck(),
 			new \Pd\Monitoring\Check\DnsCheck(),
 			new \Pd\Monitoring\Check\HttpStatusCodeCheck(),
 			new \Pd\Monitoring\Check\CertificateCheck(),

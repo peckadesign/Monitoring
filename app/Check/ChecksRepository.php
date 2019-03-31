@@ -16,7 +16,6 @@ class ChecksRepository extends \Nextras\Orm\Repository\Repository
 		return [
 			Check::class,
 			AliveCheck::class,
-			TermCheck::class,
 			DnsCheck::class,
 			CertificateCheck::class,
 			HttpStatusCodeCheck::class,
@@ -36,8 +35,6 @@ class ChecksRepository extends \Nextras\Orm\Repository\Repository
 			switch ($data['type']) {
 				case ICheck::TYPE_ALIVE:
 					return AliveCheck::class;
-				case ICheck::TYPE_TERM:
-					return TermCheck::class;
 				case ICheck::TYPE_DNS:
 					return DnsCheck::class;
 				case ICheck::TYPE_CERTIFICATE:
