@@ -7,7 +7,6 @@ class HttpStatusCodeCheckProcessor implements ICheckControlProcessor
 
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
-		$check->url = $data['url'];
 		$check->code = $data['code'];
 	}
 
@@ -20,12 +19,9 @@ class HttpStatusCodeCheckProcessor implements ICheckControlProcessor
 
 	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
-		$form->addGroup($check->getTitle());
-		$form
-			->addText('url', 'Adresa')
-			->setRequired(TRUE)
-			->setOption('description', 'Např. "https://example.com".')
-		;
+		$url = \Pd\Monitoring\DashBoard\Forms\Controls\UrlControlFactory::create();
+		$form->addComponent($url, 'url');
+
 		$form
 			->addText('code', 'HTTP stavový kód')
 			->setType('number')

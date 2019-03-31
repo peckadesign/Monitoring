@@ -95,6 +95,8 @@ class Control extends \Nette\Application\UI\Control
 		$projects = $this->projectsRepository->findAll()->orderBy('name')->fetchPairs('id', 'name');
 		$form->addSelect('project', 'Projekt', $projects);
 
+		$form->addGroup($this->check->getTitle());
+
 		$this->checkControlProcessor->createForm($this->check, $form);
 
 		$form->addSubmit('save', 'Uložit');

@@ -3,7 +3,6 @@
 namespace Pd\Monitoring\Check;
 
 /**
- * @property string $url
  * @property string $xpath
  * @property int $operator {enum self::OPERATOR_*}
  * @property string $xpathResult

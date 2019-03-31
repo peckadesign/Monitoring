@@ -3,7 +3,6 @@
 namespace Pd\Monitoring\Check;
 
 /**
- * @property string $url
  * @property string $dnsType {enum self::DNS_TYPE_*}
  * @property string $dnsValue
  * @property string|NULL $lastDnsValue

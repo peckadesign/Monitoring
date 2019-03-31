@@ -3,7 +3,6 @@
 namespace Pd\Monitoring\Check;
 
 /**
- * @property string $url
  * @property int|NULL $lastTimeout
  * @property int|NULL $beforeLastTimeout
  * @property bool $followRedirect

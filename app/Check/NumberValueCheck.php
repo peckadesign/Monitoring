@@ -3,7 +3,6 @@
 namespace Pd\Monitoring\Check;
 
 /**
- * @property string $url
  * @property float|NULL $value
  * @property float $threshold
  * @property int $operator {enum self::OPERATOR_*}

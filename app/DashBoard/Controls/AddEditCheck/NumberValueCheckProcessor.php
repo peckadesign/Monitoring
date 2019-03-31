@@ -10,7 +10,6 @@ class NumberValueCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\Add
 	 */
 	public function processEntity(\Pd\Monitoring\Check\Check $check, array $data): void
 	{
-		$check->url = $data['url'];
 		$check->operator = $data['operator'];
 		$check->threshold = $data['threshold'];
 	}
@@ -27,13 +26,10 @@ class NumberValueCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\Add
 	 */
 	public function createForm(\Pd\Monitoring\Check\Check $check, \Nette\Application\UI\Form $form): void
 	{
-		$form->addGroup($check->getTitle());
-		$form
-			->addText('url', 'URL')
-			->setRequired(TRUE)
-			->setAttribute('placeholder', 'https://www.example.com/api/value')
-			->setOption('description', 'URL musí vracet HTTP stavový kód 200 a obsahovat pouze jedno číslo, např. 10 nebo 17.51')
-		;
+		$url = \Pd\Monitoring\DashBoard\Forms\Controls\UrlControlFactory::create();
+		$url->setOption('description', 'URL musí vracet HTTP stavový kód 200 a obsahovat pouze jedno číslo, např. 10 nebo 17.51');
+		$form->addComponent($url, 'url');
+
 		$form
 			->addSelect('operator', 'Očekávaná hodnota', \Pd\Monitoring\Check\NumberValueCheck::OPERATORS)
 			->setRequired(TRUE)
