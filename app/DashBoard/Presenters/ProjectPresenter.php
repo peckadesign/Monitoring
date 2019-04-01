@@ -28,16 +28,6 @@ class ProjectPresenter extends BasePresenter
 	private $checksRepository;
 
 	/**
-	 * @var int
-	 */
-	private $type;
-
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory
-	 */
-	private $addEditCheckControlFactory;
-
-	/**
 	 * @var \Pd\Monitoring\Check\Check
 	 */
 	private $check;
@@ -57,7 +47,6 @@ class ProjectPresenter extends BasePresenter
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory
 	) {
@@ -65,7 +54,6 @@ class ProjectPresenter extends BasePresenter
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
 		$this->checksRepository = $checksRepository;
-		$this->addEditCheckControlFactory = $addEditCheckControlFactory;
 		$this->projectChecksControlFactory = $projectChecksControlFactory;
 		$this->projectButtonsFactory = $projectButtonsFactory;
 	}
@@ -83,10 +71,9 @@ class ProjectPresenter extends BasePresenter
 	/**
 	 * @Acl(project, add)
 	 */
-	public function actionEdit(int $id): void
+	public function actionEdit(\Pd\Monitoring\Project\Project $project): void
 	{
-		/** @var \Pd\Monitoring\Project\Project project */
-		$this->project = $this->projectsRepository->getById($id);
+		$this->project = $project;
 
 		$this['addEditForm']->setDefaults($this->project->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
 	}
@@ -151,13 +138,13 @@ class ProjectPresenter extends BasePresenter
 
 		$project = $this->projectsRepository->persistAndFlush($project);
 
-		$this->redirect(':DashBoard:Project:', $project->id);
+		$this->redirect(':DashBoard:Project:', $project);
 	}
 
 
-	public function actionDefault(int $id): void
+	public function actionDefault(\Pd\Monitoring\Project\Project $project): void
 	{
-		$this->project = $this->projectsRepository->getById($id);
+		$this->project = $project;
 
 		if ($this->project->parent) {
 			$this->redirect('default#project-' . $this->project->id, $this->project->parent->id);
@@ -186,59 +173,21 @@ class ProjectPresenter extends BasePresenter
 
 
 	/**
-	 * @Acl(check, add)
-	 */
-	public function actionAddCheck(int $id, int $type): void
-	{
-		$this->project = $this->projectsRepository->getById($id);
-		$this->type = $type;
-	}
-
-
-	public function createComponentAddCheck(): \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Control
-	{
-		$control = $this->addEditCheckControlFactory->create($this->project, $this->type);
-
-		return $control;
-	}
-
-
-	/**
-	 * @Acl(check, edit)
-	 */
-	public function actionEditCheck(int $id, int $checkId): void
-	{
-		$this->project = $this->projectsRepository->getById($id);
-		$this->check = $this->checksRepository->getById($checkId);
-		$this->type = $this->check->type;
-	}
-
-
-	public function createComponentEditCheck(): \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Control
-	{
-		$control = $this->addEditCheckControlFactory->create($this->project, $this->type, $this->check);
-
-		return $control;
-	}
-
-
-	/**
 	 * @Acl(project, delete)
 	 */
-	public function actionDelete(int $id): void
+	public function actionDelete(\Pd\Monitoring\Project\Project $project): void
 	{
-		$this->project = $this->projectsRepository->getById($id);
-		$parent = $this->project->parent;
+		$parent = $project->parent;
 
 		try {
-			$this->projectsRepository->removeAndFlush($this->project);
+			$this->projectsRepository->removeAndFlush($project);
 			$this->flashMessage('Projekt byl smazán', self::FLASH_MESSAGE_SUCCESS);
 		} catch (\Nextras\Orm\InvalidStateException $e) {
 			$this->flashMessage('Nepodařilo se smazat projekt', self::FLASH_MESSAGE_ERROR);
 		}
 
 		if ($parent) {
-			$this->redirect(':DashBoard:Project:', $parent->id);
+			$this->redirect(':DashBoard:Project:', $parent);
 		} else {
 			$this->redirect(':DashBoard:HomePage:');
 		}

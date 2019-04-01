@@ -158,7 +158,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 				return;
 		}
 
-		$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project->id]);
+		$url = $this->linkGenerator->link('DashBoard:Project:', [$check->project]);
 
 		$lock = new \Pd\Monitoring\Check\SlackNotifyLock();
 		$lock->locked = $this->dateTimeProvider->getDateTime();

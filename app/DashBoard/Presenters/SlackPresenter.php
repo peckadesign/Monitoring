@@ -32,7 +32,7 @@ final class SlackPresenter extends BasePresenter
 
 		$this->flashMessage('Kontrola byla zapauzována', self::FLASH_MESSAGE_SUCCESS);
 
-		$this->redirect(':DashBoard:Project:', [$check->project->id]);
+		$this->redirect(':DashBoard:Project:', [$check->project]);
 	}
 
 }

@@ -46,17 +46,17 @@ class UserPresenter extends BasePresenter
 	}
 
 
-	public function actionEdit(int $id): void
+	public function actionEdit(\Pd\Monitoring\User\User $user): void
 	{
 		if (
 			! $this->user->isAllowed('user', 'edit')
 			&&
-			$this->user->id !== $id
+			$this->user->id !== $user->id
 		) {
 			throw new \Nette\Application\ForbiddenRequestException();
 		}
 
-		$this->editedUser = $this->usersRepository->getById($id);
+		$this->editedUser = $user;
 	}
 
 

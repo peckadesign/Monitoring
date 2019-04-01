@@ -7,18 +7,18 @@
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				{foreach $checks as $check}
-					<li><a href="{plink :DashBoard:Project:addCheck $project->id, $check->type}">{$check->getTitle()}</a></li>
+					<li><a href="{plink :DashBoard:Check:add $project, $check->type}">{$check->getTitle()}</a></li>
 				{/foreach}
 			</ul>
 		</div>
 
 		<div class="dropdown" n:if="$user->isAllowed('project', 'add') && count($project->subProjects)">
-			<a href="{plink :DashBoard:Project:add $project->id}" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="hidden-xs"> Podprojekt</span></a>
+			<a href="{plink :DashBoard:Project:add $project}" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="hidden-xs"> Podprojekt</span></a>
 		</div>
 	</div>
 
 	<div class="btn-group">
-		<a href="{plink :DashBoard:Project:edit $project->id}" class="btn btn-warning" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span class="hidden-xs"> Upravit projekt</span></a>
+		<a href="{plink :DashBoard:Project:edit $project}" class="btn btn-warning" n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span class="hidden-xs"> Upravit projekt</span></a>
 	</div>
 
 	<div class="btn-group">
@@ -26,6 +26,6 @@
 	</div>
 
 	<div class="btn-group">
-		<a href="{plink :DashBoard:Project:delete $project->id}" class="btn btn-danger" data-confirm n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><span class="hidden-xs"> Smazat projekt</span></a>
+		<a href="{plink :DashBoard:Project:delete $project}" class="btn btn-danger" data-confirm n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><span class="hidden-xs"> Smazat projekt</span></a>
 	</div>
 </div>

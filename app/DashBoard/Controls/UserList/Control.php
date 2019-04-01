@@ -77,7 +77,8 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleEdit(int $id): void
 	{
-		$this->getPresenter()->redirect(':DashBoard:User:edit', $id);
+		$user = $this->usersRepository->getById($id);
+		$this->getPresenter()->redirect(':DashBoard:User:edit', $user);
 	}
 
 
