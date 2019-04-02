@@ -118,6 +118,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->check->reference = $data['reference'];
 		$this->check->pausedFrom = $data['pausedFrom'];
 		$this->check->pausedTo = $data['pausedTo'];
+		$this->check->url = $data['url'];
 
 		$this->checkControlProcessor->processEntity($this->check, $data);
 
