@@ -115,7 +115,7 @@ class RouterFactory
 				},
 			]
 		];
-		$router[] = new \Nette\Application\Routers\Route('dash-board/check/<action>/<check>', $metadata);
+		$router[] = new \Nette\Application\Routers\Route('dash-board/check/<action>[/<check>]', $metadata);
 
 		$metadata = [
 			'module' => 'DashBoard',

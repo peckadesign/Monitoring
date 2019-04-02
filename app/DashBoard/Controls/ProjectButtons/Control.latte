@@ -7,7 +7,7 @@
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				{foreach $checks as $check}
-					<li><a href="{plink :DashBoard:Check:add $project, $check->type}">{$check->getTitle()}</a></li>
+					<li><a href="{plink :DashBoard:Check:add $project->id, $check->type}">{$check->getTitle()}</a></li>
 				{/foreach}
 			</ul>
 		</div>

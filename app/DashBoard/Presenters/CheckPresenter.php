@@ -35,25 +35,35 @@ final class CheckPresenter extends BasePresenter
 	 */
 	private $type;
 
+	/**
+	 * @var \Pd\Monitoring\Project\ProjectsRepository
+	 */
+	private $projectsRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory
+		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory,
+		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
 	) {
 		parent::__construct();
 		$this->logViewFactory = $logViewFactory;
 		$this->checksRepository = $checksRepository;
 		$this->addEditCheckControlFactory = $addEditCheckControlFactory;
+		$this->projectsRepository = $projectsRepository;
 	}
 
 
 	/**
 	 * @Acl(check, add)
 	 */
-	public function actionAdd(\Pd\Monitoring\Project\Project $project, int $type): void
+	public function actionAdd(int $project, int $type): void
 	{
-		$this->project = $project;
+		$this->project = $this->projectsRepository->getById($project);
+		if ( ! $this->project) {
+			$this->error();
+		}
 		$this->type = $type;
 	}
 
@@ -69,15 +79,15 @@ final class CheckPresenter extends BasePresenter
 	/**
 	 * @Acl(check, edit)
 	 */
-	public function actionEdit(\Pd\Monitoring\Project\Project $project, int $checkId): void
+	public function actionEdit(\Pd\Monitoring\Check\Check $check): void
 	{
-		$this->project = $project;
-		$this->check = $this->checksRepository->getById($checkId);
+		$this->check = $check;
+		$this->project = $this->check->project;
 		$this->type = $this->check->type;
 	}
 
 
-	public function createComponentEditCheck(): \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Control
+	public function createComponentEdit(): \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Control
 	{
 		$control = $this->addEditCheckControlFactory->create($this->project, $this->type, $this->check);
 
