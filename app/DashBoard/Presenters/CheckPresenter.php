@@ -11,11 +11,6 @@ final class CheckPresenter extends BasePresenter
 	private $logViewFactory;
 
 	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
-
-	/**
 	 * @var \Pd\Monitoring\Check\Check
 	 */
 	private $check;
@@ -43,15 +38,19 @@ final class CheckPresenter extends BasePresenter
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory,
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
 	) {
 		parent::__construct();
 		$this->logViewFactory = $logViewFactory;
-		$this->checksRepository = $checksRepository;
 		$this->addEditCheckControlFactory = $addEditCheckControlFactory;
 		$this->projectsRepository = $projectsRepository;
+	}
+
+
+	public function actionDefault(\Pd\Monitoring\Check\Check $check): void
+	{
+
 	}
 
 

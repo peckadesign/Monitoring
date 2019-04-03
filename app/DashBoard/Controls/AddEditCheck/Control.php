@@ -124,7 +124,7 @@ class Control extends \Nette\Application\UI\Control
 
 		$this->checksRepository->persistAndFlush($this->check);
 
-		$this->getPresenter()->redirect(':DashBoard:Project:#' . $this->project->id . '-' . $this->check->getType(), $this->project->id);
+		$this->getPresenter()->redirect(':DashBoard:Check:', $this->check);
 	}
 
 }

@@ -1,32 +1,26 @@
 {block content}
-	{if count($subProjects)}
-		<ul class="nav nav-tabs" role="tablist">
-			{foreach $subProjects as $subProject}
-				<li role="presentation" n:class="$iterator->first ? active"><a href="#project-{$subProject->id}" aria-controls="project-{$subProject->id}" role="tab" data-toggle="tab" class="">{$subProject->name}</a></li>
-			{/foreach}
-		</ul>
+	{control subProjects}
 
+	{if $project->parent}
 		<div class="tab-content">
-			{foreach $subProjects as $subProject}
-				<div role="tabpanel" n:class="tab-pane, $iterator->first ? active" id="project-{$subProject->id}">
-					{var $id = $subProject->id}
-					<div class="clearfix">
+			<div role="tabpanel" n:class="tab-pane, TRUE ? active" id="project-{$project->id}">
+				<div class="clearfix">
+					{var $id = $project->id}
 					{control projectButtons-$id}
-					</div>
-					{control projectChecks-$id}
 				</div>
-			{/foreach}
+				{control projectChecks}
+			</div>
 		</div>
 	{else}
-		{control projectChecks-$project->id}
+		{control projectChecks}
 	{/if}
 {/block}
 
 {block title}
-	{$project->name}{if $project->maintenance} <small>(údržba od {$project->maintenance|dateTime})</small>{/if}
+	{if $project->parent}{$project->parent->name}{else}{$project->name}{/if}{if $project->maintenance} <small>(údržba od {$project->maintenance|dateTime})</small>{/if}
 {/block}
 
 {block buttons}
-	{var $id = $project->id}
+	{var $id = $project->parent ? $project->parent->id : $project->id}
 	{control projectButtons-$id}
 {/block}

@@ -35,9 +35,15 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $userCheckNotifications;
 
+	/**
+	 * @var int
+	 */
+	private $type;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
+		int $type,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
 		\Pd\Monitoring\User\User $user
@@ -47,6 +53,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->checksRepository = $checksRepository;
 		$this->checkControlFactory = $checkControlFactory;
 		$this->user = $user;
+		$this->type = $type;
 	}
 
 
@@ -56,11 +63,13 @@ class Control extends \Nette\Application\UI\Control
 
 		$conditions = [
 			'project' => $this->project->id,
+			'type' => $this->type,
 		];
-		$this->checks = $this->checksRepository->findBy($conditions)->orderBy('type');
+		$this->checks = $this->checksRepository->findBy($conditions);
 
 		$this->userCheckNotifications = $this->user->userCheckNotifications;
 	}
+
 
 	protected function createTemplate()
 	{
@@ -89,18 +98,26 @@ class Control extends \Nette\Application\UI\Control
 		$tabs = [];
 		$checks = [];
 		/** @var \Pd\Monitoring\Check\Check $check */
-		foreach ($this->checks as $check) {
+		foreach ($this->project->checks as $check) {
 			if ( ! isset($tabs[$check->getType()]) || $check->status > $tabs[$check->getType()]->getStatus()) {
 				$tabs[$check->getType()] = new Tab($check->getTitle(), $check->status);
 			}
-			$checks[$check->getType()][$check->id] = $check;
 		}
 
-		$this->template->add('tabs', $tabs);
-		$this->template->add('checks', $checks);
-		$this->template->add('project', $this->project);
+		/** @var \Pd\Monitoring\Check\Check $check */
+		foreach ($this->checks as $check) {
+			$checks[$check->id] = $check;
+		}
 
-		$this->template->setFile(__DIR__ . '/Control.latte')->render();
+		$this
+			->getTemplate()
+			->setFile(__DIR__ . '/Control.latte')
+			->add('tabs', $tabs)
+			->add('checks', $checks)
+			->add('project', $this->project)
+			->add('type', $this->type)
+			->render()
+		;
 	}
 
 

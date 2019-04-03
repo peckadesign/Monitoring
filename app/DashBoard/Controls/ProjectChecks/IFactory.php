@@ -5,6 +5,6 @@ namespace Pd\Monitoring\DashBoard\Controls\ProjectChecks;
 interface IFactory
 {
 
-	public function create(\Pd\Monitoring\Project\Project $project): Control;
+	public function create(\Pd\Monitoring\Project\Project $project, int $type): Control;
 
 }

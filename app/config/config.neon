@@ -417,6 +417,10 @@ services:
 	-
 		factory: \Pd\Monitoring\DashBoard\Controls\LogView\Factory
 
+	-
+		implement: \Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory
+
+
 decorator:
 	Nette\Application\UI\Control:
 		inject: on
