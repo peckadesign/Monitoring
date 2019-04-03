@@ -16,11 +16,6 @@ class UserPresenter extends BasePresenter
 	private $editedUser;
 
 	/**
-	 * @var \Pd\Monitoring\User\UsersRepository
-	 */
-	private $usersRepository;
-
-	/**
 	 * @var \Pd\Monitoring\DashBoard\Controls\UserList\IFactory
 	 */
 	private $userListControlFactory;
@@ -28,12 +23,10 @@ class UserPresenter extends BasePresenter
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\EditUser\IFactory $editUserControlFactory,
-		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Pd\Monitoring\DashBoard\Controls\UserList\IFactory $userListControlFactory
 	) {
 		parent::__construct();
 		$this->editUserControlFactory = $editUserControlFactory;
-		$this->usersRepository = $usersRepository;
 		$this->userListControlFactory = $userListControlFactory;
 	}
 

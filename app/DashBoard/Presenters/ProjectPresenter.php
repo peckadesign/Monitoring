@@ -23,16 +23,6 @@ class ProjectPresenter extends BasePresenter
 	private $project;
 
 	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
-
-	/**
-	 * @var \Pd\Monitoring\Check\Check
-	 */
-	private $check;
-
-	/**
 	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory
 	 */
 	private $projectChecksControlFactory;
@@ -42,20 +32,30 @@ class ProjectPresenter extends BasePresenter
 	 */
 	private $projectButtonsFactory;
 
+	/**
+	 * @var int
+	 */
+	private $type;
+
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory
+	 */
+	private $subProjectsControlFactory;
+
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory,
-		\Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory
+		\Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory,
+		\Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory $subProjectsControlFactory
 	) {
 		parent::__construct();
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
-		$this->checksRepository = $checksRepository;
 		$this->projectChecksControlFactory = $projectChecksControlFactory;
 		$this->projectButtonsFactory = $projectButtonsFactory;
+		$this->subProjectsControlFactory = $subProjectsControlFactory;
 	}
 
 
@@ -108,7 +108,6 @@ class ProjectPresenter extends BasePresenter
 
 		$form->addCheckbox('reference', 'Referenční projekt');
 
-
 		$form->addSubmit('save', 'Uložit');
 
 		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data) {
@@ -142,13 +141,10 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	public function actionDefault(\Pd\Monitoring\Project\Project $project): void
+	public function actionDefault(\Pd\Monitoring\Project\Project $project, int $type = \Pd\Monitoring\Check\ICheck::TYPE_ALIVE): void
 	{
 		$this->project = $project;
-
-		if ($this->project->parent) {
-			$this->redirect('default#project-' . $this->project->id, $this->project->parent->id);
-		}
+		$this->type = $type;
 	}
 
 
@@ -157,18 +153,14 @@ class ProjectPresenter extends BasePresenter
 		$this
 			->getTemplate()
 			->add('project', $this->project)
-			->add('subProjects', $this->project->subProjects)
+			->add('type', $this->type)
 		;
 	}
 
 
-	protected function createComponentProjectChecks(): \Nette\Application\UI\Multiplier
+	protected function createComponentProjectChecks(): \Pd\Monitoring\DashBoard\Controls\ProjectChecks\Control
 	{
-		$cb = function (string $id) {
-			return $this->projectChecksControlFactory->create($this->projectsRepository->getById((int) $id));
-		};
-
-		return new \Nette\Application\UI\Multiplier($cb);
+		return $this->projectChecksControlFactory->create($this->project, $this->type);
 	}
 
 
@@ -201,6 +193,12 @@ class ProjectPresenter extends BasePresenter
 		};
 
 		return new \Nette\Application\UI\Multiplier($cb);
+	}
+
+
+	protected function createComponentSubProjects(): \Pd\Monitoring\DashBoard\Controls\SubProjects\Control
+	{
+		return $this->subProjectsControlFactory->create($this->project);
 	}
 
 }
