@@ -420,6 +420,9 @@ services:
 	-
 		implement: \Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory
 
+	-
+		implement: \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory
+
 
 decorator:
 	Nette\Application\UI\Control:

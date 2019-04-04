@@ -40,13 +40,19 @@ class Control extends \Nette\Application\UI\Control
 	 */
 	private $type;
 
+	/**
+	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory
+	 */
+	private $projectChecksTabsControlFactory;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		int $type,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
-		\Pd\Monitoring\User\User $user
+		\Pd\Monitoring\User\User $user,
+		\Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory
 	) {
 		parent::__construct();
 		$this->project = $project;
@@ -54,6 +60,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->checkControlFactory = $checkControlFactory;
 		$this->user = $user;
 		$this->type = $type;
+		$this->projectChecksTabsControlFactory = $projectChecksTabsControlFactory;
 	}
 
 
@@ -71,38 +78,9 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createTemplate()
-	{
-		$template = parent::createTemplate();
-
-		$template->addFilter('tabColor', function (Tab $tab) {
-			switch ($tab->getStatus()) {
-				case \Pd\Monitoring\Check\ICheck::STATUS_OK:
-					return 'bg-success';
-				case \Pd\Monitoring\Check\ICheck::STATUS_ALERT:
-					return 'bg-warning';
-				case \Pd\Monitoring\Check\ICheck::STATUS_ERROR:
-					return 'bg-danger';
-				default:
-					return 'bg-danger';
-			}
-		});
-
-		return $template;
-	}
-
-
 	public function render(): void
 	{
-		/** @var array|Tab[] $tabs */
-		$tabs = [];
 		$checks = [];
-		/** @var \Pd\Monitoring\Check\Check $check */
-		foreach ($this->project->checks as $check) {
-			if ( ! isset($tabs[$check->getType()]) || $check->status > $tabs[$check->getType()]->getStatus()) {
-				$tabs[$check->getType()] = new Tab($check->getTitle(), $check->status);
-			}
-		}
 
 		/** @var \Pd\Monitoring\Check\Check $check */
 		foreach ($this->checks as $check) {
@@ -112,7 +90,6 @@ class Control extends \Nette\Application\UI\Control
 		$this
 			->getTemplate()
 			->setFile(__DIR__ . '/Control.latte')
-			->add('tabs', $tabs)
 			->add('checks', $checks)
 			->add('project', $this->project)
 			->add('type', $this->type)
@@ -131,4 +108,11 @@ class Control extends \Nette\Application\UI\Control
 
 		return new \Nette\Application\UI\Multiplier($cb);
 	}
+
+
+	protected function createComponentTabs(): \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\Control
+	{
+		return $this->projectChecksTabsControlFactory->create($this->project, $this->type);
+	}
+
 }

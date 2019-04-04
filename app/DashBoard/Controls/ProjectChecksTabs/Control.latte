@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs" role="tablist">
+	{foreach $tabs as $key => $tab}
+		<li role="presentation" n:class="$key === $type ? active"><a href="{plink :DashBoard:Project: $project, type => $key}" aria-controls="{$project->id . ' ' . $key}" role="tab" class="{$tab|tabColor}">{$tab->getTitle()}</a></li>
+	{/foreach}
+</ul>

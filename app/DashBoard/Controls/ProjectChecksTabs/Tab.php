@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Pd\Monitoring\DashBoard\Controls\ProjectChecks;
+namespace Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs;
 
 class Tab
 {
