@@ -21,7 +21,7 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
 $configurator->addDynamicParameters([
-	'monologIndex' => 'monolog_' . \date('Y_m'),
+	'monologIndex' => 'monolog_' . \date('Y_m_d'),
 ]);
 
 $container = $configurator->createContainer();
