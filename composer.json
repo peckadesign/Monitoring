@@ -39,7 +39,7 @@
 		"elasticsearch/elasticsearch": "6.1.*",
 		"pd/monolog-module": "2.0.*",
 		"monolog/monolog": "@beta",
-		"ublaboo/datagrid-elasticsearch-data-source": "dev-row-factory"
+		"ublaboo/datagrid-elasticsearch-data-source": "dev-es7"
 	},
 	"require-dev": {
 		"pd/coding-standard": "1.13.*",

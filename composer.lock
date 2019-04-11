@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "220ad6785c9a589bce08e5c778b580a3",
+    "content-hash": "313f2ab0e543ce1263664ef9c29eff05",
     "packages": [
         {
             "name": "atrox/matcher",
@@ -3050,16 +3050,16 @@
         },
         {
             "name": "ublaboo/datagrid-elasticsearch-data-source",
-            "version": "dev-row-factory",
+            "version": "dev-es7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/peckadesign/datagrid-elasticsearch-data-source.git",
-                "reference": "b2817cacb95357980d2c0857cba4c6ec3766dca7"
+                "reference": "411c5f09a75e0157140edd5bfd800ada565fd1bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/peckadesign/datagrid-elasticsearch-data-source/zipball/b2817cacb95357980d2c0857cba4c6ec3766dca7",
-                "reference": "b2817cacb95357980d2c0857cba4c6ec3766dca7",
+                "url": "https://api.github.com/repos/peckadesign/datagrid-elasticsearch-data-source/zipball/411c5f09a75e0157140edd5bfd800ada565fd1bc",
+                "reference": "411c5f09a75e0157140edd5bfd800ada565fd1bc",
                 "shasum": ""
             },
             "require": {
@@ -3105,9 +3105,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ublaboo/datagrid-elasticsearch-data-source/issues",
-                "source": "https://github.com/peckadesign/datagrid-elasticsearch-data-source/tree/row-factory"
+                "source": "https://github.com/peckadesign/datagrid-elasticsearch-data-source/tree/es7"
             },
-            "time": "2019-03-30T20:14:23+00:00"
+            "time": "2019-04-13T07:04:41+00:00"
         },
         {
             "name": "ublaboo/responses",

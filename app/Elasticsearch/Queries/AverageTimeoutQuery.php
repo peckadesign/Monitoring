@@ -23,7 +23,7 @@ final class AverageTimeoutQuery
 		$to = new \DateTime('-' . $howManyDaysBack . ' days');
 		$params = [
 			'index' => 'checks_*',
-			'type' => 'checks',
+			'type' => '_doc',
 			'body' => [
 				'query' => [
 					'bool' => [

@@ -20,7 +20,7 @@ final class ChecksExporter implements \Kdyby\RabbitMq\IConsumer
 	public function process(\PhpAmqpLib\Message\AMQPMessage $message): int
 	{
 		$index = 'checks_' . \date('Y_m');
-		$type = 'checks';
+		$type = '_doc';
 
 		$params = [
 			'index' => $index,
@@ -32,20 +32,18 @@ final class ChecksExporter implements \Kdyby\RabbitMq\IConsumer
 				'index' => $index,
 				'body' => [
 					'mappings' => [
-						$type => [
-							'_source' => [
-								'enabled' => TRUE,
+						'_source' => [
+							'enabled' => TRUE,
+						],
+						'properties' => [
+							'datetime' => [
+								'type' => 'date',
 							],
-							'properties' => [
-								'datetime' => [
-									'type' => 'date',
-								],
-								'check_id' => [
-									'type' => 'keyword',
-								],
-								'timeout' => [
-									'type' => 'float',
-								],
+							'check_id' => [
+								'type' => 'keyword',
+							],
+							'timeout' => [
+								'type' => 'float',
 							],
 						],
 					],
@@ -53,7 +51,6 @@ final class ChecksExporter implements \Kdyby\RabbitMq\IConsumer
 			];
 			$this->elasticsearchClient->indices()->create($params);
 		}
-
 
 		$params = [
 			'index' => $index,
