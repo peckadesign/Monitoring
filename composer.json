@@ -18,28 +18,31 @@
 		"ext-mysqli": "*",
 		"ext-xml": "*",
 		"ext-json": "*",
-		"nette/application": "2.4.*",
-		"nette/forms": "2.4.*",
-		"nette/bootstrap": "2.4.*",
-		"nette/security": "2.4.*",
-		"nette/utils": "2.5.*",
-		"latte/latte": "2.4.*",
+		"nette/application": "3.0.*",
+		"nette/forms": "3.0.*",
+		"nette/bootstrap": "3.0.*",
+		"nette/security": "3.0.*",
+		"nette/utils": "3.0.*",
+		"nette/routing": "3.0.*",
+		"latte/latte": "2.5.*",
 		"tracy/tracy": "2.6.*",
-		"nextras/orm": "3.0.*",
+		"nextras/orm": "3.1.*",
 		"nextras/migrations": "3.0.*",
-		"kdyby/console": "2.7.*",
+		"kdyby/console": "2.8.*@dev",
 		"guzzlehttp/guzzle": "6.3.*",
 		"league/oauth2-github": "2.0.*",
 		"kdyby/clock": "1.0.*",
-		"kdyby/rabbitmq": "1.2.*",
-		"nette/mail": "2.4.*",
-		"nextras/forms": "2.0.*",
-		"ublaboo/datagrid": "5.7.*",
+		"kdyby/datetime-provider": "1.0.*",
+		"kdyby/rabbitmq": "dev-upgrade-nette@dev",
+		"nette/mail": "3.0.*",
+		"nextras/forms-rendering": "@dev",
+		"ublaboo/datagrid": "v6.x-dev",
+		"contributte/application": "v0.4.x-dev",
 		"atrox/matcher": "^1.1",
 		"elasticsearch/elasticsearch": "6.1.*",
-		"pd/monolog-module": "2.0.*",
+		"pd/monolog-module": "2.1.*",
 		"monolog/monolog": "@beta",
-		"ublaboo/datagrid-elasticsearch-data-source": "dev-es7"
+		"ublaboo/datagrid-elasticsearch-data-source": "dev-nette3"
 	},
 	"require-dev": {
 		"pd/coding-standard": "1.13.*",
@@ -57,6 +60,14 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/peckadesign/datagrid-elasticsearch-data-source.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/VBoss/Console"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/VBoss/RabbitMQ"
 		}
 	]
 }
