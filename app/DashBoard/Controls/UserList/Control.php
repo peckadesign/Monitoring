@@ -22,7 +22,6 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Pd\Monitoring\DashBoard\Controls\DataGridFactory $dataGridFactory
 	) {
-		parent::__construct();
 		$this->usersRepository = $usersRepository;
 		$this->dataGridFactory = $dataGridFactory;
 	}

@@ -56,7 +56,6 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\User\User $user,
 		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory
 	) {
-		parent::__construct();
 		$this->check = $check;
 		$this->checksRepository = $checksRepository;
 		$this->rabbitConnection = $rabbitConnection;
@@ -68,7 +67,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		/** @var \Latte\Runtime\Template $template */
 		$template = parent::createTemplate();

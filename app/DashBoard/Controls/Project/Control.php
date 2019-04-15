@@ -57,7 +57,6 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository
 
 	) {
-		parent::__construct();
 		$this->project = $project;
 		$this->favoriteProject = $favoriteProject;
 		$this->slackNotifications = $slackNotifications;
@@ -69,7 +68,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		$template = parent::createTemplate();
 

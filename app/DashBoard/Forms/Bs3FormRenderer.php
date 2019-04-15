@@ -2,7 +2,7 @@
 
 namespace Pd\Monitoring\DashBoard\Forms;
 
-class Bs3FormRenderer extends \Nextras\Forms\Rendering\Bs3FormRenderer
+class Bs3FormRenderer extends \Nextras\FormsRendering\Renderers\Bs3FormRenderer
 {
 
 	public function renderControl(\Nette\Forms\IControl $control): \Nette\Utils\Html

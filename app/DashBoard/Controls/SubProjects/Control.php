@@ -13,7 +13,6 @@ final class Control extends \Nette\Application\UI\Control
 
 	public function __construct(\Pd\Monitoring\Project\Project $project)
 	{
-
 		$this->project = $project;
 	}
 

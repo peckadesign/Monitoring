@@ -54,7 +54,6 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\User\User $user,
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory
 	) {
-		parent::__construct();
 		$this->project = $project;
 		$this->checksRepository = $checksRepository;
 		$this->checkControlFactory = $checkControlFactory;
@@ -64,9 +63,9 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function attached($presenter)
+	protected function attached(\Nette\ComponentModel\IComponent $obj): void
 	{
-		parent::attached($presenter);
+		parent::attached($obj);
 
 		$conditions = [
 			'project' => $this->project->id,

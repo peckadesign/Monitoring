@@ -6,7 +6,6 @@ extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
 	pd.monolog: \Pd\MonologModule\DI\Extension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
-	nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
 	clock: \Kdyby\Clock\DI\ClockExtension
 
 

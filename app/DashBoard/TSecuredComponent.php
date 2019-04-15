@@ -17,7 +17,7 @@ trait TSecuredComponent
 	}
 
 
-	public function checkRequirements($element)
+	public function checkRequirements($element): void
 	{
 		parent::checkRequirements($element);
 

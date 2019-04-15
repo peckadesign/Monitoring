@@ -54,9 +54,9 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function attached($presenter)
+	protected function attached(\Nette\ComponentModel\IComponent $obj): void
 	{
-		parent::attached($presenter);
+		parent::attached($obj);
 
 		if ( ! $this->check) {
 			$this->check = $this->checkControlProcessor->getCheck();

@@ -32,7 +32,6 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Nette\Security\User $user
 	) {
-		parent::__construct();
 		$this->identity = $identity;
 		$this->userEditFormFactory = $userEditFormFactory;
 		$this->usersRepository = $usersRepository;
@@ -47,9 +46,9 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function attached($presenter)
+	protected function attached(\Nette\ComponentModel\IComponent $obj): void
 	{
-		parent::attached($presenter);
+		parent::attached($obj);
 
 		$this['form']->setDefaults($this->identity->toArray());
 	}

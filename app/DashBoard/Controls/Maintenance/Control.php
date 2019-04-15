@@ -43,7 +43,6 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\Slack\Notifier $notifier,
 		\Nette\Security\User $user
 	) {
-		parent::__construct();
 		$this->project = $project;
 		$this->projectsRepository = $projectsRepository;
 		$this->dateTimeProvider = $dateTimeProvider;
@@ -52,7 +51,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		/** @var \Latte\Runtime\Template $template */
 		$template = parent::createTemplate();
