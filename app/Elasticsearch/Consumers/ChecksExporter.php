@@ -19,7 +19,7 @@ final class ChecksExporter implements \Kdyby\RabbitMq\IConsumer
 
 	public function process(\PhpAmqpLib\Message\AMQPMessage $message): int
 	{
-		$index = 'checks_' . \date('Y_m');
+		$index = 'checks_' . \date('Y_m_d');
 		$type = '_doc';
 
 		$params = [
