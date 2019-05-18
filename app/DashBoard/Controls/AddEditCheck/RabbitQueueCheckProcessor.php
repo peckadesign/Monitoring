@@ -44,7 +44,7 @@ class RabbitQueueCheckProcessor implements ICheckControlProcessor
 		$form
 			->addText('maximumMessageCount', 'Maximální počty zpráv')
 			->setRequired(TRUE)
-			->setOption('description', 'Hodnoty oddělte čárkou, uvádějte ve stejném pořadí, jako fronty.')
+			->setOption('description', 'Hodnoty oddělte čárkou, uvádějte ve stejném pořadí, jako fronty. Pro běžné fronty je vhodné nastavit vyšší limit, než je maximum možných zpráv, aby nedocházelo k falešným poplachům při správném naplnění všemi hodnotami. Pro DLX fronty je vhodné nastavit nulu, nebo podobnou nízkou hodnotu podle kvality consumera.')
 		;
 		$form
 			->addText('adminUrl', 'Administrační URL')
