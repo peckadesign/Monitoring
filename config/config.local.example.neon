@@ -28,3 +28,10 @@ console:
 parameters:
 	slack:
 		hookUrl: "" # URL hooku pro notifikování do Slacku
+
+
+services:
+	pd.monolog.logger:
+		setup:
+			- pushHandler(@\Pd\MonologModule\Handlers\DayFileHandler)
+			- pushHandler(@\Monolog\Handler\ElasticsearchHandler)

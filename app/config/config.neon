@@ -410,9 +410,7 @@ services:
 	pd.monolog.logger:
 		setup:
 			- pushProcessor(@\Monolog\Processor\WebProcessor)
-			- pushHandler(@\Pd\MonologModule\Handlers\DayFileHandler)
 			- pushHandler(@\Pd\MonologModule\Handlers\BlueScreenHandler)
-			- pushHandler(@\Monolog\Handler\ElasticsearchHandler)
 
 	-
 		factory: \Pd\Monitoring\DashBoard\Controls\LogView\Factory
