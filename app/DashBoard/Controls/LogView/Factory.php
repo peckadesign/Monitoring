@@ -48,7 +48,7 @@ final class Factory
 		};
 		$dataSource = new \Ublaboo\DatagridElasticsearchDataSource\ElasticsearchDataSource(
 			$this->elasticsearchClient,
-			'monolog_*',
+			'monolog*',
 			'_doc',
 			$rowFactory
 		);
