@@ -106,4 +106,10 @@ final class XpathCheck extends Check
 		return FALSE;
 	}
 
+
+	protected function getMaxAttempts(): int
+	{
+		return 1;
+	}
+
 }
