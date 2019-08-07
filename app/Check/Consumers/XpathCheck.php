@@ -41,21 +41,23 @@ final class XpathCheck extends Check
 
 		try {
 			if ($this->siteMapLoader) {
+				$withoutError = TRUE;
 				while ($url = $this->siteMapLoader->getNextUrl($this->lastUrl)) {
 					$loaded = $this->loadUrl($client, $options, $check, $url);
 					if ( ! $loaded) {
-						return FALSE;
-					} else {
-						$this->lastUrl = $url;
+						$this->logError($check, \sprintf('Došlo k chybě na url "%s"', $url));
+						$withoutError = FALSE;
 					}
+					$this->lastUrl = $url;
 				}
 
-				return TRUE;
+				return $withoutError;
 			} else {
 				$loaded = $this->loadUrl($client, $options, $check, $check->url);
 				if ($loaded) {
 					return TRUE;
 				}
+				$this->logError($check, \sprintf('Došlo k chybě na url "%s"', $check->url));
 			}
 		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$this->logError($check, $e->getMessage());
@@ -73,11 +75,7 @@ final class XpathCheck extends Check
 
 	private function loadUrl(\GuzzleHttp\Client $client, array $options, \Pd\Monitoring\Check\XpathCheck $check, string $url): bool
 	{
-		$this->logInfo($check, \sprintf('Začínám stahovat url "%s"', $url));
-
 		$response = $client->request('GET', $url, $options);
-
-		$this->logHeaders($check, $response);
 
 		if ($response->getStatusCode() !== 200) {
 			return FALSE;
