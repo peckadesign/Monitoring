@@ -24,10 +24,8 @@ class AliveCheck extends Check
 	{
 		if ( ! $this->lastTimeout && ! $this->beforeLastTimeout) {
 			return ICheck::STATUS_ERROR;
-		} elseif ( ! $this->lastTimeout || ! $this->beforeLastTimeout) {
-			return ICheck::STATUS_ALERT;
 		} else {
-			if (($this->lastTimeout + $this->beforeLastTimeout) / 2 <= self::ALIVE_TIMEOUT) {
+			if ((($this->lastTimeout ?: 0) + ($this->beforeLastTimeout ?: 0)) / 2 <= self::ALIVE_TIMEOUT) {
 				return ICheck::STATUS_OK;
 			} else {
 				return ICheck::STATUS_ALERT;
