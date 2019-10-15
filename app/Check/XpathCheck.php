@@ -11,7 +11,7 @@ namespace Pd\Monitoring\Check;
 final class XpathCheck extends Check
 {
 
-	public const ALIVE_TIMEOUT = 5000;
+	public const ALIVE_TIMEOUT = 10000;
 
 	public const OPERATOR_LT = 0;
 	public const OPERATOR_GT = 1;
