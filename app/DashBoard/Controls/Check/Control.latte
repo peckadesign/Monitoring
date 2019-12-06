@@ -83,7 +83,7 @@
 			<a n:href="userNotificationOn!" class="ajax text-muted btn btn-default btn-sm" title="Dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
 		{/if}
 		<a href="{plink :DashBoard:Check:logView $check}" class="btn btn-default btn-sm" title="Logy"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
-		<a n:href="delete!" n:if="$user->isAllowed('check', 'delete')" class="btn btn-sm btn-danger pull-right confirm" title="Smazat"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+		<a n:href="delete!" n:if="$user->isAllowed('check', 'delete')" class="btn btn-sm btn-danger pull-right" data-confirm title="Smazat"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 	</div>
 </div>
 {/snippet}
