@@ -35,17 +35,17 @@ class NumberValueCheck extends Check
 		}
 
 		if (
-			$this->operator === self::OPERATOR_GT && $this->value < $this->threshold
+			$this->operator === self::OPERATOR_GT && $this->value > $this->threshold
 			||
-			$this->operator === self::OPERATOR_LT && $this->value > $this->threshold
+			$this->operator === self::OPERATOR_LT && $this->value < $this->threshold
 			||
-			$this->operator === self::OPERATOR_EQ && $this->value !== $this->threshold
+			$this->operator === self::OPERATOR_EQ && $this->value === $this->threshold
 
 		) {
-			return ICheck::STATUS_ALERT;
+			return ICheck::STATUS_OK;
 		}
 
-		return ICheck::STATUS_OK;
+		return ICheck::STATUS_ALERT;
 	}
 
 
