@@ -38,18 +38,23 @@ final class Helpers
 			$timeTo = \explode(':', $to);
 			$timeTo = \array_map('intval', $timeTo);
 
-			if ($timeFrom[0] > $timeTo[0]) {
-				$nowFrom = $now->sub(new \DateInterval('P1D'));
-			} else {
-				$nowFrom = $now;
-			}
-			$pausedFrom = $nowFrom->setTime((int) $timeFrom[0], (int) $timeFrom[1]);
+			$fromDateTime = $now->setTime($timeFrom[0], $timeFrom[1], 0, 0);
+			$toDateTime = $now->setTime($timeTo[0], $timeTo[1], 0, 0);
+			$endOfDay = $now->setTime(24, 00, 0, 0);
+			$startOfDay = $now->setTime(0, 0, 0, 0);
 
-			$pausedTo = $now->setTime((int) $timeTo[0], (int) $timeTo[1]);
-
-			if ($now >= $pausedFrom && $now <= $pausedTo) {
-				return TRUE;
+			if ($fromDateTime > $toDateTime) {
+				return
+					($now >= $fromDateTime && $now <= $endOfDay)
+					||
+					($now >= $startOfDay && $now <= $toDateTime);
 			}
+
+			if ($fromDateTime < $toDateTime) {
+				return $fromDateTime <= $now && $now <= $toDateTime;
+			}
+
+			return TRUE;
 		}
 
 		return FALSE;
