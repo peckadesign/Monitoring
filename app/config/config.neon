@@ -85,6 +85,9 @@ rabbitmq:
 		numberValueCheck:
 			exchange: {name: 'numberValueCheck', type: direct}
 			contentType: text/plain
+		errorsCheck:
+			exchange: {name: 'errorsCheck', type: direct}
+			contentType: text/plain
 		xpathCheck:
 			exchange: {name: 'xpathCheck', type: direct}
 			contentType: text/plain
@@ -148,6 +151,12 @@ rabbitmq:
 			exchange: {name: 'numberValueCheck', type: direct}
 			queue: {name: 'numberValueCheck'}
 			callback: [@Pd\Monitoring\Check\Consumers\NumberValueCheck, process]
+			qos:
+				prefetchCount: 10
+		errorsCheck:
+			exchange: {name: 'errorsCheck', type: direct}
+			queue: {name: 'errorsCheck'}
+			callback: [@Pd\Monitoring\Check\Consumers\ErrorsCheck, process]
 			qos:
 				prefetchCount: 10
 		xpathCheck:
@@ -216,6 +225,9 @@ services:
 
 	-
 		class: Pd\Monitoring\Check\Consumers\NumberValueCheck
+
+	-
+		factory: \Pd\Monitoring\Check\Consumers\ErrorsCheck
 
 	-
 		factory: \Pd\Monitoring\Check\Consumers\XpathCheck
@@ -291,6 +303,13 @@ services:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('numberValueCheck')
+
+	-
+		factory: \Pd\Monitoring\Check\Commands\Publish\ErrorsChecksCommand
+		tags:
+			- kdyby.console.command
+		arguments:
+			- @\Kdyby\RabbitMq\Connection::getProducer('errorsCheck')
 
 	-
 		factory: \Pd\Monitoring\Check\Commands\Publish\XpathChecksCommand

@@ -71,6 +71,10 @@ class Factory
 				$processor = new XpathCheckProcessor();
 				break;
 
+			case \Pd\Monitoring\Check\ICheck::TYPE_ERRORS:
+				$processor = new ErrorsCheckProcessor();
+				break;
+
 			default:
 				throw new \InvalidArgumentException();
 				break;

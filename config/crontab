@@ -8,6 +8,7 @@ SHELL=/bin/bash
 0 */6 * * *        php www/index.php pd:monitoring:check:publish:certificate-checks
 */5 * * * *        php www/index.php pd:monitoring:check:publish:http-status-code-checks
 */5 * * * *        php www/index.php pd:monitoring:check:publish:number-value-checks
+*/5 * * * *        php www/index.php pd:monitoring:check:publish:errors-checks
 */5 * * * *        php www/index.php pd:monitoring:check:publish:xpath-checks
 0 6 * * *          php www/index.php pd:monitoring:check:publish:xpath-checks-site-map
 0,30 * * * *       php www/index.php pd:monitoring:check:publish:feed-checks
