@@ -62,6 +62,10 @@
 			<p>Očekávaná hodnota: {=\Pd\Monitoring\Check\NumberValueCheck::OPERATORS[$check->operator]} {$check->threshold}</p>
 			<p>Zjištěná hodnota: {if $check->value !== NULL}{$check->value}{else}<span class="text-muted">není</span>{/if}</p>
 			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
+        {elseif $check instanceof Pd\Monitoring\Check\ErrorsCheck}
+			<p>URL s hodnotou: <a href="{$check->url}" target="_blank">{$check->url}</a></p>
+			<p>Chybné položky: {$check->statusMessage}</p>
+			<p>Poslední kontrola: {if $check->lastCheck}{$check->lastCheck|dateTime}{else}<span class="text-muted">neproběhla</span>{/if}</p>
 		{elseif $check instanceof \Pd\Monitoring\Check\XpathCheck}
 			<p>URL: <a href="{$check->url}" target="_blank">{$check->url}</a></p>
 			<p>XPath selektor: <pre>{$check->xpath}</pre></p>
