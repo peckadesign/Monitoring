@@ -14,7 +14,6 @@ class Control extends \Nette\Application\UI\Control
 	public function __construct(
 		\Nette\Security\User $user
 	) {
-		parent::__construct();
 		$this->user = $user;
 	}
 

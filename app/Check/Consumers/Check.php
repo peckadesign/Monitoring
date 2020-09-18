@@ -11,7 +11,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 	private $checksRepository;
 
 	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
+	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
 	 */
 	private $dateTimeProvider;
 
@@ -23,7 +23,7 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Monolog\Logger $logger
 	) {
 		$this->checksRepository = $checksRepository;

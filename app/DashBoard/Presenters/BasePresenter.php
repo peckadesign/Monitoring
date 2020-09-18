@@ -34,7 +34,7 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		$template = parent::createTemplate();
 
@@ -46,7 +46,7 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	}
 
 
-	public function flashMessage($message, $type = 'info')
+	public function flashMessage($message, string $type = 'info'): \stdClass
 	{
 		if ($this->isAjax()) {
 			$this->redrawControl('flashMessages');

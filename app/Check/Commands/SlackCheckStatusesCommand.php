@@ -18,7 +18,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	private $linkGenerator;
 
 	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
+	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
 	 */
 	private $dateTimeProvider;
 
@@ -43,7 +43,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Nette\Application\LinkGenerator $linkGenerator,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository
 	) {
 		parent::__construct();

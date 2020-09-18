@@ -44,7 +44,7 @@ abstract class PublishChecksCommand extends \Symfony\Component\Console\Command\C
 		$checks = $this->checksRepository->findBy($conditions);
 
 		foreach ($checks as $check) {
-			$this->producer->publish($check->id);
+			$this->producer->publish((string) $check->id);
 		}
 
 		return 0;

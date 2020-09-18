@@ -13,6 +13,11 @@ class Extension extends \Nette\DI\CompilerExtension
 			->getDefinition($userStorageDefinitionName)
 			->setFactory(\Pd\Monitoring\User\UserStorage::class)
 		;
+
+		/** @var \Nette\DI\Definitions\ServiceDefinition $application */
+		$application = $builder->getDefinition($builder->getByType(\Pd\Monitoring\Check\ChecksRepository::class));
+		$application->addSetup('?->onFlush[] = ?', ['@self', [$builder->getDefinition($builder->getByType(\Pd\Monitoring\Elasticsearch\ChecksExporter::class)), 'export']]);
+
 	}
 
 }

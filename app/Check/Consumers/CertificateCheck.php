@@ -6,14 +6,14 @@ class CertificateCheck extends Check
 {
 
 	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
+	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
 	 */
 	private $dateTimeProvider;
 
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Monolog\Logger $logger
 	) {
 		parent::__construct($checksRepository, $dateTimeProvider, $logger);

@@ -12,12 +12,12 @@ class FeedCheck extends Check
 {
 
 	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
+	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
 	 */
 	private $dateTimeProvider;
 
 
-	public function injectDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider): void
+	public function injectDateTimeProvider(\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider): void
 	{
 		$this->dateTimeProvider = $dateTimeProvider;
 	}

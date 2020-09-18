@@ -16,7 +16,7 @@ class Notifier
 	private $logger;
 
 	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
+	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
 	 */
 	private $dateTimeProvider;
 
@@ -24,7 +24,7 @@ class Notifier
 	public function __construct(
 		string $hookUrl,
 		\Monolog\Logger $logger,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider
+		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider
 	) {
 		$this->hookUrl = $hookUrl;
 		$this->logger = $logger;

@@ -6,8 +6,6 @@ extensions:
 	console: Kdyby\Console\DI\ConsoleExtension
 	pd.monolog: \Pd\MonologModule\DI\Extension
 	rabbitmq: Kdyby\RabbitMq\DI\RabbitMqExtension
-	nextras.form: Nextras\Forms\Bridges\NetteDI\FormsExtension
-	clock: \Kdyby\Clock\DI\ClockExtension
 
 
 orm:
@@ -28,10 +26,6 @@ pd.monolog:
 	name: "pecka-monitoring"
 
 
-clock:
-	provider: current
-
-
 parameters:
 	logDir: %appDir%/../log
 	github:
@@ -45,9 +39,14 @@ parameters:
 
 application:
 	errorPresenter: Error
-	scanDirs: off
+	scanDirs: false
 	mapping:
 		*: Pd\Monitoring\*\Presenters\*Presenter
+
+
+latte:
+    macros:
+        - \Nextras\FormsRendering\LatteMacros\Bs3InputMacros::install
 
 
 rabbitmq:
@@ -181,7 +180,7 @@ rabbitmq:
 
 services:
 	routerFactory:
-		class: Pd\Monitoring\Router\RouterFactory
+		factory: Pd\Monitoring\Router\RouterFactory
 
 	router: @routerFactory::createRouter
 
@@ -192,7 +191,7 @@ services:
 		implement: Pd\Monitoring\DashBoard\Controls\Project\IFactory
 
 	-
-		class: Pd\Monitoring\DashBoard\Forms\Factory
+		factory: Pd\Monitoring\DashBoard\Forms\Factory
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Check\IFactory
@@ -200,31 +199,31 @@ services:
 			user: @\Nette\Security\User::getIdentity()
 
 	-
-		class: Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory
+		factory: Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory
 
 	-
-		class: Pd\Monitoring\Check\Consumers\AliveCheck
+		factory: Pd\Monitoring\Check\Consumers\AliveCheck
 
 	-
-		class: Pd\Monitoring\Check\Consumers\DnsCheck
+		factory: Pd\Monitoring\Check\Consumers\DnsCheck
 
 	-
-		class: Pd\Monitoring\Check\Consumers\CertificateCheck
+		factory: Pd\Monitoring\Check\Consumers\CertificateCheck
 
 	-
-		class: Pd\Monitoring\Check\Consumers\FeedCheck
+		factory: Pd\Monitoring\Check\Consumers\FeedCheck
 
 	-
-		class: Pd\Monitoring\Check\Consumers\RabbitConsumerCheck
+		factory: Pd\Monitoring\Check\Consumers\RabbitConsumerCheck
 
 	-
-		class: Pd\Monitoring\Check\Consumers\RabbitQueueCheck
+		factory: Pd\Monitoring\Check\Consumers\RabbitQueueCheck
 
 	-
-		class: Pd\Monitoring\Check\Consumers\HttpStatusCodeCheck
+		factory: Pd\Monitoring\Check\Consumers\HttpStatusCodeCheck
 
 	-
-		class: Pd\Monitoring\Check\Consumers\NumberValueCheck
+		factory: Pd\Monitoring\Check\Consumers\NumberValueCheck
 
 	-
 		factory: \Pd\Monitoring\Check\Consumers\ErrorsCheck
@@ -233,72 +232,72 @@ services:
 		factory: \Pd\Monitoring\Check\Consumers\XpathCheck
 
 	-
-		class: Pd\Monitoring\User\AclFactory
+		factory: Pd\Monitoring\User\AclFactory
 
 	-
 		factory: @Pd\Monitoring\User\AclFactory::create
 
 	-
-		class: Pd\Monitoring\DashBoard\Presenters\LoginPresenter
+		factory: Pd\Monitoring\DashBoard\Presenters\LoginPresenter
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\AliveChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\AliveChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('aliveCheck')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\AliveChecksSiteMapCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\AliveChecksSiteMapCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @\Kdyby\RabbitMq\Connection::getProducer('aliveCheckSiteMap')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\DnsChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\DnsChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('dnsCheck')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\CertificateChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\CertificateChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('certificateCheck')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\FeedChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\FeedChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('feedCheck')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\RabbitConsumerChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\RabbitConsumerChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('rabbitConsumerCheck')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\RabbitQueueChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\RabbitQueueChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('rabbitQueueCheck')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\HttpStatusCodeChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\HttpStatusCodeChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
 			- @Kdyby\RabbitMq\Connection::getProducer('httpStatusCodeCheck')
 
 	-
-		class: Pd\Monitoring\Check\Commands\Publish\NumberValueChecksCommand
+		factory: Pd\Monitoring\Check\Commands\Publish\NumberValueChecksCommand
 		tags:
 			- kdyby.console.command
 		arguments:
@@ -332,7 +331,7 @@ services:
 		implement: Pd\Monitoring\DashBoard\Controls\LastRefresh\IFactory
 
 	-
-		class: Pd\Monitoring\Check\Commands\SlackCheckStatusesCommand
+		factory: Pd\Monitoring\Check\Commands\SlackCheckStatusesCommand
 		tags:
 			- kdyby.console.command
 
@@ -340,7 +339,7 @@ services:
 		implement: Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory
 
 	-
-		class: Pd\Monitoring\Slack\Notifier
+		factory: Pd\Monitoring\Slack\Notifier
 		arguments:
 			hookUrl: %slack.hookUrl%
 
@@ -353,7 +352,7 @@ services:
 		implement: Pd\Monitoring\DashBoard\Controls\EditUser\IFactory
 
 	-
-		class: Pd\Monitoring\DashBoard\Forms\UserEditFormFactory
+		factory: Pd\Monitoring\DashBoard\Forms\UserEditFormFactory
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Settings\IFactory
@@ -362,7 +361,7 @@ services:
 		implement: Pd\Monitoring\DashBoard\Controls\UserList\IFactory
 
 	-
-		class: Pd\Monitoring\DashBoard\Controls\DataGridFactory
+		factory: Pd\Monitoring\DashBoard\Controls\DataGridFactory
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Favicons\IFactory
@@ -374,10 +373,6 @@ services:
 		factory: \Pd\Monitoring\Elasticsearch\ChecksExporter
 		arguments:
 			producer: @Kdyby\RabbitMq\Connection::getProducer('elasticsearchExport')
-
-	orm.repositories.checks:
-		setup:
-			- "$service->onFlush[] = ?" ([@\Pd\Monitoring\Elasticsearch\ChecksExporter, export])
 
 	-
 		factory: \Pd\Monitoring\Elasticsearch\Consumers\ChecksExporter
@@ -411,11 +406,6 @@ services:
 			logDir: %logDir%
 
 	-
-		factory: \Pd\MonologModule\Handlers\BlueScreenHandler
-		arguments:
-			logDir: %logDir%
-
-	-
 		factory: \Monolog\Processor\WebProcessor
 
 	-
@@ -429,7 +419,6 @@ services:
 	pd.monolog.logger:
 		setup:
 			- pushProcessor(@\Monolog\Processor\WebProcessor)
-			- pushHandler(@\Pd\MonologModule\Handlers\BlueScreenHandler)
 
 	-
 		factory: \Pd\Monitoring\DashBoard\Controls\LogView\Factory
@@ -440,7 +429,11 @@ services:
 	-
 		implement: \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory
 
+	-
+		class: \Pd\Monitoring\Utils\IDateTimeProvider
+		factory: \Pd\Monitoring\Utils\CurrentDateTimeProvider
+
 
 decorator:
 	Nette\Application\UI\Control:
-		inject: on
+		inject: true

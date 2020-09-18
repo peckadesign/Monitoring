@@ -54,27 +54,23 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\User\User $user,
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory
 	) {
-		parent::__construct();
 		$this->project = $project;
 		$this->checksRepository = $checksRepository;
 		$this->checkControlFactory = $checkControlFactory;
 		$this->user = $user;
 		$this->type = $type;
 		$this->projectChecksTabsControlFactory = $projectChecksTabsControlFactory;
-	}
 
+		$this->onAnchor[] = function (\Nette\Application\UI\Control $control): void
+		{
+			$conditions = [
+				'project' => $this->project->id,
+				'type' => $this->type,
+			];
+			$this->checks = $this->checksRepository->findBy($conditions);
 
-	protected function attached($presenter)
-	{
-		parent::attached($presenter);
-
-		$conditions = [
-			'project' => $this->project->id,
-			'type' => $this->type,
-		];
-		$this->checks = $this->checksRepository->findBy($conditions);
-
-		$this->userCheckNotifications = $this->user->userCheckNotifications;
+			$this->userCheckNotifications = $this->user->userCheckNotifications;
+		};
 	}
 
 

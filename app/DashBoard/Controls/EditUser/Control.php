@@ -32,11 +32,15 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Nette\Security\User $user
 	) {
-		parent::__construct();
 		$this->identity = $identity;
 		$this->userEditFormFactory = $userEditFormFactory;
 		$this->usersRepository = $usersRepository;
 		$this->user = $user;
+
+		$this->onAnchor[] = function (\Nette\Application\UI\Control $control): void
+		{
+			$this['form']->setDefaults($this->identity->toArray());
+		};
 	}
 
 
@@ -44,14 +48,6 @@ class Control extends \Nette\Application\UI\Control
 	{
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();
-	}
-
-
-	protected function attached($presenter)
-	{
-		parent::attached($presenter);
-
-		$this['form']->setDefaults($this->identity->toArray());
 	}
 
 

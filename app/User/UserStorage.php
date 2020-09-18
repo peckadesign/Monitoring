@@ -38,7 +38,7 @@ class UserStorage extends \Nette\Http\UserStorage
 	}
 
 
-	public function getIdentity()
+	public function getIdentity(): ?\Nette\Security\IIdentity
 	{
 		$identity = parent::getIdentity();
 		if ( ! $identity) {

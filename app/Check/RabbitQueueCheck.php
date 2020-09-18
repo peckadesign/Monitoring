@@ -86,8 +86,9 @@ class RabbitQueueCheck extends Check
 		$translator = new class implements \Nette\Localization\ITranslator
 		{
 
-			function translate($message, $count = NULL)
+			function translate($message, ...$parameters): string
 			{
+				$count = \count($parameters);
 				switch ($count) {
 					case 1:
 						return $message . 'u';

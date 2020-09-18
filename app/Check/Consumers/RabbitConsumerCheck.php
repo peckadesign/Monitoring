@@ -36,7 +36,7 @@ class RabbitConsumerCheck extends Check
 				throw new \Pd\Monitoring\Exception();
 			}
 
-			$queues = \Nette\Utils\Json::decode($response->getBody());
+			$queues = \Nette\Utils\Json::decode((string) $response->getBody());
 
 			$checkQueues = $check->getQueues();
 			$consumers = [];

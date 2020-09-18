@@ -16,7 +16,7 @@ class Control extends \Nette\Application\UI\Control
 	private $projectsRepository;
 
 	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
+	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
 	 */
 	private $dateTimeProvider;
 
@@ -39,11 +39,10 @@ class Control extends \Nette\Application\UI\Control
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Pd\Monitoring\Slack\Notifier $notifier,
 		\Nette\Security\User $user
 	) {
-		parent::__construct();
 		$this->project = $project;
 		$this->projectsRepository = $projectsRepository;
 		$this->dateTimeProvider = $dateTimeProvider;
@@ -52,7 +51,7 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		/** @var \Latte\Runtime\Template $template */
 		$template = parent::createTemplate();

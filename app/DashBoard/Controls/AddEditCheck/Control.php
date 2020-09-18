@@ -43,27 +43,24 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
-	) {
-		parent::__construct();
+	)
+	{
 		$this->formFactory = $formFactory;
 		$this->checksRepository = $checksRepository;
 		$this->project = $project;
 		$this->checkControlProcessor = $checkControlProcessor;
 		$this->check = $check;
 		$this->projectsRepository = $projectsRepository;
-	}
 
-
-	protected function attached($presenter)
-	{
-		parent::attached($presenter);
-
-		if ( ! $this->check) {
-			$this->check = $this->checkControlProcessor->getCheck();
-			$this['form']->setDefaults(['project' => $this->project->id]);
-		} else {
-			$this['form']->setDefaults($this->check->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
-		}
+		$this->onAnchor[] = function (\Nette\Application\UI\Control $control): void
+		{
+			if ( ! $this->check) {
+				$this->check = $this->checkControlProcessor->getCheck();
+				$this['form']->setDefaults(['project' => $this->project->id]);
+			} else {
+				$this['form']->setDefaults($this->check->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
+			}
+		};
 	}
 
 

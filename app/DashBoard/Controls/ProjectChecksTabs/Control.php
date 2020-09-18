@@ -20,13 +20,12 @@ final class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\Project\Project $project,
 		int $type
 	) {
-		parent::__construct();
 		$this->project = $project;
 		$this->type = $type;
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		$template = parent::createTemplate();
 
