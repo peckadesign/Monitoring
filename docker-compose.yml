@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    volumes:
+      - ./.docker/web/:/etc/apache2/sites-enabled
+      - ./:/var/www/html
+    environment:
+      VIRTUAL_HOST: monitoring.peckadesign.com.test
+    env_file:
+      - .env
+
+  composer:
+    image: monitoring_web
+    volumes:
+    - ./:/var/www/html
+    command: composer install
+
+  database:
+    image: mariadb:latest
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_USER: monitoring
+      MYSQL_PASSWORD: monitoring
+      MYSQL_DATABASE: monitoring
+
+  elasticsearch:
+    image: elasticsearch:7.5.1
+    environment:
+      discovery.type: single-node
+
+  adminer:
+    image: adminer:latest
+    environment:
+      VIRTUAL_HOST: adminer.monitoring.peckadesign.com.test
+    links:
+      - database
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    environment:
+      VIRTUAL_HOST: rabbitmq.monitoring.peckadesign.com.test
+      VIRTUAL_PORT: 15672
+
+volumes:
+  database:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

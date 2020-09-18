@@ -1,0 +1,31 @@
+rabbitmq:
+	connection:
+		host: %env.rabbitmq_host%
+		port: %env.rabbitmq_port%
+		user: %env.rabbitmq_user%
+		password: %env.rabbitmq_password%
+
+dbal:
+        driver: mysqli
+        host: %env.database_host%
+        username: %env.database_user%
+        password: %env.database_password%
+        database: %env.database_name%
+        connectionTz: '+02:00'
+
+console:
+	url: http://monitoring.peckadesign.com.test
+
+parameters:
+	administratorTeamId: %env.github_admin_id% # id skupiny uživatelů na GitHubu, kteří budou mít admin přístup
+
+	slack:
+		hookUrl: %env.slack_hook_url% # URL hooku pro notifikování do Slacku
+
+	github:
+		clientId: %env.github_app_id%
+		clientSecret: %env.github_secret_key%
+
+	elasticsearch:
+		hosts!:
+			- %env.elasticsearch_host%
