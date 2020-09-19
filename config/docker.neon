@@ -4,6 +4,7 @@ rabbitmq:
 		port: %env.rabbitmq_port%
 		user: %env.rabbitmq_user%
 		password: %env.rabbitmq_password%
+		vhost: %env.rabbitmq_vhost%
 
 dbal:
         driver: mysqli
@@ -17,8 +18,6 @@ console:
 	url: http://monitoring.peckadesign.com.test
 
 parameters:
-	administratorTeamId: %env.github_admin_id% # id skupiny uživatelů na GitHubu, kteří budou mít admin přístup
-
 	slack:
 		hookUrl: %env.slack_hook_url% # URL hooku pro notifikování do Slacku
 
