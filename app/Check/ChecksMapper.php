@@ -12,4 +12,5 @@ class ChecksMapper extends \Nextras\Orm\Mapper\Mapper
 
 		return $reflection;
 	}
+
 }

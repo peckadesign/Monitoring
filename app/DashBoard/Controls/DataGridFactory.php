@@ -37,4 +37,5 @@ class DataGridFactory
 
 		return $grid;
 	}
+
 }

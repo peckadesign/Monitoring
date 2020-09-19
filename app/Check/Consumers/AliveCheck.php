@@ -5,15 +5,9 @@ namespace Pd\Monitoring\Check\Consumers;
 class AliveCheck extends Check
 {
 
-	/**
-	 * @var \Pd\Monitoring\Check\SiteMapLoader|null
-	 */
-	private $siteMapLoader;
+	private ?\Pd\Monitoring\Check\SiteMapLoader $siteMapLoader = NULL;
 
-	/**
-	 * @var string|null
-	 */
-	private $lastUrl;
+	private ?string $lastUrl = NULL;
 
 
 	/**

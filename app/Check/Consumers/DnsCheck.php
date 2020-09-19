@@ -27,17 +27,20 @@ class DnsCheck extends Check
 
 		switch ($internalDnsType) {
 			case \DNS_A:
-				$cb = function (array $parts) {
+				$cb = static function (array $parts)
+				{
 					return $parts['ip'];
 				};
 				break;
 			case \DNS_MX:
-				$cb = function (array $parts) {
+				$cb = static function (array $parts)
+				{
 					return $parts['target'];
 				};
 				break;
 			case \DNS_TXT:
-				$cb = function (array $parts) {
+				$cb = static function (array $parts)
+				{
 					return $parts['txt'];
 				};
 				break;
@@ -56,4 +59,5 @@ class DnsCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_DNS;
 	}
+
 }

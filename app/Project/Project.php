@@ -20,10 +20,7 @@ namespace Pd\Monitoring\Project;
 class Project extends \Nextras\Orm\Entity\Entity
 {
 
-	/**
-	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 
 	public function injectBaseDateTimeProvider(\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider): void

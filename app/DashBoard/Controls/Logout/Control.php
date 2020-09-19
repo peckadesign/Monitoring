@@ -5,15 +5,13 @@ namespace Pd\Monitoring\DashBoard\Controls\Logout;
 class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Nette\Security\User
-	 */
-	private $user;
+	private \Nette\Security\User $user;
 
 
 	public function __construct(
 		\Nette\Security\User $user
-	) {
+	)
+	{
 		$this->user = $user;
 	}
 
@@ -30,4 +28,5 @@ class Control extends \Nette\Application\UI\Control
 		$this->user->logout();
 		$this->redirect('this');
 	}
+
 }

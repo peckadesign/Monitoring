@@ -5,10 +5,7 @@ namespace Pd\Monitoring\DashBoard\Controls\Favicons;
 trait TFactory
 {
 
-	/**
-	 * @var IFactory
-	 */
-	private $faviconsControlFactory;
+	private IFactory $faviconsControlFactory;
 
 
 	public function injectFaviconsControlFactory(IFactory $factory): void
@@ -21,4 +18,5 @@ trait TFactory
 	{
 		return $this->faviconsControlFactory->create();
 	}
+
 }

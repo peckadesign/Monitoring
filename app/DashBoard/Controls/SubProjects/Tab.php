@@ -5,21 +5,16 @@ namespace Pd\Monitoring\DashBoard\Controls\SubProjects;
 final class Tab
 {
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var bool
-	 */
-	private $selected;
+	private bool $selected;
 
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		bool $selected
-	) {
+	)
+	{
 		$this->project = $project;
 		$this->selected = $selected;
 	}

@@ -100,6 +100,7 @@ class RabbitQueueCheck extends Check
 						return $message;
 				}
 			}
+
 		};
 
 		foreach ($this->getQueues() as $k => $v) {

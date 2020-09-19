@@ -5,10 +5,7 @@ namespace Pd\Monitoring\DashBoard\Controls\LastRefresh;
 trait TFactory
 {
 
-	/**
-	 * @var IFactory
-	 */
-	private $lastRefreshControlFactory;
+	private IFactory $lastRefreshControlFactory;
 
 
 	public function injectLastRefreshControlFactory(IFactory $factory): void
@@ -21,4 +18,5 @@ trait TFactory
 	{
 		return $this->lastRefreshControlFactory->create();
 	}
+
 }

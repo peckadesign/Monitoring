@@ -7,25 +7,14 @@ class RouterFactory
 
 	use \Nette\SmartObject;
 
-	/**
-	 * @var \Nette\Caching\IStorage
-	 */
-	private $storage;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Nette\Caching\IStorage $storage;
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
-	/**
-	 * @var \Pd\Monitoring\User\UsersRepository
-	 */
-	private $usersRepository;
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
+
+	private \Pd\Monitoring\User\UsersRepository $usersRepository;
 
 
 	public function __construct(
@@ -33,7 +22,8 @@ class RouterFactory
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\User\UsersRepository $usersRepository
-	) {
+	)
+	{
 		$this->storage = $storage;
 		$this->projectsRepository = $projectsRepository;
 		$this->checksRepository = $checksRepository;
@@ -50,12 +40,14 @@ class RouterFactory
 			'presenter' => 'Octocats',
 			'action' => 'default',
 			NULL => [
-				\Nette\Application\Routers\Route::FILTER_OUT => function (array $parameters) {
+				\Nette\Application\Routers\Route::FILTER_OUT => function (array $parameters)
+				{
 					if ($parameters['presenter'] === 'Octocats' && $parameters['action'] === 'random') {
 
 						$cache = new \Nette\Caching\Cache($this->storage);
 
-						$fb = static function (&$dp): array {
+						$fb = static function (&$dp): array
+						{
 							$octodexFeedContent = \file_get_contents('https://feeds.feedburner.com/Octocats');
 							$octodexFeed = new \SimpleXMLElement($octodexFeedContent);
 							$octocats = [];
@@ -92,10 +84,12 @@ class RouterFactory
 			'presenter' => 'Project',
 			'action' => 'default',
 			'project' => [
-				\Nette\Application\Routers\Route::FILTER_IN => function (string $project): ?\Pd\Monitoring\Project\Project {
+				\Nette\Application\Routers\Route::FILTER_IN => function (string $project): ?\Pd\Monitoring\Project\Project
+				{
 					return $this->projectsRepository->getById((int) $project);
 				},
-				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\Project\Project $project): int {
+				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\Project\Project $project): int
+				{
 					return \count($project->subProjects) ? \current($project->subProjects->getEntitiesForPersistence())->id : $project->id;
 				},
 			],
@@ -107,14 +101,16 @@ class RouterFactory
 			'presenter' => 'Check',
 			'action' => 'default',
 			NULL => [
-				\Nette\Application\Routers\Route::FILTER_IN => function (array $parameters): array {
+				\Nette\Application\Routers\Route::FILTER_IN => function (array $parameters): array
+				{
 					if (isset($parameters['project'])) {
 						$parameters['project'] = $this->projectsRepository->getById($parameters['project']);
 					}
 
 					return $parameters;
 				},
-				\Nette\Application\Routers\Route::FILTER_OUT => static function (array $parameters): array {
+				\Nette\Application\Routers\Route::FILTER_OUT => static function (array $parameters): array
+				{
 					if (isset($parameters['check'])) {
 						$parameters['project'] = $parameters['check']->project->id;
 						$parameters['type'] = $parameters['check']->type;
@@ -132,10 +128,12 @@ class RouterFactory
 			'presenter' => 'Check',
 			'action' => 'default',
 			'check' => [
-				\Nette\Application\Routers\Route::FILTER_IN => function (string $check): ?\Pd\Monitoring\Check\Check {
+				\Nette\Application\Routers\Route::FILTER_IN => function (string $check): ?\Pd\Monitoring\Check\Check
+				{
 					return $this->checksRepository->getById((int) $check);
 				},
-				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\Check\Check $check): int {
+				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\Check\Check $check): int
+				{
 					return $check->id;
 				},
 			],
@@ -147,10 +145,12 @@ class RouterFactory
 			'presenter' => 'User',
 			'action' => 'edit',
 			'user' => [
-				\Nette\Application\Routers\Route::FILTER_IN => function (string $user): ?\Pd\Monitoring\User\User {
+				\Nette\Application\Routers\Route::FILTER_IN => function (string $user): ?\Pd\Monitoring\User\User
+				{
 					return $this->usersRepository->getById((int) $user);
 				},
-				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\User\User $user): int {
+				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\User\User $user): int
+				{
 					return $user->id;
 				},
 			],

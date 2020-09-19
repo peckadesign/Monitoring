@@ -5,27 +5,19 @@ namespace Pd\Monitoring\Slack;
 class Notifier
 {
 
-	/**
-	 * @var string
-	 */
-	private $hookUrl;
+	private string $hookUrl;
 
-	/**
-	 * @var \Monolog\Logger
-	 */
-	private $logger;
+	private \Monolog\Logger $logger;
 
-	/**
-	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 
 	public function __construct(
 		string $hookUrl,
 		\Monolog\Logger $logger,
 		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider
-	) {
+	)
+	{
 		$this->hookUrl = $hookUrl;
 		$this->logger = $logger;
 		$this->dateTimeProvider = $dateTimeProvider;
@@ -65,4 +57,5 @@ class Notifier
 			$this->logger->error($e);
 		}
 	}
+
 }

@@ -12,7 +12,8 @@ final class DomainControlFactory
 		$control->setAttribute('placeholder', 'example.com');
 		$control->setOption('description', 'Např. "example.com".');
 
-		$validator = function (\Nette\Forms\Controls\TextInput $control) {
+		$validator = static function (\Nette\Forms\Controls\TextInput $control)
+		{
 			return self::validateDomain($control->getValue());
 		};
 		$control->addRule($validator, 'URL je nutné zadat ve tvaru example.com');

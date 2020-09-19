@@ -14,7 +14,11 @@ class DnsCheck extends Check
 	public const DNS_TYPE_MX = 'MX';
 	public const DNS_TYPE_TXT = 'TXT';
 
-	public static $dnsTypes = [
+
+	/**
+	 * @var array<string>
+	 */
+	public static array $dnsTypes = [
 		self::DNS_TYPE_A,
 		self::DNS_TYPE_MX,
 		self::DNS_TYPE_TXT,
@@ -37,7 +41,7 @@ class DnsCheck extends Check
 			$dnsValue = \explode(';', $this->dnsValue);
 			\sort($dnsValue);
 
-			return $lastDnsValue != $dnsValue ? ICheck::STATUS_ALERT : ICheck::STATUS_OK;
+			return $lastDnsValue !== $dnsValue ? ICheck::STATUS_ALERT : ICheck::STATUS_OK;
 		}
 
 		return ICheck::STATUS_ERROR;

@@ -5,10 +5,7 @@ namespace Pd\Monitoring\DashBoard\Controls\Refresh;
 trait TFactory
 {
 
-	/**
-	 * @var IFactory
-	 */
-	private $refreshControlFactory;
+	private IFactory $refreshControlFactory;
 
 
 	public function injectRefreshControlFactory(IFactory $factory): void
@@ -21,4 +18,5 @@ trait TFactory
 	{
 		return $this->refreshControlFactory->create();
 	}
+
 }

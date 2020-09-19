@@ -5,15 +5,9 @@ namespace Pd\Monitoring\Monolog\Handlers;
 final class FlashMessageHandler extends \Monolog\Handler\AbstractProcessingHandler
 {
 
-	/**
-	 * @var \Nette\Application\UI\Control
-	 */
-	private $control;
+	private \Nette\Application\UI\Control $control;
 
-	/**
-	 * @var \Monolog\Formatter\LineFormatter
-	 */
-	private $formater;
+	private \Monolog\Formatter\LineFormatter $formater;
 
 
 	public function __construct(\Nette\Application\UI\Control $control)

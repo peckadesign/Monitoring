@@ -5,10 +5,7 @@ namespace Pd\Monitoring\Elasticsearch\Consumers;
 final class ChecksExporter implements \Kdyby\RabbitMq\IConsumer
 {
 
-	/**
-	 * @var \Elasticsearch\Client
-	 */
-	private $elasticsearchClient;
+	private \Elasticsearch\Client $elasticsearchClient;
 
 
 	public function __construct(\Elasticsearch\Client $elasticsearchClient)

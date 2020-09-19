@@ -5,35 +5,20 @@ namespace Pd\Monitoring\DashBoard\Controls\Maintenance;
 class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
-	/**
-	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 	/**
 	 * @var array|IOnToggle[]
 	 */
-	private $onToggleHandlers = [];
+	private array $onToggleHandlers = [];
 
-	/**
-	 * @var \Pd\Monitoring\Slack\Notifier
-	 */
-	private $notifier;
+	private \Pd\Monitoring\Slack\Notifier $notifier;
 
-	/**
-	 * @var \Nette\Security\User
-	 */
-	private $user;
+	private \Nette\Security\User $user;
 
 
 	public function __construct(
@@ -42,7 +27,8 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Pd\Monitoring\Slack\Notifier $notifier,
 		\Nette\Security\User $user
-	) {
+	)
+	{
 		$this->project = $project;
 		$this->projectsRepository = $projectsRepository;
 		$this->dateTimeProvider = $dateTimeProvider;
@@ -56,7 +42,8 @@ class Control extends \Nette\Application\UI\Control
 		/** @var \Latte\Runtime\Template $template */
 		$template = parent::createTemplate();
 
-		$template->addFilter('dateTime', function (\DateTimeImmutable $value) {
+		$template->addFilter('dateTime', static function (\DateTimeImmutable $value)
+		{
 			return $value->format('j. n. Y H:i:s');
 		});
 

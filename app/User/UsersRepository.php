@@ -15,4 +15,5 @@ class UsersRepository extends \Nextras\Orm\Repository\Repository
 			User::class,
 		];
 	}
+
 }

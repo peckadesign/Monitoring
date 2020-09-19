@@ -5,15 +5,13 @@ namespace Pd\Monitoring\Elasticsearch;
 final class ChecksExporter
 {
 
-	/**
-	 * @var \Kdyby\RabbitMq\IProducer
-	 */
-	private $producer;
+	private \Kdyby\RabbitMq\IProducer $producer;
 
 
 	public function __construct(
 		\Kdyby\RabbitMq\IProducer $producer
-	) {
+	)
+	{
 		$this->producer = $producer;
 	}
 

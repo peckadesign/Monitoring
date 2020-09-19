@@ -7,6 +7,7 @@ class NumberValueCheck extends Check
 
 	private const TIMEOUT = 5;
 
+
 	/**
 	 * @param \Pd\Monitoring\Check\NumberValueCheck $check
 	 */
@@ -60,4 +61,5 @@ class NumberValueCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_NUMBER_VALUE;
 	}
+
 }

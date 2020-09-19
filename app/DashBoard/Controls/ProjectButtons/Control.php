@@ -5,15 +5,9 @@ namespace Pd\Monitoring\DashBoard\Controls\ProjectButtons;
 final class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory
-	 */
-	private $maintenanceControlFactory;
+	private \Pd\Monitoring\DashBoard\Controls\Maintenance\IFactory $maintenanceControlFactory;
 
 
 	public function __construct(
@@ -60,15 +54,13 @@ final class Control extends \Nette\Application\UI\Control
 			$handler = new class($presenter) implements \Pd\Monitoring\DashBoard\Controls\Maintenance\IOnToggle
 			{
 
-				/**
-				 * @var \Pd\Monitoring\DashBoard\Presenters\ProjectPresenter
-				 */
-				private $presenter;
+				private \Pd\Monitoring\DashBoard\Presenters\ProjectPresenter $presenter;
 
 
 				public function __construct(
 					\Pd\Monitoring\DashBoard\Presenters\ProjectPresenter $presenter
-				) {
+				)
+				{
 					$this->presenter = $presenter;
 				}
 

@@ -5,15 +5,12 @@ namespace Pd\Monitoring\Check;
 final class SiteMapLoader
 {
 
-	/**
-	 * @var string
-	 */
-	private $siteMapUrl;
+	private string $siteMapUrl;
 
 	/**
-	 * @var array|string[]
+	 * @var array<string>|null
 	 */
-	private $urls = NULL;
+	private ?array $urls = NULL;
 
 
 	public function __construct(string $siteMapUrl)
@@ -36,7 +33,7 @@ final class SiteMapLoader
 			return \current($this->urls);
 		}
 
-		$lastKey = \array_search($last, $this->urls);
+		$lastKey = \array_search($last, $this->urls, TRUE);
 
 		return $this->urls[$lastKey + 1] ?? NULL;
 	}

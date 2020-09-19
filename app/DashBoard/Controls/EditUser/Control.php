@@ -5,25 +5,13 @@ namespace Pd\Monitoring\DashBoard\Controls\EditUser;
 class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Forms\UserEditFormFactory
-	 */
-	private $userEditFormFactory;
+	private \Pd\Monitoring\DashBoard\Forms\UserEditFormFactory $userEditFormFactory;
 
-	/**
-	 * @var \Pd\Monitoring\User\User
-	 */
-	private $identity;
+	private \Pd\Monitoring\User\User $identity;
 
-	/**
-	 * @var \Pd\Monitoring\User\UsersRepository
-	 */
-	private $usersRepository;
+	private \Pd\Monitoring\User\UsersRepository $usersRepository;
 
-	/**
-	 * @var \Nette\Security\User
-	 */
-	private $user;
+	private \Nette\Security\User $user;
 
 
 	public function __construct(
@@ -31,7 +19,8 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory $userEditFormFactory,
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Nette\Security\User $user
-	) {
+	)
+	{
 		$this->identity = $identity;
 		$this->userEditFormFactory = $userEditFormFactory;
 		$this->usersRepository = $usersRepository;
@@ -55,7 +44,8 @@ class Control extends \Nette\Application\UI\Control
 	{
 		$form = $this->userEditFormFactory->create();
 
-		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $values) {
+		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $values)
+		{
 			$this->processEditForm($form, $values);
 		};
 
@@ -84,4 +74,5 @@ class Control extends \Nette\Application\UI\Control
 			$this->getPresenter()->redirect(':DashBoard:HomePage:');
 		}
 	}
+
 }

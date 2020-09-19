@@ -21,9 +21,9 @@ interface ICheck
 	public const STATUS_ERROR = 2;
 
 
-	public function getType() : int;
+	public function getType(): int;
 
 
-	public function getTitle() : string;
+	public function getTitle(): string;
 
 }

@@ -41,4 +41,5 @@ class FeedCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_FEED;
 	}
+
 }

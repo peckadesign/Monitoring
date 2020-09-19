@@ -41,7 +41,8 @@ class RabbitQueueCheck extends Check
 			$checkQueues = $check->getQueues();
 			$messages = [];
 			foreach ($queues as $queue) {
-				if (($key = \array_search($queue->name, $checkQueues, TRUE)) !== FALSE) {
+				$key = \array_search($queue->name, $checkQueues, TRUE);
+				if ($key !== FALSE) {
 					$messages[$key] = $queue->messages;
 				}
 			}

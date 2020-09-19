@@ -5,45 +5,24 @@ namespace Pd\Monitoring\DashBoard\Controls\ProjectChecks;
 class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
+
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
+
+	private \Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory;
 
 	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
+	 * @var iterable<\Pd\Monitoring\Check\Check>
 	 */
-	private $checksRepository;
+	private iterable $checks;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\Check\IFactory
-	 */
-	private $checkControlFactory;
+	private \Pd\Monitoring\User\User $user;
 
-	/**
-	 * @var iterable
-	 */
-	private $checks;
+	private \Nextras\Orm\Relationships\OneHasMany $userCheckNotifications;
 
-	/**
-	 * @var \Pd\Monitoring\User\User
-	 */
-	private $user;
+	private int $type;
 
-	/**
-	 * @var \Nextras\Orm\Relationships\OneHasMany
-	 */
-	private $userCheckNotifications;
-
-	/**
-	 * @var int
-	 */
-	private $type;
-
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory
-	 */
-	private $projectChecksTabsControlFactory;
+	private \Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory;
 
 
 	public function __construct(
@@ -53,7 +32,8 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
 		\Pd\Monitoring\User\User $user,
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory
-	) {
+	)
+	{
 		$this->project = $project;
 		$this->checksRepository = $checksRepository;
 		$this->checkControlFactory = $checkControlFactory;
@@ -96,7 +76,8 @@ class Control extends \Nette\Application\UI\Control
 
 	protected function createComponentCheck(): \Nette\Application\UI\Multiplier
 	{
-		$cb = function ($id) {
+		$cb = function ($id)
+		{
 			$check = $this->checksRepository->getById($id);
 
 			return $this->checkControlFactory->create($check, $this->userCheckNotifications->has([$this->user->id, $check->id]));

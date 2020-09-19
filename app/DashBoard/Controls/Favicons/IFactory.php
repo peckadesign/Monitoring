@@ -4,5 +4,7 @@ namespace Pd\Monitoring\DashBoard\Controls\Favicons;
 
 interface IFactory
 {
-	public function create() : Control;
+
+	public function create(): Control;
+
 }

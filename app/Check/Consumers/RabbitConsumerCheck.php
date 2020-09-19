@@ -41,7 +41,8 @@ class RabbitConsumerCheck extends Check
 			$checkQueues = $check->getQueues();
 			$consumers = [];
 			foreach ($queues as $queue) {
-				if (($key = \array_search($queue->name, $checkQueues, TRUE)) !== FALSE) {
+				$key = \array_search($queue->name, $checkQueues, TRUE);
+				if ($key !== FALSE) {
 					$consumers[$key] = $queue->consumers;
 				}
 			}

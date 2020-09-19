@@ -5,19 +5,18 @@ namespace Pd\Monitoring\DashBoard\Forms\Controls;
 class TextInput extends \Nette\Forms\Controls\TextInput
 {
 
-	/** @var string|null */
-	private $leftOption;
+	private ?string $leftOption = NULL;
 
-	/** @var string|null */
-	private $rightOption;
+	private ?string $rightOption = NULL;
 
 
 	public function __construct(
-		string $label = NULL,
-		int $maxLength = NULL,
-		string $leftOption = NULL,
-		string $rightOption = NULL
-	) {
+		?string $label = NULL,
+		?int $maxLength = NULL,
+		?string $leftOption = NULL,
+		?string $rightOption = NULL
+	)
+	{
 		parent::__construct($label, $maxLength);
 
 		$this->leftOption = $leftOption;

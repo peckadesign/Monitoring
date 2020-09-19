@@ -10,4 +10,5 @@ class Control extends \Nette\Application\UI\Control
 		$this->template->setFile(__DIR__ . '/Control.latte');
 		$this->template->render();
 	}
+
 }

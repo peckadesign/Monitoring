@@ -5,21 +5,16 @@ namespace Pd\Monitoring\DashBoard\Controls\LogView;
 final class Factory
 {
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\DataGridFactory
-	 */
-	private $dataGridFactory;
+	private \Pd\Monitoring\DashBoard\Controls\DataGridFactory $dataGridFactory;
 
-	/**
-	 * @var \Elasticsearch\Client
-	 */
-	private $elasticsearchClient;
+	private \Elasticsearch\Client $elasticsearchClient;
 
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\DataGridFactory $dataGridFactory,
 		\Elasticsearch\Client $elasticsearchClient
-	) {
+	)
+	{
 		$this->dataGridFactory = $dataGridFactory;
 		$this->elasticsearchClient = $elasticsearchClient;
 	}
@@ -33,7 +28,8 @@ final class Factory
 
 		$grid
 			->addColumnText('message', 'Záznam')
-			->setRenderer(static function (array $row): \Nette\Utils\Html {
+			->setRenderer(static function (array $row): \Nette\Utils\Html
+			{
 				return \Nette\Utils\Html::el('pre', $row['message']);
 			})
 		;
@@ -43,13 +39,13 @@ final class Factory
 			->setFormat('j. n. Y H:i:s')
 		;
 
-		$rowFactory = static function (array $hit): array {
+		$rowFactory = static function (array $hit): array
+		{
 			return $hit['_source'] + ['_id' => $hit['_id']];
 		};
 		$dataSource = new \Ublaboo\DatagridElasticsearchDataSource\ElasticsearchDataSource(
 			$this->elasticsearchClient,
 			'monolog*',
-			'_doc',
 			$rowFactory
 		);
 

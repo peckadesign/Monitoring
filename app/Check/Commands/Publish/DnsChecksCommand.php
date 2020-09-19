@@ -4,7 +4,9 @@ namespace Pd\Monitoring\Check\Commands\Publish;
 
 class DnsChecksCommand extends PublishChecksCommand
 {
+
 	use \Pd\Monitoring\Commands\TNamedCommand;
+
 
 	protected function getConditions(): array
 	{

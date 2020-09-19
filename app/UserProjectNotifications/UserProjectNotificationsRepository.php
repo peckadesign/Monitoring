@@ -16,14 +16,16 @@ class UserProjectNotificationsRepository extends \Nextras\Orm\Repository\Reposit
 	}
 
 
-	public function checkIfUserHasSlackNotifications(\Pd\Monitoring\User\User $user,\Pd\Monitoring\Project\Project $project): bool
+	public function checkIfUserHasSlackNotifications(\Pd\Monitoring\User\User $user, \Pd\Monitoring\Project\Project $project): bool
 	{
 		return (bool) $this->getBy(["user" => $user, "project" => $project]);
 	}
 
-	public function deleteUserProjectNotifications(\Pd\Monitoring\User\User $user,\Pd\Monitoring\Project\Project $project): void
+
+	public function deleteUserProjectNotifications(\Pd\Monitoring\User\User $user, \Pd\Monitoring\Project\Project $project): void
 	{
 		$entity = $this->getBy(["user" => $user, "project" => $project]);
 		$this->removeAndFlush($entity);
 	}
+
 }

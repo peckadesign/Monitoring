@@ -11,16 +11,14 @@ namespace Pd\Monitoring\Check;
 class FeedCheck extends Check
 {
 
-	/**
-	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 
 	public function injectDateTimeProvider(\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider): void
 	{
 		$this->dateTimeProvider = $dateTimeProvider;
 	}
+
 
 	public function __construct()
 	{

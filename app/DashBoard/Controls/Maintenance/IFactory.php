@@ -6,4 +6,5 @@ interface IFactory
 {
 
 	public function create(\Pd\Monitoring\Project\Project $project): Control;
+
 }

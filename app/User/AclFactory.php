@@ -21,4 +21,5 @@ class AclFactory
 
 		return $authorizator;
 	}
+
 }

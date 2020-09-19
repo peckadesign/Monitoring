@@ -27,4 +27,5 @@ class UsersFavoriteProjectRepository extends \Nextras\Orm\Repository\Repository
 		$entity = $this->getBy(["user" => $user, "project" => $project]);
 		$this->removeAndFlush($entity);
 	}
+
 }

@@ -5,45 +5,21 @@ namespace Pd\Monitoring\DashBoard\Controls\Check;
 class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Check\Check
-	 */
-	private $check;
+	private \Pd\Monitoring\Check\Check $check;
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
-	/**
-	 * @var \Kdyby\RabbitMq\Connection
-	 */
-	private $rabbitConnection;
+	private \Kdyby\RabbitMq\Connection $rabbitConnection;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory
-	 */
-	private $aliveChartControlFactory;
+	private \Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory $aliveChartControlFactory;
 
-	/**
-	 * @var \Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository
-	 */
-	private $userCheckNotificationsRepository;
+	private \Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository $userCheckNotificationsRepository;
 
-	/**
-	 * @var bool
-	 */
-	private $hasUserNotification;
+	private bool $hasUserNotification;
 
-	/**
-	 * @var \Pd\Monitoring\User\User
-	 */
-	private $user;
+	private \Pd\Monitoring\User\User $user;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\LogView\Factory
-	 */
-	private $logViewFactory;
+	private \Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory;
 
 
 	public function __construct(
@@ -55,7 +31,8 @@ class Control extends \Nette\Application\UI\Control
 		bool $hasUserNotification,
 		\Pd\Monitoring\User\User $user,
 		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory
-	) {
+	)
+	{
 		$this->check = $check;
 		$this->checksRepository = $checksRepository;
 		$this->rabbitConnection = $rabbitConnection;
@@ -72,7 +49,8 @@ class Control extends \Nette\Application\UI\Control
 		/** @var \Latte\Runtime\Template $template */
 		$template = parent::createTemplate();
 
-		$template->addFilter('dateTime', function (\DateTimeImmutable $value) {
+		$template->addFilter('dateTime', static function (\DateTimeImmutable $value)
+		{
 			return $value->format('j. n. Y H:i:s');
 		});
 

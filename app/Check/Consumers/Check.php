@@ -5,27 +5,19 @@ namespace Pd\Monitoring\Check\Consumers;
 abstract class Check implements \Kdyby\RabbitMq\IConsumer
 {
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
-	/**
-	 * @var \Pd\Monitoring\Utils\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
-	/**
-	 * @var \Monolog\Logger
-	 */
-	private $logger;
+	private \Monolog\Logger $logger;
 
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Monolog\Logger $logger
-	) {
+	)
+	{
 		$this->checksRepository = $checksRepository;
 		$this->dateTimeProvider = $dateTimeProvider;
 		$this->logger = $logger;
@@ -57,10 +49,9 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 
 			$result = $this->doHardJob($check);
 
-			if ($result && $check->status !== \Pd\Monitoring\Check\ICheck::STATUS_OK && ($attempts+1) < $maxAttempts) {
+			if ($result && $check->status !== \Pd\Monitoring\Check\ICheck::STATUS_OK && ($attempts + 1) < $maxAttempts) {
 				$result = FALSE;
 			}
-
 		} while ( ! $result && ++$attempts < $maxAttempts && \sleep(3) === 0);
 
 		$this->checksRepository->persistAndFlush($check);

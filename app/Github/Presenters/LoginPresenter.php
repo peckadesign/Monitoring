@@ -5,21 +5,16 @@ namespace Pd\Monitoring\Github\Presenters;
 final class LoginPresenter extends \Nette\Application\UI\Presenter
 {
 
-	/**
-	 * @var \League\OAuth2\Client\Provider\Github
-	 */
-	private $github;
+	private \League\OAuth2\Client\Provider\Github $github;
 
-	/**
-	 * @var \Pd\Monitoring\User\UsersRepository
-	 */
-	private $users;
+	private \Pd\Monitoring\User\UsersRepository $users;
 
 
 	public function __construct(
 		\League\OAuth2\Client\Provider\Github $gitHub,
 		\Pd\Monitoring\User\UsersRepository $users
-	) {
+	)
+	{
 		parent::__construct();
 		$this->github = $gitHub;
 		$this->users = $users;
@@ -39,7 +34,8 @@ final class LoginPresenter extends \Nette\Application\UI\Presenter
 			$conditions = [
 				'gitHubId' => $gitHubUser->getId(),
 			];
-			if ( ! $user = $this->users->getBy($conditions)) {
+			$user = $this->users->getBy($conditions);
+			if ( ! $user) {
 				$user = new \Pd\Monitoring\User\User();
 				$user->gitHubId = $gitHubUser->getId();
 				$user->gitHubName = $gitHubUser->getName() ?: $gitHubUser->getNickname();

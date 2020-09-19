@@ -5,7 +5,7 @@ namespace Pd\Monitoring\Elasticsearch;
 final class AliveCheck implements \JsonSerializable
 {
 
-	private $check;
+	private \Pd\Monitoring\Check\Check $check;
 
 
 	public function __construct(\Pd\Monitoring\Check\AliveCheck $check)
@@ -18,7 +18,7 @@ final class AliveCheck implements \JsonSerializable
 	}
 
 
-	public function jsonSerialize()
+	public function jsonSerialize(): array
 	{
 		return [
 			'check_id' => $this->check->id,

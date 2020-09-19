@@ -5,15 +5,9 @@ namespace Pd\Monitoring\Check\Consumers;
 final class XpathCheck extends Check
 {
 
-	/**
-	 * @var \Pd\Monitoring\Check\SiteMapLoader|null
-	 */
-	private $siteMapLoader;
+	private ?\Pd\Monitoring\Check\SiteMapLoader $siteMapLoader = NULL;
 
-	/**
-	 * @var string|null
-	 */
-	private $lastUrl;
+	private ?string $lastUrl = NULL;
 
 
 	/**
@@ -96,11 +90,11 @@ final class XpathCheck extends Check
 		$check->xpathLastResult = $extractedData;
 
 		if ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_MATCH) {
-			return $extractedData == $check->xpathResult;
+			return $extractedData === $check->xpathResult;
 		} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_LT) {
 			return $extractedData < $check->xpathResult;
 		} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_EQ) {
-			return $extractedData == $check->xpathResult;
+			return $extractedData === $check->xpathResult;
 		} elseif ($check->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_GT) {
 			return $extractedData > $check->xpathResult;
 		}

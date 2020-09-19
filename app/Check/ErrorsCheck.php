@@ -12,7 +12,6 @@ namespace Pd\Monitoring\Check;
 class ErrorsCheck extends Check
 {
 
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -24,8 +23,7 @@ class ErrorsCheck extends Check
 	{
 		return $this->errorsJson
 			? \Nette\Utils\Json::decode($this->errorsJson, \Nette\Utils\Json::FORCE_ARRAY)
-			: NULL
-		;
+			: NULL;
 	}
 
 
@@ -33,8 +31,7 @@ class ErrorsCheck extends Check
 	{
 		return $this->mutedErrorsJson
 			? \Nette\Utils\Json::decode($this->mutedErrorsJson, \Nette\Utils\Json::FORCE_ARRAY)
-			: []
-		;
+			: [];
 	}
 
 
@@ -65,8 +62,7 @@ class ErrorsCheck extends Check
 
 		return \count($notifyErrors) === 0
 			? ICheck::STATUS_OK
-			: ICheck::STATUS_ALERT
-		;
+			: ICheck::STATUS_ALERT;
 	}
 
 

@@ -6,4 +6,5 @@ interface IOnToggle
 {
 
 	public function process(Control $control);
+
 }

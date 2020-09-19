@@ -5,28 +5,23 @@ namespace Pd\Monitoring\User;
 class UserStorage extends \Nette\Http\UserStorage
 {
 
-	/**
-	 * @var User cached, loaded from database
-	 */
-	private $user;
+	private ?User $user = NULL;
 
-	/**
-	 * @var \Pd\Monitoring\Orm\Orm
-	 */
-	private $orm;
+	private \Pd\Monitoring\Orm\Orm $orm;
 
 
 	public function __construct(
 		\Nette\Http\Session $sessionHandler,
 		\Pd\Monitoring\Orm\Orm $orm
-	) {
+	)
+	{
 		parent::__construct($sessionHandler);
 
 		$this->orm = $orm;
 	}
 
 
-	public function setIdentity(\Nette\Security\IIdentity $user = NULL)
+	public function setIdentity(?\Nette\Security\IIdentity $user = NULL)
 	{
 		if ($user && ! $user instanceof User) {
 			throw new \InvalidArgumentException('Expected instance of ' . User::class);

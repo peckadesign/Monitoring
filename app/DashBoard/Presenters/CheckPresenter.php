@@ -5,42 +5,25 @@ namespace Pd\Monitoring\DashBoard\Presenters;
 final class CheckPresenter extends BasePresenter
 {
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\LogView\Factory
-	 */
-	private $logViewFactory;
+	private \Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory;
 
-	/**
-	 * @var \Pd\Monitoring\Check\Check
-	 */
-	private $check;
+	private \Pd\Monitoring\Check\Check $check;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory
-	 */
-	private $addEditCheckControlFactory;
+	private \Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory;
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var int
-	 */
-	private $type;
+	private int $type;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory,
 		\Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory $addEditCheckControlFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
-	) {
+	)
+	{
 		parent::__construct();
 		$this->logViewFactory = $logViewFactory;
 		$this->addEditCheckControlFactory = $addEditCheckControlFactory;

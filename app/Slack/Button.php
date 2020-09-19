@@ -5,20 +5,11 @@ namespace Pd\Monitoring\Slack;
 final class Button
 {
 
-	/**
-	 * @var string
-	 */
-	private $name;
+	private string $name;
 
-	/**
-	 * @var string
-	 */
-	private $text;
+	private string $text;
 
-	/**
-	 * @var string
-	 */
-	private $url;
+	private string $url;
 
 
 	public function __construct(

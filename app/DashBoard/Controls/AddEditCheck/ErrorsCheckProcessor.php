@@ -7,6 +7,7 @@ class ErrorsCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditC
 
 	private const INPUT_MUTED_ERRORS_JSON = 'mutedErrorsJson';
 
+
 	/**
 	 * @param \Pd\Monitoring\Check\ErrorsCheck $check
 	 */
@@ -35,7 +36,8 @@ class ErrorsCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditC
 		$mutedErrorsJsonInput->setOption('description', 'Seznam skalarních hodnot ve formátu JSON např. [10,13]. Tyto položky budou při kontrole ignorovány.');
 		$mutedErrorsJsonInput->setRequired(FALSE);
 		$mutedErrorsJsonInput->setNullable();
-		$mutedErrorsJsonInput->addRule(static function (\Nette\Forms\IControl $control): bool {
+		$mutedErrorsJsonInput->addRule(static function (\Nette\Forms\IControl $control): bool
+		{
 			/** @var string|null $value */
 			$value = $control->getValue();
 
@@ -57,8 +59,7 @@ class ErrorsCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditC
 
 			return
 				\Nette\Utils\Arrays::isList($list)
-				&& \Nette\Utils\Validators::everyIs($list, 'scalar')
-			;
+				&& \Nette\Utils\Validators::everyIs($list, 'scalar');
 		} catch (\Nette\Utils\JsonException $e) {
 			return FALSE;
 		}

@@ -5,34 +5,26 @@ namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 class Factory
 {
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Forms\Factory
-	 */
-	private $formFactory;
+	private \Pd\Monitoring\DashBoard\Forms\Factory $formFactory;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
-	) {
+	)
+	{
 		$this->checksRepository = $checksRepository;
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
 	}
 
 
-	public function create(\Pd\Monitoring\Project\Project $project, int $type, \Pd\Monitoring\Check\Check $check = NULL): Control
+	public function create(\Pd\Monitoring\Project\Project $project, int $type, ?\Pd\Monitoring\Check\Check $check = NULL): Control
 	{
 		switch ($type) {
 			case \Pd\Monitoring\Check\ICheck::TYPE_ALIVE:
@@ -84,4 +76,5 @@ class Factory
 
 		return $control;
 	}
+
 }

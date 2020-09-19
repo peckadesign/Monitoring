@@ -5,15 +5,13 @@ namespace Pd\Monitoring\DashBoard\Presenters;
 final class SlackPresenter extends BasePresenter
 {
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository
-	) {
+	)
+	{
 		parent::__construct();
 		$this->checksRepository = $checksRepository;
 	}

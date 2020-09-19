@@ -7,50 +7,39 @@ class HomePagePresenter extends BasePresenter
 
 	use \Pd\Monitoring\DashBoard\Controls\Refresh\TFactory;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\Project\IFactory
-	 */
-	private $projectControlFactory;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\DashBoard\Controls\Project\IFactory $projectControlFactory;
 
-	/**
-	 * @var \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository
-	 */
-	private $usersFavoriteProjectsRepository;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
+
+	private \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository;
 
 	/**
 	 * @var array|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[]
 	 */
-	private $usersFavoriteProjects = [];
+	private array $usersFavoriteProjects = [];
 
-	/**
-	 * @var \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository
-	 */
-	private $userProjectNotificationsRepository;
+	private \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository;
 
 	/**
 	 * @var array|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[]
 	 */
-	private $userProjectNotifications = [];
+	private array $userProjectNotifications = [];
 
 	/**
 	 * @var array|\Pd\Monitoring\Project\Project[]
 	 */
-	private $projects = [];
+	private array $projects = [];
 
 	/**
 	 * @var array|\Pd\Monitoring\Project\Project[]
 	 */
-	private $nonFavoriteProjects = [];
+	private array $nonFavoriteProjects = [];
 
 	/**
 	 * @var array|\Pd\Monitoring\Project\Project[]
 	 */
-	private $referenceProjects = [];
+	private array $referenceProjects = [];
 
 
 	public function __construct(
@@ -58,7 +47,8 @@ class HomePagePresenter extends BasePresenter
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
 		\Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository
-	) {
+	)
+	{
 		parent::__construct();
 		$this->projectControlFactory = $projectControlFactory;
 		$this->projectsRepository = $projectsRepository;
@@ -108,8 +98,9 @@ class HomePagePresenter extends BasePresenter
 
 	protected function createComponentProject(): \Nette\Application\UI\Multiplier
 	{
-		$cb = function ($id) {
-			$control = $this->projectControlFactory->create($this->projects[$id], $this->usersFavoriteProjects[$id]?? NULL, $this->userProjectNotifications[$id]?? NULL);
+		$cb = function ($id)
+		{
+			$control = $this->projectControlFactory->create($this->projects[$id], $this->usersFavoriteProjects[$id] ?? NULL, $this->userProjectNotifications[$id] ?? NULL);
 
 			return $control;
 		};
@@ -118,4 +109,5 @@ class HomePagePresenter extends BasePresenter
 
 		return $control;
 	}
+
 }

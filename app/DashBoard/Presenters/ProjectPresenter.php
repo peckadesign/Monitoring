@@ -7,40 +7,20 @@ class ProjectPresenter extends BasePresenter
 
 	use \Pd\Monitoring\DashBoard\Controls\Refresh\TFactory;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Forms\Factory
-	 */
-	private $formFactory;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\DashBoard\Forms\Factory $formFactory;
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory
-	 */
-	private $projectChecksControlFactory;
+	private \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory
-	 */
-	private $projectButtonsFactory;
+	private \Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory;
 
-	/**
-	 * @var int
-	 */
-	private $type;
+	private \Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory
-	 */
-	private $subProjectsControlFactory;
+	private int $type;
+
+	private \Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory $subProjectsControlFactory;
 
 
 	public function __construct(
@@ -49,7 +29,8 @@ class ProjectPresenter extends BasePresenter
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory,
 		\Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory $subProjectsControlFactory
-	) {
+	)
+	{
 		parent::__construct();
 		$this->formFactory = $formFactory;
 		$this->projectsRepository = $projectsRepository;
@@ -110,7 +91,8 @@ class ProjectPresenter extends BasePresenter
 
 		$form->addSubmit('save', 'Uložit');
 
-		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data) {
+		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data)
+		{
 			$this->processAddEditForm($form, $data);
 		};
 
@@ -188,7 +170,8 @@ class ProjectPresenter extends BasePresenter
 
 	protected function createComponentProjectButtons(): \Nette\Application\UI\Multiplier
 	{
-		$cb = function (string $id): \Pd\Monitoring\DashBoard\Controls\ProjectButtons\Control {
+		$cb = function (string $id): \Pd\Monitoring\DashBoard\Controls\ProjectButtons\Control
+		{
 			return $this->projectButtonsFactory->create($this->projectsRepository->getById((int) $id));
 		};
 
