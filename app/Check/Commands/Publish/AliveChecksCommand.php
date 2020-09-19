@@ -15,4 +15,5 @@ class AliveChecksCommand extends PublishChecksCommand
 			'siteMap' => FALSE,
 		];
 	}
+
 }

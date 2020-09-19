@@ -5,65 +5,44 @@ namespace Pd\Monitoring\DashBoard\Controls\AddEditCheck;
 class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Forms\Factory
-	 */
-	private $formFactory;
+	private \Pd\Monitoring\DashBoard\Forms\Factory $formFactory;
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	protected $checksRepository;
+	protected \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	protected $project;
+	protected \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var \Pd\Monitoring\Check\Check
-	 */
-	protected $check;
+	protected \Pd\Monitoring\Check\Check $check;
 
-	/**
-	 * @var ICheckControlProcessor
-	 */
-	protected $checkControlProcessor;
+	protected ICheckControlProcessor $checkControlProcessor;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
-		\Pd\Monitoring\Check\Check $check = NULL,
+		?\Pd\Monitoring\Check\Check $check = NULL,
 		ICheckControlProcessor $checkControlProcessor,
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
-	) {
-		parent::__construct();
+	)
+	{
 		$this->formFactory = $formFactory;
 		$this->checksRepository = $checksRepository;
 		$this->project = $project;
 		$this->checkControlProcessor = $checkControlProcessor;
 		$this->check = $check;
 		$this->projectsRepository = $projectsRepository;
-	}
 
-
-	protected function attached($presenter)
-	{
-		parent::attached($presenter);
-
-		if ( ! $this->check) {
-			$this->check = $this->checkControlProcessor->getCheck();
-			$this['form']->setDefaults(['project' => $this->project->id]);
-		} else {
-			$this['form']->setDefaults($this->check->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
-		}
+		$this->onAnchor[] = function (\Nette\Application\UI\Control $control): void
+		{
+			if ( ! $this->check) {
+				$this->check = $this->checkControlProcessor->getCheck();
+				$this['form']->setDefaults(['project' => $this->project->id]);
+			} else {
+				$this['form']->setDefaults($this->check->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
+			}
+		};
 	}
 
 
@@ -101,7 +80,8 @@ class Control extends \Nette\Application\UI\Control
 
 		$form->addSubmit('save', 'Uložit');
 
-		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data) {
+		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $data)
+		{
 			$this->processForm($form, $data);
 		};
 

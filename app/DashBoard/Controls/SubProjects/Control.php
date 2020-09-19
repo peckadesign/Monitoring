@@ -5,15 +5,11 @@ namespace Pd\Monitoring\DashBoard\Controls\SubProjects;
 final class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
 
 
 	public function __construct(\Pd\Monitoring\Project\Project $project)
 	{
-
 		$this->project = $project;
 	}
 

@@ -32,4 +32,5 @@ class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdenti
 
 		return $roles;
 	}
+
 }

@@ -7,21 +7,19 @@ class LoginPresenter extends \Nette\Application\UI\Presenter
 
 	use \Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
 
-	/**
-	 * @var \League\OAuth2\Client\Provider\Github
-	 */
-	private $github;
+
+	private \League\OAuth2\Client\Provider\Github $github;
 
 	/**
-	 * @var string
 	 * @persistent
 	 */
-	public $backLink;
+	public string $backLink;
 
 
 	public function __construct(
 		\League\OAuth2\Client\Provider\Github $gitHub
-	) {
+	)
+	{
 		parent::__construct();
 		$this->github = $gitHub;
 	}

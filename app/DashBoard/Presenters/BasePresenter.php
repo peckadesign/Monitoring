@@ -10,20 +10,20 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	use \Pd\Monitoring\DashBoard\Controls\Settings\TFactory;
 	use \Pd\Monitoring\DashBoard\Controls\Favicons\TFactory;
 
+
 	public const FLASH_MESSAGE_SUCCESS = 'success';
 	public const FLASH_MESSAGE_INFO = 'info';
 	public const FLASH_MESSAGE_WARNING = 'warning';
 	public const FLASH_MESSAGE_ERROR = 'danger';
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\Logout\IFactory
-	 */
-	private $logoutControlFactory;
+
+	private \Pd\Monitoring\DashBoard\Controls\Logout\IFactory $logoutControlFactory;
 
 
 	public function injectServices(
 		\Pd\Monitoring\DashBoard\Controls\Logout\IFactory $logoutControlFactory
-	) {
+	)
+	{
 		$this->logoutControlFactory = $logoutControlFactory;
 	}
 
@@ -34,11 +34,12 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		$template = parent::createTemplate();
 
-		$template->addFilter('dateTime', function (\DateTimeImmutable $s) {
+		$template->addFilter('dateTime', static function (\DateTimeImmutable $s)
+		{
 			return $s->format('j. n. Y H:i:s');
 		});
 
@@ -46,7 +47,7 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 	}
 
 
-	public function flashMessage($message, $type = 'info')
+	public function flashMessage($message, string $type = 'info'): \stdClass
 	{
 		if ($this->isAjax()) {
 			$this->redrawControl('flashMessages');

@@ -15,6 +15,7 @@ class HttpStatusCodeCheck extends Check
 		$this->type = ICheck::TYPE_HTTP_STATUS_CODE;
 	}
 
+
 	protected function getStatus(): int
 	{
 		if ( ! $this->lastCode) {

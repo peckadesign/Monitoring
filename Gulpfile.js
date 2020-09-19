@@ -6,8 +6,8 @@ var config = {
 };
 
 var stylesFiles = [
-	'vendor/ublaboo/datagrid/assets/dist/datagrid.css',
-	'vendor/ublaboo/datagrid/assets/dist/datagrid-spinners.css'
+	'vendor/ublaboo/datagrid/assets/datagrid.css',
+	'vendor/ublaboo/datagrid/assets/datagrid-spinners.css'
 ];
 
 function styles() {
@@ -21,9 +21,9 @@ var jsFiles = [
 	'assets/js/main.js',
 	'assets/js/nette.ajax.js',
 	'vendor/nette/forms/src/assets/netteForms.min.js',
-	'vendor/ublaboo/datagrid/assets/dist/datagrid.js',
-	'vendor/ublaboo/datagrid/assets/dist/datagrid-instant-url-refresh.js',
-	'vendor/ublaboo/datagrid/assets/dist/datagrid-spinners.js'
+	'vendor/ublaboo/datagrid/assets/datagrid.js',
+	'vendor/ublaboo/datagrid/assets/datagrid-instant-url-refresh.js',
+	'vendor/ublaboo/datagrid/assets/datagrid-spinners.js'
 ];
 
 function js() {

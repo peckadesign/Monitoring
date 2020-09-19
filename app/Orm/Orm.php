@@ -2,8 +2,6 @@
 
 namespace Pd\Monitoring\Orm;
 
-
-
 /**
  * @property-read \Pd\Monitoring\User\UsersRepository $users
  * @property-read \Pd\Monitoring\Project\ProjectsRepository $projects

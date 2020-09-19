@@ -36,12 +36,13 @@ class RabbitQueueCheck extends Check
 				throw new \Pd\Monitoring\Exception();
 			}
 
-			$queues = \Nette\Utils\Json::decode($response->getBody());
+			$queues = \Nette\Utils\Json::decode((string) $response->getBody());
 
 			$checkQueues = $check->getQueues();
 			$messages = [];
 			foreach ($queues as $queue) {
-				if (($key = \array_search($queue->name, $checkQueues, TRUE)) !== FALSE) {
+				$key = \array_search($queue->name, $checkQueues, TRUE);
+				if ($key !== FALSE) {
 					$messages[$key] = $queue->messages;
 				}
 			}

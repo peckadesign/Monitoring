@@ -5,59 +5,35 @@ namespace Pd\Monitoring\DashBoard\Controls\Project;
 class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject
-	 */
-	private $favoriteProject;
+	private ?\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject;
 
-	/**
-	 * @var \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications
-	 */
-	private $slackNotifications;
+	private ?\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications;
 
-	/**
-	 * @var \Nette\Security\User
-	 */
-	private $user;
+	private \Nette\Security\User $user;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
-	/**
-	 * @var \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository
-	 */
-	private $usersFavoriteProjectsRepository;
+	private \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository;
 
-	/**
-	 * @var \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository
-	 */
-	private $userProjectNotificationsRepository;
+	private \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository;
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
-		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject = NULL,
-		\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications = NULL,
+		?\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject = NULL,
+		?\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications = NULL,
 		\Nette\Security\User $user,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
 		\Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository
 
-	) {
-		parent::__construct();
+	)
+	{
 		$this->project = $project;
 		$this->favoriteProject = $favoriteProject;
 		$this->slackNotifications = $slackNotifications;
@@ -69,11 +45,12 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		$template = parent::createTemplate();
 
-		$template->addFilter('check', function (int $value) {
+		$template->addFilter('check', static function (int $value)
+		{
 			switch ($value) {
 				case \Pd\Monitoring\Check\ICheck::STATUS_OK:
 					return 'success';
@@ -196,7 +173,7 @@ class Control extends \Nette\Application\UI\Control
 		if ($total) {
 			foreach ($groupedChecks as $status => $checksForStatus) {
 				if ( ! \count($checksForStatus)) {
-						continue;
+					continue;
 				}
 				$percents[$status] = (\count($checksForStatus) * 100) / $total;
 			}

@@ -7,22 +7,17 @@ class Control extends \Nette\Application\UI\Control
 
 	use \Pd\Monitoring\DashBoard\TSecuredComponent;
 
-	/**
-	 * @var \Pd\Monitoring\User\UsersRepository
-	 */
-	private $usersRepository;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\DataGridFactory
-	 */
-	private $dataGridFactory;
+	private \Pd\Monitoring\User\UsersRepository $usersRepository;
+
+	private \Pd\Monitoring\DashBoard\Controls\DataGridFactory $dataGridFactory;
 
 
 	public function __construct(
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Pd\Monitoring\DashBoard\Controls\DataGridFactory $dataGridFactory
-	) {
-		parent::__construct();
+	)
+	{
 		$this->usersRepository = $usersRepository;
 		$this->dataGridFactory = $dataGridFactory;
 	}
@@ -49,8 +44,8 @@ class Control extends \Nette\Application\UI\Control
 			0 => 'Ne',
 		];
 		$administratorFilter = [
-			'' => 'Všechno',
-		] + $administratorReplacement;
+				'' => 'Všechno',
+			] + $administratorReplacement;
 		$grid
 			->addColumnText('administrator', 'Administrátor')
 			->setReplacement($administratorReplacement)
@@ -67,7 +62,6 @@ class Control extends \Nette\Application\UI\Control
 			->setClass('btn btn-danger')
 			->setDataAttribute('confirm', '')
 		;
-
 
 		$grid->setDataSource($this->usersRepository->findAll());
 

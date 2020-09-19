@@ -20,4 +20,5 @@ trait TNamedCommand
 
 		return $name;
 	}
+
 }

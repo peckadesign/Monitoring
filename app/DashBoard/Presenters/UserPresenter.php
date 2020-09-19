@@ -5,26 +5,18 @@ namespace Pd\Monitoring\DashBoard\Presenters;
 class UserPresenter extends BasePresenter
 {
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\EditUser\IFactory
-	 */
-	private $editUserControlFactory;
+	private \Pd\Monitoring\DashBoard\Controls\EditUser\IFactory $editUserControlFactory;
 
-	/**
-	 * @var \Pd\Monitoring\User\User
-	 */
-	private $editedUser;
+	private \Pd\Monitoring\User\User $editedUser;
 
-	/**
-	 * @var \Pd\Monitoring\DashBoard\Controls\UserList\IFactory
-	 */
-	private $userListControlFactory;
+	private \Pd\Monitoring\DashBoard\Controls\UserList\IFactory $userListControlFactory;
 
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Controls\EditUser\IFactory $editUserControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\UserList\IFactory $userListControlFactory
-	) {
+	)
+	{
 		parent::__construct();
 		$this->editUserControlFactory = $editUserControlFactory;
 		$this->userListControlFactory = $userListControlFactory;

@@ -5,27 +5,19 @@ namespace Pd\Monitoring\DashBoard\Controls\AliveChart;
 final class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Check\AliveCheck
-	 */
-	private $check;
+	private \Pd\Monitoring\Check\AliveCheck $check;
 
-	/**
-	 * @var \Pd\Monitoring\Elasticsearch\Queries\AverageTimeoutQuery
-	 */
-	private $averageTimeoutQuery;
+	private \Pd\Monitoring\Elasticsearch\Queries\AverageTimeoutQuery $averageTimeoutQuery;
 
-	/**
-	 * @var \Nette\Caching\Cache
-	 */
-	private $cache;
+	private \Nette\Caching\Cache $cache;
 
 
 	public function __construct(
 		\Pd\Monitoring\Check\AliveCheck $aliveCheck,
 		\Pd\Monitoring\Elasticsearch\Queries\AverageTimeoutQuery $averageTimeoutQuery,
 		\Nette\Caching\Cache $cache
-	) {
+	)
+	{
 		$this->check = $aliveCheck;
 		$this->averageTimeoutQuery = $averageTimeoutQuery;
 		$this->cache = $cache;
@@ -34,7 +26,8 @@ final class Control extends \Nette\Application\UI\Control
 
 	public function render(): void
 	{
-		$cb = function (&$dp): array {
+		$cb = function (&$dp): array
+		{
 			$data = [['Den', 'Dnes', 'Včera', 'Týden']];
 			foreach ($this->averageTimeoutQuery->query($this->check->id, 0) as $date => $timeout) {
 				$month = new \DateTime($date);

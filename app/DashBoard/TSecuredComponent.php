@@ -5,10 +5,7 @@ namespace Pd\Monitoring\DashBoard;
 trait TSecuredComponent
 {
 
-	/**
-	 * @var \Nette\Security\Permission
-	 */
-	private $authorizator;
+	private \Nette\Security\Permission $authorizator;
 
 
 	public function injectAuthorizator(\Nette\Security\IAuthorizator $authorizator): void
@@ -17,7 +14,7 @@ trait TSecuredComponent
 	}
 
 
-	public function checkRequirements($element)
+	public function checkRequirements($element): void
 	{
 		parent::checkRequirements($element);
 

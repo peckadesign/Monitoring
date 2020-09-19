@@ -5,17 +5,15 @@ namespace Pd\Monitoring\Check\Consumers;
 class CertificateCheck extends Check
 {
 
-	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 
 	public function __construct(
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Monolog\Logger $logger
-	) {
+	)
+	{
 		parent::__construct($checksRepository, $dateTimeProvider, $logger);
 
 		$this->dateTimeProvider = $dateTimeProvider;
@@ -28,7 +26,8 @@ class CertificateCheck extends Check
 	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		\set_error_handler(function ($code, $message) {
+		\set_error_handler(static function ($code, $message)
+		{
 			\restore_error_handler();
 			throw new \Pd\Monitoring\Exception($message, $code);
 		}, \E_ALL);
@@ -95,4 +94,5 @@ class CertificateCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_CERTIFICATE;
 	}
+
 }

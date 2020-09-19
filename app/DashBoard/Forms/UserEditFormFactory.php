@@ -9,21 +9,17 @@ class UserEditFormFactory
 	public const FIELD_ADMINISTRATOR = 'administrator';
 	public const FIELD_SLACK_ID = 'slackId';
 
-	/**
-	 * @var Factory
-	 */
-	private $factory;
 
-	/**
-	 * @var \Nette\Security\User
-	 */
-	private $user;
+	private Factory $factory;
+
+	private \Nette\Security\User $user;
 
 
 	public function __construct(
 		Factory $factory,
 		\Nette\Security\User $user
-	) {
+	)
+	{
 		$this->factory = $factory;
 		$this->user = $user;
 	}

@@ -7,6 +7,7 @@ class ErrorsCheck extends Check
 
 	private const TIMEOUT = 20;
 
+
 	/**
 	 * @param \Pd\Monitoring\Check\ErrorsCheck $check
 	 */
@@ -47,6 +48,7 @@ class ErrorsCheck extends Check
 				$size = \strlen($errorsJson);
 				if ($size > 65500) {
 					$this->logError($check, \sprintf('Json je příliš velký: %s bytes', $size));
+
 					return FALSE;
 				}
 
@@ -68,4 +70,5 @@ class ErrorsCheck extends Check
 	{
 		return \Pd\Monitoring\Check\ICheck::TYPE_ERRORS;
 	}
+
 }

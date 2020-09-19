@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    build: .
+    image: peckadesign/php:7.4
     volumes:
       - ./.docker/web/:/etc/apache2/sites-enabled
       - ./:/var/www/html
@@ -12,13 +12,13 @@ services:
       - .env
 
   composer:
-    image: monitoring_web
+    image: peckadesign/php:7.4
     volumes:
     - ./:/var/www/html
     command: composer install
 
   database:
-    image: mariadb:latest
+    image: mariadb:10.5
     volumes:
       - database:/var/lib/mysql
     environment:

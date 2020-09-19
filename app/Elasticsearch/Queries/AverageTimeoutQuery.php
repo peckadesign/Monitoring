@@ -5,10 +5,7 @@ namespace Pd\Monitoring\Elasticsearch\Queries;
 final class AverageTimeoutQuery
 {
 
-	/**
-	 * @var \Elasticsearch\Client
-	 */
-	private $elasticsearchClient;
+	private \Elasticsearch\Client $elasticsearchClient;
 
 
 	public function __construct(\Elasticsearch\Client $elasticsearchClient)

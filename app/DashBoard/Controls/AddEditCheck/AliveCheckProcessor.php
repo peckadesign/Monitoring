@@ -12,7 +12,7 @@ class AliveCheckProcessor implements \Pd\Monitoring\DashBoard\Controls\AddEditCh
 	}
 
 
-	public function getCheck() : \Pd\Monitoring\Check\Check
+	public function getCheck(): \Pd\Monitoring\Check\Check
 	{
 		return new \Pd\Monitoring\Check\AliveCheck();
 	}

@@ -5,21 +5,16 @@ namespace Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs;
 class Tab
 {
 
-	/**
-	 * @var string
-	 */
-	private $title;
+	private string $title;
 
-	/**
-	 * @var int
-	 */
-	private $status;
+	private int $status;
 
 
 	public function __construct(
 		string $title,
 		int $status
-	) {
+	)
+	{
 		$this->title = $title;
 		$this->status = $status;
 	}

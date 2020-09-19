@@ -7,35 +7,18 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 
 	use \Pd\Monitoring\Commands\TNamedCommand;
 
-	/**
-	 * @var \Pd\Monitoring\Check\ChecksRepository
-	 */
-	private $checksRepository;
 
-	/**
-	 * @var \Nette\Application\LinkGenerator
-	 */
-	private $linkGenerator;
+	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
-	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Nette\Application\LinkGenerator $linkGenerator;
 
-	/**
-	 * @var \Pd\Monitoring\Check\SlackNotifyLocksRepository
-	 */
-	private $slackNotifyLocksRepository;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
-	/**
-	 * @var \Pd\Monitoring\Slack\Notifier
-	 */
-	private $slackNotifier;
+	private \Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository;
 
-	/**
-	 * @var \Pd\Monitoring\Project\ProjectsRepository
-	 */
-	private $projectsRepository;
+	private \Pd\Monitoring\Slack\Notifier $slackNotifier;
+
+	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
 
 	public function __construct(
@@ -43,9 +26,10 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Nette\Application\LinkGenerator $linkGenerator,
-		\Kdyby\Clock\IDateTimeProvider $dateTimeProvider,
+		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider,
 		\Pd\Monitoring\Check\SlackNotifyLocksRepository $slackNotifyLocksRepository
-	) {
+	)
+	{
 		parent::__construct();
 
 		$this->checksRepository = $checksRepository;
@@ -68,7 +52,8 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	protected function execute(
 		\Symfony\Component\Console\Input\InputInterface $input,
 		\Symfony\Component\Console\Output\OutputInterface $output
-	) {
+	)
+	{
 		$options = [
 			'paused' => FALSE,
 			'this->project->maintenance' => NULL,
@@ -221,19 +206,20 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 
 	private function notifiyCheck(\Pd\Monitoring\Check\Check $check, bool $referenceWarning, \Pd\Monitoring\User\User $user, string $referenceCheckWarning, string $projectReferenceCheckWarning, string $message, string $color, array $buttons)
 	{
-		if (($slackId = $user->slackId)) {
+		$slackId = $user->slackId;
+		if ($slackId) {
 			if ($referenceWarning && $check->project->reference) {
-				$this->slackNotifier->notify($user->slackId, $referenceCheckWarning, 'warning', []);
+				$this->slackNotifier->notify($slackId, $referenceCheckWarning, 'warning', []);
 			}
 			if ($referenceWarning && $check->reference) {
 				$this->slackNotifier->notify(
-					$user->slackId,
+					$slackId,
 					$projectReferenceCheckWarning,
 					'warning',
 					[]
 				);
 			}
-			$this->slackNotifier->notify($user->slackId, $message, $color, $buttons);
+			$this->slackNotifier->notify($slackId, $message, $color, $buttons);
 		}
 	}
 

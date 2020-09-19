@@ -5,27 +5,25 @@ namespace Pd\Monitoring\Github;
 final class ProviderFactory
 {
 
-	/**
-	 * @var string
-	 */
-	private $clientId;
+	private string $clientId;
+
+	private string $clientSecret;
 
 	/**
-	 * @var string
+	 * @var array<string>
 	 */
-	private $clientSecret;
+	private array $scope;
+
 
 	/**
-	 * @var array
+	 * @param array<string> $scope
 	 */
-	private $scope;
-
-
 	public function __construct(
 		string $clientId,
 		string $clientSecret,
 		array $scope
-	) {
+	)
+	{
 		$this->clientId = $clientId;
 		$this->clientSecret = $clientSecret;
 		$this->scope = $scope;

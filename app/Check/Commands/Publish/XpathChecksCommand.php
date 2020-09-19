@@ -15,4 +15,5 @@ final class XpathChecksCommand extends PublishChecksCommand
 			'siteMap' => FALSE,
 		];
 	}
+
 }

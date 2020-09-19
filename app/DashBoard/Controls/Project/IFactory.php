@@ -4,7 +4,11 @@ namespace Pd\Monitoring\DashBoard\Controls\Project;
 
 interface IFactory
 {
-	public function create(\Pd\Monitoring\Project\Project $project,
-						   \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject = NULL,
-						   \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications = NULL) : Control;
+
+	public function create(
+		\Pd\Monitoring\Project\Project $project,
+		?\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject $favoriteProject = NULL,
+		?\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications $slackNotifications = NULL
+	): Control;
+
 }

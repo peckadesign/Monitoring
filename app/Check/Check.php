@@ -25,13 +25,10 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 	ICheck
 {
 
-	/**
-	 * @var \Kdyby\Clock\IDateTimeProvider
-	 */
-	private $dateTimeProvider;
+	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 
-	public function injectBaseDateTimeProvider(\Kdyby\Clock\IDateTimeProvider $dateTimeProvider): void
+	public function injectBaseDateTimeProvider(\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider): void
 	{
 		$this->dateTimeProvider = $dateTimeProvider;
 	}

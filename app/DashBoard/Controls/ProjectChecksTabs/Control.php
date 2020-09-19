@@ -5,32 +5,27 @@ namespace Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs;
 final class Control extends \Nette\Application\UI\Control
 {
 
-	/**
-	 * @var \Pd\Monitoring\Project\Project
-	 */
-	private $project;
+	private \Pd\Monitoring\Project\Project $project;
 
-	/**
-	 * @var int
-	 */
-	private $type;
+	private int $type;
 
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
 		int $type
-	) {
-		parent::__construct();
+	)
+	{
 		$this->project = $project;
 		$this->type = $type;
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): \Nette\Application\UI\ITemplate
 	{
 		$template = parent::createTemplate();
 
-		$template->addFilter('tabColor', function (Tab $tab) {
+		$template->addFilter('tabColor', static function (Tab $tab)
+		{
 			switch ($tab->getStatus()) {
 				case \Pd\Monitoring\Check\ICheck::STATUS_OK:
 					return 'bg-success';

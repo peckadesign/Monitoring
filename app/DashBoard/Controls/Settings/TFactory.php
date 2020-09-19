@@ -5,10 +5,7 @@ namespace Pd\Monitoring\DashBoard\Controls\Settings;
 trait TFactory
 {
 
-	/**
-	 * @var IFactory
-	 */
-	private $settingsControlFactory;
+	private IFactory $settingsControlFactory;
 
 
 	public function injectSettingsControlFactory(IFactory $factory): void

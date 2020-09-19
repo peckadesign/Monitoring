@@ -4,7 +4,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$configurator = new Nette\Configurator;
+$configurator = new Nette\Configurator();
 
 if (\PHP_SAPI === 'cli') {
 	Kdyby\Console\DI\BootstrapHelper::setupMode($configurator);

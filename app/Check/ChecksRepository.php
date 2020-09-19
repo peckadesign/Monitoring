@@ -28,6 +28,7 @@ class ChecksRepository extends \Nextras\Orm\Repository\Repository
 		];
 	}
 
+
 	public function getEntityClassName(array $data): string
 	{
 		if ( ! isset($data['type'])) {
@@ -60,4 +61,5 @@ class ChecksRepository extends \Nextras\Orm\Repository\Repository
 			}
 		}
 	}
+
 }

@@ -52,11 +52,9 @@ class RabbitConsumerCheckProcessor implements ICheckControlProcessor
 			->setOption('description', 'Odkaz na webovou administraci RabbitMQ')
 		;
 		$form
-			->addText('login', 'HTTP login k URL')
-		;
+			->addText('login', 'HTTP login k URL');
 		$form
-			->addPassword('password', 'HTTP heslo k URL')
-		;
+			->addPassword('password', 'HTTP heslo k URL');
 		$form
 			->addCheckbox('validateHttps', 'Validovat HTTPS certifikát')
 			->setDefaultValue(TRUE)

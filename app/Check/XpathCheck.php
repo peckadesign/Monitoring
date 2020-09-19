@@ -38,11 +38,11 @@ final class XpathCheck extends Check
 		$return = FALSE;
 
 		if ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_MATCH) {
-			$return = $this->xpathLastResult == $this->xpathResult;
+			$return = $this->xpathLastResult === $this->xpathResult;
 		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_LT) {
 			$return = $this->xpathLastResult < $this->xpathResult;
 		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_EQ) {
-			$return = $this->xpathLastResult == $this->xpathResult;
+			$return = $this->xpathLastResult === $this->xpathResult;
 		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_GT) {
 			$return = $this->xpathLastResult > $this->xpathResult;
 		}
@@ -67,6 +67,8 @@ final class XpathCheck extends Check
 			$return = 'má být roven';
 		} elseif ($this->operator === \Pd\Monitoring\Check\XpathCheck::OPERATOR_GT) {
 			$return = 'mát být větší než';
+		} else {
+			throw new \RuntimeException('Neočekávaná kombinace operátorů');
 		}
 
 		return \sprintf("Očekávaný výsledek '%s %s' a je '%s'", $return, $this->xpathResult, $this->xpathLastResult);

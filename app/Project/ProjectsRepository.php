@@ -18,4 +18,5 @@ class ProjectsRepository extends \Nextras\Orm\Repository\Repository
 			Project::class,
 		];
 	}
+
 }

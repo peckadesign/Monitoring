@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": "> 7.1.0",
+		"php": "7.4.*",
 		"ext-mbstring": "*",
 		"ext-bcmath": "*",
 		"ext-zip": "*",
@@ -18,34 +18,34 @@
 		"ext-mysqli": "*",
 		"ext-xml": "*",
 		"ext-json": "*",
-		"nette/application": "2.4.*",
-		"nette/forms": "2.4.*",
-		"nette/bootstrap": "2.4.*",
-		"nette/security": "2.4.*",
-		"nette/utils": "2.5.*",
-		"latte/latte": "2.4.*",
-		"tracy/tracy": "2.6.*",
-		"nextras/orm": "3.0.*",
+		"nette/application": "3.0.*",
+		"nette/forms": "3.0.*",
+		"nette/bootstrap": "3.0.*",
+		"nette/security": "3.0.*",
+		"nette/utils": "3.1.*",
+		"latte/latte": "2.8.*",
+		"tracy/tracy": "2.7.*",
+		"nextras/orm": "3.1.*",
 		"nextras/migrations": "3.0.*",
-		"kdyby/console": "2.7.*",
-		"guzzlehttp/guzzle": "6.3.*",
+		"kdyby/console": "2.8.*@dev",
+		"guzzlehttp/guzzle": "7.0.*",
 		"league/oauth2-github": "2.0.*",
-		"kdyby/clock": "1.0.*",
-		"kdyby/rabbitmq": "1.2.*",
-		"nette/mail": "2.4.*",
-		"nextras/forms": "2.0.*",
-		"ublaboo/datagrid": "5.7.*",
+		"kdyby/rabbitmq": "dev-upgrade-nette@dev",
+		"nette/mail": "3.1.*",
+		"nextras/form-components": "1.0.*",
+		"nextras/forms-rendering": "1.0.*",
+		"ublaboo/datagrid": "6.2.*",
 		"atrox/matcher": "^1.1",
-		"elasticsearch/elasticsearch": "6.1.*",
-		"pd/monolog-module": "2.0.*",
-		"monolog/monolog": "@beta",
-		"ublaboo/datagrid-elasticsearch-data-source": "dev-es7"
+		"elasticsearch/elasticsearch": "7.9.*",
+		"pd/monolog-module": "5.0.*",
+		"monolog/monolog": "2.1.*",
+		"ublaboo/datagrid-elasticsearch-data-source": "2.1.*"
 	},
 	"require-dev": {
-		"pd/coding-standard": "1.13.*",
-		"phpstan/phpstan": "0.9.*",
-		"phpstan/phpstan-strict-rules": "0.9.*",
-		"phpstan/phpstan-nette": "0.9.*"
+		"pd/coding-standard": "1.27.*",
+		"phpstan/phpstan": "0.12.*",
+		"phpstan/phpstan-strict-rules": "0.12.*",
+		"phpstan/phpstan-nette": "0.12.*"
 	},
 	"minimum-stability": "stable",
 	"autoload": {
@@ -56,7 +56,7 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/peckadesign/datagrid-elasticsearch-data-source.git"
+			"url": "https://github.com/VBoss/RabbitMQ"
 		}
 	]
 }
