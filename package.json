@@ -1,7 +1,0 @@
-{
-	"name": "monitoring",
-	"private": true,
-	"dependencies": {
-		"gulp": "4.0.*"
-	}
-}
