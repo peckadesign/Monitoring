@@ -11,7 +11,7 @@ class Control extends \Nette\Application\UI\Control
 
 	protected \Pd\Monitoring\Project\Project $project;
 
-	protected \Pd\Monitoring\Check\Check $check;
+	protected ?\Pd\Monitoring\Check\Check $check;
 
 	protected ICheckControlProcessor $checkControlProcessor;
 
