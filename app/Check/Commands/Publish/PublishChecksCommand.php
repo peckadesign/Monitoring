@@ -15,6 +15,7 @@ abstract class PublishChecksCommand extends \Symfony\Component\Console\Command\C
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository
 	)
 	{
+		parent::__construct();
 		$this->producer = $producer;
 		$this->checksRepository = $checksRepository;
 	}
