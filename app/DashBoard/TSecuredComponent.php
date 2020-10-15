@@ -37,7 +37,7 @@ trait TSecuredComponent
 			if ( ! $user->isAllowed($resource, $privilege)) {
 				$message = \sprintf(
 					"Uživatel '%s' nemá oprávnění pro zdroj '%s'",
-					$user->gitHubName,
+					$user->getIdentity()->gitHubName,
 					$resource
 				);
 				throw new \Nette\Application\ForbiddenRequestException($message);
