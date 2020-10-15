@@ -78,7 +78,7 @@ final class CheckPresenter extends BasePresenter
 
 
 	/**
-	 * @Acl(check, edit)
+	 * @Acl(check, view)
 	 */
 	public function actionLogView(\Pd\Monitoring\Check\Check $check): void
 	{
