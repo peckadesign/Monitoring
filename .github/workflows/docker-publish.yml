@@ -21,8 +21,8 @@ jobs:
 
       - name: Composer
         run: |
-          composer validate
-          composer install --prefer-dist --no-progress --no-suggest
+          docker run -i --rm -v ${{ github.workspace }}:/var/www --workdir /var/www peckadesign/php:7.4-dev composer validate
+          docker run -i --rm -v ${{ github.workspace }}:/var/www --workdir /var/www peckadesign/php:7.4-dev composer install --prefer-dist --no-progress --no-suggest
 
       - name: Assets
         run: |
