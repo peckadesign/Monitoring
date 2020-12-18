@@ -15,7 +15,7 @@ dbal:
         connectionTz: '+02:00'
 
 console:
-	url: http://monitoring.peckadesign.com.test
+	url: %env.monitoring_url%
 
 parameters:
 	slack:
