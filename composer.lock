@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b008ec66bf296d65aa050d5a4a52bfe",
+    "content-hash": "60cc8f26a6489877f61038c513a7c8ba",
     "packages": [
         {
             "name": "atrox/matcher",
@@ -516,16 +516,16 @@
         },
         {
             "name": "kdyby/console",
-            "version": "dev-master",
+            "version": "dev-pr/request-factory-from-globals",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Kdyby/Console.git",
-                "reference": "533e69593b01093854ab78ef99f174ab7e2236ee"
+                "url": "https://github.com/KuceraMartin/Console.git",
+                "reference": "35abe05a4e4f446143db606571b44269c55be5e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Console/zipball/533e69593b01093854ab78ef99f174ab7e2236ee",
-                "reference": "533e69593b01093854ab78ef99f174ab7e2236ee",
+                "url": "https://api.github.com/repos/KuceraMartin/Console/zipball/35abe05a4e4f446143db606571b44269c55be5e5",
+                "reference": "35abe05a4e4f446143db606571b44269c55be5e5",
                 "shasum": ""
             },
             "require": {
@@ -553,7 +553,6 @@
             "suggest": {
                 "nette/http": "For faking the url of the request in cli"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -568,7 +567,14 @@
                     "src/CliPresenter.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "KdybyTests\\": "tests/KdybyTests/"
+                },
+                "classmap": [
+                    "tests/KdybyTests/"
+                ]
+            },
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
@@ -577,8 +583,8 @@
             "authors": [
                 {
                     "name": "Filip Procházka",
-                    "email": "filip@prochazka.su",
-                    "homepage": "http://filip-prochazka.com"
+                    "homepage": "http://filip-prochazka.com",
+                    "email": "filip@prochazka.su"
                 }
             ],
             "description": "Symfony Console integration for Kdyby components",
@@ -591,9 +597,9 @@
             "support": {
                 "email": "filip@prochazka.su",
                 "issues": "https://github.com/kdyby/console/issues",
-                "source": "https://github.com/Kdyby/Console/tree/master"
+                "source": "https://github.com/KuceraMartin/Console/tree/master"
             },
-            "time": "2019-09-30T10:43:28+00:00"
+            "time": "2020-12-02T21:56:54+00:00"
         },
         {
             "name": "kdyby/rabbitmq",
