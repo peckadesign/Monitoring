@@ -13,8 +13,30 @@ on:
       - 'v*.*.*'
 
 jobs:
+  buildAndTest:
+    runs-on: ubuntu-latest
+    container: peckadesign/php:7.4-dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Composer
+        run: |
+          composer validate
+          composer install --prefer-dist
+
+      - name: Coding Standard
+        run: |
+          vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandard/ruleset.xml
+          vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandardStrict/ruleset.xml
+
+      - name: PHPStan
+        run: |
+          vendor/bin/phpstan analyse app/ --level 1 -c phpstan.neon --no-progress --error-format github
+
   docker:
     runs-on: ubuntu-latest
+    needs: [buildAndTest]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,7 +44,7 @@ jobs:
       - name: Composer
         run: |
           docker run -i --rm -v ${{ github.workspace }}:/var/www --workdir /var/www peckadesign/php:7.4-dev composer validate
-          docker run -i --rm -v ${{ github.workspace }}:/var/www --workdir /var/www peckadesign/php:7.4-dev composer install --prefer-dist --no-progress --no-suggest
+          docker run -i --rm -v ${{ github.workspace }}:/var/www --workdir /var/www peckadesign/php:7.4-dev composer install --no-dev --prefer-dist
 
       - name: Assets
         run: |
