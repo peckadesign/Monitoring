@@ -76,7 +76,14 @@ class AliveCheck extends Check
 		$start = (float) \microtime(TRUE);
 		$this->logInfo($check, \sprintf('Začínám stahovat url "%s"', $url));
 
-		$response = $client->request('GET', $url, $options);
+		try {
+			$response = $client->request('GET', $url, $options);
+		} catch (\GuzzleHttp\Exception\GuzzleException $e) {
+			$this->logError($check, $e->getMessage());
+
+			return FALSE;
+		}
+
 		$duration = (\microtime(TRUE) - $start) * 1000;
 
 		$this->logHeaders($check, $response);
