@@ -27,7 +27,7 @@
 		"tracy/tracy": "2.7.*",
 		"nextras/orm": "3.1.*",
 		"nextras/migrations": "3.0.*",
-		"kdyby/console": "dev-pr/request-factory-from-globals",
+		"kdyby/console": "2.8.*",
 		"guzzlehttp/guzzle": "7.0.*",
 		"league/oauth2-github": "2.0.*",
 		"kdyby/rabbitmq": "dev-upgrade-nette@dev",
@@ -57,10 +57,6 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/VBoss/RabbitMQ"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/KuceraMartin/Console"
 		}
 	]
 }
