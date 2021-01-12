@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60cc8f26a6489877f61038c513a7c8ba",
+    "content-hash": "fa7e88e62f1f275fd4b08612539cf493",
     "packages": [
         {
             "name": "atrox/matcher",
@@ -516,16 +516,16 @@
         },
         {
             "name": "kdyby/console",
-            "version": "dev-pr/request-factory-from-globals",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/KuceraMartin/Console.git",
-                "reference": "35abe05a4e4f446143db606571b44269c55be5e5"
+                "url": "https://github.com/Kdyby/Console.git",
+                "reference": "29cbb003d8e84ebc229fb9188d48146d7644c960"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KuceraMartin/Console/zipball/35abe05a4e4f446143db606571b44269c55be5e5",
-                "reference": "35abe05a4e4f446143db606571b44269c55be5e5",
+                "url": "https://api.github.com/repos/Kdyby/Console/zipball/29cbb003d8e84ebc229fb9188d48146d7644c960",
+                "reference": "29cbb003d8e84ebc229fb9188d48146d7644c960",
                 "shasum": ""
             },
             "require": {
@@ -540,7 +540,7 @@
                 "jakub-onderka/php-parallel-lint": "^1.0",
                 "kdyby/coding-standard": "dev-master",
                 "kdyby/events": "^3.2@dev",
-                "nette/application": "^3.0",
+                "nette/application": "3.0.*",
                 "nette/bootstrap": "^2.4.5 || ^3.0",
                 "nette/caching": "^2.5 || ^3.0",
                 "nette/http": "^3.0",
@@ -567,14 +567,7 @@
                     "src/CliPresenter.php"
                 ]
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "KdybyTests\\": "tests/KdybyTests/"
-                },
-                "classmap": [
-                    "tests/KdybyTests/"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause",
                 "GPL-2.0",
@@ -583,8 +576,8 @@
             "authors": [
                 {
                     "name": "Filip Procházka",
-                    "homepage": "http://filip-prochazka.com",
-                    "email": "filip@prochazka.su"
+                    "email": "filip@prochazka.su",
+                    "homepage": "http://filip-prochazka.com"
                 }
             ],
             "description": "Symfony Console integration for Kdyby components",
@@ -597,9 +590,9 @@
             "support": {
                 "email": "filip@prochazka.su",
                 "issues": "https://github.com/kdyby/console/issues",
-                "source": "https://github.com/KuceraMartin/Console/tree/master"
+                "source": "https://github.com/Kdyby/Console/tree/v2.8.0"
             },
-            "time": "2020-12-02T21:56:54+00:00"
+            "time": "2021-01-11T23:55:27+00:00"
         },
         {
             "name": "kdyby/rabbitmq",
@@ -4694,7 +4687,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kdyby/console": 20,
         "kdyby/rabbitmq": 20
     },
     "prefer-stable": false,
