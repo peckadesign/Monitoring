@@ -59,6 +59,20 @@ class RabbitConsumerCheckProcessor implements ICheckControlProcessor
 			->addCheckbox('validateHttps', 'Validovat HTTPS certifikát')
 			->setDefaultValue(TRUE)
 		;
+
+		/**
+		 * @param array<mixed> $values
+		 */
+		$form->onValidate[] = static function (\Nette\Application\UI\Form $form, array $values): void
+		{
+			$queues = \count(\explode(',', $values['queues']));
+			$minimumConsumerCount = \count(\explode(',', $values['minimumConsumerCount']));
+			if ($queues !== $minimumConsumerCount) {
+				$form->addError('Pro každou frontu musí být zadán minimální počet consumerů');
+				$form['queues']->addError('Počet prvků: ' . $queues);
+				$form['minimumConsumerCount']->addError('Počet prvků: ' . $minimumConsumerCount);
+			}
+		};
 	}
 
 }
