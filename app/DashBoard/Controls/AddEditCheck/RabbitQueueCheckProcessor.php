@@ -59,6 +59,20 @@ class RabbitQueueCheckProcessor implements ICheckControlProcessor
 			->addCheckbox('validateHttps', 'Validovat HTTPS certifikát')
 			->setDefaultValue(TRUE)
 		;
+
+		/**
+		 * @param array<mixed> $values
+		 */
+		$form->onValidate[] = static function (\Nette\Application\UI\Form $form, array $values): void
+		{
+			$queues = \count(\explode(',', $values['queues']));
+			$maximumMessageCount = \count(\explode(',', $values['maximumMessageCount']));
+			if ($queues !== $maximumMessageCount) {
+				$form->addError('Pro každou frontu musí být zadán maximální počet zpráv ve frontě');
+				$form['queues']->addError('Počet prvků: ' . $queues);
+				$form['maximumMessageCount']->addError('Počet prvků: ' . $maximumMessageCount);
+			}
+		};
 	}
 
 }
