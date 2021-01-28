@@ -12,7 +12,7 @@ class ProjectPresenter extends BasePresenter
 
 	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
-	private \Pd\Monitoring\Project\Project $project;
+	private ?\Pd\Monitoring\Project\Project $project = NULL;
 
 	private \Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory;
 
