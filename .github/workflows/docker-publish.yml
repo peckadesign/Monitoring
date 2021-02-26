@@ -30,9 +30,9 @@ jobs:
           vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandard/ruleset.xml
           vendor/bin/phpcs app/ --standard=vendor/pd/coding-standard/src/PeckaCodingStandardStrict/ruleset.xml
 
-      - name: PHPStan
-        run: |
-          vendor/bin/phpstan analyse app/ --level 1 -c phpstan.neon --no-progress --error-format github
+#      - name: PHPStan
+#        run: |
+#          vendor/bin/phpstan analyse app/ --level 1 -c phpstan.neon --no-progress --error-format github
 
   docker:
     runs-on: ubuntu-latest
