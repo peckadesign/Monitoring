@@ -48,14 +48,16 @@ class RouterFactory
 
 						$fb = static function (&$dp): array
 						{
-							$octodexFeedContent = \file_get_contents('https://feeds.feedburner.com/Octocats');
+							$octodexFeedContent = \file_get_contents('https://octodex.github.com/atom.xml');
 							$octodexFeed = new \SimpleXMLElement($octodexFeedContent);
 							$octocats = [];
 							foreach ($octodexFeed->entry as $entry) {
-								$imageUrl = (string) $entry->content->div->a->img['src'];
-								if (\Nette\Utils\Validators::isUrl($imageUrl)) {
-									$octocat = \substr($imageUrl, \strrpos($imageUrl, '/') + 1);
-									$octocats[] = $octocat;
+								$matched = \preg_match('~src="([^"]+)"~', (string) $entry->content, $matches);
+								if ( ! $matched) {
+									continue;
+								}
+								if (\Nette\Utils\Validators::isUrl($matches[1])) {
+									$octocats[] = \basename($matches[1]);
 								}
 							}
 
