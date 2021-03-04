@@ -47,7 +47,7 @@ class NumberValueCheck extends Check
 
 				return TRUE;
 			}
-		} catch (\GuzzleHttp\Exception\RequestException $e) {
+		} catch (\GuzzleHttp\Exception\GuzzleException $e) {
 			$this->logError($check, $e->getMessage());
 
 			return FALSE;
