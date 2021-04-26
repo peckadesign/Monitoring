@@ -9,6 +9,9 @@ namespace Pd\Monitoring\User;
  * @property string $gitHubToken
  * @property bool $administrator
  * @property string|null $slackId
+ * @property string|null $password
+ * @property string|null $authtoken
+ * @property string|null $email
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$user}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[] $userProjectNotifications {1:m \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications::$user}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserCheckNotifications\UserCheckNotifications[] $userCheckNotifications {1:m \Pd\Monitoring\UserCheckNotifications\UserCheckNotifications::$user}
@@ -24,7 +27,7 @@ class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdenti
 
 	public function getRoles(): array
 	{
-		$roles = ['user'];
+		$roles = ['user', 'user' . $this->id];
 
 		if ($this->administrator) {
 			$roles[] = 'administrator';

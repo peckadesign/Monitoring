@@ -8,6 +8,8 @@ class UserEditFormFactory
 	public const FIELD_GIT_HUB_NAME = 'gitHubName';
 	public const FIELD_ADMINISTRATOR = 'administrator';
 	public const FIELD_SLACK_ID = 'slackId';
+	public const FIELD_EMAIL = 'email';
+	public const FIELD_PASSWORD = 'password';
 
 
 	private Factory $factory;
@@ -40,6 +42,18 @@ class UserEditFormFactory
 
 		if ($this->user->isAllowed('user', 'edit')) {
 			$form->addCheckbox(self::FIELD_ADMINISTRATOR, 'Administrátor');
+		}
+
+		$form
+			->addEmail(self::FIELD_EMAIL, 'E-mail')
+			->setRequired(TRUE)
+		;
+
+		if ($this->user->isAllowed('password' . $this->user->getId(), 'edit')) {
+			$form
+				->addPassword(self::FIELD_PASSWORD, 'Heslo')
+				->setNullable()
+			;
 		}
 
 		$form->addSubmit('save', 'Uložit');

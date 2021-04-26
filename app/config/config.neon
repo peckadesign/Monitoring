@@ -49,6 +49,12 @@ latte:
         - \Nextras\FormsRendering\LatteMacros\Bs3InputMacros::install
 
 
+security:
+	authentication:
+		storage: cookie
+		expiration: "+365 days"
+
+
 rabbitmq:
 	connection:
 #		host: %rabbitmq.host%
@@ -432,6 +438,12 @@ services:
 	-
 		class: \Pd\Monitoring\Utils\IDateTimeProvider
 		factory: \Pd\Monitoring\Utils\CurrentDateTimeProvider
+
+	-
+		factory: \Pd\Monitoring\DashBoard\Forms\LoginFormFactory
+
+	-
+		factory: \Pd\Monitoring\User\Authenticator
 
 
 decorator:

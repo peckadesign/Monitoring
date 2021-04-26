@@ -13,18 +13,22 @@ class Control extends \Nette\Application\UI\Control
 
 	private \Nette\Security\User $user;
 
+	private \Nette\Security\Passwords $passwords;
+
 
 	public function __construct(
 		\Pd\Monitoring\User\User $identity,
 		\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory $userEditFormFactory,
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
-		\Nette\Security\User $user
+		\Nette\Security\User $user,
+		\Nette\Security\Passwords $passwords
 	)
 	{
 		$this->identity = $identity;
 		$this->userEditFormFactory = $userEditFormFactory;
 		$this->usersRepository = $usersRepository;
 		$this->user = $user;
+		$this->passwords = $passwords;
 
 		$this->onAnchor[] = function (\Nette\Application\UI\Control $control): void
 		{
@@ -57,6 +61,11 @@ class Control extends \Nette\Application\UI\Control
 	{
 		$this->identity->gitHubName = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_GIT_HUB_NAME];
 		$this->identity->slackId = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_SLACK_ID];
+		$this->identity->email = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_EMAIL];
+
+		if ($values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_PASSWORD] !== NULL) {
+			$this->identity->password = $this->passwords->hash($values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_PASSWORD]);
+		}
 
 		if (
 			$this->user->isAllowed('user', 'edit')
