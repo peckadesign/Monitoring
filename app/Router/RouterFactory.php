@@ -2,13 +2,8 @@
 
 namespace Pd\Monitoring\Router;
 
-class RouterFactory
+final class RouterFactory
 {
-
-	use \Nette\SmartObject;
-
-
-	private \Nette\Caching\IStorage $storage;
 
 	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
@@ -18,68 +13,20 @@ class RouterFactory
 
 
 	public function __construct(
-		\Nette\Caching\IStorage $storage,
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\User\UsersRepository $usersRepository
 	)
 	{
-		$this->storage = $storage;
 		$this->projectsRepository = $projectsRepository;
 		$this->checksRepository = $checksRepository;
 		$this->usersRepository = $usersRepository;
 	}
 
 
-	public function createRouter(): \Nette\Application\IRouter
+	public function createRouter(): \Nette\Routing\Router
 	{
 		$router = new \Nette\Application\Routers\RouteList();
-
-		$metadata = [
-			'module' => 'DashBoard',
-			'presenter' => 'Octocats',
-			'action' => 'default',
-			NULL => [
-				\Nette\Application\Routers\Route::FILTER_OUT => function (array $parameters)
-				{
-					if ($parameters['presenter'] === 'Octocats' && $parameters['action'] === 'random') {
-
-						$cache = new \Nette\Caching\Cache($this->storage);
-
-						$fb = static function (&$dp): array
-						{
-							$octodexFeedContent = \file_get_contents('https://octodex.github.com/atom.xml');
-							$octodexFeed = new \SimpleXMLElement($octodexFeedContent);
-							$octocats = [];
-							foreach ($octodexFeed->entry as $entry) {
-								$matched = \preg_match('~src="([^"]+)"~', (string) $entry->content, $matches);
-								if ( ! $matched) {
-									continue;
-								}
-								if (\Nette\Utils\Validators::isUrl($matches[1])) {
-									$octocats[] = \basename($matches[1]);
-								}
-							}
-
-							$dp[\Nette\Caching\Cache::EXPIRE] = '+24 hours';
-
-							return $octocats;
-						};
-
-						$octocats = $cache->load('octocats', $fb);
-
-						\shuffle($octocats);
-						$octocat = \reset($octocats);
-
-						$parameters = [];
-						$parameters['octocat'] = $octocat;
-					}
-
-					return $parameters;
-				},
-			],
-		];
-		$router[] = new \Nette\Application\Routers\Route('https://octodex.github.com/images/<octocat [a-z0-9\.\-]+>', $metadata);
 
 		$metadata = [
 			'module' => 'DashBoard',
