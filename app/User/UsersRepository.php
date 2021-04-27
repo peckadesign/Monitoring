@@ -3,8 +3,8 @@
 namespace Pd\Monitoring\User;
 
 /**
- * @method User getById(int $id)
- * @method User getBy(array $conds)
+ * @method User|null getById(int $id)
+ * @method User|null getBy(array $conds)
  */
 class UsersRepository extends \Nextras\Orm\Repository\Repository
 {
