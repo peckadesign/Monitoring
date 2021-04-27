@@ -48,7 +48,11 @@ class Control extends \Nette\Application\UI\Control
 	{
 		$form = $this->userEditFormFactory->create();
 
-		$form->onSuccess[] = function (\Nette\Forms\Form $form, array $values)
+		if (!$this->user->isAllowed($this->identity, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
+			$form->removeComponent($form->getComponent(\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_PASSWORD));
+		}
+
+		$form->onSuccess[] = function (\Nette\Forms\Form $form, \Pd\Monitoring\DashBoard\Forms\UserEditFormData $values): void
 		{
 			$this->processEditForm($form, $values);
 		};
@@ -57,27 +61,31 @@ class Control extends \Nette\Application\UI\Control
 	}
 
 
-	protected function processEditForm(\Nette\Forms\Form $form, array $values): void
+	protected function processEditForm(\Nette\Forms\Form $form, \Pd\Monitoring\DashBoard\Forms\UserEditFormData $values): void
 	{
-		$this->identity->gitHubName = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_GIT_HUB_NAME];
-		$this->identity->slackId = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_SLACK_ID];
-		$this->identity->email = $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_EMAIL];
+		$this->identity->gitHubName = $values->gitHubName;
+		$this->identity->slackId = $values->slackId;
+		$this->identity->email = $values->email;
 
-		if ($values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_PASSWORD] !== NULL) {
-			$this->identity->password = $this->passwords->hash($values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_PASSWORD]);
+		if (
+			$this->user->isAllowed($this->identity, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)
+			&&
+			$values->password !== NULL
+		) {
+			$this->identity->password = $this->passwords->hash($values->password);
 		}
 
 		if (
-			$this->user->isAllowed('user', 'edit')
+			$this->user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_USER, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)
 			&&
-			isset($values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_ADMINISTRATOR])
+			$values->administrator !== NULL
 		) {
-			$this->identity->administrator = (bool) $values[\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_ADMINISTRATOR];
+			$this->identity->administrator = $values->administrator;
 		}
 
 		$this->usersRepository->persistAndFlush($this->identity);
 
-		if ($this->user->isAllowed('user', 'edit')) {
+		if ($this->user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_USER, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
 			$this->getPresenter()->redirect(':DashBoard:User:');
 		} else {
 			$this->getPresenter()->redirect(':DashBoard:HomePage:');

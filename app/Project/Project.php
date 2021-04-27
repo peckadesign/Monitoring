@@ -17,7 +17,7 @@ namespace Pd\Monitoring\Project;
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$project}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[] $userProjectNotifications {1:m \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications::$project}
  */
-class Project extends \Nextras\Orm\Entity\Entity
+class Project extends \Nextras\Orm\Entity\Entity implements \Nette\Security\Resource
 {
 
 	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
@@ -32,6 +32,12 @@ class Project extends \Nextras\Orm\Entity\Entity
 	public function isPaused(): bool
 	{
 		return \Pd\Monitoring\Utils\Helpers::isInTimeInterval($this->dateTimeProvider->getDateTime(), $this->pausedFrom, $this->pausedTo);
+	}
+
+
+	public function getResourceId(): string
+	{
+		return 'project' . $this->id;
 	}
 
 }

@@ -16,7 +16,7 @@ namespace Pd\Monitoring\User;
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[] $userProjectNotifications {1:m \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications::$user}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserCheckNotifications\UserCheckNotifications[] $userCheckNotifications {1:m \Pd\Monitoring\UserCheckNotifications\UserCheckNotifications::$user}
  */
-class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdentity
+class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdentity, \Nette\Security\Role, \Nette\Security\Resource
 {
 
 	public function getId(): int
@@ -27,13 +27,31 @@ class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdenti
 
 	public function getRoles(): array
 	{
-		$roles = ['user', 'user' . $this->id];
+		$roles = [\Pd\Monitoring\User\AclFactory::ROLE_USER, $this->getRoleId()];
 
 		if ($this->administrator) {
-			$roles[] = 'administrator';
+			$roles[] = \Pd\Monitoring\User\AclFactory::ROLE_ADMINISTRATOR;
 		}
 
 		return $roles;
+	}
+
+
+	public function getRoleId(): string
+	{
+		return \Pd\Monitoring\User\AclFactory::ROLE_USER . $this->id;
+	}
+
+
+	public function getResourceId(): string
+	{
+		return self::createResourceId($this->id);
+	}
+
+
+	public static function createResourceId(int $id): string
+	{
+		return \Pd\Monitoring\User\AclFactory::ROLE_USER . $id;
 	}
 
 }

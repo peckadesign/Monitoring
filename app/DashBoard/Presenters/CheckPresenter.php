@@ -37,15 +37,17 @@ final class CheckPresenter extends BasePresenter
 	}
 
 
-	/**
-	 * @Acl(check, add)
-	 */
 	public function actionAdd(int $project, int $type): void
 	{
 		$this->project = $this->projectsRepository->getById($project);
 		if ( ! $this->project) {
 			$this->error();
 		}
+
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->type = $type;
 	}
 
@@ -58,11 +60,12 @@ final class CheckPresenter extends BasePresenter
 	}
 
 
-	/**
-	 * @Acl(check, edit)
-	 */
 	public function actionEdit(\Pd\Monitoring\Check\Check $check): void
 	{
+		if ( ! $this->user->isAllowed($check, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->check = $check;
 		$this->project = $this->check->project;
 		$this->type = $this->check->type;
@@ -77,11 +80,12 @@ final class CheckPresenter extends BasePresenter
 	}
 
 
-	/**
-	 * @Acl(check, view)
-	 */
 	public function actionLogView(\Pd\Monitoring\Check\Check $check): void
 	{
+		if ( ! $this->user->isAllowed($check, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->check = $check;
 		if ( ! $this->check) {
 			$this->error();

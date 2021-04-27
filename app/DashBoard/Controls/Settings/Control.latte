@@ -1,4 +1,4 @@
-{if $user->isAllowed('user', 'edit')}
+{if $user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_USER, \Pd\Monitoring\User\AclFactory::PRIVILEGE_ADD)}
 	<a href="{plink :DashBoard:User:default}" class="glyphicon glyphicon-cog btn btn-warning navbar-btn" aria-hidden="true"></a>
 {else}
 	<a href="{plink :DashBoard:User:edit, $user->getIdentity()}" class="glyphicon glyphicon-cog btn btn-warning navbar-btn" aria-hidden="true"></a>

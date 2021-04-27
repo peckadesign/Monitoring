@@ -31,16 +31,23 @@ class UserEditFormFactory
 	{
 		$form = $this->factory->create();
 
-		$form->addText(self::FIELD_GIT_HUB_NAME, 'Jméno');
+		$form->setMappedType(UserEditFormData::class);
+
+		$form
+			->addText(self::FIELD_GIT_HUB_NAME, 'Jméno')
+			->setRequired()
+		;
+
 		$userNameDescription = 'Uživatelské ID musí začínat na @U';
 		$form
 			->addText(self::FIELD_SLACK_ID, 'Slack ID')
 			->setRequired(FALSE)
+			->setNullable()
 			->addRule(\Nette\Forms\Form::PATTERN, $userNameDescription, '@U.+')
 			->setOption('description', $userNameDescription . '. Získáte jej v aplikaci v "Profile & account" > "More actions" > "Copy member ID"')
 		;
 
-		if ($this->user->isAllowed('user', 'edit')) {
+		if ($this->user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_USER, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
 			$form->addCheckbox(self::FIELD_ADMINISTRATOR, 'Administrátor');
 		}
 
@@ -49,12 +56,10 @@ class UserEditFormFactory
 			->setRequired(TRUE)
 		;
 
-		if ($this->user->isAllowed('password' . $this->user->getId(), 'edit')) {
-			$form
-				->addPassword(self::FIELD_PASSWORD, 'Heslo')
-				->setNullable()
-			;
-		}
+		$form
+			->addPassword(self::FIELD_PASSWORD, 'Heslo')
+			->setNullable()
+		;
 
 		$form->addSubmit('save', 'Uložit');
 

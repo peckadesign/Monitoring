@@ -1,6 +1,6 @@
 <div class="buttons">
 	<div class="btn-group">
-		<div class="dropdown" n:if="$user->isAllowed('check', 'add') && ! count($project->subProjects)">
+		<div class="dropdown" n:if="$user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT) && ! count($project->subProjects)">
 			<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="hidden-xs"> Nová kontrola</span>
 				<span class="caret"></span>
@@ -12,13 +12,13 @@
 			</ul>
 		</div>
 
-		<div class="dropdown" n:if="$user->isAllowed('project', 'add') && count($project->subProjects)">
+		<div class="dropdown" n:if="$user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_PROJECT, \Pd\Monitoring\User\AclFactory::PRIVILEGE_ADD) && count($project->subProjects)">
 			<a href="{plink :DashBoard:Project:add $project->id}" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span class="hidden-xs"> Podprojekt</span></a>
 		</div>
 	</div>
 
 	<div class="btn-group">
-		<a href="{plink :DashBoard:Project:edit $project}" class="btn btn-warning" n:if="$user->isAllowed('project', 'edit')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span class="hidden-xs"> Upravit projekt</span></a>
+		<a href="{plink :DashBoard:Project:edit $project}" class="btn btn-warning" n:if="$user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span class="hidden-xs"> Upravit projekt</span></a>
 	</div>
 
 	<div class="btn-group">
@@ -26,6 +26,6 @@
 	</div>
 
 	<div class="btn-group">
-		<a href="{plink :DashBoard:Project:delete $project}" class="btn btn-danger" data-confirm n:if="$user->isAllowed('project', 'delete')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><span class="hidden-xs"> Smazat projekt</span></a>
+		<a href="{plink :DashBoard:Project:delete $project}" class="btn btn-danger" data-confirm n:if="$user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_DELETE)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span><span class="hidden-xs"> Smazat projekt</span></a>
 	</div>
 </div>

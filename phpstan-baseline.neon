@@ -976,11 +976,6 @@ parameters:
 			path: app/DashBoard/Controls/DataGridFactory.php
 
 		-
-			message: "#^Anonymous function should have native return typehint \"void\"\\.$#"
-			count: 1
-			path: app/DashBoard/Controls/EditUser/Control.php
-
-		-
 			message: "#^Array \\(array\\<callable\\(Nette\\\\Application\\\\UI\\\\Component\\)\\: void\\>\\) does not accept Closure\\(Nette\\\\Application\\\\UI\\\\Control\\)\\: void\\.$#"
 			count: 1
 			path: app/DashBoard/Controls/EditUser/Control.php
@@ -992,11 +987,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
-			count: 1
-			path: app/DashBoard/Controls/EditUser/Control.php
-
-		-
-			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\EditUser\\\\Control\\:\\:processEditForm\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/DashBoard/Controls/EditUser/Control.php
 
@@ -1254,6 +1244,11 @@ parameters:
 			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Forms\\\\LoginFormData has an uninitialized property \\$password\\. Give it default value or assign it in the constructor\\.$#"
 			count: 1
 			path: app/DashBoard/Forms/LoginFormData.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Forms\\\\UserEditFormData has an uninitialized property \\$gitHubName\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Forms/UserEditFormData.php
 
 		-
 			message: "#^Anonymous function should have native return typehint \"string\"\\.$#"

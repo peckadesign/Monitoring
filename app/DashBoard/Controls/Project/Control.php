@@ -96,7 +96,7 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleNotifications(): void
 	{
-		if ( ! $this->user->isAllowed('project', 'edit')) {
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
 			throw new \Nette\Application\ForbiddenRequestException();
 		}
 

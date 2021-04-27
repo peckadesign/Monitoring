@@ -49,11 +49,12 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	/**
-	 * @Acl(project, add)
-	 */
 	public function actionEdit(\Pd\Monitoring\Project\Project $project): void
 	{
+		if ( ! $this->user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->project = $project;
 
 		$this['addEditForm']->setDefaults($this->project->toArray(\Nextras\Orm\Entity\ToArrayConverter::RELATIONSHIP_AS_ID));
@@ -125,6 +126,10 @@ class ProjectPresenter extends BasePresenter
 
 	public function actionDefault(\Pd\Monitoring\Project\Project $project, int $type = \Pd\Monitoring\Check\ICheck::TYPE_ALIVE): void
 	{
+		if ( ! $this->user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->project = $project;
 		$this->type = $type;
 	}
@@ -146,11 +151,12 @@ class ProjectPresenter extends BasePresenter
 	}
 
 
-	/**
-	 * @Acl(project, delete)
-	 */
 	public function actionDelete(\Pd\Monitoring\Project\Project $project): void
 	{
+		if ( ! $this->user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_DELETE)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$parent = $project->parent;
 
 		try {
