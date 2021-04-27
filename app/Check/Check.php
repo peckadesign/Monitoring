@@ -22,7 +22,7 @@ namespace Pd\Monitoring\Check;
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserCheckNotifications\UserCheckNotifications[] $userCheckNotifications {1:m \Pd\Monitoring\UserCheckNotifications\UserCheckNotifications::$check}
  */
 abstract class Check extends \Nextras\Orm\Entity\Entity implements
-	ICheck
+	ICheck, \Nette\Security\Resource
 {
 
 	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
@@ -99,6 +99,12 @@ abstract class Check extends \Nextras\Orm\Entity\Entity implements
 		}
 
 		return \Pd\Monitoring\Utils\Helpers::isInTimeInterval($this->dateTimeProvider->getDateTime(), $this->pausedFrom, $this->pausedTo);
+	}
+
+
+	public function getResourceId(): string
+	{
+		return $this->project->getResourceId();
 	}
 
 }

@@ -53,6 +53,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function render(): void
 	{
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
+			return;
+		}
+
 		$this->template->project = $this->project;
 
 		$this->template->setFile(__DIR__ . '/Control.latte');

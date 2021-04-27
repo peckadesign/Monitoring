@@ -25,7 +25,7 @@ class UserPresenter extends BasePresenter
 
 	public function actionDefault(): void
 	{
-		if ( ! $this->user->isAllowed('user', 'edit')) {
+		if ( ! $this->user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_USER, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
 			throw new \Nette\Application\ForbiddenRequestException();
 		}
 	}
@@ -33,11 +33,7 @@ class UserPresenter extends BasePresenter
 
 	public function actionEdit(\Pd\Monitoring\User\User $user): void
 	{
-		if (
-			! $this->user->isAllowed('user', 'edit')
-			&&
-			$this->user->id !== $user->id
-		) {
+		if ( ! $this->user->isAllowed($user, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
 			throw new \Nette\Application\ForbiddenRequestException();
 		}
 

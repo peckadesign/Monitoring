@@ -17,7 +17,7 @@
 		{else}
 			<a href="{link setFavoriteProject!}" class="btn btn-default btn-sm" title="Přidat do oblíbených"><span class="glyphicon glyphicon-star-empty text-muted" aria-hidden="true"></span></a>
 		{/if}
-		<a href="{link notifications!}" n:class="ajax, btn, btn-sm, $project->notifications ? btn-success : btn-default" n:if="$user->isAllowed('project', 'edit')" title="{$project->notifications ? 'Vypnout' : 'Zapnout'} globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
+		<a href="{link notifications!}" n:class="ajax, btn, btn-sm, $project->notifications ? btn-success : btn-default" n:if="$user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)" title="{$project->notifications ? 'Vypnout' : 'Zapnout'} globální notifikace"><span n:class="glyphicon, $project->notifications ? glyphicon-volume-up : 'glyphicon-volume-off text-muted'" aria-hidden="true"></span></a>
 		{if $slackNotifications}
 			<a href="{link deleteUserProjectNotifications!}" class="ajax btn btn-success btn-sm" title="Přestat dostávat soukromé notifikace"><span n:class="glyphicon, glyphicon-headphones" aria-hidden="true"></span></a>
 		{else}
