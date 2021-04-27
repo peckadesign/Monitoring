@@ -37,11 +37,6 @@ final class Authenticator implements \Nette\Security\Authenticator, \Nette\Secur
 			$user = $this->usersRepository->persist($user);
 		}
 
-		if ($user->authtoken === NULL) {
-			$user->authtoken = \Nette\Utils\Random::generate(20);
-			$user = $this->usersRepository->persist($user);
-		}
-
 		$this->usersRepository->flush();
 
 		return $user;
@@ -50,6 +45,11 @@ final class Authenticator implements \Nette\Security\Authenticator, \Nette\Secur
 
 	public function sleepIdentity(\Nette\Security\IIdentity $identity): \Nette\Security\IIdentity
 	{
+		if ($identity->authtoken === NULL) {
+			$identity->authtoken = \Nette\Utils\Random::generate(20);
+			$identity = $this->usersRepository->persistAndFlush($identity);
+		}
+
 		return new \Nette\Security\SimpleIdentity($identity->authtoken);
 	}
 
