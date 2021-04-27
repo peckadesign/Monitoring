@@ -1,0 +1,1622 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\|null given\\.$#"
+			count: 2
+			path: app/Check/AliveCheck.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, int\\|null given\\.$#"
+			count: 2
+			path: app/Check/AliveCheck.php
+
+		-
+			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+			count: 2
+			path: app/Check/AliveCheck.php
+
+		-
+			message: "#^Only booleans are allowed in &&, DateTimeImmutable\\|null given on the left side\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Only booleans are allowed in &&, string\\|null given on the right side\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, DateTimeImmutable given\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Only booleans are allowed in an elseif condition, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/Check/CertificateCheck.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:sub\\(\\)\\.$#"
+			count: 1
+			path: app/Check/Check.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\Check\\\\Check has an uninitialized property \\$dateTimeProvider\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/Check/Check.php
+
+		-
+			message: "#^Only booleans are allowed in &&, int given on the right side\\.$#"
+			count: 1
+			path: app/Check/Check.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: app/Check/Check.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/Check.php
+
+		-
+			message: "#^Parameter \\#1 \\$now of static method Pd\\\\Monitoring\\\\Utils\\\\Helpers\\:\\:isInTimeInterval\\(\\) expects DateTimeImmutable, DateTimeInterface given\\.$#"
+			count: 1
+			path: app/Check/Check.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/Check/Check.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\ChecksMapper\\:\\:createStorageReflection\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/Check/ChecksMapper.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\ChecksRepository\\:\\:getEntityClassName\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/ChecksRepository.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\AliveChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/AliveChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\AliveChecksSiteMapCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/AliveChecksSiteMapCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\CertificateChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/CertificateChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\DnsChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/DnsChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\ErrorsChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/ErrorsChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\FeedChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/FeedChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\HttpStatusCodeChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/HttpStatusCodeChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\NumberValueChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/NumberValueChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\PublishChecksCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/PublishChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\PublishChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/PublishChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\RabbitConsumerChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/RabbitConsumerChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\RabbitQueueChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/RabbitQueueChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\XpathChecksCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/XpathChecksCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\Publish\\\\XpathChecksSiteMapCommand\\:\\:getConditions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/Publish/XpathChecksSiteMapCommand.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:sub\\(\\)\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\SlackCheckStatusesCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\SlackCheckStatusesCommand\\:\\:notifiyCheck\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\SlackCheckStatusesCommand\\:\\:notifiyCheck\\(\\) has parameter \\$buttons with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Only booleans are allowed in &&, DateTimeImmutable\\|null given on the right side\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Only booleans are allowed in &&, Pd\\\\Monitoring\\\\Check\\\\SlackNotifyLock given on the left side\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Only booleans are allowed in &&, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given on the left side\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, string given\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Parameter \\#3 \\$url of class Pd\\\\Monitoring\\\\Slack\\\\Button constructor expects string, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\Check\\\\SlackNotifyLock\\:\\:\\$locked \\(DateTimeImmutable\\) does not accept DateTimeInterface\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+			count: 1
+			path: app/Check/Commands/SlackCheckStatusesCommand.php
+
+		-
+			message: "#^Casting to float something that's already float\\.$#"
+			count: 1
+			path: app/Check/Consumers/AliveCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\AliveCheck\\:\\:loadUrl\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Consumers/AliveCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null given\\.$#"
+			count: 1
+			path: app/Check/Consumers/AliveCheck.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null given\\.$#"
+			count: 1
+			path: app/Check/Consumers/AliveCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\AliveCheck\\) of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\AliveCheck\\:\\:doHardJob\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\Check\\:\\:doHardJob\\(\\)$#"
+			count: 1
+			path: app/Check/Consumers/AliveCheck.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\Check\\\\AliveCheck\\:\\:\\$lastTimeout \\(int\\|null\\) does not accept float\\.$#"
+			count: 1
+			path: app/Check/Consumers/AliveCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastGrade\\.$#"
+			count: 2
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastValiddate\\.$#"
+			count: 2
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"void\"\\.$#"
+			count: 1
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:setTimestamp\\(\\)\\.$#"
+			count: 1
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Call to an undefined method Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:getSslLabsApiLink\\(\\)\\.$#"
+			count: 1
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Cannot access offset 'validTo_time_t' on array\\|false\\.$#"
+			count: 1
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$context of function stream_context_get_params expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: app/Check/Consumers/CertificateCheck.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/Check/Consumers/Check.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Check\\\\AliveCheck given\\.$#"
+			count: 1
+			path: app/Check/Consumers/Check.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastCheck \\(DateTimeImmutable\\|null\\) does not accept DateTimeInterface\\.$#"
+			count: 1
+			path: app/Check/Consumers/Check.php
+
+		-
+			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+			count: 1
+			path: app/Check/Consumers/Check.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$dnsType\\.$#"
+			count: 1
+			path: app/Check/Consumers/DnsCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastDnsValue\\.$#"
+			count: 1
+			path: app/Check/Consumers/DnsCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, array\\|false given\\.$#"
+			count: 1
+			path: app/Check/Consumers/DnsCheck.php
+
+		-
+			message: "#^Casting to float something that's already float\\.$#"
+			count: 1
+			path: app/Check/Consumers/ErrorsCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\ErrorsCheck\\) of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\ErrorsCheck\\:\\:doHardJob\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\Check\\:\\:doHardJob\\(\\)$#"
+			count: 1
+			path: app/Check/Consumers/ErrorsCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastModified\\.$#"
+			count: 1
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastSize\\.$#"
+			count: 2
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Call to method DateTimeImmutable\\:\\:setTimezone\\(\\) with incorrect case\\: setTimeZone$#"
+			count: 1
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, mixed given\\.$#"
+			count: 1
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_close expects CurlHandle, CurlHandle\\|false given\\.$#"
+			count: 1
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_exec expects CurlHandle, CurlHandle\\|false given\\.$#"
+			count: 1
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_getinfo expects CurlHandle, CurlHandle\\|false given\\.$#"
+			count: 2
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$handle of function curl_setopt expects CurlHandle, CurlHandle\\|false given\\.$#"
+			count: 4
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, bool\\|string given\\.$#"
+			count: 1
+			path: app/Check/Consumers/FeedCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastCode\\.$#"
+			count: 2
+			path: app/Check/Consumers/HttpStatusCodeCheck.php
+
+		-
+			message: "#^Casting to float something that's already float\\.$#"
+			count: 1
+			path: app/Check/Consumers/NumberValueCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\NumberValueCheck\\) of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\NumberValueCheck\\:\\:doHardJob\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\Check\\:\\:doHardJob\\(\\)$#"
+			count: 1
+			path: app/Check/Consumers/NumberValueCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastConsumerCount\\.$#"
+			count: 2
+			path: app/Check/Consumers/RabbitConsumerCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$password\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitConsumerCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$validateHttps\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitConsumerCheck.php
+
+		-
+			message: "#^Call to an undefined method Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:getQueues\\(\\)\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitConsumerCheck.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitConsumerCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastMessageCount\\.$#"
+			count: 2
+			path: app/Check/Consumers/RabbitQueueCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$password\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitQueueCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$validateHttps\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitQueueCheck.php
+
+		-
+			message: "#^Call to an undefined method Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:getQueues\\(\\)\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitQueueCheck.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: app/Check/Consumers/RabbitQueueCheck.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$xpathLastResult\\.$#"
+			count: 1
+			path: app/Check/Consumers/XpathCheck.php
+
+		-
+			message: "#^Access to undefined constant Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:ALIVE_TIMEOUT\\.$#"
+			count: 2
+			path: app/Check/Consumers/XpathCheck.php
+
+		-
+			message: "#^Cannot call method getNextUrl\\(\\) on Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null\\.$#"
+			count: 1
+			path: app/Check/Consumers/XpathCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\XpathCheck\\:\\:loadUrl\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/Consumers/XpathCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null given\\.$#"
+			count: 1
+			path: app/Check/Consumers/XpathCheck.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null given\\.$#"
+			count: 1
+			path: app/Check/Consumers/XpathCheck.php
+
+		-
+			message: "#^Parameter \\#3 \\$check of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\XpathCheck\\:\\:loadUrl\\(\\) expects Pd\\\\Monitoring\\\\Check\\\\XpathCheck, Pd\\\\Monitoring\\\\Check\\\\Check given\\.$#"
+			count: 2
+			path: app/Check/Consumers/XpathCheck.php
+
+		-
+			message: "#^Only booleans are allowed in &&, string\\|null given on the left side\\.$#"
+			count: 1
+			path: app/Check/DnsCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\ErrorsCheck\\:\\:getterErrors\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/ErrorsCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\ErrorsCheck\\:\\:getterMutedErrors\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/ErrorsCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\ErrorsCheck\\:\\:getterNotifyErrors\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/ErrorsCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, string\\|null given\\.$#"
+			count: 2
+			path: app/Check/ErrorsCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|null given\\.$#"
+			count: 1
+			path: app/Check/ErrorsCheck.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_diff expects array, array\\|null given\\.$#"
+			count: 1
+			path: app/Check/ErrorsCheck.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:sub\\(\\)\\.$#"
+			count: 1
+			path: app/Check/FeedCheck.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\Check\\\\FeedCheck has an uninitialized property \\$dateTimeProvider\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/Check/FeedCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: app/Check/FeedCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\|null given\\.$#"
+			count: 1
+			path: app/Check/FeedCheck.php
+
+		-
+			message: "#^Only numeric types are allowed in /, int\\|null given on the left side\\.$#"
+			count: 1
+			path: app/Check/FeedCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/HttpStatusCodeCheck.php
+
+		-
+			message: "#^Parameter \\#1 \\$num of function round expects float\\|int, float\\|null given\\.$#"
+			count: 1
+			path: app/Check/NumberValueCheck.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: app/Check/RabbitConsumerCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitConsumerCheck\\:\\:getLastConsumerCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitConsumerCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitConsumerCheck\\:\\:getMinimumConsumerCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitConsumerCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitConsumerCheck\\:\\:getQueues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitConsumerCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitConsumerCheck\\:\\:strToArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitConsumerCheck.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: app/Check/RabbitQueueCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitQueueCheck\\:\\:getLastMessageCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitQueueCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitQueueCheck\\:\\:getMaximumMessageCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitQueueCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitQueueCheck\\:\\:getQueues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitQueueCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\RabbitQueueCheck\\:\\:strToArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Check/RabbitQueueCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, array given\\.$#"
+			count: 1
+			path: app/Check/RabbitQueueCheck.php
+
+		-
+			message: "#^Binary operation \"\\+\" between int\\|string\\|false\\|null and 1 results in an error\\.$#"
+			count: 1
+			path: app/Check/SiteMapLoader.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, string\\|null given\\.$#"
+			count: 1
+			path: app/Check/SiteMapLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function current expects array, array\\<string\\>\\|null given\\.$#"
+			count: 1
+			path: app/Check/SiteMapLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$data of class SimpleXMLElement constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: app/Check/SiteMapLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function array_search expects array, array\\<string\\>\\|null given\\.$#"
+			count: 1
+			path: app/Check/SiteMapLoader.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\DI\\\\Definitions\\\\Definition\\:\\:setFactory\\(\\)\\.$#"
+			count: 1
+			path: app/DI/Extension.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Nette\\\\DI\\\\ContainerBuilder\\:\\:getDefinition\\(\\) expects string, string\\|null given\\.$#"
+			count: 2
+			path: app/DI/Extension.php
+
+		-
+			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+			count: 1
+			path: app/DI/Extension.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$followRedirect\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/AliveCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\AliveCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/AliveCheckProcessor.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$daysBeforeWarning\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/CertificateCheckProcessor.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$grade\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/CertificateCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\CertificateCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/CertificateCheckProcessor.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"void\"\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Array \\(array\\<callable\\(Nette\\\\Application\\\\UI\\\\Component\\)\\: void\\>\\) does not accept Closure\\(Nette\\\\Application\\\\UI\\\\Control\\)\\: void\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot access property \\$name on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot access property \\$onlyErrors on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot access property \\$pausedFrom on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot access property \\$pausedTo on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot access property \\$project on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot access property \\$reference on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot access property \\$url on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on Pd\\\\Monitoring\\\\Check\\\\Check\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\Control\\:\\:processForm\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Check\\\\Check\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$check of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:createForm\\(\\) expects Pd\\\\Monitoring\\\\Check\\\\Check, Pd\\\\Monitoring\\\\Check\\\\Check\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$check of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\) expects Pd\\\\Monitoring\\\\Check\\\\Check, Pd\\\\Monitoring\\\\Check\\\\Check\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Repository\\\\Repository\\:\\:persistAndFlush\\(\\) expects Nextras\\\\Orm\\\\Entity\\\\IEntity, Pd\\\\Monitoring\\\\Check\\\\Check\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\DnsCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/DnsCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\DnsCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\DnsCheckProcessor\\:\\:processEntity\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/DnsCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ErrorsCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/ErrorsCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\ErrorsCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ErrorsCheckProcessor\\:\\:processEntity\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/ErrorsCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\NumberValueCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ErrorsCheckProcessor\\:\\:createForm\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:createForm\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/ErrorsCheckProcessor.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/Factory.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$maximumAge\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$size\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\ComponentModel\\\\IComponent\\:\\:addRule\\(\\)\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\ComponentModel\\\\IComponent\\:\\:setAttribute\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\ComponentModel\\\\IComponent\\:\\:setOption\\(\\)\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\ComponentModel\\\\IComponent\\:\\:setRequired\\(\\)\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\ComponentModel\\\\IComponent\\:\\:setType\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\FeedCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/FeedCheckProcessor.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$code\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/HttpStatusCodeCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\HttpStatusCodeCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/HttpStatusCodeCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/ICheckControlProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\NumberValueCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/NumberValueCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\NumberValueCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\NumberValueCheckProcessor\\:\\:createForm\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:createForm\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/NumberValueCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\NumberValueCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\NumberValueCheckProcessor\\:\\:processEntity\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/NumberValueCheckProcessor.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\ComponentModel\\\\IComponent\\:\\:addError\\(\\)\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/AddEditCheck/RabbitConsumerCheckProcessor.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitConsumerCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\RabbitConsumerCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitConsumerCheckProcessor.php
+
+		-
+			message: "#^Only booleans are allowed in &&, mixed given on the left side\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitConsumerCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\RabbitConsumerCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\RabbitConsumerCheckProcessor\\:\\:processEntity\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitConsumerCheckProcessor.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\ComponentModel\\\\IComponent\\:\\:addError\\(\\)\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/AddEditCheck/RabbitQueueCheckProcessor.php
+
+		-
+			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitQueueCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\RabbitQueueCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitQueueCheckProcessor.php
+
+		-
+			message: "#^Only booleans are allowed in &&, mixed given on the left side\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitQueueCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\RabbitQueueCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\RabbitQueueCheckProcessor\\:\\:processEntity\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/RabbitQueueCheckProcessor.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\XpathCheckProcessor\\:\\:processEntity\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/XpathCheckProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$check \\(Pd\\\\Monitoring\\\\Check\\\\XpathCheck\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\XpathCheckProcessor\\:\\:processEntity\\(\\) should be contravariant with parameter \\$check \\(Pd\\\\Monitoring\\\\Check\\\\Check\\) of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AddEditCheck\\\\ICheckControlProcessor\\:\\:processEntity\\(\\)$#"
+			count: 1
+			path: app/DashBoard/Controls/AddEditCheck/XpathCheckProcessor.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"string\"\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Check/Control.php
+
+		-
+			message: "#^Call to an undefined method Latte\\\\Runtime\\\\Template\\:\\:addFilter\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Check/Control.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Check/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Check/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\Check\\\\Control\\:\\:createTemplate\\(\\) should return Nette\\\\Application\\\\UI\\\\Template but returns Latte\\\\Runtime\\\\Template\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Check/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$aliveCheck of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\AliveChart\\\\IFactory\\:\\:create\\(\\) expects Pd\\\\Monitoring\\\\Check\\\\AliveCheck, Pd\\\\Monitoring\\\\Check\\\\Check given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Check/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\DataGridFactory\\:\\:create\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/DataGridFactory.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"void\"\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/EditUser/Control.php
+
+		-
+			message: "#^Array \\(array\\<callable\\(Nette\\\\Application\\\\UI\\\\Component\\)\\: void\\>\\) does not accept Closure\\(Nette\\\\Application\\\\UI\\\\Control\\)\\: void\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/EditUser/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/EditUser/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/EditUser/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\EditUser\\\\Control\\:\\:processEditForm\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/EditUser/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/LastRefresh/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/LastRefresh/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Logout/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Logout/Control.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"string\"\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/Control.php
+
+		-
+			message: "#^Call to an undefined method Latte\\\\Runtime\\\\Template\\:\\:addFilter\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\Maintenance\\\\Control\\:\\:createTemplate\\(\\) should return Nette\\\\Application\\\\UI\\\\Template but returns Latte\\\\Runtime\\\\Template\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/Control.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/Control.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\Project\\\\Project\\:\\:\\$maintenance \\(DateTimeImmutable\\|null\\) does not accept DateTimeInterface\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\Maintenance\\\\IOnToggle\\:\\:process\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Maintenance/IOnToggle.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:addFilter\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, int\\<0, max\\> given\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$user of method Pd\\\\Monitoring\\\\UserProjectNotifications\\\\UserProjectNotificationsRepository\\:\\:checkIfUserHasSlackNotifications\\(\\) expects Pd\\\\Monitoring\\\\User\\\\User, Nette\\\\Security\\\\IIdentity given\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$user of method Pd\\\\Monitoring\\\\UserProjectNotifications\\\\UserProjectNotificationsRepository\\:\\:deleteUserProjectNotifications\\(\\) expects Pd\\\\Monitoring\\\\User\\\\User, Nette\\\\Security\\\\IIdentity given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$user of method Pd\\\\Monitoring\\\\UsersFavoriteProject\\\\UsersFavoriteProjectRepository\\:\\:checkIfUserHasFavoriteProject\\(\\) expects Pd\\\\Monitoring\\\\User\\\\User, Nette\\\\Security\\\\IIdentity given\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$user of method Pd\\\\Monitoring\\\\UsersFavoriteProject\\\\UsersFavoriteProjectRepository\\:\\:deleteFavoriteProject\\(\\) expects Pd\\\\Monitoring\\\\User\\\\User, Nette\\\\Security\\\\IIdentity given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\UserProjectNotifications\\\\UserProjectNotifications\\:\\:\\$user \\(Pd\\\\Monitoring\\\\User\\\\User\\) does not accept Nette\\\\Security\\\\IIdentity\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\UsersFavoriteProject\\\\UsersFavoriteProject\\:\\:\\$user \\(Pd\\\\Monitoring\\\\User\\\\User\\) does not accept Nette\\\\Security\\\\IIdentity\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectButtons/Control.php
+
+		-
+			message: "#^Method class@anonymous/DashBoard/Controls/ProjectButtons/Control\\.php\\:54\\:\\:process\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectButtons/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$presenter of class class@anonymous/DashBoard/Controls/ProjectButtons/Control\\.php\\:54 constructor expects Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\ProjectPresenter, Nette\\\\Application\\\\UI\\\\Presenter given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectButtons/Control.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\Check\\\\Control\"\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectChecks/Control.php
+
+		-
+			message: "#^Array \\(array\\<callable\\(Nette\\\\Application\\\\UI\\\\Component\\)\\: void\\>\\) does not accept Closure\\(Nette\\\\Application\\\\UI\\\\Control\\)\\: void\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectChecks/Control.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectChecks/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Relationships\\\\HasMany\\:\\:has\\(\\) expects int\\|Nextras\\\\Orm\\\\Entity\\\\IEntity\\|string, array\\<int, int\\> given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectChecks/Control.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectChecksTabs/Control.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:addFilter\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/ProjectChecksTabs/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Refresh/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Refresh/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Settings/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/Settings/Control.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/SubProjects/Control.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/SubProjects/Control.php
+
+		-
+			message: "#^Cannot access property \\$gitHubName on Nette\\\\Security\\\\IIdentity\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserList/Control.php
+
+		-
+			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserList/Control.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserList/Control.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\UserList\\\\Control\\:\\:checkRequirements\\(\\) has parameter \\$element with no typehint specified\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserList/Control.php
+
+		-
+			message: "#^Only booleans are allowed in &&, int\\<0, max\\> given on the left side\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserList/Control.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Repository\\\\Repository\\:\\:removeAndFlush\\(\\) expects Nextras\\\\Orm\\\\Entity\\\\IEntity, Pd\\\\Monitoring\\\\User\\\\User\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserList/Control.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\UserList\\\\Control\\:\\:\\$authorizator \\(Nette\\\\Security\\\\Permission\\) does not accept Nette\\\\Security\\\\Authorizator\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserList/Control.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Forms\\\\Control\\:\\:getLeftOption\\(\\)\\.$#"
+			count: 3
+			path: app/DashBoard/Forms/Bs3FormRenderer.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Forms\\\\Control\\:\\:getRightOption\\(\\)\\.$#"
+			count: 3
+			path: app/DashBoard/Forms/Bs3FormRenderer.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Forms\\\\Bs3FormRenderer\\:\\:textInput\\(\\) has parameter \\$html with no typehint specified\\.$#"
+			count: 1
+			path: app/DashBoard/Forms/Bs3FormRenderer.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"bool\"\\.$#"
+			count: 1
+			path: app/DashBoard/Forms/Controls/DomainControlFactory.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Forms\\\\LoginFormData has an uninitialized property \\$email\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Forms/LoginFormData.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Forms\\\\LoginFormData has an uninitialized property \\$password\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Forms/LoginFormData.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"string\"\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:addFilter\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Cannot access property \\$gitHubName on Nette\\\\Security\\\\IIdentity\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\BasePresenter has an uninitialized property \\$logoutControlFactory\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\BasePresenter\\:\\:checkRequirements\\(\\) has parameter \\$element with no typehint specified\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\BasePresenter\\:\\:injectServices\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Only booleans are allowed in &&, int\\<0, max\\> given on the left side\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\BasePresenter\\:\\:\\$authorizator \\(Nette\\\\Security\\\\Permission\\) does not accept Nette\\\\Security\\\\Authorizator\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/BasePresenter.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/CheckPresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\CheckPresenter has an uninitialized property \\$check\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/CheckPresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\CheckPresenter has an uninitialized property \\$project\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/CheckPresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\CheckPresenter has an uninitialized property \\$type\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/CheckPresenter.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/DashBoard/Presenters/CheckPresenter.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Check\\\\Check given\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/CheckPresenter.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Project\\\\Project given\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/CheckPresenter.php
+
+		-
+			message: "#^Cannot call method isMethod\\(\\) on Nette\\\\Application\\\\Request\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/Error4xxPresenter.php
+
+		-
+			message: "#^Cannot call method setFile\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/Error4xxPresenter.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\Project\\\\Control\"\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/HomePagePresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\LoginPresenter has an uninitialized property \\$backLink\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/LoginPresenter.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"void\"\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\ProjectPresenter has an uninitialized property \\$type\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\ProjectPresenter\\:\\:processAddEditForm\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Only booleans are allowed in &&, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given on the left side\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Only booleans are allowed in &&, int\\<0, max\\> given on the right side\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 2
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Parameter \\#1 \\$project of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\ProjectChecks\\\\IFactory\\:\\:create\\(\\) expects Pd\\\\Monitoring\\\\Project\\\\Project, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Parameter \\#1 \\$project of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\SubProjects\\\\IFactory\\:\\:create\\(\\) expects Pd\\\\Monitoring\\\\Project\\\\Project, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/SlackPresenter.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Check\\\\Check given\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/SlackPresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\UserPresenter has an uninitialized property \\$editedUser\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/UserPresenter.php
+
+		-
+			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$lastTimeout\\.$#"
+			count: 1
+			path: app/Elasticsearch/AliveCheck.php
+
+		-
+			message: "#^Cannot call method format\\(\\) on DateTimeImmutable\\|null\\.$#"
+			count: 1
+			path: app/Elasticsearch/AliveCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Elasticsearch\\\\AliveCheck\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Elasticsearch/AliveCheck.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, DateTimeImmutable\\|null given\\.$#"
+			count: 1
+			path: app/Elasticsearch/AliveCheck.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Elasticsearch\\\\ChecksExporter\\:\\:export\\(\\) has parameter \\$persisted with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Elasticsearch/ChecksExporter.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Elasticsearch\\\\ChecksExporter\\:\\:export\\(\\) has parameter \\$removed with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Elasticsearch/ChecksExporter.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Elasticsearch\\\\ClientFactory\\:\\:create\\(\\) has parameter \\$hosts with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Elasticsearch/ClientFactory.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Elasticsearch\\\\Queries\\\\AverageTimeoutQuery\\:\\:query\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Elasticsearch/Queries/AverageTimeoutQuery.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\User\\\\User\\|null given\\.$#"
+			count: 1
+			path: app/Github/Presenters/LoginPresenter.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, string given\\.$#"
+			count: 1
+			path: app/Github/Presenters/LoginPresenter.php
+
+		-
+			message: "#^Parameter \\#1 \\$token of method League\\\\OAuth2\\\\Client\\\\Provider\\\\AbstractProvider\\:\\:getResourceOwner\\(\\) expects League\\\\OAuth2\\\\Client\\\\Token\\\\AccessToken, League\\\\OAuth2\\\\Client\\\\Token\\\\AccessTokenInterface given\\.$#"
+			count: 1
+			path: app/Github/Presenters/LoginPresenter.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\User\\\\User\\:\\:\\$gitHubId \\(int\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: app/Github/Presenters/LoginPresenter.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\User\\\\User\\:\\:\\$gitHubName \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: app/Github/Presenters/LoginPresenter.php
+
+		-
+			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
+			count: 1
+			path: app/Github/Presenters/LoginPresenter.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Monolog\\\\Handlers\\\\FlashMessageHandler\\:\\:write\\(\\) has parameter \\$record with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Monolog/Handlers/FlashMessageHandler.php
+
+		-
+			message: "#^Anonymous function should have native return typehint \"void\"\\.$#"
+			count: 1
+			path: app/Presenters/ErrorPresenter.php
+
+		-
+			message: "#^Class Pd\\\\Monitoring\\\\Project\\\\Project has an uninitialized property \\$dateTimeProvider\\. Give it default value or assign it in the constructor\\.$#"
+			count: 1
+			path: app/Project/Project.php
+
+		-
+			message: "#^Parameter \\#1 \\$now of static method Pd\\\\Monitoring\\\\Utils\\\\Helpers\\:\\:isInTimeInterval\\(\\) expects DateTimeImmutable, DateTimeInterface given\\.$#"
+			count: 1
+			path: app/Project/Project.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Project\\\\ProjectsMapper\\:\\:findDashBoardProjects\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/Project/ProjectsMapper.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Project\\\\ProjectsMapper\\:\\:findDashBoardProjects\\(\\) has parameter \\$userFavoriteProjectsIds with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Project/ProjectsMapper.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Project\\\\ProjectsMapper\\:\\:findParentAbleProjects\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/Project/ProjectsMapper.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 1
+			path: app/Project/ProjectsMapper.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, array given\\.$#"
+			count: 1
+			path: app/Project/ProjectsMapper.php
+
+		-
+			message: "#^Anonymous function never returns null so it can be removed from the return typehint\\.$#"
+			count: 2
+			path: app/Router/RouterFactory.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: app/Router/RouterFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of method Monolog\\\\Logger\\:\\:error\\(\\) expects string, Throwable given\\.$#"
+			count: 1
+			path: app/Slack/Notifier.php
+
+		-
+			message: "#^Access to an undefined property Nette\\\\Security\\\\IIdentity\\:\\:\\$authtoken\\.$#"
+			count: 1
+			path: app/User/Authenticator.php
+
+		-
+			message: "#^Access to an undefined property Nette\\\\Security\\\\IIdentity\\|Nextras\\\\Orm\\\\Entity\\\\IEntity\\:\\:\\$authtoken\\.$#"
+			count: 1
+			path: app/User/Authenticator.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\User\\\\Authenticator\\:\\:authenticate\\(\\) should return Nette\\\\Security\\\\IIdentity but returns Nextras\\\\Orm\\\\Entity\\\\IEntity\\.$#"
+			count: 1
+			path: app/User/Authenticator.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Repository\\\\Repository\\:\\:persistAndFlush\\(\\) expects Nextras\\\\Orm\\\\Entity\\\\IEntity, Nette\\\\Security\\\\IIdentity given\\.$#"
+			count: 1
+			path: app/User/Authenticator.php
+
+		-
+			message: "#^Parameter \\#1 \\$hash of method Nette\\\\Security\\\\Passwords\\:\\:needsRehash\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: app/User/Authenticator.php
+
+		-
+			message: "#^Parameter \\#2 \\$hash of method Nette\\\\Security\\\\Passwords\\:\\:verify\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: app/User/Authenticator.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\User\\\\User\\:\\:getRoles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/User/User.php
+
+		-
+			message: "#^Only booleans are allowed in &&, Nette\\\\Security\\\\IIdentity\\|null given on the left side\\.$#"
+			count: 1
+			path: app/User/UserStorage.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Nette\\\\Security\\\\IIdentity\\|null given\\.$#"
+			count: 1
+			path: app/User/UserStorage.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\User\\\\User\\|null given\\.$#"
+			count: 1
+			path: app/User/UserStorage.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, Nette\\\\Security\\\\IIdentity\\|null given\\.$#"
+			count: 1
+			path: app/User/UserStorage.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\User\\\\UserStorage\\:\\:\\$user \\(Pd\\\\Monitoring\\\\User\\\\User\\|null\\) does not accept Nette\\\\Security\\\\IIdentity\\|null\\.$#"
+			count: 1
+			path: app/User/UserStorage.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Utils\\\\Helpers\\:\\:dateTime\\(\\) has parameter \\$s with no typehint specified\\.$#"
+			count: 1
+			path: app/Utils/Helpers.php
+
+		-
+			message: "#^Method Pd\\\\Monitoring\\\\Utils\\\\Helpers\\:\\:getEnvironments\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: app/Utils/Helpers.php
+
+		-
+			message: "#^Only booleans are allowed in &&, string\\|null given on the left side\\.$#"
+			count: 1
+			path: app/Utils/Helpers.php
+
+		-
+			message: "#^Only booleans are allowed in &&, string\\|null given on the right side\\.$#"
+			count: 1
+			path: app/Utils/Helpers.php
+
