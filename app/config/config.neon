@@ -445,6 +445,9 @@ services:
 	-
 		factory: \Pd\Monitoring\User\Authenticator
 
+	-
+		factory: \Pd\Monitoring\DashBoard\Controls\UserOnProject\Factory
+
 
 decorator:
 	Nette\Application\UI\Control:
