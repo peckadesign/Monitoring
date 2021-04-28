@@ -971,11 +971,6 @@ parameters:
 			path: app/DashBoard/Controls/Check/Control.php
 
 		-
-			message: "#^Method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\DataGridFactory\\:\\:create\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: app/DashBoard/Controls/DataGridFactory.php
-
-		-
 			message: "#^Array \\(array\\<callable\\(Nette\\\\Application\\\\UI\\\\Component\\)\\: void\\>\\) does not accept Closure\\(Nette\\\\Application\\\\UI\\\\Control\\)\\: void\\.$#"
 			count: 1
 			path: app/DashBoard/Controls/EditUser/Control.php
@@ -1216,6 +1211,31 @@ parameters:
 			path: app/DashBoard/Controls/UserList/Control.php
 
 		-
+			message: "#^Cannot access property \\$admin on Pd\\\\Monitoring\\\\UserOnProject\\\\UserOnProject\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserOnProject/Factory.php
+
+		-
+			message: "#^Cannot access property \\$edit on Pd\\\\Monitoring\\\\UserOnProject\\\\UserOnProject\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserOnProject/Factory.php
+
+		-
+			message: "#^Cannot access property \\$view on Pd\\\\Monitoring\\\\UserOnProject\\\\UserOnProject\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserOnProject/Factory.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Repository\\\\Repository\\:\\:persistAndFlush\\(\\) expects Nextras\\\\Orm\\\\Entity\\\\IEntity, Pd\\\\Monitoring\\\\UserOnProject\\\\UserOnProject\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserOnProject/Factory.php
+
+		-
+			message: "#^Property Pd\\\\Monitoring\\\\UserOnProject\\\\UserOnProject\\:\\:\\$user \\(Pd\\\\Monitoring\\\\User\\\\User\\) does not accept Pd\\\\Monitoring\\\\User\\\\User\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserOnProject/Factory.php
+
+		-
 			message: "#^Call to an undefined method Nette\\\\Forms\\\\Control\\:\\:getLeftOption\\(\\)\\.$#"
 			count: 3
 			path: app/DashBoard/Forms/Bs3FormRenderer.php
@@ -1387,6 +1407,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$project of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\SubProjects\\\\IFactory\\:\\:create\\(\\) expects Pd\\\\Monitoring\\\\Project\\\\Project, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Parameter \\#1 \\$project of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\UserOnProject\\\\Factory\\:\\:create\\(\\) expects Pd\\\\Monitoring\\\\Project\\\\Project, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
 			count: 1
 			path: app/DashBoard/Presenters/ProjectPresenter.php
 

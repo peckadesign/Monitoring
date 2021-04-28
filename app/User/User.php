@@ -54,4 +54,10 @@ class User extends \Nextras\Orm\Entity\Entity implements \Nette\Security\IIdenti
 		return \Pd\Monitoring\User\AclFactory::ROLE_USER . $id;
 	}
 
+
+	public function __toString(): string
+	{
+		return (string) $this->id;
+	}
+
 }

@@ -10,6 +10,7 @@ namespace Pd\Monitoring\Orm;
  * @property-read \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository
  * @property-read \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository
  * @property-read \Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository $userCheckNotificationsRepository
+ * @property-read \Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository
  */
 class Orm extends \Nextras\Orm\Model\Model
 {

@@ -34,7 +34,7 @@
 		"nette/mail": "3.1.*",
 		"nextras/form-components": "1.0.*",
 		"nextras/forms-rendering": "1.0.*",
-		"ublaboo/datagrid": "6.2.*",
+		"ublaboo/datagrid": "6.8.*",
 		"atrox/matcher": "^1.1",
 		"elasticsearch/elasticsearch": "7.9.*",
 		"pd/monolog-module": "5.0.*",
