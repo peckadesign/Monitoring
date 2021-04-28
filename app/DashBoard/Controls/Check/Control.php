@@ -17,9 +17,11 @@ class Control extends \Nette\Application\UI\Control
 
 	private bool $hasUserNotification;
 
-	private \Pd\Monitoring\User\User $user;
+	private \Pd\Monitoring\User\User $identity;
 
 	private \Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory;
+
+	private \Nette\Security\User $user;
 
 
 	public function __construct(
@@ -29,8 +31,9 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\DashBoard\Controls\AliveChart\IFactory $aliveChartControlFactory,
 		\Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository $userCheckNotificationsRepository,
 		bool $hasUserNotification,
-		\Pd\Monitoring\User\User $user,
-		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory
+		\Pd\Monitoring\User\User $identity,
+		\Pd\Monitoring\DashBoard\Controls\LogView\Factory $logViewFactory,
+		\Nette\Security\User $user
 	)
 	{
 		$this->check = $check;
@@ -39,8 +42,9 @@ class Control extends \Nette\Application\UI\Control
 		$this->aliveChartControlFactory = $aliveChartControlFactory;
 		$this->userCheckNotificationsRepository = $userCheckNotificationsRepository;
 		$this->hasUserNotification = $hasUserNotification;
-		$this->user = $user;
+		$this->identity = $identity;
 		$this->logViewFactory = $logViewFactory;
+		$this->user = $user;
 	}
 
 
@@ -72,6 +76,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleDelete(): void
 	{
+		if ( ! $this->user->isAllowed($this->check, \Pd\Monitoring\User\AclFactory::PRIVILEGE_DELETE)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->checksRepository->removeAndFlush($this->check);
 		$this->getPresenter()->flashMessage('Kontrola byla odebrána', \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
 		$this->redirect('this');
@@ -80,6 +88,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handlePause(): void
 	{
+		if ( ! $this->user->isAllowed($this->check, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->check->paused = ! $this->check->paused;
 		$this->checksRepository->persistAndFlush($this->check);
 
@@ -89,6 +101,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleRefresh(): void
 	{
+		if ( ! $this->user->isAllowed($this->check, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$this->rabbitConnection->getProducer($this->check->getProducerName())->publish((string) $this->check->id);
 
 		$this->processRequest();
@@ -113,8 +129,12 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleUserNotificationOn(): void
 	{
+		if ( ! $this->user->isAllowed($this->check, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		$notification = new \Pd\Monitoring\UserCheckNotifications\UserCheckNotifications();
-		$notification->user = $this->user;
+		$notification->user = $this->identity;
 		$notification->check = $this->check;
 		$this->userCheckNotificationsRepository->persistAndFlush($notification);
 		$this->hasUserNotification = TRUE;
@@ -125,7 +145,11 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleUserNotificationOff(): void
 	{
-		$this->userCheckNotificationsRepository->deleteUserCheckNotifications($this->user, $this->check);
+		if ( ! $this->user->isAllowed($this->check, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
+		$this->userCheckNotificationsRepository->deleteUserCheckNotifications($this->identity, $this->check);
 		$this->hasUserNotification = FALSE;
 
 		$this->processRequest();

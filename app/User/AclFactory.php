@@ -22,14 +22,18 @@ class AclFactory
 
 	private \Pd\Monitoring\Project\ProjectsRepository $projectsRepository;
 
+	private \Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository;
+
 
 	public function __construct(
 		UsersRepository $usersRepository,
-		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository
+		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
+		\Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository
 	)
 	{
 		$this->usersRepository = $usersRepository;
 		$this->projectsRepository = $projectsRepository;
+		$this->userOnProjectRepository = $userOnProjectRepository;
 	}
 
 
@@ -46,13 +50,26 @@ class AclFactory
 
 		foreach ($this->projectsRepository->findAll() as $project) {
 			$permission->addResource($project->getResourceId());
-			$permission->allow(\Pd\Monitoring\User\AclFactory::ROLE_USER, $project->getResourceId(), \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW);
 		}
 
 		foreach ($this->usersRepository->findAll() as $user) {
 			$permission->addRole($user->getRoleId());
 			$permission->addResource($user->getResourceId());
 			$permission->allow($user->getRoleId(), $user->getResourceId(), \Nette\Security\Authorizator::ALL);
+		}
+
+		foreach ($this->userOnProjectRepository->findAll() as $userOnRepository) {
+			$privileges = [];
+			if ($userOnRepository->view) {
+				$privileges[] = \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW;
+			}
+			if ($userOnRepository->edit) {
+				$privileges[] = \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT;
+			}
+			if ($userOnRepository->admin) {
+				$privileges[] = \Pd\Monitoring\User\AclFactory::PRIVILEGE_DELETE;
+			}
+			$permission->allow($userOnRepository->user->getRoleId(), $userOnRepository->project->getResourceId(), $privileges);
 		}
 
 		$permission->allow(\Pd\Monitoring\User\AclFactory::ROLE_ADMINISTRATOR, \Nette\Security\Authorizator::ALL, \Nette\Security\Authorizator::ALL);

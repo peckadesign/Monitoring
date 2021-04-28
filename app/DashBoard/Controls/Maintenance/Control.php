@@ -66,6 +66,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleToggle(): void
 	{
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		if ($this->project->maintenance) {
 			$this->project->maintenance = NULL;
 			$action = 'vypnul';
