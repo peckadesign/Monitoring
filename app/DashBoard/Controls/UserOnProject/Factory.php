@@ -105,6 +105,10 @@ final class Factory
 		};
 		$inlineEdit->onControlAdd[] = $editCallback;
 
+		$inlineEdit->onSetDefaults[] = static function (\Nette\Forms\Container $container, \Pd\Monitoring\UserOnProject\UserOnProject $userOnProject): void {
+			$container->setDefaults(['view' => $userOnProject->view, 'edit' => $userOnProject->edit, 'admin' => $userOnProject->admin]);
+		};
+
 		$inlineEdit->onSubmit[] = function ($user, $values) use ($project): void
 		{
 			$userOnProject = $this->userOnProjectRepository->getBy(['user' => $user, 'project' => $project]);
