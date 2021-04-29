@@ -1051,6 +1051,11 @@ parameters:
 			path: app/DashBoard/Controls/Project/Control.php
 
 		-
+			message: "#^Cannot access property \\$administrator on Nette\\\\Security\\\\IIdentity\\|null\\.$#"
+			count: 2
+			path: app/DashBoard/Controls/Project/Control.php
+
+		-
 			message: "#^Cannot call method render\\(\\) on Nette\\\\Application\\\\UI\\\\Template\\|stdClass\\.$#"
 			count: 1
 			path: app/DashBoard/Controls/Project/Control.php

@@ -21,6 +21,8 @@ class Control extends \Nette\Application\UI\Control
 
 	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
 
+	private \Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\Project $project,
@@ -30,7 +32,8 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProjectRepository $usersFavoriteProjectsRepository,
 		\Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository,
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
+		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
+		\Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository
 
 	)
 	{
@@ -42,6 +45,7 @@ class Control extends \Nette\Application\UI\Control
 		$this->usersFavoriteProjectsRepository = $usersFavoriteProjectsRepository;
 		$this->userProjectNotificationsRepository = $userProjectNotificationsRepository;
 		$this->checksRepository = $checksRepository;
+		$this->userOnProjectRepository = $userOnProjectRepository;
 	}
 
 
@@ -170,13 +174,34 @@ class Control extends \Nette\Application\UI\Control
 			\Pd\Monitoring\Check\ICheck::STATUS_ERROR => [],
 		];
 
+		$cb = static function (\Pd\Monitoring\UserOnProject\UserOnProject $userOnProject): int
+		{
+			return $userOnProject->project->id;
+		};
+		$allowedProjectsIds = \array_map($cb, \iterator_to_array($this->userOnProjectRepository->findBy(['user' => $this->user->getId()])->getIterator()));
+
 		if (\count($this->project->subProjects)) {
-			$conditions = [
-				'project' => $this->project->subProjects->getIterator()->fetchPairs('id', 'id'),
-			];
+			if ($this->user->getIdentity()->administrator) {
+				$conditions = [
+					'project' => $this->project->subProjects->getIterator()->fetchPairs('id', 'id'),
+				];
+			} else {
+				$conditions = [
+					'project' => \array_intersect($this->project->subProjects->getIterator()->fetchPairs('id', 'id'), $allowedProjectsIds),
+				];
+			}
 			$checks = $this->checksRepository->findBy($conditions);
 		} else {
-			$checks = $this->project->checks;
+			if ($this->user->getIdentity()->administrator) {
+				$conditions = [
+					'project' => $this->project->id,
+				];
+			} else {
+				$conditions = [
+					'project' => \array_intersect([$this->project->id], $allowedProjectsIds),
+				];
+			}
+			$checks = $this->checksRepository->findBy($conditions);
 		}
 
 		foreach ($checks as $check) {
