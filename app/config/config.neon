@@ -202,7 +202,7 @@ services:
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Check\IFactory
 		arguments:
-			user: @\Nette\Security\User::getIdentity()
+			identity: @\Nette\Security\User::getIdentity()
 
 	-
 		factory: Pd\Monitoring\DashBoard\Controls\AddEditCheck\Factory

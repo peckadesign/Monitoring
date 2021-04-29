@@ -69,6 +69,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleDeleteFavoriteProject(): void
 	{
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		if ($this->usersFavoriteProjectsRepository->checkIfUserHasFavoriteProject($this->user->identity, $this->project)) {
 			$this->usersFavoriteProjectsRepository->deleteFavoriteProject($this->user->identity, $this->project);
 			$this->presenter->flashMessage(\sprintf('Projekt "%s" byl odebrán z oblíbených', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
@@ -81,6 +85,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleSetFavoriteProject(): void
 	{
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		if ( ! $this->usersFavoriteProjectsRepository->checkIfUserHasFavoriteProject($this->user->identity, $this->project)) {
 			$favoriteProject = new \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject();
 			$favoriteProject->user = $this->user->identity;
@@ -115,6 +123,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleSetUserProjectNotifications(): void
 	{
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		if ( ! $this->userProjectNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
 			$slackNotifications = new \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications();
 			$slackNotifications->user = $this->user->identity;
@@ -130,6 +142,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function handleDeleteUserProjectNotifications(): void
 	{
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+
 		if ($this->userProjectNotificationsRepository->checkIfUserHasSlackNotifications($this->user->identity, $this->project)) {
 			$this->userProjectNotificationsRepository->deleteUserProjectNotifications($this->user->identity, $this->project);
 			$this->presenter->flashMessage(\sprintf('Notifikace k projektu "%s" byla odebrána', $this->project->name), \Pd\Monitoring\DashBoard\Presenters\BasePresenter::FLASH_MESSAGE_SUCCESS);
@@ -142,6 +158,10 @@ class Control extends \Nette\Application\UI\Control
 
 	public function render(): void
 	{
+		if ( ! $this->user->isAllowed($this->project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+			return;
+		}
+
 		$this->template->project = $this->project;
 
 		$groupedChecks = [
