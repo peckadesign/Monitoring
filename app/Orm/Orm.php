@@ -11,6 +11,7 @@ namespace Pd\Monitoring\Orm;
  * @property-read \Pd\Monitoring\UserProjectNotifications\UserProjectNotificationsRepository $userProjectNotificationsRepository
  * @property-read \Pd\Monitoring\UserCheckNotifications\UserCheckNotificationsRepository $userCheckNotificationsRepository
  * @property-read \Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository
+ * @property-read \Pd\Monitoring\Slack\IntegrationRepository $integrationRepository
  */
 class Orm extends \Nextras\Orm\Model\Model
 {

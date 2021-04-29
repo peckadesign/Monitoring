@@ -24,6 +24,8 @@ class ProjectPresenter extends BasePresenter
 
 	private \Pd\Monitoring\DashBoard\Controls\UserOnProject\Factory $userOnProjectGridFactory;
 
+	private \Pd\Monitoring\DashBoard\Controls\SlackIntegrationOnProject\Factory $slackIntegrationOnProjectGridFactory;
+
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
@@ -31,7 +33,8 @@ class ProjectPresenter extends BasePresenter
 		\Pd\Monitoring\DashBoard\Controls\ProjectChecks\IFactory $projectChecksControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory,
 		\Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory $subProjectsControlFactory,
-		\Pd\Monitoring\DashBoard\Controls\UserOnProject\Factory $userOnProjectGridFactory
+		\Pd\Monitoring\DashBoard\Controls\UserOnProject\Factory $userOnProjectGridFactory,
+		\Pd\Monitoring\DashBoard\Controls\SlackIntegrationOnProject\Factory $slackIntegrationOnProjectGridFactory
 	)
 	{
 		parent::__construct();
@@ -41,6 +44,7 @@ class ProjectPresenter extends BasePresenter
 		$this->projectButtonsFactory = $projectButtonsFactory;
 		$this->subProjectsControlFactory = $subProjectsControlFactory;
 		$this->userOnProjectGridFactory = $userOnProjectGridFactory;
+		$this->slackIntegrationOnProjectGridFactory = $slackIntegrationOnProjectGridFactory;
 	}
 
 
@@ -198,6 +202,12 @@ class ProjectPresenter extends BasePresenter
 	protected function createComponentUserOnProjectGrid(): \Ublaboo\DataGrid\DataGrid
 	{
 		return $this->userOnProjectGridFactory->create($this->project);
+	}
+
+
+	protected function createComponentSlackIntegrationOnProjectGrid(): \Ublaboo\DataGrid\DataGrid
+	{
+		return $this->slackIntegrationOnProjectGridFactory->create($this->project);
 	}
 
 }

@@ -178,18 +178,7 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		);
 
 		if ($check->project->notifications && ( ! $check->project->parent || $check->project->parent->notifications)) {
-			if ($referenceWarning && $check->project->reference) {
-				$this->slackNotifier->notify('#monitoring', $referenceCheckWarning, 'warning', []);
-			}
-			if ($referenceWarning && $check->reference) {
-				$this->slackNotifier->notify(
-					'#monitoring',
-					$projectReferenceCheckWarning,
-					'warning',
-					[]
-				);
-			}
-			$this->slackNotifier->notify('#monitoring', $message, $color, $buttons);
+			$this->notifiyCheck($check, $referenceWarning, NULL, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
 		}
 
 		$projectForUserProjectNotifications = $check->project->parent ?: $check->project;
@@ -204,23 +193,29 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 	}
 
 
-	private function notifiyCheck(\Pd\Monitoring\Check\Check $check, bool $referenceWarning, \Pd\Monitoring\User\User $user, string $referenceCheckWarning, string $projectReferenceCheckWarning, string $message, string $color, array $buttons)
+	private function notifiyCheck(\Pd\Monitoring\Check\Check $check, bool $referenceWarning, ?\Pd\Monitoring\User\User $user, string $referenceCheckWarning, string $projectReferenceCheckWarning, string $message, string $color, array $buttons): void
 	{
-		$slackId = $user->slackId;
-		if ($slackId) {
-			if ($referenceWarning && $check->project->reference) {
-				$this->slackNotifier->notify($slackId, $referenceCheckWarning, 'warning', []);
+		if ($user !== NULL) {
+			$slackId = $user->slackId;
+			if ($slackId === NULL) {
+				return;
 			}
-			if ($referenceWarning && $check->reference) {
-				$this->slackNotifier->notify(
-					$slackId,
-					$projectReferenceCheckWarning,
-					'warning',
-					[]
-				);
-			}
-			$this->slackNotifier->notify($slackId, $message, $color, $buttons);
+		} else {
+			$slackId = '#monitoring';
 		}
+
+		if ($referenceWarning && $check->project->reference) {
+			$this->slackNotifier->notify($slackId, $referenceCheckWarning, 'warning', []);
+		}
+		if ($referenceWarning && $check->reference) {
+			$this->slackNotifier->notify(
+				$slackId,
+				$projectReferenceCheckWarning,
+				'warning',
+				[]
+			);
+		}
+		$this->slackNotifier->notify($slackId, $message, $color, $buttons);
 	}
 
 }
