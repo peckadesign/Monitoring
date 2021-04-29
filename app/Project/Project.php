@@ -16,6 +16,7 @@ namespace Pd\Monitoring\Project;
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\Check\Check[] $checks {1:m \Pd\Monitoring\Check\Check::$project}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject[] $favoriteProjects {1:m \Pd\Monitoring\UsersFavoriteProject\UsersFavoriteProject::$project}
  * @property \Nextras\Orm\Relationships\OneHasMany|\Pd\Monitoring\UserProjectNotifications\UserProjectNotifications[] $userProjectNotifications {1:m \Pd\Monitoring\UserProjectNotifications\UserProjectNotifications::$project}
+ * @property \Nextras\Orm\Relationships\ManyHasMany|\Pd\Monitoring\Slack\Integration[] $slackIntegrations {m:m \Pd\Monitoring\Slack\Integration, isMain=true, oneSided=true}
  */
 class Project extends \Nextras\Orm\Entity\Entity implements \Nette\Security\Resource
 {

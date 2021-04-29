@@ -191,11 +191,6 @@ parameters:
 			path: app/Check/Commands/SlackCheckStatusesCommand.php
 
 		-
-			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\SlackCheckStatusesCommand\\:\\:notifiyCheck\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: app/Check/Commands/SlackCheckStatusesCommand.php
-
-		-
 			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\SlackCheckStatusesCommand\\:\\:notifiyCheck\\(\\) has parameter \\$buttons with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Check/Commands/SlackCheckStatusesCommand.php
@@ -222,11 +217,6 @@ parameters:
 
 		-
 			message: "#^Only booleans are allowed in a ternary operator condition, string given\\.$#"
-			count: 1
-			path: app/Check/Commands/SlackCheckStatusesCommand.php
-
-		-
-			message: "#^Only booleans are allowed in an if condition, string\\|null given\\.$#"
 			count: 1
 			path: app/Check/Commands/SlackCheckStatusesCommand.php
 
@@ -1171,6 +1161,16 @@ parameters:
 			path: app/DashBoard/Controls/Settings/Control.php
 
 		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Relationships\\\\HasMany\\:\\:add\\(\\) expects int\\|Nextras\\\\Orm\\\\Entity\\\\IEntity\\|string, Nextras\\\\Orm\\\\Entity\\\\IEntity\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/SlackIntegrationOnProject/Factory.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Relationships\\\\HasMany\\:\\:remove\\(\\) expects int\\|Nextras\\\\Orm\\\\Entity\\\\IEntity\\|string, Nextras\\\\Orm\\\\Entity\\\\IEntity\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/SlackIntegrationOnProject/Factory.php
+
+		-
 			message: "#^Call to an undefined method Nette\\\\Application\\\\UI\\\\Template\\:\\:add\\(\\)\\.$#"
 			count: 1
 			path: app/DashBoard/Controls/SubProjects/Control.php
@@ -1412,6 +1412,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$project of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\ProjectChecks\\\\IFactory\\:\\:create\\(\\) expects Pd\\\\Monitoring\\\\Project\\\\Project, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Parameter \\#1 \\$project of method Pd\\\\Monitoring\\\\DashBoard\\\\Controls\\\\SlackIntegrationOnProject\\\\Factory\\:\\:create\\(\\) expects Pd\\\\Monitoring\\\\Project\\\\Project, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
 			count: 1
 			path: app/DashBoard/Presenters/ProjectPresenter.php
 
