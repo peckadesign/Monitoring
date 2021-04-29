@@ -7,10 +7,16 @@ final class Control extends \Nette\Application\UI\Control
 
 	private \Pd\Monitoring\Project\Project $project;
 
+	private \Nette\Security\User $user;
 
-	public function __construct(\Pd\Monitoring\Project\Project $project)
+
+	public function __construct(
+		\Pd\Monitoring\Project\Project $project,
+		\Nette\Security\User $user
+	)
 	{
 		$this->project = $project;
+		$this->user = $user;
 	}
 
 
@@ -22,6 +28,9 @@ final class Control extends \Nette\Application\UI\Control
 
 		$tabs = [];
 		foreach ($this->project->parent->subProjects as $subProject) {
+			if ( ! $this->user->isAllowed($subProject->getResourceId(), \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
+				continue;
+			}
 			$tabs[] = new Tab($subProject, $subProject === $this->project);
 		}
 

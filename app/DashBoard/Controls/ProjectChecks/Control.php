@@ -31,7 +31,8 @@ class Control extends \Nette\Application\UI\Control
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
 		\Pd\Monitoring\DashBoard\Controls\Check\IFactory $checkControlFactory,
 		\Pd\Monitoring\User\User $user,
-		\Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory
+		\Pd\Monitoring\DashBoard\Controls\ProjectChecksTabs\IFactory $projectChecksTabsControlFactory,
+		\Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository
 	)
 	{
 		$this->project = $project;
@@ -41,12 +42,19 @@ class Control extends \Nette\Application\UI\Control
 		$this->type = $type;
 		$this->projectChecksTabsControlFactory = $projectChecksTabsControlFactory;
 
-		$this->onAnchor[] = function (\Nette\Application\UI\Control $control): void
+		$this->onAnchor[] = function (\Nette\Application\UI\Control $control) use ($userOnProjectRepository): void
 		{
 			$conditions = [
-				'project' => $this->project->id,
 				'type' => $this->type,
 			];
+
+			if ( ! $this->user->administrator) {
+				$projectsIds = \array_map(static fn(\Pd\Monitoring\UserOnProject\UserOnProject $userOnProject): int => $userOnProject->project->id, \iterator_to_array($userOnProjectRepository->findBy(['user' => $this->user->getId()])->getIterator()));
+				$conditions['project'] = \array_intersect($projectsIds, [$this->project->id]);
+			} else {
+				$conditions['project'] = $this->project->id;
+			}
+
 			$this->checks = $this->checksRepository->findBy($conditions);
 
 			$this->userCheckNotifications = $this->user->userCheckNotifications;
