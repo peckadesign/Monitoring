@@ -11,16 +11,24 @@ final class RouterFactory
 
 	private \Pd\Monitoring\User\UsersRepository $usersRepository;
 
+	private \Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository;
+
+	private \Nette\Security\User $user;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\User\UsersRepository $usersRepository
+		\Pd\Monitoring\User\UsersRepository $usersRepository,
+		\Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository,
+		\Nette\Security\User $user
 	)
 	{
 		$this->projectsRepository = $projectsRepository;
 		$this->checksRepository = $checksRepository;
 		$this->usersRepository = $usersRepository;
+		$this->userOnProjectRepository = $userOnProjectRepository;
+		$this->user = $user;
 	}
 
 
@@ -37,9 +45,35 @@ final class RouterFactory
 				{
 					return $this->projectsRepository->getById((int) $project);
 				},
+				\Nette\Application\Routers\Route::FILTER_OUT => function (\Pd\Monitoring\Project\Project $project): int
+				{
+					$cb = static function (\Pd\Monitoring\UserOnProject\UserOnProject $userOnProject): int
+					{
+						return $userOnProject->project->id;
+					};
+					$projectsIds = \array_map($cb, \iterator_to_array($this->userOnProjectRepository->findBy(['user' => $this->user->getId()])->getIterator()));
+
+					if ( ! $this->user->getIdentity()->administrator) {
+						return \count($project->subProjects) ? \current(\array_intersect($projectsIds, $project->subProjects->getRawValue())) : $project->id;
+					} else {
+						return \count($project->subProjects) ? \current($project->subProjects->getRawValue()) : $project->id;
+					}
+				},
+			],
+		];
+		$router[] = new \Nette\Application\Routers\Route('dash-board/project/default/<project>', $metadata);
+
+		$metadata = [
+			'module' => 'DashBoard',
+			'presenter' => 'Project',
+			'project' => [
+				\Nette\Application\Routers\Route::FILTER_IN => function (string $project): ?\Pd\Monitoring\Project\Project
+				{
+					return $this->projectsRepository->getById((int) $project);
+				},
 				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\Project\Project $project): int
 				{
-					return \count($project->subProjects) ? \current($project->subProjects->getEntitiesForPersistence())->id : $project->id;
+					return $project->id;
 				},
 			],
 		];

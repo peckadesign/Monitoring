@@ -1542,12 +1542,22 @@ parameters:
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return typehint\\.$#"
-			count: 2
+			count: 3
+			path: app/Router/RouterFactory.php
+
+		-
+			message: "#^Anonymous function should return int but returns int\\|false\\.$#"
+			count: 1
+			path: app/Router/RouterFactory.php
+
+		-
+			message: "#^Cannot access property \\$administrator on Nette\\\\Security\\\\IIdentity\\|null\\.$#"
+			count: 1
 			path: app/Router/RouterFactory.php
 
 		-
 			message: "#^Only booleans are allowed in a ternary operator condition, int\\<0, max\\> given\\.$#"
-			count: 1
+			count: 2
 			path: app/Router/RouterFactory.php
 
 		-
