@@ -1231,7 +1231,17 @@ parameters:
 			path: app/DashBoard/Controls/UserOnProject/Factory.php
 
 		-
+			message: "#^Cannot call method getData\\(\\) on array\\|Ublaboo\\\\DataGrid\\\\DataSource\\\\IDataSource\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserOnProject/Factory.php
+
+		-
 			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Repository\\\\Repository\\:\\:persistAndFlush\\(\\) expects Nextras\\\\Orm\\\\Entity\\\\IEntity, Pd\\\\Monitoring\\\\UserOnProject\\\\UserOnProject\\|null given\\.$#"
+			count: 1
+			path: app/DashBoard/Controls/UserOnProject/Factory.php
+
+		-
+			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Repository\\\\Repository\\:\\:removeAndFlush\\(\\) expects Nextras\\\\Orm\\\\Entity\\\\IEntity, Pd\\\\Monitoring\\\\UserOnProject\\\\UserOnProject\\|null given\\.$#"
 			count: 1
 			path: app/DashBoard/Controls/UserOnProject/Factory.php
 
