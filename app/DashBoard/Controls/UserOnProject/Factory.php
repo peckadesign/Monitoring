@@ -63,7 +63,7 @@ final class Factory
 		{
 			return $userOnProject->admin;
 		};
-		self::addBooleanColumn($dataGrid, 'admin', 'Spravovat', $callback);
+		self::addBooleanColumn($dataGrid, 'admin', 'Mazat', $callback);
 
 		$cb = static function (\Pd\Monitoring\UserOnProject\UserOnProject $userOnProject): int
 		{
@@ -81,7 +81,7 @@ final class Factory
 			;
 			$container->addCheckbox('view', 'Prohlížet');
 			$container->addCheckbox('edit', 'Upravovat');
-			$container->addCheckbox('admin', 'Spravovat');
+			$container->addCheckbox('admin', 'Mazat');
 		};
 		$inlineAdd->setPositionTop()->onControlAdd[] = $addCallback;
 
@@ -101,7 +101,7 @@ final class Factory
 		{
 			$container->addCheckbox('view', 'Prohlížet');
 			$container->addCheckbox('edit', 'Upravovat');
-			$container->addCheckbox('admin', 'Spravovat');
+			$container->addCheckbox('admin', 'Mazat');
 		};
 		$inlineEdit->onControlAdd[] = $editCallback;
 
