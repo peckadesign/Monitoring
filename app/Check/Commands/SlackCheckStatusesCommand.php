@@ -204,18 +204,21 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 			$slackId = '#monitoring';
 		}
 
-		if ($referenceWarning && $check->project->reference) {
-			$this->slackNotifier->notify($slackId, $referenceCheckWarning, 'warning', []);
+		foreach ($check->project->getSlackHookUrls() as $hookUrl) {
+			if ($referenceWarning && $check->project->reference) {
+				$this->slackNotifier->notify($hookUrl, $slackId, $referenceCheckWarning, 'warning', []);
+			}
+			if ($referenceWarning && $check->reference) {
+				$this->slackNotifier->notify(
+					$hookUrl,
+					$slackId,
+					$projectReferenceCheckWarning,
+					'warning',
+					[]
+				);
+			}
+			$this->slackNotifier->notify($hookUrl, $slackId, $message, $color, $buttons);
 		}
-		if ($referenceWarning && $check->reference) {
-			$this->slackNotifier->notify(
-				$slackId,
-				$projectReferenceCheckWarning,
-				'warning',
-				[]
-			);
-		}
-		$this->slackNotifier->notify($slackId, $message, $color, $buttons);
 	}
 
 }

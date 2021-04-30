@@ -41,4 +41,24 @@ class Project extends \Nextras\Orm\Entity\Entity implements \Nette\Security\Reso
 		return 'project' . $this->id;
 	}
 
+
+	/**
+	 * @return array<string>
+	 */
+	public function getSlackHookUrls(): array
+	{
+		$hookUrls = [];
+		foreach ($this->slackIntegrations as $integration) {
+			$hookUrls[] = $integration->hookUrl;
+		}
+
+		if ($hookUrls === [] && $this->parent !== NULL) {
+			foreach ($this->parent->slackIntegrations as $integration) {
+				$hookUrls[] = $integration->hookUrl;
+			}
+		}
+
+		return $hookUrls;
+	}
+
 }

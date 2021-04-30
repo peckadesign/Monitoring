@@ -5,20 +5,16 @@ namespace Pd\Monitoring\Slack;
 class Notifier
 {
 
-	private string $hookUrl;
-
 	private \Monolog\Logger $logger;
 
 	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 
 	public function __construct(
-		string $hookUrl,
 		\Monolog\Logger $logger,
 		\Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider
 	)
 	{
-		$this->hookUrl = $hookUrl;
 		$this->logger = $logger;
 		$this->dateTimeProvider = $dateTimeProvider;
 	}
@@ -27,7 +23,7 @@ class Notifier
 	/**
 	 * @param array|Button[] $buttons
 	 */
-	public function notify(string $channel, string $message, string $color, array $buttons): void
+	public function notify(string $hookUrl, string $channel, string $message, string $color, array $buttons): void
 	{
 		$payload = [
 			'channel' => $channel,
@@ -52,7 +48,7 @@ class Notifier
 
 		try {
 			$client = new \GuzzleHttp\Client();
-			$client->request('POST', $this->hookUrl, $options);
+			$client->request('POST', $hookUrl, $options);
 		} catch (\Throwable $e) {
 			$this->logger->error($e);
 		}

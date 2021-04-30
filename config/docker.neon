@@ -18,9 +18,6 @@ console:
 	url: %env.monitoring_url%
 
 parameters:
-	slack:
-		hookUrl: %env.slack_hook_url% # URL hooku pro notifikování do Slacku
-
 	github:
 		clientId: %env.github_app_id%
 		clientSecret: %env.github_secret_key%
