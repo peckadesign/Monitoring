@@ -88,7 +88,9 @@ class Control extends \Nette\Application\UI\Control
 			$action,
 			$this->project->name
 		);
-		$this->notifier->notify('#monitoring', $statusMessage, 'good', []);
+		foreach ($this->project->getSlackHookUrls() as $hookUrl) {
+			$this->notifier->notify($hookUrl, '#monitoring', $statusMessage, 'good', []);
+		}
 
 		foreach ($this->onToggleHandlers as $handler) {
 			$handler->process($this);
