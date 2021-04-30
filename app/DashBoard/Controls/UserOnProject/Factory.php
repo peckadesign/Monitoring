@@ -36,7 +36,7 @@ final class Factory
 		{
 			$data = [];
 			foreach ($this->userOnProjectRepository->findBy(['project' => $project]) as $userOnProject) {
-				$data[$userOnProject->user->id] = ['id' => $userOnProject->user->id, 'user' => $userOnProject->user->gitHubName, 'view' => $userOnProject->view, 'edit' => $userOnProject->edit, 'admin' => $userOnProject->admin];
+				$data[$userOnProject->user->id] = ['id' => (string) $userOnProject->user->id, 'user' => $userOnProject->user->gitHubName, 'view' => $userOnProject->view, 'edit' => $userOnProject->edit, 'admin' => $userOnProject->admin];
 			}
 
 			return new \Ublaboo\DataGrid\DataSource\ArrayDataSource($data);
