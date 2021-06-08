@@ -1,0 +1,43 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron
+  namespace: monitoring
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: alive-check
+              image: registry.peckadesign.com/peckadesign/monitoring:edge
+              imagePullPolicy: Always
+              command:
+                - php
+                - www/index.php
+                - pd:monitoring:check:publish:alive-checks
+              envFrom:
+              - secretRef:
+                  name: monitoring-config
+            - name: certificate-checks
+              image: registry.peckadesign.com/peckadesign/monitoring:edge
+              imagePullPolicy: Always
+              command:
+                - php
+                - www/index.php
+                - pd:monitoring:check:publish:certificate-checks
+              envFrom:
+              - secretRef:
+                  name: monitoring-config
+            - name: dns-checks
+              image: registry.peckadesign.com/peckadesign/monitoring:edge
+              imagePullPolicy: Always
+              command:
+                - php
+                - www/index.php
+                - pd:monitoring:check:publish:dns-checks
+              envFrom:
+              - secretRef:
+                  name: monitoring-config
+          restartPolicy: OnFailure

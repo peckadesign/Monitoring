@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+  namespace: monitoring
+  labels:
+    environment: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+        - name: database
+          image: mariadb:10.3
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3306
+          env:
+          - name: MYSQL_ALLOW_EMPTY_PASSWORD
+            value: "1"
+          - name: MYSQL_USER
+            value: "monitoring"
+          - name: MYSQL_PASSWORD
+            value: "monitoring"
+          - name: MYSQL_DATABASE
+            value: "monitoring"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  namespace: monitoring
+  labels:
+    environment: monitoring
+spec:
+  selector:
+    app: database
+  ports:
+    - port: 3306

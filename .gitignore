@@ -7,3 +7,4 @@
 
 !.gitignore
 !.htaccess
+.k8s/devs/envs.yaml

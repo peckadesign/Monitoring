@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobs
+  namespace: monitoring
+  labels:
+    environment: monitoring
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: monitoring-jobs
+  template:
+    metadata:
+      labels:
+        app: monitoring-jobs
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: alive-check
+          image: registry.peckadesign.com/peckadesign/monitoring:edge
+          imagePullPolicy: Always
+          command: [ 'php', 'www/index.php', 'rabbitmq:consumer', 'aliveCheck', '-m 1000' ]
+          envFrom:
+            - secretRef:
+                name: monitoring-config
+        - name: certificate-checks
+          image: registry.peckadesign.com/peckadesign/monitoring:edge
+          imagePullPolicy: Always
+          command: [ 'php', 'www/index.php', 'rabbitmq:consumer', 'certificateCheck', '-m 1000' ]
+          envFrom:
+            - secretRef:
+                name: monitoring-config
+        - name: dns-check
+          image: registry.peckadesign.com/peckadesign/monitoring:edge
+          imagePullPolicy: Always
+          command: [ 'php', 'www/index.php', 'rabbitmq:consumer', 'elasticsearchExport', '-m 1000' ]
+          envFrom:
+            - secretRef:
+                name: monitoring-config
+        - name: elasticsearch-export
+          image: registry.peckadesign.com/peckadesign/monitoring:edge
+          imagePullPolicy: Always
+          command: [ 'php', 'www/index.php', 'rabbitmq:consumer', 'dnsCheck', '-m 1000' ]
+          envFrom:
+            - secretRef:
+                name: monitoring-config

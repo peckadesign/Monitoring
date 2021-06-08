@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-app
+  namespace: monitoring
+  labels:
+    environment: monitoring
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: monitoring-app
+  template:
+    metadata:
+      labels:
+        app: monitoring-app
+    spec:
+      containers:
+        - name: monitoring-app
+          image: registry.peckadesign.com/peckadesign/monitoring:edge
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+          - secretRef:
+              name: monitoring-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitoring-app
+  namespace: monitoring
+  labels:
+    environment: monitoring
+spec:
+  selector:
+    app: monitoring-app
+  ports:
+    - port: 80

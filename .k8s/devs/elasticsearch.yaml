@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  namespace: monitoring
+  labels:
+    environment: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: elasticsearch:7.12.1
+          imagePullPolicy: Always
+          env:
+            - name: discovery.type
+              value: "single-node"
+          ports:
+            - containerPort: 9200
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: monitoring
+  labels:
+    environment: monitoring
+spec:
+  selector:
+    app: elasticsearch
+  ports:
+    - port: 9200
