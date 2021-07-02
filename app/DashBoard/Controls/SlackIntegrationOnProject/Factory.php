@@ -36,7 +36,7 @@ final class Factory
 
 		$cb = static function (\Pd\Monitoring\Slack\Integration $integration): string
 		{
-			return $integration->name;
+			return $integration->getFullName();
 		};
 		$dataGrid
 			->addColumnText('integration', 'Integrace na Slack')
@@ -52,7 +52,11 @@ final class Factory
 		$inlineAdd = $dataGrid->addInlineAdd();
 		$addCallback = function (\Nette\Forms\Container $container) use ($alreadyIntegrations): void
 		{
-			$integrations = $this->integrationRepository->findBy(['id!=' => $alreadyIntegrations])->fetchPairs('id', 'name');
+			$integrations = $this->integrationRepository->findBy(['id!=' => $alreadyIntegrations])->fetchPairs('id', NULL);
+			$integrations = \array_map(static function (\Pd\Monitoring\Slack\Integration $integration): string {
+				return $integration->getFullName();
+			}, $integrations);
+
 			$container
 				->addSelect('integration', '', $integrations)
 				->setRequired()

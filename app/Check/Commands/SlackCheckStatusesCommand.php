@@ -178,47 +178,49 @@ class SlackCheckStatusesCommand extends \Symfony\Component\Console\Command\Comma
 		);
 
 		if ($check->project->notifications && ( ! $check->project->parent || $check->project->parent->notifications)) {
-			$this->notifiyCheck($check, $referenceWarning, NULL, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
+			$this->notifyCheck($check, $referenceWarning, NULL, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
 		}
 
 		$projectForUserProjectNotifications = $check->project->parent ?: $check->project;
 
 		foreach ($projectForUserProjectNotifications->userProjectNotifications as $user) {
-			$this->notifiyCheck($check, $referenceWarning, $user->user, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
+			$this->notifyCheck($check, $referenceWarning, $user->user, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
 		}
 
 		foreach ($check->userCheckNotifications as $user) {
-			$this->notifiyCheck($check, $referenceWarning, $user->user, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
+			$this->notifyCheck($check, $referenceWarning, $user->user, $referenceCheckWarning, $projectReferenceCheckWarning, $message, $color, $buttons);
 		}
 	}
 
 
-	private function notifiyCheck(\Pd\Monitoring\Check\Check $check, bool $referenceWarning, ?\Pd\Monitoring\User\User $user, string $referenceCheckWarning, string $projectReferenceCheckWarning, string $message, string $color, array $buttons): void
+	private function notifyCheck(\Pd\Monitoring\Check\Check $check, bool $referenceWarning, ?\Pd\Monitoring\User\User $user, string $referenceCheckWarning, string $projectReferenceCheckWarning, string $message, string $color, array $buttons): void
 	{
-		if ($user !== NULL) {
-			$slackId = $user->slackId;
-			if ($slackId === NULL) {
-				return;
-			}
-		} else {
-			$slackId = '#monitoring';
-		}
+		foreach ($check->project->getSlackIntegrations() as $slackIntegration) {
+			$slackId = $this->getSlackId($user) ?? $slackIntegration->channel;
 
-		foreach ($check->project->getSlackHookUrls() as $hookUrl) {
 			if ($referenceWarning && $check->project->reference) {
-				$this->slackNotifier->notify($hookUrl, $slackId, $referenceCheckWarning, 'warning', []);
+				$this->slackNotifier->notify($slackIntegration->hookUrl, $slackId, $referenceCheckWarning, 'warning', []);
 			}
 			if ($referenceWarning && $check->reference) {
 				$this->slackNotifier->notify(
-					$hookUrl,
+					$slackIntegration->hookUrl,
 					$slackId,
 					$projectReferenceCheckWarning,
 					'warning',
 					[]
 				);
 			}
-			$this->slackNotifier->notify($hookUrl, $slackId, $message, $color, $buttons);
+			$this->slackNotifier->notify($slackIntegration->hookUrl, $slackId, $message, $color, $buttons);
 		}
+	}
+
+
+	private function getSlackId(?\Pd\Monitoring\User\User $user): ?string {
+		if ($user === NULL) {
+			return NULL;
+		}
+
+		return $user->slackId;
 	}
 
 }
