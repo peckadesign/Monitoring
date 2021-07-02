@@ -43,22 +43,22 @@ class Project extends \Nextras\Orm\Entity\Entity implements \Nette\Security\Reso
 
 
 	/**
-	 * @return array<string>
+	 * @return array<\Pd\Monitoring\Slack\Integration>
 	 */
-	public function getSlackHookUrls(): array
+	public function getSlackIntegrations(): array
 	{
-		$hookUrls = [];
+		$integrations = [];
 		foreach ($this->slackIntegrations as $integration) {
-			$hookUrls[] = $integration->hookUrl;
+			$integrations[] = $integration;
 		}
 
-		if ($hookUrls === [] && $this->parent !== NULL) {
+		if ($integrations === [] && $this->parent !== NULL) {
 			foreach ($this->parent->slackIntegrations as $integration) {
-				$hookUrls[] = $integration->hookUrl;
+				$integrations[] = $integration;
 			}
 		}
 
-		return $hookUrls;
+		return $integrations;
 	}
 
 }

@@ -191,7 +191,7 @@ parameters:
 			path: app/Check/Commands/SlackCheckStatusesCommand.php
 
 		-
-			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\SlackCheckStatusesCommand\\:\\:notifiyCheck\\(\\) has parameter \\$buttons with no value type specified in iterable type array\\.$#"
+			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Commands\\\\SlackCheckStatusesCommand\\:\\:notifyCheck\\(\\) has parameter \\$buttons with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Check/Commands/SlackCheckStatusesCommand.php
 
