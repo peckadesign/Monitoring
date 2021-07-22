@@ -12,7 +12,24 @@ Závislosti aplikace jsou zamknuty v `composer.json`, případně jsou popsány 
 Hardwarové požadavky se odvíjí od počtu kontrol a přístupu uživatelů. Při použití kolem cca 20 projektů, kdy každý ma do 50 kontrol je experimentálně ověřeno, že stačí server s 1 GB RAM a 1 CPU.
 
 
-## Spuštění aplikace
+## Spuštění aplikace z Dockeru
+
+Z repozitáře se překopírují soubory `docker-compose.full.yml`, `.env` a `monitoring-start.sh` do nového adresáře na počítači, na kterém má běžet Monitoring. Do souboru `.env` se doplní do klíče `MONITORING_URL` URL, na které má běžet Monitoring v prohlížeči ve tvaru https://monitoring.example.com. V tomto adresáři po spuštění budou uložená data Monitoringu.
+
+Celý Monitoring se poté spustí příkazem:
+
+```
+bash monitoring-start.sh
+```
+
+Po doběhnutí všech výstupů je k dipozici na URL http://localhost:8080 (port je možné si změnit v `docker-compose.full.yml`).
+
+Vlastní hezkou URL je nutné vyřešit pomocí proxy serveru (např. pomocí [Apache](https://httpd.apache.org/docs/current/mod/mod_proxy.html) nebo [nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)), stejně tak zabezpečení přístupu pro/proti veřejnosti a HTTPS certifikát.
+
+Výchozí přihlašovací e-mailová adresa a heslo administrátorského účtu je: `admin@localhost.local` a `admin`.
+
+
+## Spuštění aplikace z repozitáře
 
 Po naklonování repozitáře je potřeba zkopírovat lokální nastavení neonu a vyplnit údaje:
 

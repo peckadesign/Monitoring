@@ -28,7 +28,7 @@ services:
       MYSQL_DATABASE: monitoring
 
   elasticsearch:
-    image: elasticsearch:7.5.1
+    image: elasticsearch:7.13.4
     environment:
       discovery.type: single-node
 
