@@ -1396,6 +1396,11 @@ parameters:
 			path: app/DashBoard/Presenters/ProjectPresenter.php
 
 		-
+			message: "#^Cannot access property \\$administrator on Nette\\\\Security\\\\IIdentity\\|null\\.$#"
+			count: 1
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
 			message: "#^Class Pd\\\\Monitoring\\\\DashBoard\\\\Presenters\\\\ProjectPresenter has an uninitialized property \\$type\\. Give it default value or assign it in the constructor\\.$#"
 			count: 1
 			path: app/DashBoard/Presenters/ProjectPresenter.php
@@ -1418,6 +1423,11 @@ parameters:
 		-
 			message: "#^Only booleans are allowed in an if condition, Pd\\\\Monitoring\\\\Project\\\\Project\\|null given\\.$#"
 			count: 2
+			path: app/DashBoard/Presenters/ProjectPresenter.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method Pd\\\\Monitoring\\\\Project\\\\ProjectsRepository\\:\\:getById\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
 			path: app/DashBoard/Presenters/ProjectPresenter.php
 
 		-
@@ -1563,21 +1573,6 @@ parameters:
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return typehint\\.$#"
 			count: 3
-			path: app/Router/RouterFactory.php
-
-		-
-			message: "#^Anonymous function should return int but returns int\\|false\\.$#"
-			count: 1
-			path: app/Router/RouterFactory.php
-
-		-
-			message: "#^Cannot access property \\$administrator on Nette\\\\Security\\\\IIdentity\\|null\\.$#"
-			count: 1
-			path: app/Router/RouterFactory.php
-
-		-
-			message: "#^Only booleans are allowed in a ternary operator condition, int\\<0, max\\> given\\.$#"
-			count: 2
 			path: app/Router/RouterFactory.php
 
 		-

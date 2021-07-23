@@ -26,6 +26,8 @@ class ProjectPresenter extends BasePresenter
 
 	private \Pd\Monitoring\DashBoard\Controls\SlackIntegrationOnProject\Factory $slackIntegrationOnProjectGridFactory;
 
+	private \Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\DashBoard\Forms\Factory $formFactory,
@@ -34,7 +36,8 @@ class ProjectPresenter extends BasePresenter
 		\Pd\Monitoring\DashBoard\Controls\ProjectButtons\IFactory $projectButtonsFactory,
 		\Pd\Monitoring\DashBoard\Controls\SubProjects\IFactory $subProjectsControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\UserOnProject\Factory $userOnProjectGridFactory,
-		\Pd\Monitoring\DashBoard\Controls\SlackIntegrationOnProject\Factory $slackIntegrationOnProjectGridFactory
+		\Pd\Monitoring\DashBoard\Controls\SlackIntegrationOnProject\Factory $slackIntegrationOnProjectGridFactory,
+		\Pd\Monitoring\UserOnProject\UserOnProjectRepository $userOnProjectRepository
 	)
 	{
 		parent::__construct();
@@ -45,6 +48,7 @@ class ProjectPresenter extends BasePresenter
 		$this->subProjectsControlFactory = $subProjectsControlFactory;
 		$this->userOnProjectGridFactory = $userOnProjectGridFactory;
 		$this->slackIntegrationOnProjectGridFactory = $slackIntegrationOnProjectGridFactory;
+		$this->userOnProjectRepository = $userOnProjectRepository;
 	}
 
 
@@ -134,6 +138,23 @@ class ProjectPresenter extends BasePresenter
 
 	public function actionDefault(\Pd\Monitoring\Project\Project $project, int $type = \Pd\Monitoring\Check\ICheck::TYPE_ALIVE): void
 	{
+		if (\count($project->subProjects) > 0) {
+			if ( ! $this->getUser()->getIdentity()->administrator) {
+				$cb = static function (\Pd\Monitoring\UserOnProject\UserOnProject $userOnProject): int
+				{
+					return $userOnProject->project->id;
+				};
+				$projectsIds = \array_map($cb, \iterator_to_array($this->userOnProjectRepository->findBy(['user' => $this->getUser()->getId()])->getIterator()));
+
+				$projectId = \current(\array_intersect($projectsIds, $project->subProjects->getRawValue()));
+				$project = $this->projectsRepository->getById($projectId);
+			} else {
+				$project = $project->subProjects->get()->fetch();
+			}
+
+			$this->redirect('default', [$project]);
+		}
+
 		if ( ! $this->user->isAllowed($project, \Pd\Monitoring\User\AclFactory::PRIVILEGE_VIEW)) {
 			throw new \Nette\Application\ForbiddenRequestException();
 		}
