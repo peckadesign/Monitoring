@@ -1,0 +1,166 @@
+version: '3'
+
+services:
+  web:
+    image: peckadesign/monitoring:edge
+    env_file:
+      - .env
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  database:
+    image: mariadb:10.5
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_USER: monitoring
+      MYSQL_PASSWORD: monitoring
+      MYSQL_DATABASE: monitoring
+
+  elasticsearch:
+    image: elasticsearch:7.13.4
+    volumes:
+      - ./elasticsearch:/var/lib/elasticsearch
+    environment:
+      discovery.type: single-node
+
+  rabbitmq:
+    image: rabbitmq:3-alpine
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+
+  crontasks:
+    build: .docker/cron
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-aliveCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer aliveCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-certificateCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer certificateCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-dnsCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer dnsCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-errorsCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer errorsCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-feedCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer feedCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-httpStatusCodeCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer httpStatusCodeCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-numberValueCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer numberValueCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-rabbitConsumerCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer rabbitConsumerCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-rabbitQueueCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer rabbitQueueCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-xpathCheck:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer xpathCheck -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq
+
+  consumer-elasticsearchExport:
+    image: peckadesign/monitoring:edge
+    command: bin/console rabbitmq:consumer elasticsearchExport -m 10
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - elasticsearch
+      - rabbitmq

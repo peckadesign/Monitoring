@@ -1,0 +1,15 @@
+SHELL=/bin/bash
+
+# m h  dom mon dow   command
+
+*/2 * * * *        root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:alive-checks >/proc/1/fd/1 2>/proc/1/fd/2
+0,15,30,45 * * * * root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:dns-checks >/proc/1/fd/1 2>/proc/1/fd/2
+0 */6 * * *        root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:certificate-checks >/proc/1/fd/1 2>/proc/1/fd/2
+*/5 * * * *        root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:http-status-code-checks >/proc/1/fd/1 2>/proc/1/fd/2
+*/5 * * * *        root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:number-value-checks >/proc/1/fd/1 2>/proc/1/fd/2
+*/5 * * * *        root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:xpath-checks >/proc/1/fd/1 2>/proc/1/fd/2
+*/5 * * * *        root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:errors-checks >/proc/1/fd/1 2>/proc/1/fd/2
+0,30 * * * *       root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:feed-checks >/proc/1/fd/1 2>/proc/1/fd/2
+0,15,30,45 * * * * root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:rabbit-consumer-checks >/proc/1/fd/1 2>/proc/1/fd/2
+0,15,30,45 * * * * root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:rabbit-queue-checks >/proc/1/fd/1 2>/proc/1/fd/2
+*/2 * * * *        root sleep 60 && /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:slack-check-statuses >/proc/1/fd/1 2>/proc/1/fd/2
