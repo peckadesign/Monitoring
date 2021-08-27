@@ -12,4 +12,4 @@ SHELL=/bin/bash
 0,30 * * * *       root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:feed-checks >/proc/1/fd/1 2>/proc/1/fd/2
 0,15,30,45 * * * * root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:rabbit-consumer-checks >/proc/1/fd/1 2>/proc/1/fd/2
 0,15,30,45 * * * * root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:publish:rabbit-queue-checks >/proc/1/fd/1 2>/proc/1/fd/2
-*/2 * * * *        root sleep 60 && /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:slack-check-statuses >/proc/1/fd/1 2>/proc/1/fd/2
+*/2 * * * *        root /usr/local/bin/php /var/www/html/bin/console pd:monitoring:check:slack-check-statuses >/proc/1/fd/1 2>/proc/1/fd/2
