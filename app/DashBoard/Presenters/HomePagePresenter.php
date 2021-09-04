@@ -63,12 +63,14 @@ class HomePagePresenter extends BasePresenter
 
 	public function actionDefault(): void
 	{
-		$allowedProjects = [];
 		if ( ! $this->getUser()->getIdentity()->administrator) {
 			$projects = $this->userOnProjectRepository->findBy(['user' => $this->user->id]);
 			$cb = static fn(\Pd\Monitoring\UserOnProject\UserOnProject $userOnProject): int => $userOnProject->project->id;
-			$allowedProjects = ['project' => \array_map($cb, \iterator_to_array($projects->getIterator()))];
+		} else {
+			$projects = $this->projectsRepository->findAll();
+			$cb = static fn(\Pd\Monitoring\Project\Project $project): int => $project->id;
 		}
+		$allowedProjects = ['project' => \array_map($cb, \iterator_to_array($projects->getIterator()))];
 
 		$favoriteProjects = $this->usersFavoriteProjectsRepository->findBy(["user" => $this->getUser()->id] + $allowedProjects)->orderBy("this->project->name");
 
@@ -85,13 +87,13 @@ class HomePagePresenter extends BasePresenter
 			$this->userProjectNotifications[$slackNotification->project->id] = $slackNotification;
 		}
 
-		$allProjects = $this->projectsRepository->findDashBoardProjects(\array_keys($this->usersFavoriteProjects), $allowedProjects['project'] ?? NULL);
+		$allProjects = $this->projectsRepository->findDashBoardProjects(\array_keys($this->usersFavoriteProjects), $allowedProjects['project']);
 		foreach ($allProjects as $project) {
 			$this->projects[$project->id] = $project;
 			$this->nonFavoriteProjects[$project->id] = $project;
 		}
 
-		$referenceProjects = $this->projectsRepository->findBy(['reference' => TRUE] + (isset($allowedProjects['project']) ? ['id' => $allowedProjects['project']] : []));
+		$referenceProjects = $this->projectsRepository->findBy(['reference' => TRUE] + ['id' => $allowedProjects['project']]);
 		foreach ($referenceProjects as $project) {
 			$this->projects[$project->id] = $project;
 			$this->referenceProjects[$project->id] = $project;
