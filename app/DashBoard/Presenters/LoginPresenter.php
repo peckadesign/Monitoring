@@ -17,20 +17,35 @@ class LoginPresenter extends \Nette\Application\UI\Presenter
 
 	private \Pd\Monitoring\DashBoard\Forms\LoginFormFactory $loginFormFactory;
 
+	private \Pd\Monitoring\Github\GitHubLogin $githubLogin;
+
 
 	public function __construct(
 		\League\OAuth2\Client\Provider\Github $gitHub,
-		\Pd\Monitoring\DashBoard\Forms\LoginFormFactory $loginFormFactory
+		\Pd\Monitoring\DashBoard\Forms\LoginFormFactory $loginFormFactory,
+		\Pd\Monitoring\Github\GitHubLogin $githubLogin
 	)
 	{
 		parent::__construct();
 		$this->github = $gitHub;
 		$this->loginFormFactory = $loginFormFactory;
+		$this->githubLogin = $githubLogin;
+	}
+
+
+	public function renderDefault(): void
+	{
+		$this->template->githubAllowed = $this->githubLogin->isAllowed();
 	}
 
 
 	public function handleLogin(): void
 	{
+		if ( ! $this->githubLogin->isAllowed()) {
+			$this->flashMessage('Github Login není povolen.');
+			$this->redirect('this');
+		}
+
 		if ( ! $this->user->isLoggedIn()) {
 			$authUrl = $this->github->getAuthorizationUrl(['state' => $this->backLink]);
 			$this->redirectUrl($authUrl);

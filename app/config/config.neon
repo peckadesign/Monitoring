@@ -29,6 +29,7 @@ pd.monolog:
 parameters:
 	logDir: %appDir%/../log
 	github:
+		allow: true
 		scope:
 			- user:email
 			- read:org
@@ -448,6 +449,11 @@ services:
 
 	-
 		factory: \Pd\Monitoring\DashBoard\Controls\SlackIntegrationOnProject\Factory
+
+	-
+		factory: Pd\Monitoring\Github\GitHubLogin
+		arguments:
+			isAllowed: %github.allow%
 
 
 decorator:
