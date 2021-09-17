@@ -42,51 +42,6 @@ Příklad konfigurace démona `supervisord` pro běh RabbitMQ consumerů je v `/
 Vzorový `crontab` pro plnění front RabbitMQ je v `/config/crontab`.
 
 
-## Vývoj ve Vagrantu
-
-Po stažení aplikace je k dispozici Vagrant, jako vývojové prostředí. Před použitím je třeba nainstalovat:
-
- - VirtualBox - https://www.virtualbox.org/wiki/Downloads
- - Vagrant - https://www.vagrantup.com/downloads.html
-
-Po nainstalování z terminálu ze složky, kde je umístěn projektový `Vagrantfile` (root složka projektu) provést následující příkazy:
- 1. `vagrant plugin install vagrant-hostmanager`
- 	- doporučené, ale nepovinné - stará se o automatické doplňování `/etc/hosts`
- 	- při nepoužití lze na stránky přistoupit pomocí IP adresy serveru, případně `/etc/hosts` vyplnit ručně
-
- 2. `vagrant plugin install vagrant-vbguest`
-	- plugin pro aktualizaci VirtualBox Guest Additions nutné pro správný chod NFS
-
- 3. `vagrant up`
- 	- stáhne obraz linuxového serveru (jednou pro všechny projekty)
- 	- z obrazu založí virtuální mašinu, kterou následně nakonfiguruje, tak jak je pro naše projekty třeba
-
- 4. Navštívit a prozkoumat `http://%project%.v.peckadesign.com`
-
-
-### Zrušení vyžadování hesla
-
-
-#### OS X
- 1. pro NFS mapovaní
-  - `/etc/sudoers.d/vagrant` https://docs.vagrantup.com/v2/synced-folders/nfs.html
-
-```bash
-Cmnd_Alias VAGRANT_EXPORTS_ADD = /usr/bin/tee -a /etc/exports
-Cmnd_Alias VAGRANT_NFSD = /sbin/nfsd restart
-Cmnd_Alias VAGRANT_EXPORTS_REMOVE = /usr/bin/sed -E -e /*/ d -ibak /etc/exports
-%admin ALL=(root) NOPASSWD: VAGRANT_EXPORTS_ADD, VAGRANT_NFSD, VAGRANT_EXPORTS_REMOVE
-```
-
- 2. pro úpravu souboru `/etc/hosts` (je třeba správně uvést jméno uživatele v cestě)
-  - `/etc/sudoers.d/vagrant_hostmanager` https://github.com/smdahlen/vagrant-hostmanager#passwordless-sudo
-
-```bash
-Cmnd_Alias VAGRANT_HOSTMANAGER_UPDATE = /bin/cp /Users/jmenouzivatele/.vagrant.d/tmp/hosts.local /etc/hosts
-%admin ALL=(root) NOPASSWD: VAGRANT_HOSTMANAGER_UPDATE
-```
-
-
 ## Rabbit consumers
 
 
