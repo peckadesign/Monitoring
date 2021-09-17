@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: peckadesign/php:7.4
+    image: peckadesign/php:7.4-dev
     volumes:
       - ./.docker/web/:/etc/apache2/sites-enabled
       - ./:/var/www/html
@@ -12,7 +12,7 @@ services:
       - .env
 
   composer:
-    image: peckadesign/php:7.4
+    image: peckadesign/php:7.4-dev
     volumes:
     - ./:/var/www/html
     command: composer install

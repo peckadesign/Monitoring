@@ -41,4 +41,4 @@ cs:
 phpstan:
 	git clean -xdf output.phpstan
 	composer install --no-interaction
-	- ./vendor/bin/phpstan analyse app/ --level 1 -c phpstan.neon --no-progress &> output.phpstan
+	./vendor/bin/phpstan analyse app/ --level 1 -c phpstan.neon --no-progress
