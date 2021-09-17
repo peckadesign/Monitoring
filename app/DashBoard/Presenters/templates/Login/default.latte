@@ -37,8 +37,10 @@
 			<div class="page-header">
 				<h1><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Pecka Monitoring<sup>beta</sup></h1>
 			</div>
+			{if $githubAllowed}
 			<p class="text-center"><a n:href="login!" title="Přihlaš se" class="btn btn-primary btn-block">Přihlásit přes GitHub</a></p>
 			<hr>
+			{/if}
 			{control form}
 		</div>
 
