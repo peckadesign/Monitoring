@@ -32,6 +32,14 @@
 		</div>
 	{/if}
 
+	{if ! count($projects) && ! count($favoriteProjects) && ! count($referenceProjects)}
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Není zde žádný projekt, vytvořte jej nebo požádejte správce o přidělení oprávnění.</h4>
+			</div>
+		</div>
+	{/if}
+
 	{control refresh}
 
 {/block}

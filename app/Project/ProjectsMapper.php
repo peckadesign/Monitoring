@@ -7,9 +7,9 @@ class ProjectsMapper extends \Nextras\Orm\Mapper\Mapper
 
 	/**
 	 * @param array<int> $userFavoriteProjectsIds
-	 * @param array<int>|null $onlyProjectsIds
+	 * @param array<int> $onlyProjectsIds
 	 */
-	public function findDashBoardProjects(array $userFavoriteProjectsIds, ?array $onlyProjectsIds = NULL)
+	public function findDashBoardProjects(array $userFavoriteProjectsIds, array $onlyProjectsIds)
 	{
 		$data = $this
 			->builder()
@@ -22,8 +22,10 @@ class ProjectsMapper extends \Nextras\Orm\Mapper\Mapper
 			$data->andWhere('%column NOT IN %i[]', 'id', $userFavoriteProjectsIds);
 		}
 
-		if ($onlyProjectsIds !== NULL) {
+		if ($onlyProjectsIds !== []) {
 			$data->andWhere('%column IN %i[]', 'id', $onlyProjectsIds);
+		} else {
+			$data->andWhere('%column IS NULL', 'id');
 		}
 
 		return $this->toCollection($data);
