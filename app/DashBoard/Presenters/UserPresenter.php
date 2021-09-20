@@ -33,6 +33,7 @@ class UserPresenter extends BasePresenter
 
 	public function actionEdit(\Pd\Monitoring\User\User $user): void
 	{
+		\Tracy\Debugger::barDump($user);
 		if ( ! $this->user->isAllowed($user, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
 			throw new \Nette\Application\ForbiddenRequestException();
 		}

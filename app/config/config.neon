@@ -455,6 +455,9 @@ services:
 		arguments:
 			isAllowed: %github.allow%
 
+	-
+		implement: \Pd\Monitoring\DashBoard\Controls\SlackIntegrationList\IFactory
+
 
 decorator:
 	Nette\Application\UI\Control:
