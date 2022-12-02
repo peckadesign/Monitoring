@@ -4,9 +4,9 @@ namespace Pd\Monitoring\User;
 
 /**
  * @property int $id {primary}
- * @property int $gitHubId
+ * @property int|null $gitHubId
  * @property string $gitHubName
- * @property string $gitHubToken
+ * @property string|null $gitHubToken
  * @property bool $administrator
  * @property string|null $slackId
  * @property string|null $password

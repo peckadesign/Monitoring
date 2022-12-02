@@ -1521,7 +1521,7 @@ parameters:
 			path: app/Github/Presenters/LoginPresenter.php
 
 		-
-			message: "#^Property Pd\\\\Monitoring\\\\User\\\\User\\:\\:\\$gitHubId \\(int\\) does not accept string\\|null\\.$#"
+			message: "#^Property Pd\\\\Monitoring\\\\User\\\\User\\:\\:\\$gitHubId \\(int\\|null\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Github/Presenters/LoginPresenter.php
 

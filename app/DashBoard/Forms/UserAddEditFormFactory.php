@@ -2,7 +2,7 @@
 
 namespace Pd\Monitoring\DashBoard\Forms;
 
-class UserEditFormFactory
+class UserAddEditFormFactory
 {
 
 	public const FIELD_GIT_HUB_NAME = 'gitHubName';
