@@ -53,7 +53,7 @@ final class XpathCheck extends Check
 				}
 				$this->logError($check, \sprintf('Došlo k chybě na url "%s"', $check->url));
 			}
-		} catch (\GuzzleHttp\Exception\RequestException $e) {
+		} catch (\GuzzleHttp\Exception\RequestException|\GuzzleHttp\Exception\ConnectException $e) {
 			$this->logError($check, $e->getMessage());
 		}
 
