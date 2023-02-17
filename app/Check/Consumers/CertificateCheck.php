@@ -5,6 +5,9 @@ namespace Pd\Monitoring\Check\Consumers;
 class CertificateCheck extends Check
 {
 
+	private const TIMEOUT = 20;
+
+
 	private \Pd\Monitoring\Utils\IDateTimeProvider $dateTimeProvider;
 
 
@@ -56,7 +59,15 @@ class CertificateCheck extends Check
 
 			try {
 				$curl = new \GuzzleHttp\Client();
-				$gradeResponse = \Nette\Utils\Json::decode((string) $curl->get($check->getSslLabsApiLink())->getBody(), \Nette\Utils\Json::FORCE_ARRAY);
+				$options = [
+					'connect_timeout' => self::TIMEOUT,
+					'timeout' => 2 * self::TIMEOUT,
+					'headers' => [
+						'User-Agent' => 'PeckaMonitoringBot/1.0',
+					],
+				];
+
+				$gradeResponse = \Nette\Utils\Json::decode((string) $curl->get($check->getSslLabsApiLink(), $options)->getBody(), \Nette\Utils\Json::FORCE_ARRAY);
 
 				if ($gradeResponse['status'] === 'READY') {
 					$check->lastGrade = NULL;
