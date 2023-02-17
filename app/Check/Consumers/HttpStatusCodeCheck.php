@@ -17,6 +17,8 @@ class HttpStatusCodeCheck extends Check
 			];
 			$client = new \GuzzleHttp\Client($config);
 			try {
+				$this->logInfo($check, \sprintf('Kontrola ID "%s". Začínám stahovat url "%s".', $check->id, $check->url));
+
 				$response = $client->request('GET', $check->url);
 
 				$this->logHeaders($check, $response);
