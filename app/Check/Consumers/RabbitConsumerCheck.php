@@ -28,6 +28,8 @@ class RabbitConsumerCheck extends Check
 				$options['auth'] = [$check->login, $check->password];
 			}
 
+			$this->logInfo($check, \sprintf('Kontrola ID "%s". Začínám stahovat url "%s".', $check->id, $check->url));
+
 			$response = $client->request('GET', $check->url, $options);
 
 			$this->logHeaders($check, $response);
