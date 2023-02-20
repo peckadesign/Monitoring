@@ -56,7 +56,7 @@ class ErrorsCheck extends Check
 
 				return TRUE;
 			}
-		} catch (\GuzzleHttp\Exception\RequestException $e) {
+		} catch (\GuzzleHttp\Exception\RequestException|\GuzzleHttp\Exception\ConnectException $e) {
 			$this->logError($check, $e->getMessage());
 
 			return FALSE;
