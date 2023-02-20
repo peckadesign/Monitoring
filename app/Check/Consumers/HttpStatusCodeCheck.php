@@ -5,6 +5,9 @@ namespace Pd\Monitoring\Check\Consumers;
 class HttpStatusCodeCheck extends Check
 {
 
+	private const TIMEOUT = 30;
+
+
 	/**
 	 * @param \Pd\Monitoring\Check\Check|\Pd\Monitoring\Check\HttpStatusCodeCheck $check
 	 */
@@ -15,11 +18,20 @@ class HttpStatusCodeCheck extends Check
 				'verify' => FALSE,
 				'allow_redirects' => FALSE,
 			];
+
+			$options = [
+				'connect_timeout' => self::TIMEOUT,
+				'timeout' => 2 * self::TIMEOUT,
+				'headers' => [
+					'User-Agent' => 'PeckaMonitoringBot/1.0',
+				],
+			];
+
 			$client = new \GuzzleHttp\Client($config);
 			try {
 				$this->logInfo($check, \sprintf('Kontrola ID "%s". Začínám stahovat url "%s".', $check->id, $check->url));
 
-				$response = $client->request('GET', $check->url);
+				$response = $client->get($check->url, $options);
 
 				$this->logHeaders($check, $response);
 
