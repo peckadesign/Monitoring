@@ -14,24 +14,20 @@ class HttpStatusCodeCheck extends Check
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
 		try {
-			$config = [
-				'verify' => FALSE,
-				'allow_redirects' => FALSE,
-			];
+			$configuration =
+				\Pd\Monitoring\Check\Consumers\Client\Configuration::create(
+					2 * self::TIMEOUT,
+					self::TIMEOUT,
+					FALSE)
+				->withAllowRedirects(\Pd\Monitoring\Check\Consumers\Client\Configuration\AllowRedirects::create(FALSE))
+			;
 
-			$options = [
-				'connect_timeout' => self::TIMEOUT,
-				'timeout' => 2 * self::TIMEOUT,
-				'headers' => [
-					'User-Agent' => 'PeckaMonitoringBot/1.0',
-				],
-			];
+			$client = new \GuzzleHttp\Client($configuration->config());
 
-			$client = new \GuzzleHttp\Client($config);
 			try {
 				$this->logInfo($check, \sprintf('Kontrola ID "%s". Začínám stahovat url "%s".', $check->id, $check->url));
 
-				$response = $client->get($check->url, $options);
+				$response = $client->get($check->url);
 
 				$this->logHeaders($check, $response);
 
