@@ -61,7 +61,6 @@ abstract class Check implements \Kdyby\RabbitMq\IConsumer
 
 
 	/**
-	 * @param \Pd\Monitoring\Check\Check $check
 	 * @return bool TRUE, pokud se podařilo úspěšně provést kontrolu, jinak FALSE. Po FALSE může následovat opětovné spuštění kontroly
 	 */
 	abstract protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool;
