@@ -13,24 +13,18 @@ class RabbitConsumerCheck extends Check
 	{
 		$check->lastConsumerCount = NULL;
 
+		$guzzleOptions = \Pd\Monitoring\Check\Consumers\Client\Configuration::create(5, 5, $check->validateHttps);
+		$client = new \GuzzleHttp\Client($guzzleOptions->config());
+
 		try {
-			$config = [
-				'verify' => $check->validateHttps,
-			];
-			$client = new \GuzzleHttp\Client($config);
-
-			$options = [
-				'connect_timeout' => 5,
-				'timeout' => 5,
-			];
-
+			$options = [];
 			if ( ! empty($check->login)) {
 				$options['auth'] = [$check->login, $check->password];
 			}
 
 			$this->logInfo($check, \sprintf('Kontrola ID "%s". Začínám stahovat url "%s".', $check->id, $check->url));
 
-			$response = $client->request('GET', $check->url, $options);
+			$response = $client->get($check->url, $options);
 
 			$this->logHeaders($check, $response);
 
