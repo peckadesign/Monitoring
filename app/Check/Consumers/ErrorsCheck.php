@@ -13,24 +13,17 @@ class ErrorsCheck extends Check
 	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
-		$client = new \GuzzleHttp\Client();
-
 		$check->errorsJson = NULL;
 
-		$options = [
-			'connect_timeout' => self::TIMEOUT,
-			'timeout' => 2 * self::TIMEOUT,
-			'headers' => [
-				'User-Agent' => 'PeckaMonitoringBot/1.0',
-			],
-		];
+		$guzzleOptions = \Pd\Monitoring\Check\Consumers\Client\Configuration::create(self::TIMEOUT, 2 * self::TIMEOUT);
+		$client = new \GuzzleHttp\Client($guzzleOptions->config());
 
 		try {
 			$start = (float) \microtime(TRUE);
 
 			$this->logInfo($check, \sprintf('Začínám stahovat url "%s" v čase %f', $check->url, $start));
 
-			$response = $client->request('GET', $check->url, $options);
+			$response = $client->get($check->url);
 
 			$this->logHeaders($check, $response);
 
