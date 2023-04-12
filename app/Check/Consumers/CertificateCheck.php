@@ -58,16 +58,10 @@ class CertificateCheck extends Check
 			}
 
 			try {
-				$curl = new \GuzzleHttp\Client();
-				$options = [
-					'connect_timeout' => self::TIMEOUT,
-					'timeout' => 2 * self::TIMEOUT,
-					'headers' => [
-						'User-Agent' => 'PeckaMonitoringBot/1.0',
-					],
-				];
+				$guzzleOptions = \Pd\Monitoring\Check\Consumers\Client\Configuration::create(self::TIMEOUT, 2 * self::TIMEOUT);
+				$client = new \GuzzleHttp\Client($guzzleOptions->config());
 
-				$gradeResponse = \Nette\Utils\Json::decode((string) $curl->get($check->getSslLabsApiLink(), $options)->getBody(), \Nette\Utils\Json::FORCE_ARRAY);
+				$gradeResponse = \Nette\Utils\Json::decode((string) $client->get($check->getSslLabsApiLink())->getBody(), \Nette\Utils\Json::FORCE_ARRAY);
 
 				if ($gradeResponse['status'] === 'READY') {
 					$check->lastGrade = NULL;
