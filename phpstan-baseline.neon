@@ -241,11 +241,6 @@ parameters:
 			path: app/Check/Consumers/AliveCheck.php
 
 		-
-			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\AliveCheck\\:\\:loadUrl\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Check/Consumers/AliveCheck.php
-
-		-
 			message: "#^Only booleans are allowed in a negated boolean, Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null given\\.$#"
 			count: 1
 			path: app/Check/Consumers/AliveCheck.php
