@@ -456,22 +456,7 @@ parameters:
 			path: app/Check/Consumers/RabbitQueueCheck.php
 
 		-
-			message: "#^Access to an undefined property Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:\\$xpathLastResult\\.$#"
-			count: 1
-			path: app/Check/Consumers/XpathCheck.php
-
-		-
-			message: "#^Access to undefined constant Pd\\\\Monitoring\\\\Check\\\\Check\\:\\:ALIVE_TIMEOUT\\.$#"
-			count: 2
-			path: app/Check/Consumers/XpathCheck.php
-
-		-
 			message: "#^Cannot call method getNextUrl\\(\\) on Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null\\.$#"
-			count: 1
-			path: app/Check/Consumers/XpathCheck.php
-
-		-
-			message: "#^Method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\XpathCheck\\:\\:loadUrl\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Check/Consumers/XpathCheck.php
 
@@ -483,11 +468,6 @@ parameters:
 		-
 			message: "#^Only booleans are allowed in an if condition, Pd\\\\Monitoring\\\\Check\\\\SiteMapLoader\\|null given\\.$#"
 			count: 1
-			path: app/Check/Consumers/XpathCheck.php
-
-		-
-			message: "#^Parameter \\#3 \\$check of method Pd\\\\Monitoring\\\\Check\\\\Consumers\\\\XpathCheck\\:\\:loadUrl\\(\\) expects Pd\\\\Monitoring\\\\Check\\\\XpathCheck, Pd\\\\Monitoring\\\\Check\\\\Check given\\.$#"
-			count: 2
 			path: app/Check/Consumers/XpathCheck.php
 
 		-

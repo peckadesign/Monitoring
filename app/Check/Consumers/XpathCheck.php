@@ -10,24 +10,17 @@ final class XpathCheck extends Check
 	private ?string $lastUrl = NULL;
 
 
-	/**
-	 * @param \Pd\Monitoring\Check\Check|\Pd\Monitoring\Check\XpathCheck $check
-	 * @return bool
-	 */
 	protected function doHardJob(\Pd\Monitoring\Check\Check $check): bool
 	{
+		if ( ! $check instanceof \Pd\Monitoring\Check\XpathCheck) {
+			throw new \Pd\Monitoring\Exception();
+		}
 		$check->xpathLastResult = NULL;
 
-		$client = new \GuzzleHttp\Client();
-
-		$options = [
-			'connect_timeout' => $check::ALIVE_TIMEOUT / 1000,
-			'timeout' => 2 * $check::ALIVE_TIMEOUT / 1000,
-			'headers' => [
-				'User-Agent' => 'PeckaMonitoringBot/1.0',
-			],
-			'allow_redirects' => TRUE,
-		];
+		$guzzleOptions = \Pd\Monitoring\Check\Consumers\Client\Configuration::create($check::ALIVE_TIMEOUT / 1000, (int) (\round(2 * ($check::ALIVE_TIMEOUT / 1000))))
+			->withAllowRedirects(\Pd\Monitoring\Check\Consumers\Client\Configuration\AllowRedirects::create(TRUE))
+		;
+		$client = new \GuzzleHttp\Client($guzzleOptions->config());
 
 		if ($check->siteMap && ! $this->siteMapLoader) {
 			$this->siteMapLoader = new \Pd\Monitoring\Check\SiteMapLoader($check->url);
@@ -37,7 +30,7 @@ final class XpathCheck extends Check
 			if ($this->siteMapLoader) {
 				$withoutError = TRUE;
 				while ($url = $this->siteMapLoader->getNextUrl($this->lastUrl)) {
-					$loaded = $this->loadUrl($client, $options, $check, $url);
+					$loaded = $this->loadUrl($client, $check, $url);
 					if ( ! $loaded) {
 						$this->logError($check, \sprintf('Došlo k chybě na url "%s"', $url));
 						$withoutError = FALSE;
@@ -47,7 +40,7 @@ final class XpathCheck extends Check
 
 				return $withoutError;
 			} else {
-				$loaded = $this->loadUrl($client, $options, $check, $check->url);
+				$loaded = $this->loadUrl($client, $check, $check->url);
 				if ($loaded) {
 					return TRUE;
 				}
@@ -67,9 +60,9 @@ final class XpathCheck extends Check
 	}
 
 
-	private function loadUrl(\GuzzleHttp\Client $client, array $options, \Pd\Monitoring\Check\XpathCheck $check, string $url): bool
+	private function loadUrl(\GuzzleHttp\Client $client, \Pd\Monitoring\Check\XpathCheck $check, string $url): bool
 	{
-		$response = $client->request('GET', $url, $options);
+		$response = $client->get($url);
 
 		if ($response->getStatusCode() !== 200) {
 			$this->logHeaders($check, $response);
