@@ -45,7 +45,8 @@
 		"pd/coding-standard": "1.27.*",
 		"phpstan/phpstan": "0.12.*",
 		"phpstan/phpstan-strict-rules": "0.12.*",
-		"phpstan/phpstan-nette": "0.12.*"
+		"phpstan/phpstan-nette": "0.12.*",
+		"phpunit/phpunit": "^9.5"
 	},
 	"minimum-stability": "stable",
 	"autoload": {
@@ -53,10 +54,20 @@
 			"Pd\\Monitoring\\": "app"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\Pd\\Monitoring\\": "tests/phpunit"
+		}
+	},
 	"repositories": [
 		{
 			"type": "vcs",
 			"url": "https://github.com/VBoss/RabbitMQ"
 		}
-	]
+	],
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }
