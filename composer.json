@@ -42,7 +42,7 @@
 		"ublaboo/datagrid-elasticsearch-data-source": "2.1.*"
 	},
 	"require-dev": {
-		"pd/coding-standard": "1.27.*",
+		"pd/coding-standard": " 1.30.*",
 		"phpstan/phpstan": "0.12.*",
 		"phpstan/phpstan-strict-rules": "0.12.*",
 		"phpstan/phpstan-nette": "0.12.*",
