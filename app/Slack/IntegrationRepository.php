@@ -2,6 +2,9 @@
 
 namespace Pd\Monitoring\Slack;
 
+/**
+ * @method \Pd\Monitoring\Slack\Integration|null getById(int $id)
+ */
 class IntegrationRepository extends \Nextras\Orm\Repository\Repository
 {
 

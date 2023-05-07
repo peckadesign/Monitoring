@@ -11,16 +11,20 @@ final class RouterFactory
 
 	private \Pd\Monitoring\User\UsersRepository $usersRepository;
 
+	private \Pd\Monitoring\Slack\IntegrationRepository $integrationRepository;
+
 
 	public function __construct(
 		\Pd\Monitoring\Project\ProjectsRepository $projectsRepository,
 		\Pd\Monitoring\Check\ChecksRepository $checksRepository,
-		\Pd\Monitoring\User\UsersRepository $usersRepository
+		\Pd\Monitoring\User\UsersRepository $usersRepository,
+		\Pd\Monitoring\Slack\IntegrationRepository $integrationRepository
 	)
 	{
 		$this->projectsRepository = $projectsRepository;
 		$this->checksRepository = $checksRepository;
 		$this->usersRepository = $usersRepository;
+		$this->integrationRepository = $integrationRepository;
 	}
 
 
@@ -121,6 +125,24 @@ final class RouterFactory
 			],
 		];
 		$router[] = new \Nette\Application\Routers\Route('dash-board/user/<action>[/<user>]', $metadata);
+
+		$metadata = [
+			'module' => 'DashBoard',
+			'presenter' => 'Slack',
+			'action' => 'edit',
+			'integration' => [
+				\Nette\Application\Routers\Route::FILTER_IN => function (string $integration): ?\Pd\Monitoring\Slack\Integration
+				{
+					return $this->integrationRepository->getById((int) $integration);
+				},
+				\Nette\Application\Routers\Route::FILTER_OUT => static function (\Pd\Monitoring\Slack\Integration $integration): int
+				{
+					return $integration->id;
+				},
+			],
+		];
+		$router[] = new \Nette\Application\Routers\Route('dash-board/slack/<action>[/<integration>]', $metadata);
+
 
 		$metadata = [
 			'module' => 'DashBoard',

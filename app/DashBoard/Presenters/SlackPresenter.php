@@ -5,32 +5,38 @@ namespace Pd\Monitoring\DashBoard\Presenters;
 final class SlackPresenter extends BasePresenter
 {
 
-	private \Pd\Monitoring\Check\ChecksRepository $checksRepository;
+	private \Pd\Monitoring\DashBoard\Controls\SlackIntegrationList\IFactory $factory;
 
 
 	public function __construct(
-		\Pd\Monitoring\Check\ChecksRepository $checksRepository
+		\Pd\Monitoring\DashBoard\Controls\SlackIntegrationList\IFactory $factory
 	)
 	{
 		parent::__construct();
-		$this->checksRepository = $checksRepository;
+		$this->factory = $factory;
 	}
 
 
-	public function actionPause(int $id): void
+	public function actionDefault()
 	{
-		$check = $this->checksRepository->getById($id);
+	}
 
-		if ( ! $check) {
-			$this->error();
-		}
 
-		$check->paused = TRUE;
-		$this->checksRepository->persistAndFlush($check);
+	public function actionEdit(\Pd\Monitoring\Slack\Integration $integration): void
+	{
 
-		$this->flashMessage('Kontrola byla zapauzována', self::FLASH_MESSAGE_SUCCESS);
+	}
 
-		$this->redirect(':DashBoard:Project:', [$check->project]);
+
+	public function renderEdit(\Pd\Monitoring\Slack\Integration $integration): void
+	{
+		$this->template->name = $integration->getFullName();
+	}
+
+
+	public function createComponentSlackIntegrationList(): \Pd\Monitoring\DashBoard\Controls\SlackIntegrationList\Control
+	{
+		return $this->factory->create();
 	}
 
 }
