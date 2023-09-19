@@ -9,7 +9,7 @@ $configurator = new Nette\Configurator();
 if (\PHP_SAPI === 'cli') {
 	Kdyby\Console\DI\BootstrapHelper::setupMode($configurator);
 } else {
-	$configurator->setDebugMode(TRUE);
+	$configurator->setDebugMode(\getenv('SECRET_COOKIE') . '@' . $_SERVER['REMOTE_ADDR']);
 }
 
 $configurator->enableDebugger(__DIR__ . '/../log');
