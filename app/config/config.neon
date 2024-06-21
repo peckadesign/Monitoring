@@ -455,6 +455,11 @@ services:
 		arguments:
 			isAllowed: %github.allow%
 
+	-
+		factory: \Pd\Monitoring\Elasticsearch\LifetimePolicy\LifetimePolicyCommand
+		tags:
+			- kdyby.console.command
+
 
 decorator:
 	Nette\Application\UI\Control:
