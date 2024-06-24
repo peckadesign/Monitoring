@@ -354,10 +354,13 @@ services:
 			user: @\Nette\Security\User::getIdentity()
 
 	-
+		implement: Pd\Monitoring\DashBoard\Controls\AddUser\IFactory
+
+	-
 		implement: Pd\Monitoring\DashBoard\Controls\EditUser\IFactory
 
 	-
-		factory: Pd\Monitoring\DashBoard\Forms\UserEditFormFactory
+		factory: Pd\Monitoring\DashBoard\Forms\UserAddEditFormFactory
 
 	-
 		implement: Pd\Monitoring\DashBoard\Controls\Settings\IFactory

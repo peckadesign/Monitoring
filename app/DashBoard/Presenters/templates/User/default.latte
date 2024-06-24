@@ -5,3 +5,11 @@
 {block content}
 	{control userList}
 {/block}
+
+{block buttons}
+	<div class="buttons">
+		<div class="btn-group">
+			<a n:href="User:add" class="btn btn-success" n:if="$user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_USER, \Pd\Monitoring\User\AclFactory::PRIVILEGE_ADD)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nový uživatel</a>
+		</div>
+	</div>
+{/block}

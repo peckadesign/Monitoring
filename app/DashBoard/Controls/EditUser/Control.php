@@ -5,7 +5,7 @@ namespace Pd\Monitoring\DashBoard\Controls\EditUser;
 class Control extends \Nette\Application\UI\Control
 {
 
-	private \Pd\Monitoring\DashBoard\Forms\UserEditFormFactory $userEditFormFactory;
+	private \Pd\Monitoring\DashBoard\Forms\UserAddEditFormFactory $userAddEditFormFactory;
 
 	private \Pd\Monitoring\User\User $identity;
 
@@ -18,14 +18,14 @@ class Control extends \Nette\Application\UI\Control
 
 	public function __construct(
 		\Pd\Monitoring\User\User $identity,
-		\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory $userEditFormFactory,
+		\Pd\Monitoring\DashBoard\Forms\UserAddEditFormFactory $userAddEditFormFactory,
 		\Pd\Monitoring\User\UsersRepository $usersRepository,
 		\Nette\Security\User $user,
 		\Nette\Security\Passwords $passwords
 	)
 	{
 		$this->identity = $identity;
-		$this->userEditFormFactory = $userEditFormFactory;
+		$this->userAddEditFormFactory = $userAddEditFormFactory;
 		$this->usersRepository = $usersRepository;
 		$this->user = $user;
 		$this->passwords = $passwords;
@@ -46,10 +46,10 @@ class Control extends \Nette\Application\UI\Control
 
 	protected function createComponentForm(): \Nette\Application\UI\Form
 	{
-		$form = $this->userEditFormFactory->create();
+		$form = $this->userAddEditFormFactory->create();
 
 		if (!$this->user->isAllowed($this->identity, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
-			$form->removeComponent($form->getComponent(\Pd\Monitoring\DashBoard\Forms\UserEditFormFactory::FIELD_PASSWORD));
+			$form->removeComponent($form->getComponent(\Pd\Monitoring\DashBoard\Forms\UserAddEditFormFactory::FIELD_PASSWORD));
 		}
 
 		$form->onSuccess[] = function (\Nette\Forms\Form $form, \Pd\Monitoring\DashBoard\Forms\UserEditFormData $values): void

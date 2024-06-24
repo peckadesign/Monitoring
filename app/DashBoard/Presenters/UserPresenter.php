@@ -5,6 +5,8 @@ namespace Pd\Monitoring\DashBoard\Presenters;
 class UserPresenter extends BasePresenter
 {
 
+	private \Pd\Monitoring\DashBoard\Controls\AddUser\IFactory $addUserControlFactory;
+
 	private \Pd\Monitoring\DashBoard\Controls\EditUser\IFactory $editUserControlFactory;
 
 	private \Pd\Monitoring\User\User $editedUser;
@@ -13,11 +15,13 @@ class UserPresenter extends BasePresenter
 
 
 	public function __construct(
+		\Pd\Monitoring\DashBoard\Controls\AddUser\IFactory $addUserControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\EditUser\IFactory $editUserControlFactory,
 		\Pd\Monitoring\DashBoard\Controls\UserList\IFactory $userListControlFactory
 	)
 	{
 		parent::__construct();
+		$this->addUserControlFactory = $addUserControlFactory;
 		$this->editUserControlFactory = $editUserControlFactory;
 		$this->userListControlFactory = $userListControlFactory;
 	}
@@ -31,6 +35,14 @@ class UserPresenter extends BasePresenter
 	}
 
 
+	public function actionAdd(): void
+	{
+		if ( ! $this->user->isAllowed(\Pd\Monitoring\User\AclFactory::RESOURCE_USER, \Pd\Monitoring\User\AclFactory::PRIVILEGE_ADD)) {
+			throw new \Nette\Application\ForbiddenRequestException();
+		}
+	}
+
+
 	public function actionEdit(\Pd\Monitoring\User\User $user): void
 	{
 		if ( ! $this->user->isAllowed($user, \Pd\Monitoring\User\AclFactory::PRIVILEGE_EDIT)) {
@@ -38,6 +50,12 @@ class UserPresenter extends BasePresenter
 		}
 
 		$this->editedUser = $user;
+	}
+
+
+	protected function createComponentAddUser(): \Nette\Application\UI\Control
+	{
+		return $this->addUserControlFactory->create();
 	}
 
 
