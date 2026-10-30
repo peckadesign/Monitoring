@@ -62,9 +62,7 @@ class CertificateCheck extends Check
 				$options = [
 					'connect_timeout' => self::TIMEOUT,
 					'timeout' => 2 * self::TIMEOUT,
-					'headers' => [
-						'User-Agent' => 'PeckaMonitoringBot/1.0',
-					],
+					'headers' => \Pd\Monitoring\Check\Consumers\Client\Headers::defaults(),
 				];
 
 				$gradeResponse = \Nette\Utils\Json::decode((string) $curl->get($check->getSslLabsApiLink(), $options)->getBody(), \Nette\Utils\Json::FORCE_ARRAY);

@@ -16,6 +16,7 @@ class FeedCheck extends Check
 		\curl_setopt($ch, \CURLOPT_NOBODY, TRUE);    // we don't need body
 		\curl_setopt($ch, \CURLOPT_RETURNTRANSFER, 1);
 		\curl_setopt($ch, \CURLOPT_TIMEOUT, 5);
+		\curl_setopt($ch, \CURLOPT_HTTPHEADER, \Pd\Monitoring\Check\Consumers\Client\Headers::lines());
 		$output = \curl_exec($ch);
 
 		$check->lastModified = NULL;

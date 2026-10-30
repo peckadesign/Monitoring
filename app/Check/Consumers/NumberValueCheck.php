@@ -20,9 +20,7 @@ class NumberValueCheck extends Check
 		$options = [
 			'connect_timeout' => self::TIMEOUT,
 			'timeout' => 2 * self::TIMEOUT,
-			'headers' => [
-				'User-Agent' => 'PeckaMonitoringBot/1.0',
-			],
+			'headers' => \Pd\Monitoring\Check\Consumers\Client\Headers::defaults(),
 		];
 
 		try {

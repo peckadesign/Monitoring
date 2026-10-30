@@ -24,9 +24,7 @@ class AliveCheck extends Check
 		$options = [
 			'connect_timeout' => $check::ALIVE_TIMEOUT / 1000,
 			'timeout' => 2 * $check::ALIVE_TIMEOUT / 1000,
-			'headers' => [
-				'User-Agent' => 'PeckaMonitoringBot/1.0',
-			],
+			'headers' => \Pd\Monitoring\Check\Consumers\Client\Headers::defaults(),
 		];
 
 		if ($check->siteMap && ! $this->siteMapLoader) {
