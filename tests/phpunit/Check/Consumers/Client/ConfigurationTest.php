@@ -9,7 +9,13 @@ class ConfigurationTest extends \PHPUnit\Framework\TestCase
 	{
 		$config = \Pd\Monitoring\Check\Consumers\Client\Configuration::create(10, 20)->config();
 
-		$this->assertSame(['User-Agent' => 'PeckaMonitoringBot/1.0',], $config['headers']);
+		$this->assertSame(
+			[
+				'User-Agent' => 'PeckaMonitoringBot/1.0',
+				'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+			],
+			$config['headers']
+		);
 		$this->assertSame(TRUE, $config['verify']);
 		$this->assertSame(10, $config['connect_timeout']);
 		$this->assertSame(20, $config['timeout']);
@@ -28,7 +34,13 @@ class ConfigurationTest extends \PHPUnit\Framework\TestCase
 			->config()
 		;
 
-		$this->assertSame(['User-Agent' => 'PeckaMonitoringBot/1.0',], $config['headers']);
+		$this->assertSame(
+			[
+				'User-Agent' => 'PeckaMonitoringBot/1.0',
+				'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+			],
+			$config['headers']
+		);
 		$this->assertSame($allowRedirectsOptions, $config['allow_redirects']);
 		$this->assertSame($verify, $config['verify']);
 		$this->assertSame($connectionTimeout, $config['connect_timeout']);

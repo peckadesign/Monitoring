@@ -17,7 +17,13 @@ final class SiteMapLoader
 	{
 		$this->siteMapUrl = $siteMapUrl;
 
-		$urlsData = \file_get_contents($this->siteMapUrl);
+		$context = \stream_context_create([
+			'http' => [
+				'header' => \Pd\Monitoring\Check\Consumers\Client\Headers::lines(),
+			],
+		]);
+
+		$urlsData = \file_get_contents($this->siteMapUrl, FALSE, $context);
 
 		$urlsXml = new \SimpleXMLElement($urlsData);
 

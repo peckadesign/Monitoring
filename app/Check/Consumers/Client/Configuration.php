@@ -70,9 +70,7 @@ class Configuration
 		];
 
 		$headers = [
-			'headers' => [
-				'User-Agent' => 'PeckaMonitoringBot/1.0',
-			],
+			'headers' => Headers::defaults(),
 		];
 
 		return \array_filter(
